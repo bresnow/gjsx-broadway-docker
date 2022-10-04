@@ -1,0 +1,27 @@
+{
+    "name": "relay",
+    "private": true,
+    "sideEffects": false,
+    "workspaces": [
+        "gjs/*"
+    ],
+    "scripts": {
+        "dev": "concurrently  \"yarn start\" \"terminator -m -e zsh\" \"gedit\"",
+        "start": "node index.mjs "
+    },
+    "dependencies": {
+        "chainlocker": "^1.3.2",
+        "dockerode": "^3.3.4",
+        "express": "^4.18.1",
+        "gun": "^0.2020.1238",
+        "js-base64": "^3.7.2",
+        "scope-api": "^1.0.2",
+        "uuid": "^9.0.0",
+        "zx": "^7.0.8"
+    },
+    "devDependencies": {
+        "concurrently": "^7.4.0",
+        "esbuild": "^0.15.8",
+        "eslint": "^8.15.0"
+    }
+}

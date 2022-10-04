@@ -1,0 +1,73 @@
+version: '3.9'
+
+services:
+
+  broadway:
+    image: bresnow/node-gtk3-broadway:development
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    # ports:
+    #   - "8085-8095:8085-8095"
+    #   - 4000:3000
+    volumes:
+      - broadway_relay:/app
+    networks:
+      - edge
+      - socket-proxy
+      - public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=public
+        - traefik.constraint-label=public
+        - traefik.http.routers.broadway-http.entrypoints=http,https
+        - traefik.http.routers.broadway-http.rule=Host(`broadwayd.fltngmmth.com`)
+        - traefik.http.routers.broadway-http.service=broadway-http
+        - traefik.http.routers.broadway-http.tls.certresolver=namecheap
+        - traefik.http.services.broadway-http.loadbalancer.server.port=8085
+
+        - traefik.tcp.routers.broadway-tcp.service=broadway-tcp
+        - traefik.tcp.routers.broadway-tcp.rule=HostSNI(`broadwayd.local`)
+        - traefik.tcp.routers.broadway-tcp.tls.certresolver=le
+        - traefik.tcp.services.broadway-tcp.loadbalancer.server.port=8085
+  ghost:
+    image: ghost:${VERSION:-4.11.0-alpine}
+    volumes:
+      - ghost:/var/lib/ghost/content
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - url=${SCHEME:-https}://${DOMAIN:-ghost.local}
+      - mail__transport=${MAIL_TRANSPORT:-SMTP}
+      - mail__from=${SMTP_FROM}
+      - mail__options__host=${SMTP_HOST:-ghost.local}
+      - mail__options__name=${SMTP_HOST:-ghost.local}
+      - mail__options__port=${SMTP_PORT:-587}
+      - mail__options__auth__user=${SMTP_USER:-bresnow}
+      - mail__options__auth__pass=${SMTP_PASSWORD:-passwd}
+    networks:
+      - edge
+      - public
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=public
+        - traefik.constraint-label=public
+        - traefik.tcp.routers.ghost-${NUMBER:-1}.rule=HostSNI(`ghost.local`)
+        - traefik.tcp.routers.ghost-${NUMBER:-1}.service=ghost-${NUMBER:-1}
+        - traefik.tcp.routers.ghost-${NUMBER:-1}.tls.certresolver=le
+        - traefik.tcp.services.ghost-${NUMBER:-1}.loadbalancer.server.port=2368
+networks:
+  edge:
+    external: true
+  socket-proxy:
+    external: true
+  public:
+    external: true
+volumes:
+  ghost:
+  broadway_relay:
+    driver: local-persist
+    driver_opts:
+      mountpoint: /home/bresnow/fltngmmth/relay

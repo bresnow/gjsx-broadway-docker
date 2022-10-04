@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+
+  broadway-dev:
+    image: bresnow/node-gtk3-broadway:development
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - 8085:8085
+  gtk-broadway:
+    image: bresnow/node-gtk3-broadway:1.0.1
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    ports:
+      - 8086:8085
