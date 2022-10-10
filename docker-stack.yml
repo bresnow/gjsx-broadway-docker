@@ -2,62 +2,54 @@ version: '3.9'
 
 services:
 
-  broadway:
-    image: bresnow/node-gtk3-broadway:development
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      target: dev
-    # ports:
-    #   - "8085-8095:8085-8095"
-    #   - 4000:3000
-    volumes:
-      - broadway_relay:/app
+  gjs:
+    image: bresnow/nodegtk-broadway-gjs:alpine-3.15-${VERSION:-v1.0.3}
     networks:
       - edge
       - socket-proxy
       - public
+    environment:
+      KEEP_APP_RUNNING: 1
+      TZ: US/Eastern
     deploy:
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.broadway-http.entrypoints=http,https
-        - traefik.http.routers.broadway-http.rule=Host(`broadwayd.fltngmmth.com`)
-        - traefik.http.routers.broadway-http.service=broadway-http
-        - traefik.http.routers.broadway-http.tls.certresolver=namecheap
-        - traefik.http.services.broadway-http.loadbalancer.server.port=8085
+        - traefik.http.routers.gjs-http.entrypoints=http,https
+        - traefik.http.routers.gjs-http.rule=Host(`gnomejs.fltngmmth.com`)
+        - traefik.http.routers.gjs-http.service=gjs-http
+        - traefik.http.routers.gjs-http.tls.certresolver=namecheap
+        - traefik.http.services.gjs-http.loadbalancer.server.port=8085
 
-        - traefik.tcp.routers.broadway-tcp.service=broadway-tcp
-        - traefik.tcp.routers.broadway-tcp.rule=HostSNI(`broadwayd.local`)
-        - traefik.tcp.routers.broadway-tcp.tls.certresolver=le
-        - traefik.tcp.services.broadway-tcp.loadbalancer.server.port=8085
-  ghost:
-    image: ghost:${VERSION:-4.11.0-alpine}
-    volumes:
-      - ghost:/var/lib/ghost/content
-    environment:
-      - NODE_ENV=${NODE_ENV:-production}
-      - url=${SCHEME:-https}://${DOMAIN:-ghost.local}
-      - mail__transport=${MAIL_TRANSPORT:-SMTP}
-      - mail__from=${SMTP_FROM}
-      - mail__options__host=${SMTP_HOST:-ghost.local}
-      - mail__options__name=${SMTP_HOST:-ghost.local}
-      - mail__options__port=${SMTP_PORT:-587}
-      - mail__options__auth__user=${SMTP_USER:-bresnow}
-      - mail__options__auth__pass=${SMTP_PASSWORD:-passwd}
+        - traefik.tcp.routers.gjs-tcp.service=gjs-tcp
+        - traefik.tcp.routers.gjs-tcp.rule=HostSNI(`gjs.local`)
+        - traefik.tcp.routers.gjs-tcp.tls.certresolver=le
+        - traefik.tcp.services.gjs-tcp.loadbalancer.server.port=8085
+  nodegtk:
+    image: bresnow/nodegtk-broadway-app:alpine-3.15-${VERSION:-v1.0.3}
     networks:
       - edge
+      - socket-proxy
       - public
+    environment:
+      KEEP_APP_RUNNING: 1
+      TZ: US/Eastern
     deploy:
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.tcp.routers.ghost-${NUMBER:-1}.rule=HostSNI(`ghost.local`)
-        - traefik.tcp.routers.ghost-${NUMBER:-1}.service=ghost-${NUMBER:-1}
-        - traefik.tcp.routers.ghost-${NUMBER:-1}.tls.certresolver=le
-        - traefik.tcp.services.ghost-${NUMBER:-1}.loadbalancer.server.port=2368
+        - traefik.http.routers.nodegtk-http.entrypoints=http,https
+        - traefik.http.routers.nodegtk-http.rule=Host(`nodegtk.fltngmmth.com`)
+        - traefik.http.routers.nodegtk-http.service=nodegtk-http
+        - traefik.http.routers.nodegtk-http.tls.certresolver=namecheap
+        - traefik.http.services.nodegtk-http.loadbalancer.server.port=8085
+
+        - traefik.tcp.routers.nodegtk-tcp.service=nodegtk-tcp
+        - traefik.tcp.routers.nodegtk-tcp.rule=HostSNI(`nodegtk.local`)
+        - traefik.tcp.routers.nodegtk-tcp.tls.certresolver=le
+        - traefik.tcp.services.nodegtk-tcp.loadbalancer.server.port=8085
 networks:
   edge:
     external: true
@@ -66,8 +58,7 @@ networks:
   public:
     external: true
 volumes:
-  ghost:
-  broadway_relay:
+  nodegtk_src:
     driver: local-persist
     driver_opts:
-      mountpoint: /home/bresnow/fltngmmth/relay
+      mountpoint: ${HOME}/fltngmmth/relay/node-gtk/

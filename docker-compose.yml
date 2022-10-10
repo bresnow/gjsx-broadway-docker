@@ -2,19 +2,21 @@ version: '3.8'
 
 services:
 
-  broadway-dev:
-    image: bresnow/node-gtk3-broadway:development
+  gjs:
     build: 
       context: .
       dockerfile: Dockerfile
-      target: dev
+      target: gjs-dev
     ports:
+      - 8086:8086
       - 8085:8085
-  gtk-broadway:
-    image: bresnow/node-gtk3-broadway:1.0.1
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      target: build
-    ports:
-      - 8086:8085
+    volumes:
+      - ${HOME}/fltngmmth/relay/gjs:/config
+
+  # baseimage:
+  #   image: bresnow/nodegtk-broadway-baseimage:alpine-3.15-${VERSION:-v1.0.3}
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: base
+    

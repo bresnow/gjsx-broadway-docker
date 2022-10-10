@@ -1,7 +1,7 @@
 // Updated in August 2022
 
 import Gtk from 'gi://Gtk?version=3.0';
-import WebKit from 'gi://WebKit2?version=5.0';
+import WebKit from 'gi://WebKit2';
 import GObject from "gi://GObject";
 import Gdk from 'gi://Gdk';
 
