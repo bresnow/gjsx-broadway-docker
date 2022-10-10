@@ -3,50 +3,85 @@
 import Gtk from 'gi://Gtk?version=3.0';
 import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
-import Soup from 'gi://Soup';
-import ByteArray from 'byteArray';
-const loop = GLib.MainLoop.new(null, false);
 
-const session = new Soup.Session();
-const message = new Soup.Message({
-    method: 'GET',
-    uri: Soup.URI.new('ws://localhost:8085'),
-});
+function getAppFileInfo() {
+    let stack = (new Error()).stack,
+        stackLine = stack.split('\n')[1],
+        coincidence, path, file;
 
-session.websocket_connect_async(message, 'origin', [], null, websocket_connect_async_callback);
+    if (!stackLine) throw new Error('Could not find current file (1)');
 
-function websocket_connect_async_callback(_session, res) {
-    let connection;
+    coincidence = new RegExp('@(.+):\\d+').exec(stackLine);
+    if (!coincidence) throw new Error('Could not find current file (2)');
 
-    try {
-        connection = session.websocket_connect_finish(res);
-    } catch (e) {
-        logError(e);
-        loop.quit();
-        return;
+    path = coincidence[1];
+    file = Gio.File.new_for_path(path);
+    return [file.get_path(), file.get_parent().get_path(), file.get_basename()];
+}
+const path = getAppFileInfo()[1];
+
+class EventSq {
+    constructor() {
+        this.title = 'Example Event';
+        GLib.set_prgname(this.title);
+
+        this.text = 'Click here ... ';
+        this.counter = 0;
     }
+    run(ARGV) {
 
-    connection.connect('closed', () => {
-        log('closed');
-        loop.quit();
-    });
+        this.application = new Gtk.Application();
+        this.application.connect('activate', () => { this.onActivate(); });
+        this.application.connect('startup', () => { this.onStartup(); });
+        this.application.run([]);
+    }
+    onActivate() {
 
-    connection.connect('error', (self, err) => {
-        logError(err);
-        loop.quit();
-    });
+        this.window.show_all();
+    }
+    onStartup() {
 
-    connection.connect('message', (self, type, data) => {
-        if (type !== Soup.WebsocketDataType.TEXT)
-            return;
+        this.buildUI();
+    }
+    buildUI() {
 
-        const str = ByteArray.toString(ByteArray.fromGBytes(data));
-        log(`message: ${str}`);
-        connection.close(Soup.WebsocketCloseCode.NORMAL, null);
-    });
+        this.window = new Gtk.ApplicationWindow({
+            application: this.application,
+            title: this.title,
+            default_height: 200,
+            default_width: 200,
+            window_position: Gtk.WindowPosition.CENTER
+        });
+        try {
+            this.window.set_icon_from_file(path + '/assets/appIcon.png');
+        } catch (err) {
+            this.window.set_icon_name('application-x-executable');
+        }
 
-    log('open');
-    connection.send_text('hello');
+        this.window.add(this.getBody());
+    }
+    getBody() {
+
+        let event;
+
+        this.label = new Gtk.Label({ halign: Gtk.Align.CENTER, label: this.text, valign: Gtk.Align.CENTER });
+
+        event = new Gtk.EventBox();
+        event.add(this.label);
+        event.connect('button-press-event', () => {
+            this.counter = this.counter + 1;
+            this.label.set_text(this.text + this.counter);
+        });
+
+        return event;
+    }
 }
 
-loop.run();
+
+
+
+
+
+//Run the application
+let ev = new EventSq();
+ev.run(ARGV);

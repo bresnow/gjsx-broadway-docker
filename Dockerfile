@@ -13,7 +13,7 @@ RUN add-pkg $gvfs_pkgs gnome \
     libx11-dev libxkbfile-dev \
     yajl dub dmd \
     make py-pip python3 nodejs npm &&\
-    npm i -g yarn
+    npm i -g yarn cgjs
 
 ENV GDK_BACKEND broadway  
 ENV BROADWAY_DISPLAY :5

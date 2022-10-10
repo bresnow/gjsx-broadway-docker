@@ -3,6 +3,7 @@ version: '3.8'
 services:
 
   gjs:
+    image: bresnow/broadway-proxy:alpine-3.15-${VERSION:-v1.1.1}
     build: 
       context: .
       dockerfile: Dockerfile
@@ -10,8 +11,9 @@ services:
     ports:
       - 8086:8086
       - 8085:8085
-    # volumes:
-    #   - ${PWD}/packages:/config
+    volumes:
+      - ${PWD}/packages/proxy:/config/proxy
+      - ${PWD}/packages/bin:/config/bin
 
   # baseimage:
   #   image: bresnow/nodegtk-broadway-baseimage:alpine-3.15-${VERSION:-v1.0.3}
