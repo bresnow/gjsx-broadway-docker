@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "es2020",
+        "moduleResolution": "node",
+        "target": "ES2018",
+        "paths": {
+            "*": [
+                "node_modules/@gi-types/*",
+                "*"
+            ]
+        },
+        "baseUrl": ".",
+        "outDir": "_compiled/",
+        "lib": [
+            "es2017"
+        ],
+        "typeRoots": []
+    },
+    "include": [
+        "src/*",
+        "types/*"
+    ]
+}

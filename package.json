@@ -1,23 +1,27 @@
 {
     "name": "relay",
     "private": true,
-    "sideEffects": false,
-    "workspaces": [
-        "gjs/*",
-        "node-gtk/*",
-        "broadway/*"
-    ],
     "scripts": {
         "stack": "docker stack deploy -c docker-stack.yml relay",
         "image": "docker-compose -f docker-compose.yml",
-        "start": "node index.mjs "
+        "start": "gjs _build/main.js",
+        "compile": "tsc -p tsconfig.json",
+        "rollup": "rollup --inlineDynamicImports --no-treeshake ./_compiled/entry.js  --file ./_build/main.js --format es"
     },
+    "keywords": [
+        "typescript",
+        "gtk",
+        "gnome",
+        "broadway"
+    ],
     "version": "1.0.0",
-    "main": "index.js",
     "repository": "git@github.com:bresnow/relay_servers.git",
     "author": "bresnow <bresnow@me.com>",
     "license": "MIT",
     "devDependencies": {
-        "turbo": "^1.5.5"
+        "@gi-types/cairo1": "^1.0.1",
+        "@gi-types/gtk": "^3.24.9",
+        "@gi-types/webkit2": "^2.30.8",
+        "rollup": "^2.38.0"
     }
 }

@@ -9,12 +9,16 @@ services:
       dockerfile: Dockerfile
       target: broadway-proxy
     ports:
-      - 8086:8086
       - 8085:8085
     volumes:
-      - ${PWD}/packages/proxy:/config/proxy
-      - ${PWD}/packages/bin:/config/bin
-
+      - ${PWD}/src:/config/app/src
+      - ${PWD}/_build:/config/app/_build
+      - ${PWD}/_compiled:/config/app/_compiled
+      - ${PWD}/types:/config/app/types
+      - ${PWD}/package.json:/config/app/package.json
+      - ${PWD}/tsconfig.json:/config/app/tsconfig.json
+    environment:
+      KEEP_APP_RUNNING: 0
   # baseimage:
   #   image: bresnow/nodegtk-broadway-baseimage:alpine-3.15-${VERSION:-v1.0.3}
   #   build: 
