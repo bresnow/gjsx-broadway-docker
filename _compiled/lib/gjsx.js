@@ -1,4 +1,4 @@
-import  Gtk from "gi://Gtk?version=4.0";  
+import  Gtk from "gi://Gtk?version=3.0";  
 const Fragment = Symbol("Fragment") || Symbol("");
 export const createWidget = (widgetConstructor, attributes, ...args) => {
   const children = args.length ? [].concat(args) : null;
@@ -53,3 +53,4 @@ function isConstructor(f) {
   }
   return true;
 }
+export default { render, createWidget };

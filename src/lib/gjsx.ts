@@ -1,7 +1,6 @@
 import * as Gtk from "gi://Gtk?version=4.0";
 
 const Fragment = Symbol("Fragment")|| Symbol("");
-
 export const createWidget = (widgetConstructor: any, attributes: any, ...args: any[]) => {
     const children = args.length ? [].concat(args) : null;
     return { widgetConstructor, attributes, children };
@@ -70,3 +69,5 @@ function isConstructor(f: new () => any) {
     }
     return true;
 }
+
+export default {render, createWidget}

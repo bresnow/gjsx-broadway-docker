@@ -15,6 +15,7 @@ RUN  \
     ln -sf pkgconf /usr/bin/pkg-config 
 # dependencies
 RUN add-pkg  \
+    apk-gtk3 \
     gtk4.0 \
     bash \
     bash-completion \
@@ -94,4 +95,4 @@ RUN  \
     npm i -g yarn \
     typescript &&\
     chmod +x /startapp.sh
-ENTRYPOINT [ "/startapp.sh" ]
+CMD [ "/startapp.sh" ]

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 
-nohup broadwayd $BROADWAY_DISPLAY &
+nohup gtk4-broadwayd $BROADWAY_DISPLAY &
 
 cd /config/app
-yarn 
+yarn
 yarn compile
-yarn start 
+yarn start

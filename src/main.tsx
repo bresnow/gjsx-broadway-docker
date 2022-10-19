@@ -1,15 +1,11 @@
-
-import * as Gjsx from "./lib/gjsx.js";
 import * as Gtk from "gi://Gtk?version=4.0";
+import Gjsx from "./lib/gjsx.js";
 Gtk.init(null);
 let argv = ARGV
 let gtkSettings = Gtk.Settings.get_default()
 gtkSettings.gtk_application_prefer_dark_theme = true
 gtkSettings.gtk_theme_name = 'PRO-dark-XFCE-edition II'
-//gtkSettings.gtk_theme_name = 'Adwaita'
 
-//Setting up optional Dark theme (gotta love it!)
-//./browser.js google.com --dark
 if (argv.some(info => info === '--dark')) {
     let gtkSettings = Gtk.Settings.get_default()
     gtkSettings.gtk_application_prefer_dark_theme = true

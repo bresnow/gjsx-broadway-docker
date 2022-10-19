@@ -1,5 +1,5 @@
-import  Gjsx from "./lib/gjsx.js";  
-import  Gtk from "gi://Gtk?version=4.0";  
+import  Gtk from "gi://Gtk?version=3.0";  
+import Gjsx from "./lib/gjsx.js";
 Gtk.init(null);
 let argv = ARGV;
 let gtkSettings = Gtk.Settings.get_default();
