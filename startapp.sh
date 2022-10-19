@@ -2,12 +2,8 @@
 
 
 nohup broadwayd $BROADWAY_DISPLAY &
-sleep 1
 
 cd /config/app
-yarn
+yarn 
 yarn compile
-yarn rollup
-yarn start --dark
-
- 
+yarn start 

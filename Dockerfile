@@ -1,38 +1,41 @@
 
-FROM jlesage/baseimage:alpine-3.15-glibc as base
-ARG ALPINE_VERSION=3.15
-EXPOSE 8085
+ARG ALPINE_VERSION=3.16
 
+FROM alpine:${ALPINE_VERSION} as base
+EXPOSE 8085
+WORKDIR /tmp
+# Copy helpers.
+COPY helpers/* /usr/bin/
 ENV GDK_BACKEND=broadway \  
     BROADWAY_DISPLAY=:5
-
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/main" > /etc/apk/repositories && \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v${ALPINE_VERSION}/community" >> /etc/apk/repositories
-
-#gvfs_pkgs=$(apk search gvfs -q | grep -v '\-dev') \
 RUN  \
-    add-pkg pkgconf &&\
+    gvfs_pkgs=$(apk search gvfs -q | grep -v '\-dev') \
+    echo $gvfs_pkgs &&\
+    add-pkg $gvfs_pkgs pkgconf &&\
     ln -sf pkgconf /usr/bin/pkg-config 
 # dependencies
-RUN add-pkg bash \
+RUN add-pkg  \
+    gtk4.0 \
+    bash \
     bash-completion \
     bash-doc \
     ca-certificates \
     cairo \
     curl \
     dconf \
-    eudev \
     ffmpeg \
     ffmpeg-libs \
-    fuse \
+    # fuse \
     g++ \
     gcc \
     gcompat \
     git \
     gjs \
+    glib \
     gnome \
     gobject-introspection \
     graphene \
+    clutter-gtk \
     gtksourceview \
     libepoxy \
     libmediainfo \
@@ -42,9 +45,10 @@ RUN add-pkg bash \
     libx11-dev \
     pango \
     make \
-    # mc \
+    mc \
     # mesa-dri-swrast \
     # mediainfo \
+    meson \
     nodejs \
     npm \
     python3 \
@@ -53,20 +57,26 @@ RUN add-pkg bash \
     # rtmpdump \
     # sassc \
     # screen \
-    # sudo \
-    # tar \
-    # tar-doc \
+    socat \
+    sudo \
+    tar \
     # tmux \
     # unzip \
     # util-linux \
-    webkit2gtk \
+    webkit2gtk-5.0 \
     wget \
     vim 
 
+# Install Flat Icon theme
+RUN \
+    git clone https://github.com/daniruiz/flat-remix \
+    && mkdir -p /usr/share/icons/ \
+    && rsync -av --progress flat-remix/Flat-Remix-Green-Dark /usr/share/icons/ \
+    && gtk-update-icon-cache /usr/share/icons/Flat-Remix-Green-Dark/ \
+    # Cleanup.
+    && rm -rf /tmp/* /tmp/.[!.]*
 
 # Install PRO Dark XFCE theme
-
-
 RUN \
     git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git \
     && mkdir -p /usr/share/themes/ \
@@ -79,6 +89,9 @@ COPY ./startapp.sh /startapp.sh
 COPY ./src /config/app/src
 COPY ./package.json /config/app/package.json 
 COPY ./tsconfig.json /config/app/tsconfig.json
+COPY ./esbuild.mjs /config/app/esbuild.mjs
 RUN  \ 
-    npm i -g yarn typescript 
-
+    npm i -g yarn \
+    typescript &&\
+    chmod +x /startapp.sh
+ENTRYPOINT [ "/startapp.sh" ]

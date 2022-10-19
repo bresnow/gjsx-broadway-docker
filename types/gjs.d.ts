@@ -27,6 +27,7 @@ declare interface GjsGiImports {
     GObject: typeof import("@gi-types/gobject");
     Gdk: typeof import("@gi-types/gdk");
     WebKit2: typeof import("@gi-types/webkit2");
+    Soup: typeof import("@gi-types/soup");
 }
 
 declare module "@gi-types/gmodule" {
@@ -40,3 +41,4 @@ declare interface GjsImports {
 }
 
 declare const imports: GjsImports;
+declare const gi:GjsGiImports

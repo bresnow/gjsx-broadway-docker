@@ -1,20 +1,20 @@
 
-import type * as gtk from 'gtk'
-import type * as webKit from 'webkit2';
+import * as Gtk from "gi://Gtk?version=4.0";
+import * as WebKit from "gi://WebKit2";
 
-const WebKit = imports.gi.WebKit2;
-const Gtk = imports.gi.Gtk;
 
 let argv = ARGV
 
 Gtk.init(null)
 let window = new Gtk.Window({
-    title: 'jsGtk+ browser',
+    title: 'Floating Mammoth Browser',
     type: Gtk.WindowType.TOPLEVEL,
     window_position: Gtk.WindowPosition.CENTER
 })
 let webView = new WebKit.WebView();
+let appbutton = new Gtk.AppChooserButton()
 
+appbutton.set_heading('Button')
 let toolbar = new Gtk.Toolbar()
 // buttons to go back, go forward, or refresh
 let button = {
@@ -32,6 +32,7 @@ let vbox = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL })
 
 let gtkSettings = Gtk.Settings.get_default()
 gtkSettings.gtk_application_prefer_dark_theme = true
+
 //gtkSettings.gtk_theme_name = 'Adwaita'
 
 //Setting up optional Dark theme (gotta love it!)
@@ -39,7 +40,7 @@ gtkSettings.gtk_application_prefer_dark_theme = true
 if (argv.some(info => info === '--dark')) {
     let gtkSettings = Gtk.Settings.get_default()
     gtkSettings.gtk_application_prefer_dark_theme = true
-    gtkSettings.gtk_theme_name = 'Adwaita'
+    gtkSettings.gtk_theme_name = 'PRO-dark-XFCE-edition II'
 } else if (argv.some(info => info === '--light')) {
     let gtkSettings = Gtk.Settings.get_default()
     gtkSettings.gtk_application_prefer_dark_theme = false
@@ -53,7 +54,7 @@ webView.load_uri(url(argv.filter(url => '-' !== url[0])[0] || 'https://darkoverl
 
 // can't change to new page until this gets fixed
 //whenever a new page is loaded ...
-webView.connect('load-changed', (widget:webKit.WebView, loadEvent, data) => {
+webView.connect('load-changed', (widget: WebKit.WebView, loadEvent, data) => {
     switch (loadEvent) {
         case 2: // XXX: where is WEBKIT_LOAD_COMMITTED ?
             // ... update the URL bar with the current adress
@@ -87,8 +88,8 @@ scrollWindow.add(webView)
 
 // pack horizontally toolbar and url bar
 hbox.pack_start(toolbar, false, false, 0)
-hbox.pack_start(urlBar, true, true, 8)
-
+hbox.pack_start(urlBar, true, true, 5)
+hbox.pack_start(appbutton, true, true, 3)
 // pack vertically top bar (hbox) and scrollable window
 vbox.pack_start(hbox, false, true, 0)
 vbox.pack_start(scrollWindow, true, true, 0)

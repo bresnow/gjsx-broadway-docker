@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
 
-  gjs:
+  broadway:
     image: bresnow/broadway-proxy:alpine-3.15-${VERSION:-v1.1.1}
     build: 
       context: .
@@ -12,9 +12,10 @@ services:
       - 8085:8085
     volumes:
       - ${PWD}/src:/config/app/src
-      - ${PWD}/_build:/config/app/_build
       - ${PWD}/_compiled:/config/app/_compiled
       - ${PWD}/types:/config/app/types
+        # - ${PWD}/startapp.sh:/startapp.sh
+      - ${PWD}/esbuild.mjs:/config/app/esbuild.mjs
       - ${PWD}/package.json:/config/app/package.json
       - ${PWD}/tsconfig.json:/config/app/tsconfig.json
     environment:

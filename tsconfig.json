@@ -1,13 +1,43 @@
 {
     "compilerOptions": {
-        "module": "es2020",
         "moduleResolution": "node",
+        "module": "esnext",
         "target": "ES2018",
+        "jsx": "react",
+        "jsxFactory": "Gjsx.createWidget",
+        "allowJs": true,
         "paths": {
             "*": [
                 "node_modules/@gi-types/*",
                 "*"
-            ]
+            ],
+            "gi://Gtk?version=*": [
+                "node_modules/@gi-types/gtk"
+            ],
+            "gi://WebKit2*": [
+                "node_modules/@gi-types/webkit2"
+            ],
+            "gi://Atk": [
+                "node_modules/@gi-types/atk"
+            ],
+            "gi://Cairo": [
+                "node_modules/@gi-types/cairo",
+                "node_modules/@gi-types/cairo1"
+            ],
+            "gi://GLib": [
+                "node_modules/@gi-types/glib",
+                "node_modules/@gi-types/glib2"
+            ],
+            "gi://Gio": [
+                "node_modules/@gi-types/gio"
+            ],
+            "gi://Soup": [
+                "node_modules/@gi-types/soup"
+            ],
+            "gi://GObject": [
+                "node_modules/@gi-types/gobject",
+                "node_modules/@gi-types/gobject2"
+            ],
         },
         "baseUrl": ".",
         "outDir": "_compiled/",
@@ -18,6 +48,7 @@
     },
     "include": [
         "src/*",
-        "types/*"
+        "types/*",
+        "lib/*"
     ]
 }
