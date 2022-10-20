@@ -3,13 +3,13 @@ version: '3.8'
 services:
 
   broadway:
-    image: bresnow/broadway-proxy:alpine-3.15-${VERSION:-v1.1.1}
+    image: bresnow/broadway-proxy:alpine-3.16-${VERSION:-v1.1.1}
     build: 
       context: .
       dockerfile: Dockerfile
       target: broadway-proxy
     ports:
-      - 8085:8085
+      - 39660:8085
     volumes:
       - ${PWD}/src:/config/app/src
       - ${PWD}/_compiled:/config/app/_compiled

@@ -1,6 +1,6 @@
 import * as Gtk from "gi://Gtk?version=4.0";
 
-const Fragment = Symbol("Fragment")|| Symbol("");
+const Fragment = Symbol("Fragment");
 export const createWidget = (widgetConstructor: any, attributes: any, ...args: any[]) => {
     const children = args.length ? [].concat(args) : null;
     return { widgetConstructor, attributes, children };
@@ -10,7 +10,7 @@ export const render = ({ widgetConstructor, attributes, children }) => {
     if (!isConstructor(widgetConstructor))
         return render(widgetConstructor(attributes));
     if (widgetConstructor === Fragment) {
-        return children;
+      return children;
     }
     const signals: any = {};
     const constructParams: any = {};
@@ -37,9 +37,9 @@ export const render = ({ widgetConstructor, attributes, children }) => {
     }
 
     if (children) {
-        if (widget.add === undefined)
+        if (typeof widget.set_child !== 'function'){
             throw new Error("Cannot add child to non Container widget");
-
+        }
         children
             .reduce((acc: string | any[], val: any) => acc.concat(val), [])
             .map((child: { widgetConstructor: any; attributes: any; children: any; }) =>
@@ -47,7 +47,9 @@ export const render = ({ widgetConstructor, attributes, children }) => {
                     ? new Gtk.Label({ label: child, visible: true })
                     : render(child)
             )
-            .forEach((child: any) => widget.add(child));
+            .forEach((child: any) => {
+                    widget.set_child(child)
+            });
     }
 
     if (typeof widget.present === "function") widget.present();

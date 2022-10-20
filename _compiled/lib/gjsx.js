@@ -1,5 +1,5 @@
-import  Gtk from "gi://Gtk?version=3.0";  
-const Fragment = Symbol("Fragment") || Symbol("");
+import  Gtk from "gi://Gtk?version=4.0";  
+const Fragment = Symbol("Fragment");
 export const createWidget = (widgetConstructor, attributes, ...args) => {
   const children = args.length ? [].concat(args) : null;
   return { widgetConstructor, attributes, children };
@@ -32,11 +32,14 @@ export const render = ({ widgetConstructor, attributes, children }) => {
     }
   }
   if (children) {
-    if (widget.add === void 0)
+    if (typeof widget.set_child !== "function") {
       throw new Error("Cannot add child to non Container widget");
+    }
     children.reduce((acc, val) => acc.concat(val), []).map(
       (child) => typeof child === "string" ? new Gtk.Label({ label: child, visible: true }) : render(child)
-    ).forEach((child) => widget.add(child));
+    ).forEach((child) => {
+      widget.set_child(child);
+    });
   }
   if (typeof widget.present === "function")
     widget.present();
