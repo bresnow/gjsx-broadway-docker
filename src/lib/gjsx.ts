@@ -7,7 +7,9 @@ export const createWidget = (Widget: any, attributes: any, ...args: any[]) => {
 };
 
 export const render = ({ Widget, attributes, children }) => {
-  if (!isConstructor(Widget)) return render(Widget(attributes));
+  if (!isConstructor(Widget) && typeof Widget === "function") {
+    return render(Widget(attributes));
+  }
   if (Widget === Fragment) {
     return children;
   }

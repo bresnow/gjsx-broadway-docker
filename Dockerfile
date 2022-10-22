@@ -20,18 +20,17 @@ RUN add-pkg  \
     gtk4.0 \
     bash \
     bash-completion \
-    bash-doc \
     ca-certificates \
     cmake \
     cairo \
     curl \
     dconf \
-    ffmpeg \
-    ffmpeg-libs \
-    # fuse \
+    #ffmpeg \
+    #ffmpeg-libs \
+    #fuse \
     g++ \
     gcc \
-    gcompat \
+    #gcompat \
     git \
     gjs \
     glib \
@@ -62,7 +61,7 @@ RUN add-pkg  \
     # sassc \
     # screen \
     socat \
-    sudo \
+    #sudo \
     tar \
     # tmux \
     # unzip \

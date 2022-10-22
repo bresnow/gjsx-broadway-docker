@@ -23,20 +23,18 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
         label={"Now with events!"}
         onClicked={() => print("hello world")}
       />
-    </Gtk.ApplicationWindow>
-  );
-};
-
-function Layout({ names }: { names: string[] }) {
-  return (
-    <Gtk.VBox>
       <Gtk.Button
         label={"Now with events!"}
         onClicked={() => print("hello world")}
       />
-    </Gtk.VBox>
+      <Gtk.Button
+        label={"Now with events!"}
+        onClicked={() => print("hello world")}
+      />
+    </Gtk.ApplicationWindow>
   );
-}
+};
+
 const app = new Gtk.Application();
 app.connect("activate", () => Gjsx.render(<MainWindow app={app} />));
 app.run([]);

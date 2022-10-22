@@ -4,5 +4,6 @@
 nohup gtk4-broadwayd $BROADWAY_DISPLAY &
 cd /home/app
 yarn
-yarn compile
+yarn watch &
+sleep 5
 yarn start --dark

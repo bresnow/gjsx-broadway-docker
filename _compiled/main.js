@@ -20,14 +20,14 @@ const MainWindow = function({ app: app2 }) {
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Now with events!",
     onClicked: () => print("hello world")
-  }));
-};
-function Layout({ names }) {
-  return /* @__PURE__ */ Gjsx.createWidget(Gtk.VBox, null, /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }), /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+    label: "Now with events!",
+    onClicked: () => print("hello world")
+  }), /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Now with events!",
     onClicked: () => print("hello world")
   }));
-}
+};
 const app = new Gtk.Application();
 app.connect("activate", () => Gjsx.render(/* @__PURE__ */ Gjsx.createWidget(MainWindow, {
   app
