@@ -1,11 +1,13 @@
 {
-    "name": "relay",
+    "name": "gjsx-broadway",
     "private": true,
     "scripts": {
-        "stack": "docker stack deploy -c docker-stack.yml relay",
+        "compile": "node esbuild.mjs",
+        "format": "yarn prettier .",
         "image": "docker-compose -f docker-compose.yml",
+        "stack": "docker stack deploy -c docker-stack.yml relay",
         "start": "gjs -m _compiled/main.js",
-        "compile": "node esbuild.mjs"
+        "watch": "yarn compile --watch"
     },
     "keywords": [
         "typescript",
