@@ -19,12 +19,12 @@ const MainWindow = function ({ app }:{app: Gtk.Application}) {
 
 
     return (
-        <Gtk.Window title="Hello World" application={app}>
+        <Gtk.ApplicationWindow title="Hello World" application={app}>
             <Gtk.Button
                 label={"Now with events!"}
                 onClicked={() => print("hello world")}
             />
-        </Gtk.Window>
+        </Gtk.ApplicationWindow>
     );
 };
 

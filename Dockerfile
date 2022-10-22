@@ -10,7 +10,8 @@ ENV GDK_BACKEND=broadway \
     BROADWAY_DISPLAY=:5
 RUN  \
     gvfs_pkgs=$(apk search gvfs -q | grep -v '\-dev') \
-    echo $gvfs_pkgs &&\
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories &&\
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories &&\
     add-pkg $gvfs_pkgs pkgconf &&\
     ln -sf pkgconf /usr/bin/pkg-config 
 # dependencies
@@ -21,6 +22,7 @@ RUN add-pkg  \
     bash-completion \
     bash-doc \
     ca-certificates \
+    cmake \
     cairo \
     curl \
     dconf \
@@ -50,6 +52,7 @@ RUN add-pkg  \
     # mesa-dri-swrast \
     # mediainfo \
     meson \
+    ninja \
     nodejs \
     npm \
     python3 \
@@ -68,7 +71,6 @@ RUN add-pkg  \
     wget \
     vim 
 
-# Install Flat Icon theme
 RUN \
     git clone https://github.com/daniruiz/flat-remix \
     && mkdir -p /usr/share/icons/ \
@@ -87,10 +89,10 @@ RUN \
 
 FROM base as broadway-proxy
 COPY ./startapp.sh /startapp.sh
-COPY ./src /config/app/src
-COPY ./package.json /config/app/package.json 
-COPY ./tsconfig.json /config/app/tsconfig.json
-COPY ./esbuild.mjs /config/app/esbuild.mjs
+COPY ./src /home/app/src
+COPY ./package.json /home/app/package.json 
+COPY ./tsconfig.json /home/app/tsconfig.json
+COPY ./esbuild.mjs /home/app/esbuild.mjs
 RUN  \ 
     npm i -g yarn \
     typescript &&\

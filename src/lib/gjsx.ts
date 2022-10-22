@@ -1,15 +1,15 @@
 import * as Gtk from "gi://Gtk?version=4.0";
 
 const Fragment = Symbol("Fragment");
-export const createWidget = (widgetConstructor: any, attributes: any, ...args: any[]) => {
+export const createWidget = (Widget: any, attributes: any, ...args: any[]) => {
     const children = args.length ? [].concat(args) : null;
-    return { widgetConstructor, attributes, children };
+    return { Widget, attributes, children };
 };
 
-export const render = ({ widgetConstructor, attributes, children }) => {
-    if (!isConstructor(widgetConstructor))
-        return render(widgetConstructor(attributes));
-    if (widgetConstructor === Fragment) {
+export const render = ({ Widget, attributes, children }) => {
+    if (!isConstructor(Widget))
+        return render(Widget(attributes));
+    if (Widget === Fragment) {
       return children;
     }
     const signals: any = {};
@@ -27,7 +27,7 @@ export const render = ({ widgetConstructor, attributes, children }) => {
         }
     }
 
-    const widget = new widgetConstructor({ visible: true, ...constructParams });
+    const widget = new Widget({ visible: true, ...constructParams });
 
     for (const signal in signals) {
         if (signals.hasOwnProperty(signal)) {
@@ -42,7 +42,7 @@ export const render = ({ widgetConstructor, attributes, children }) => {
         }
         children
             .reduce((acc: string | any[], val: any) => acc.concat(val), [])
-            .map((child: { widgetConstructor: any; attributes: any; children: any; }) =>
+            .map((child: { Widget: any; attributes: any; children: any; }) =>
                 typeof child === "string"
                     ? new Gtk.Label({ label: child, visible: true })
                     : render(child)

@@ -1,13 +1,13 @@
 import  Gtk from "gi://Gtk?version=4.0";  
 const Fragment = Symbol("Fragment");
-export const createWidget = (widgetConstructor, attributes, ...args) => {
+export const createWidget = (Widget, attributes, ...args) => {
   const children = args.length ? [].concat(args) : null;
-  return { widgetConstructor, attributes, children };
+  return { Widget, attributes, children };
 };
-export const render = ({ widgetConstructor, attributes, children }) => {
-  if (!isConstructor(widgetConstructor))
-    return render(widgetConstructor(attributes));
-  if (widgetConstructor === Fragment) {
+export const render = ({ Widget, attributes, children }) => {
+  if (!isConstructor(Widget))
+    return render(Widget(attributes));
+  if (Widget === Fragment) {
     return children;
   }
   const signals = {};
@@ -24,7 +24,7 @@ export const render = ({ widgetConstructor, attributes, children }) => {
       }
     }
   }
-  const widget = new widgetConstructor({ visible: true, ...constructParams });
+  const widget = new Widget({ visible: true, ...constructParams });
   for (const signal in signals) {
     if (signals.hasOwnProperty(signal)) {
       const handler = signals[signal];

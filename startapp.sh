@@ -2,8 +2,7 @@
 
 
 nohup gtk4-broadwayd $BROADWAY_DISPLAY &
-
-cd /config/app
+cd /home/app
 yarn
 yarn compile
 yarn start --dark

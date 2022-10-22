@@ -14,7 +14,7 @@ if (argv.some((info) => info === "--dark")) {
 }
 const MainWindow = function({ app: app2 }) {
   const names = ["Hello", "Hyperscript", "Gtk"];
-  return /* @__PURE__ */ Gjsx.createWidget(Gtk.Window, {
+  return /* @__PURE__ */ Gjsx.createWidget(Gtk.ApplicationWindow, {
     title: "Hello World",
     application: app2
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
