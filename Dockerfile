@@ -23,33 +23,32 @@ RUN add-pkg  \
     ca-certificates \
     cmake \
     cairo \
+    clutter-gst \
+    clutter-gtk \
     curl \
     dconf \
-    #ffmpeg \
-    #ffmpeg-libs \
-    #fuse \
     g++ \
     gcc \
-    #gcompat \
+    gcompat \
     git \
     gjs \
     glib \
     gnome \
     gobject-introspection \
     graphene \
-    clutter-gtk \
+    gst-plugins-good-gtk \
+    gstreamer \
     gtksourceview \
+    libadwaita \
     libepoxy \
+    libgcc \
     libmediainfo \
     libstdc++ \
     libsoup \
-    libxkbfile-dev \
-    libx11-dev \
+    libx11 \
     pango \
     make \
     mc \
-    # mesa-dri-swrast \
-    # mediainfo \
     meson \
     ninja \
     nodejs \
@@ -57,15 +56,9 @@ RUN add-pkg  \
     python3 \
     py3-pip \
     rsync \
-    # rtmpdump \
-    # sassc \
-    # screen \
     socat \
-    #sudo \
+    sudo \
     tar \
-    # tmux \
-    # unzip \
-    # util-linux \
     webkit2gtk-5.0 \
     wget \
     vim 
@@ -92,8 +85,10 @@ COPY ./src /home/app/src
 COPY ./package.json /home/app/package.json 
 COPY ./tsconfig.json /home/app/tsconfig.json
 COPY ./esbuild.mjs /home/app/esbuild.mjs
+
 RUN  \ 
     npm i -g yarn \
     typescript &&\
-    chmod +x /startapp.sh
+    chmod +x /startapp.sh &&\
+    add-pkg gtk4.0-demo
 CMD [ "/startapp.sh" ]

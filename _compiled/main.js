@@ -17,16 +17,16 @@ const MainWindow = function({ app: app2 }) {
   return /* @__PURE__ */ Gjsx.createWidget(Gtk.ApplicationWindow, {
     title: "Hello World",
     application: app2
-  }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Box, {
+    orientation: Gtk.Orientation.VERTICAL
+  }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
+    label: "Text label as widget tag",
+    wrap: true
+  }), "Text label as string.\n Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Now with events!",
-    onClicked: () => print("hello world")
-  }), /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
-    label: "Now with events!",
-    onClicked: () => print("hello world")
-  }), /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
-    label: "Now with events!",
-    onClicked: () => print("hello world")
-  }));
+    onClicked: () => print("hello world"),
+    halign: Gtk.Align.CENTER
+  })));
 };
 const app = new Gtk.Application();
 app.connect("activate", () => Gjsx.render(/* @__PURE__ */ Gjsx.createWidget(MainWindow, {

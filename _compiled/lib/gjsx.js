@@ -1,5 +1,5 @@
 import  Gtk from "gi://Gtk?version=4.0";  
-const Fragment = Symbol("Fragment");
+const Fragment = Symbol("Fragment") || Symbol("");
 export const createWidget = (Widget, attributes, ...args) => {
   const children = args.length ? [].concat(args) : null;
   return { Widget, attributes, children };
@@ -33,16 +33,25 @@ export const render = ({ Widget, attributes, children }) => {
     }
   }
   if (children) {
-    if (typeof widget.set_child !== "function") {
-      throw new Error("Cannot add child to non Container widget");
-    }
+    let isGrid = Widget === Gtk.Grid, isBox = Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
     children.reduce((acc, val) => acc.concat(val), []).map(
-      (child) => typeof child === "string" ? new Gtk.Label({ label: child, visible: true }) : render(child)
+      (child) => {
+        if (typeof child === "string") {
+          return new Gtk.Label({ label: child, visible: true });
+        } else {
+          return render(child);
+        }
+      }
     ).forEach((child) => {
-      widget.set_child(child);
+      if (isBox) {
+        widget.append(child);
+      } else {
+        widget.set_child(child);
+      }
     });
   }
-  if (typeof widget.present === "function")
+  const isWindow = Widget === Gtk.ApplicationWindow || Widget === Gtk.Window;
+  if (isWindow && typeof widget.present === "function")
     widget.present();
   return widget;
 };

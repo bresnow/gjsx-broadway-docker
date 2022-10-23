@@ -1,6 +1,8 @@
 import * as Gtk from "gi://Gtk?version=4.0";
-
-const Fragment = Symbol("Fragment");
+/*
+ * <Fragment></Fragment> || <></> tags
+ * */
+const Fragment = Symbol("Fragment") || Symbol("");
 export const createWidget = (Widget: any, attributes: any, ...args: any[]) => {
   const children = args.length ? [].concat(args) : null;
   return { Widget, attributes, children };
@@ -8,6 +10,7 @@ export const createWidget = (Widget: any, attributes: any, ...args: any[]) => {
 
 export const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget) && typeof Widget === "function") {
+    // component functions that aren't widgets.
     return render(Widget(attributes));
   }
   if (Widget === Fragment) {
@@ -38,22 +41,33 @@ export const render = ({ Widget, attributes, children }) => {
   }
 
   if (children) {
-    if (typeof widget.set_child !== "function") {
-      throw new Error("Cannot add child to non Container widget");
-    }
+    let isGrid = Widget === Gtk.Grid,
+      isBox =
+        Widget === Gtk["Box"] ||
+        Widget === Gtk["VBox"] ||
+        Widget === Gtk["HBox"];
+
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])
-      .map((child: { Widget: any; attributes: any; children: any }) =>
-        typeof child === "string"
-          ? new Gtk.Label({ label: child, visible: true })
-          : render(child)
+      .map(
+        (child: { Widget: any; attributes: any; children: any } | string) => {
+          if (typeof child === "string") {
+            return new Gtk.Label({ label: child, visible: true });
+          } else {
+            return render(child);
+          }
+        }
       )
       .forEach((child: any) => {
-        widget.set_child(child);
+        if (isBox) {
+          widget.append(child);
+        } else {
+          widget.set_child(child);
+        }
       });
   }
-
-  if (typeof widget.present === "function") widget.present();
+  const isWindow = Widget === Gtk.ApplicationWindow || Widget === Gtk.Window;
+  if (isWindow && typeof widget.present === "function") widget.present();
 
   return widget;
 };
