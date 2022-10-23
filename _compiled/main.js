@@ -18,13 +18,15 @@ const MainWindow = function({ app: app2 }) {
     title: "Hello World",
     application: app2
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Box, {
+    spacing: 18,
+    valign: Gtk.Align.CENTER,
     orientation: Gtk.Orientation.VERTICAL
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
     label: "Text label as widget tag",
     wrap: true
-  }), "Text label as string.\n Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }), names.map((name) => name), "Text label as string.\n Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Now with events!",
-    onClicked: () => print("hello world"),
+    onClicked: () => names[1] = "hello world",
     halign: Gtk.Align.CENTER
   })));
 };

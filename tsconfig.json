@@ -37,7 +37,7 @@
             "gi://GObject": [
                 "node_modules/@gi-types/gobject",
                 "node_modules/@gi-types/gobject2"
-            ],
+            ]
         },
         "baseUrl": ".",
         "outDir": "_compiled/",
@@ -48,7 +48,7 @@
     },
     "include": [
         "src/*",
-        "types/*",
+        "types/**/*",
         "lib/*"
     ]
 }

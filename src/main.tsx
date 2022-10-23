@@ -19,12 +19,17 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
 
   return (
     <Gtk.ApplicationWindow title="Hello World" application={app}>
-      <Gtk.Box orientation={Gtk.Orientation.VERTICAL}>
+      <Gtk.Box
+        spacing={18}
+        valign={Gtk.Align.CENTER}
+        orientation={Gtk.Orientation.VERTICAL}
+      >
         <Gtk.Label label={"Text label as widget tag"} wrap={true} />
+        {names.map((name) => name)}
         {"Text label as string.\n Placed right in the jsx markup."}
         <Gtk.Button
           label={"Now with events!"}
-          onClicked={() => print("hello world")}
+          onClicked={() => (names[1] = "hello world")}
           halign={Gtk.Align.CENTER}
         />
       </Gtk.Box>
