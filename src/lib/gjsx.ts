@@ -61,7 +61,6 @@ export const render = ({ Widget, attributes, children }) => {
       )
       .forEach((child: any) => {
         if (isBox) {
-          log(child);
           widget.append(child);
         } else {
           widget.set_child(child);

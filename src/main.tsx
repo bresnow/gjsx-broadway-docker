@@ -19,36 +19,30 @@ if (argv.some((info) => info === "--dark")) {
 
 const file = Gio.File.new_for_path("gtk4-template.ui");
 const [, template] = file.load_contents(null);
-const ExampleWindow = GObject.registerClass(
-  {
-    GTypeName: "ExampleWindow",
-    Template: template,
-    Children: ["box"],
-    InternalChildren: ["button"],
-  },
-  class ExampleWindow extends Gtk.Window {
-    constructor(params = {}) {
-      super(params);
-      this.box.visible = true;
-      // Internal children are set on the instance prefixed with a `_`
-      this._button.visible = true;
-    }
-    // The signal handler bound in the UI file
-    _onButtonClicked(button) {
-      if (this instanceof Gtk.Window)
-        log("Callback scope is bound to `ExampleWindow`");
-      button.label = "Button was clicked!";
-    }
-  }
-);
 
+/*
+ * Widget rendered from XML template.
+ * */
+
+export const WelcomeWidget = GObject.registerClass(
+  {
+    GTypeName: "FbrWelcomeWidget",
+    Template: template,
+  },
+  class extends Gtk.Widget {}
+);
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
-  const names = ["Hello", "Hyperscript", "Gtk"];
+  const names = [
+    "GnomeJSX",
+    "Typescript",
+    "Gtk-4.0",
+    "Simplest React For Gjs Library",
+  ];
 
   return (
-    <ExampleWindow title="Hello World" application={app}>
+    <Gtk.ApplicationWindow title="Hello World" application={app}>
       <Layout names={names} />
-    </ExampleWindow>
+    </Gtk.ApplicationWindow>
   );
 };
 
@@ -59,18 +53,17 @@ function Layout({ names }: { names: string[] }) {
       valign={Gtk.Align.CENTER}
       orientation={Gtk.Orientation.VERTICAL}
     >
-      <Gtk.Overlay>
-        <Gtk.Entry />
-      </Gtk.Overlay>
+      <WelcomeWidget />
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
       {names.map((name) => (
         <Gtk.Button label={name} />
       ))}
-      {"Text label as string.\n Placed right in the jsx markup."}
+      {"Text label as string. Placed right in the jsx markup."}
       <Gtk.Button
         label={"Pushing My Buttons"}
-        onClicked={() => {
+        onClicked={(button) => {
           log("Event fired!!");
+          button.label = "Pushed Real Guuud";
         }}
         halign={Gtk.Align.CENTER}
       />

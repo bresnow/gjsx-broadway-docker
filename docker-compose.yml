@@ -15,6 +15,7 @@ services:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/types:/home/app/types
       - ${PWD}/esbuild.mjs:/home/app/esbuild.mjs
+      - ${PWD}/gtk4-template.ui:/home/app/gtk4-template.ui
       - ${PWD}/package.json:/home/app/package.json
       - ${PWD}/tsconfig.json:/home/app/tsconfig.json
     

@@ -1,45 +1,31 @@
-<!-- SPDX-License-Identifier: MIT OR LGPL-2.0-or-later -->
-<!-- SPDX-FileCopyrightText: 2021 Andy Holmes <andyholmes@gnome.org> -->
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <!-- Template
-
-    * class: must be the `GTypeName` given in the class definition, or the
-      class name prefixed with `Gjs_` if not given (eg `Gjs_ExampleWinow`)
-    * parent: the GType name of the derived class
-
-    -->
-  <template class="ExampleWindow" parent="GtkWindow">
-    <property name="default-width">480</property>
-    <property name="default-height">320</property>
-    <child>
-      <object class="GtkBox" id="box">
-        <property name="visible">True</property>
-        <child>
-          <object class="GtkButton" id="button">
-            <property name="label">Button</property>
-            <property name="halign">center</property>
-            <property name="hexpand">True</property>
-            <property name="valign">center</property>
-            <property name="visible">True</property>
-
-            <!-- Signals
-
-              * name: the signal name
-              * handler: the name of method on the subclass to call when emitted
-              * swapped: must always be "no" in GJS applications
-              * object: the object bound to `this` in the callback. This is
-                usually the template class (eg. `ExampleClass`) but may also be
-                an object ID (eg. `box` or `button`).
-
-              -->
-            <signal name="clicked"
-                    handler="_onButtonClicked"
-                    swapped="no"
-                    object="ExampleWindow"/>
-          </object>
-        </child>
-      </object>
-    </child>
-  </template>
+	<template class="FbrWelcomeWidget">
+		<property name="layout-manager">
+			<object class="GtkBoxLayout">
+				<property name="orientation">vertical</property>
+				<property name="spacing">18</property>
+			</object>
+		</property>
+		<child>
+			<object class="GtkImage">
+				<property name="icon-name">system-file-manager-symbolic</property>
+				<property name="icon-size">large</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkLabel">
+				<property name="label">Welcome to our new file browser!</property>
+				<property name="wrap">true</property>
+				<property name="justify">center</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton">
+				<property name="label">Let's go!</property>
+				<property name="halign">center</property>
+			</object>
+		</child>
+	</template>
 </interface>
 
