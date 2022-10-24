@@ -12,6 +12,7 @@ export const render = ({ Widget, attributes, children }) => {
     return children;
   }
   const signals = {};
+  const styleClass = {};
   const constructParams = {};
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
@@ -20,6 +21,8 @@ export const render = ({ Widget, attributes, children }) => {
       if (attr.startsWith("on")) {
         const signal = attributName.substr(3);
         signals[signal] = element;
+      } else if (attr === "class" || attr === "className") {
+        styleClass[attr.replace("Name", "")] = element;
       } else {
         constructParams[attr] = element;
       }
@@ -33,7 +36,8 @@ export const render = ({ Widget, attributes, children }) => {
     }
   }
   if (children) {
-    let isGrid = Widget === Gtk.Grid, isBox = Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
+    let isBox = Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
+    let isGrid = (w) => w === Gtk.Grid;
     children.reduce((acc, val) => acc.concat(val), []).map(
       (child) => {
         if (typeof child === "string") {
@@ -44,6 +48,7 @@ export const render = ({ Widget, attributes, children }) => {
       }
     ).forEach((child) => {
       if (isBox) {
+        log(child);
         widget.append(child);
       } else {
         widget.set_child(child);
@@ -66,4 +71,4 @@ function isConstructor(f) {
   }
   return true;
 }
-export default { render, createWidget };
+export default { render, createWidget, isConstructor };

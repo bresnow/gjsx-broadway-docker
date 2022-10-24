@@ -82,6 +82,7 @@ RUN \
 FROM base as broadway-proxy
 COPY ./startapp.sh /startapp.sh
 COPY ./src /home/app/src
+COPY ./gtk4-template.ui /home/app/gtk4-template.ui
 COPY ./package.json /home/app/package.json 
 COPY ./tsconfig.json /home/app/tsconfig.json
 COPY ./esbuild.mjs /home/app/esbuild.mjs

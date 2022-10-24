@@ -17,6 +17,7 @@ export const render = ({ Widget, attributes, children }) => {
     return children;
   }
   const signals: any = {};
+  const styleClass: any = {};
   const constructParams: any = {};
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
@@ -25,6 +26,8 @@ export const render = ({ Widget, attributes, children }) => {
       if (attr.startsWith("on")) {
         const signal = attributName.substr(3);
         signals[signal] = element;
+      } else if (attr === "class" || attr === "className") {
+        styleClass[attr.replace("Name", "")] = element;
       } else {
         constructParams[attr] = element;
       }
@@ -41,16 +44,14 @@ export const render = ({ Widget, attributes, children }) => {
   }
 
   if (children) {
-    let isGrid = Widget === Gtk.Grid,
-      isBox =
-        Widget === Gtk["Box"] ||
-        Widget === Gtk["VBox"] ||
-        Widget === Gtk["HBox"];
+    let isBox =
+      Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
+    let isGrid = (w: Gtk.Widget) => w === Gtk.Grid;
 
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])
       .map(
-        (child: { Widget: any; attributes: any; children: any } | string) => {
+        (child: { Widget: any; attributes: any; children: any[] } | string) => {
           if (typeof child === "string") {
             return new Gtk.Label({ label: child, visible: true });
           } else {
@@ -60,6 +61,7 @@ export const render = ({ Widget, attributes, children }) => {
       )
       .forEach((child: any) => {
         if (isBox) {
+          log(child);
           widget.append(child);
         } else {
           widget.set_child(child);
@@ -87,4 +89,4 @@ function isConstructor(f: new () => any) {
   return true;
 }
 
-export default { render, createWidget };
+export default { render, createWidget, isConstructor };
