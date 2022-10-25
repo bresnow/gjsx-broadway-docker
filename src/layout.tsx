@@ -1,4 +1,23 @@
 import * as Gtk from "gi://Gtk?version=4.0";
+import * as Gio from "gi://Gio";
+import * as GObject from "gi://GObject";
+import Gjsx from "./lib/gjsx.js";
+
+// template file path is based on the root folder
+const file = Gio.File.new_for_path("gtk4-template.ui");
+const [isLoaded, template] = file.load_contents(null);
+
+/*
+ * Widget rendered from XML template.
+ *
+ */
+const WelcomeWidget = GObject.registerClass(
+  {
+    GTypeName: "FbrWelcomeWidget",
+    Template: template,
+  },
+  class extends Gtk.Widget {}
+);
 
 export function Layout({ names }: { names: string[] }) {
   return (

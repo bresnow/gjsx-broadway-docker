@@ -1,33 +1,33 @@
 {
-    "name": "gjsx-broadway",
-    "private": true,
-    "scripts": {
-        "compile": "node esbuild.mjs",
-        "format": "yarn prettier .",
-        "image": "docker-compose -f docker-compose.yml",
-        "stack": "docker stack deploy -c docker-stack.yml relay",
-        "start": "gjs -m _compiled/main.js",
-        "watch": "yarn compile --watch"
-    },
-    "keywords": [
-        "typescript",
-        "gtk",
-        "gnome",
-        "broadway"
-    ],
-    "version": "1.0.0",
-    "repository": "git@github.com:bresnow/relay_servers.git",
-    "author": "bresnow <bresnow@me.com>",
-    "license": "MIT",
-    "devDependencies": {
-        "@gi-types/cairo1": "^1.0.1",
-        "@gi-types/gtk": "^3.24.9",
-        "@gi-types/webkit2": "^2.30.8",
-        "chokidar": "^3.5.3"
-    },
-    "dependencies": {
-        "esbuild": "^0.15.11",
-        "prettier": "^2.7.1",
-        "zx": "^7.1.1"
-    }
+  "name": "gjsx-broadway",
+  "private": true,
+  "scripts": {
+    "compile": "node esbuild.mjs",
+    "format": "yarn prettier .",
+    "image": "docker-compose -f docker-compose.yml",
+    "stack": "docker stack deploy -c docker-stack.yml relay",
+    "start": "gjs -m _compiled/main.js",
+    "watch": "yarn compile --watch"
+  },
+  "keywords": [
+    "typescript",
+    "gtk",
+    "gnome",
+    "broadway"
+  ],
+  "version": "1.0.0",
+  "repository": "git@github.com:bresnow/relay_servers.git",
+  "author": "bresnow <bresnow@me.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@gi-types/cairo1": "^1.0.1",
+    "@gi-types/gtk": "^3.24.9",
+    "@gi-types/webkit2": "^2.30.8",
+    "chokidar": "^3.5.3"
+  },
+  "dependencies": {
+    "esbuild": "^0.15.11",
+    "prettier": "^2.7.1",
+    "zx": "^7.1.1"
+  }
 }

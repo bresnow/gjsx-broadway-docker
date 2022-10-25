@@ -54,6 +54,7 @@ RUN add-pkg  \
     nodejs \
     npm \
     python3 \
+    py3-opengl \
     py3-pip \
     rsync \
     socat \
@@ -79,14 +80,22 @@ RUN \
     # Cleanup.
     && rm -rf /tmp/* /tmp/.[!.]*
 
+# Mc-OS transparent theme
+RUN \
+    git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
+    && mkdir -p /usr/share/themes/ \
+    && rsync -av --progress 'Mc-OS-themes/Mc-OS-Transparent' /usr/share/themes/ \
+    # Cleanup.
+    && rm -rf /tmp/* /tmp/.[!.]*
+    
+
 FROM base as broadway-proxy
 COPY ./startapp.sh /startapp.sh
 COPY ./src /home/app/src
-COPY ./gtk4-template.ui /home/app/gtk4-template.ui
 COPY ./package.json /home/app/package.json 
 COPY ./tsconfig.json /home/app/tsconfig.json
 COPY ./esbuild.mjs /home/app/esbuild.mjs
-
+WORKDIR /home/app
 RUN  \ 
     npm i -g yarn \
     typescript &&\

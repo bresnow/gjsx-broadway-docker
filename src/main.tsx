@@ -1,24 +1,12 @@
 import * as Gtk from "gi://Gtk?version=4.0";
-import * as GObject from "gi://GObject";
-import * as Gio from "gi://Gio";
 import Gjsx from "./lib/gjsx.js";
-import {Layout} from "./layout.js"
+import { Layout } from "./layout.js";
+import { theme } from "./util.js";
 Gtk.init();
 let argv = ARGV;
-const file = Gio.File.new_for_path("gtk4-template.ui");
-const [, template] = file.load_contents(null);
 
-/*
- * Widget rendered from XML template.
- * */
+theme(argv);
 
-export const WelcomeWidget = GObject.registerClass(
-  {
-    GTypeName: "FbrWelcomeWidget",
-    Template: template,
-  },
-  class extends Gtk.Widget {}
-);
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
   const names = [
     "GnomeJSX",
@@ -28,7 +16,7 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
   ];
 
   return (
-    <Gtk.ApplicationWindow title="Hello World" application={app}>
+    <Gtk.ApplicationWindow title={""} application={app}>
       <Layout names={names} />
     </Gtk.ApplicationWindow>
   );

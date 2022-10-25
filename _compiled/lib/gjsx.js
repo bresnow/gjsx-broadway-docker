@@ -1,4 +1,4 @@
-import  Gtk from "gi://Gtk?version=4.0";  
+import  Gtk from "gi://Gtk?version=4.0"; 
 const Fragment = Symbol("Fragment") || Symbol("");
 export const createWidget = (Widget, attributes, ...args) => {
   const children = args.length ? [].concat(args) : null;
