@@ -17,10 +17,18 @@ export function Layout({ names }) {
     spacing: 18,
     valign: Gtk.Align.CENTER,
     orientation: Gtk.Orientation.VERTICAL
-  }, /* @__PURE__ */ Gjsx.createWidget(WelcomeWidget, null), /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
+  }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
     label: "Text label as widget tag",
     wrap: true
-  }), names.map((name) => /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }), /* @__PURE__ */ Gjsx.createWidget(WelcomeWidget, null), names.map((name, i) => /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+    onClicked: (button) => {
+      if (button.label !== name) {
+        button.label = name;
+      } else {
+        button.label = `Button ${i} was pressed`;
+      }
+    },
+    halign: Gtk.Align.CENTER,
     label: name
   })), "Text label as string. Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Pushing My Buttons",

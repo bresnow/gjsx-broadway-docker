@@ -14,7 +14,37 @@ const [isLoaded, template] = file.load_contents(null);
 const WelcomeWidget = GObject.registerClass(
   {
     GTypeName: "FbrWelcomeWidget",
-    Template: template,
+    Template: JSON.stringify(
+        <\?xml version="1.0" encoding="UTF-8"\?>
+<interface>
+	<template class="FbrWelcomeWidget">
+		<property name="layout-manager">
+			<object class="GtkBoxLayout">
+				<property name="orientation">vertical</property>
+				<property name="spacing">18</property>
+			</object>
+		</property>
+		<child>
+			<object class="GtkImage">
+				<property name="icon-name">system-file-manager-symbolic</property>
+				<property name="icon-size">large</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkLabel">
+				<property name="label">Welcome to our new file browser!</property>
+				<property name="wrap">true</property>
+				<property name="justify">center</property>
+			</object>
+		</child>
+		<child>
+			<object class="GtkButton">
+				<property name="label">Let's go!</property>
+				<property name="halign">center</property>
+			</object>
+		</child>
+	</template>
+</interface>)
   },
   class extends Gtk.Widget {}
 );
@@ -26,12 +56,23 @@ export function Layout({ names }: { names: string[] }) {
       valign={Gtk.Align.CENTER}
       orientation={Gtk.Orientation.VERTICAL}
     >
-      <WelcomeWidget />
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
-      {names.map((name) => (
-        <Gtk.Button label={name} />
+      <WelcomeWidget />
+      {names.map((name, i) => (
+        <Gtk.Button
+          onClicked={(button) => {
+            if (button.label !== name) {
+              button.label = name;
+            } else {
+              button.label = `Button ${i} was pressed`;
+            }
+          }}
+          halign={Gtk.Align.CENTER}
+          label={name}
+        />
       ))}
       {"Text label as string. Placed right in the jsx markup."}
+
       <Gtk.Button
         label={"Pushing My Buttons"}
         onClicked={(button) => {

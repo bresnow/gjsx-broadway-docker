@@ -5,11 +5,11 @@ export const createWidget = (Widget, attributes, ...args) => {
   return { Widget, attributes, children };
 };
 export const render = ({ Widget, attributes, children }) => {
-  if (!isConstructor(Widget) && typeof Widget === "function") {
-    return render(Widget(attributes));
-  }
   if (Widget === Fragment) {
     return children;
+  }
+  if (!isConstructor(Widget) && typeof Widget === "function") {
+    return render(Widget(attributes));
   }
   const signals = {};
   const styleClass = {};
@@ -21,8 +21,8 @@ export const render = ({ Widget, attributes, children }) => {
       if (attr.startsWith("on")) {
         const signal = attributName.substr(3);
         signals[signal] = element;
-      } else if (attr === "class" || attr === "className") {
-        styleClass[attr.replace("Name", "")] = element;
+      } else if (attr === "class") {
+        styleClass[attr] = element;
       } else {
         constructParams[attr] = element;
       }
@@ -35,22 +35,26 @@ export const render = ({ Widget, attributes, children }) => {
       widget.connect(signal, handler);
     }
   }
+  for (const style in styleClass) {
+    let className = styleClass[style];
+    widget.get_style_context().add_class(className);
+  }
   if (children) {
     let isBox = Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
     let isGrid = (w) => w === Gtk.Grid;
-    children.reduce((acc, val) => acc.concat(val), []).map(
-      (child) => {
-        if (typeof child === "string") {
-          return new Gtk.Label({ label: child, visible: true });
-        } else {
-          return render(child);
-        }
+    let childNodes = children.reduce((acc, val) => acc.concat(val), []).map((child) => {
+      if (typeof child === "string") {
+        return new Gtk.Label({ label: child, wrap: true, visible: true });
+      } else {
+        return render(child);
       }
-    ).forEach((child) => {
-      if (isBox) {
+    });
+    childNodes.forEach((child, index, arr) => {
+      log(arr[index] === child);
+      if (typeof widget.append === "function") {
         widget.append(child);
       } else {
-        widget.set_child(child);
+        widget.child = child;
       }
     });
   }
@@ -70,4 +74,5 @@ function isConstructor(f) {
   }
   return true;
 }
-export default { render, createWidget, isConstructor };
+const Gjsx = { render, createWidget, isConstructor };
+export default Gjsx;
