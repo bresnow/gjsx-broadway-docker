@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   gjsx_dev:
-    image: bresnow/gjsx-broadway:alpine-3.16-${VERSION:-v3.3.3}
+    image: bresnow/gjsx-broadway
     deploy:
       placement:
         constraints:
@@ -21,14 +21,13 @@ services:
     networks:
       - public
     volumes:
-      - ${PWD}/src:/home/app/src
-      - ${PWD}/_compiled:/home/app/_compiled
-      - ${PWD}/types:/home/app/types
-      - ${PWD}/esbuild.mjs:/home/app/esbuild.mjs
-      - ${PWD}/gtk4-template.ui:/home/app/gtk4-template.ui
-      - ${PWD}/package.json:/home/app/package.json
-      - ${PWD}/tsconfig.json:/home/app/tsconfig.json
-      - ${PWD}/startapp.sh:/startapp.sh
+      - app:/home/app
+volumes:
+  app:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/fltngmmth/relay
+
 networks:
   public:
     external: true

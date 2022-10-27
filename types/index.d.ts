@@ -33,4 +33,3 @@ declare interface GjsImports {
 }
 
 declare const imports: GjsImports;
-declare const gi:GjsGiImports

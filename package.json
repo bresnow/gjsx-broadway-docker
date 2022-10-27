@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "compile": "node esbuild.mjs",
-   "deploy":   "docker stack deploy -c docker-stack.yml gjsx",
+    "deploy":   "docker stack deploy -c docker-stack.yml gjsx",
     "dev_ws": "docker stack deploy -c development-stack.yml dev_workspace",
     "format": "yarn prettier src/**/*.{ts,js} --write",
     "image": "docker-compose -f docker-compose.yml",
@@ -18,7 +18,7 @@
     "broadway"
   ],
   "version": "1.0.0",
-  "repository": "git@github.com:bresnow/relay_servers.git",
+  "repository": "git@github.com:bresnow/gjsx-broadway-docker.git",
   "author": "bresnow <bresnow@me.com>",
   "license": "MIT",
   "devDependencies": {

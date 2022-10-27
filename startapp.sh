@@ -11,4 +11,4 @@ yarn start $1
 }
 
 broadway &
-gnome-app --dark &
+gnome-app --dark 

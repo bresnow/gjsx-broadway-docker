@@ -1,4 +1,4 @@
-import * as Gtk from "gi://Gtk?version=4.0";
+import Gtk from "gi://Gtk?version=4.0";
 /*
  * <Fragment></Fragment> || <></> tags
  * */
@@ -24,7 +24,7 @@ export const render = ({ Widget, attributes, children }) => {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
-        const signal = attributName.substr(3);
+        const signal = attributName.replace('on', '');
         signals[signal] = element;
       } else if (attr === "class" || attr === "className") {
         styleClass[attr.replace("Name", "")] = element;
@@ -46,7 +46,7 @@ export const render = ({ Widget, attributes, children }) => {
   if (children) {
     let isBox =
       Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
-    let isGrid = (w: Gtk.Widget) =>  w === new Gtk.Grid;
+    let isGrid = (w: Gtk.Widget) => w === new Gtk.Grid;
 
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])

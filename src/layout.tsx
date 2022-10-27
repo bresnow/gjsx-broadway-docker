@@ -1,8 +1,8 @@
-import * as Gtk from "gi://Gtk?version=4.0";
-import * as Gio from "gi://Gio";
-import * as GObject from "gi://GObject";
+import Gtk from "gi://Gtk?version=4.0";
+import Gio from "gi://Gio";
+import GObject from "gi://GObject";
 import Gjsx from "./lib/gjsx.js";
-import * as ByteArray from "../types/Gjs"
+import ByteArray from "../types/Gjs"
 
 // template file path is based on the root folder
 const file = Gio.File.new_for_path("gtk4-template.ui");
