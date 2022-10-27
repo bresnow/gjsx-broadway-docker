@@ -7,18 +7,18 @@
     "jsxFactory": "Gjsx.createWidget",
     "allowJs": true,
     "paths": {
-      "*": ["node_modules/@gi-types/*", "*"],
+      "*": ["node_modules/@gi-types/*"],
       "byteArray":["types/Gjs/ByteArray*"],
       "gi://Atk": ["./types/Gjs/Atk-1.0.d.ts"],
       "gi://Cairo": ["./types/Gjs/cairo-1.0.d.ts"],
       "gi://Gdk*":["./types/Gjs/Gdk*"],
       "gi://Gtk?version=3.0": ["./types/Gjs/Gtk-3.0.d.ts" ],
       "gi:Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts"],
-      "gi://GLib": ["./types/Gjs/"],
-      "gi://Gio": ["./types/Gjs/Gio-2.0*"],
-      "gi://Soup": ["./types/Gjs/Soup*"],
+      "gi://GLib": ["./types/Gjs/GLib*"],
+      "gi://Gio": ["./types/Gjs/Gio-2.0.d.ts"],
+      "gi://Soup": ["./types/Gjs/Soup-*"],
       "gi://WebKit2?version=5.0": ["./types/Gjs/WebKit2-5.0.d.ts"],
-      "gi://GObject": ["./types/Gjs/GObject*"],
+      "gi://GObject": ["./types/Gjs/GObject-*"],
       "system":["types/Gjs/System*"]
     },
     "baseUrl": ".",
@@ -26,5 +26,5 @@
     "lib": ["es2017"],
     "typeRoots": []
   },
-  "include": ["src/**/*", "types/**/*", "lib/*"]
+  "include": ["src/**/*", "types/*", "lib/*"]
 }

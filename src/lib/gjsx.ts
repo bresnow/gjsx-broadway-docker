@@ -51,7 +51,7 @@ export const render = ({ Widget, attributes, children }) => {
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])
       .map(
-        (child: { Widget: any; attributes: any; children: any[] } | string) => {
+        (child: { Widget: Gtk.Widget; attributes: any; children: any[] } | string) => {
           if (typeof child === "string") {
             return new Gtk.Label({ label: child, visible: true });
           } else {
