@@ -89,7 +89,7 @@ RUN \
     && rm -rf /tmp/* /tmp/.[!.]*
     
 
-FROM base as broadway-proxy
+FROM base as broadway
 COPY ./startapp.sh /startapp.sh
 COPY ./src /home/app/src
 COPY ./package.json /home/app/package.json 
@@ -101,4 +101,6 @@ RUN  \
     typescript &&\
     chmod +x /startapp.sh &&\
     add-pkg gtk4.0-demo
+
+WORKDIR /home/app
 CMD [ "/startapp.sh" ]

@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "compile": "node esbuild.mjs",
-    "format": "yarn prettier .",
+   "deploy":   "docker stack deploy -c docker-stack.yml gjsx",
+    "dev_ws": "docker stack deploy -c development-stack.yml dev_workspace",
+    "format": "yarn prettier src/**/*.{ts,js} --write",
     "image": "docker-compose -f docker-compose.yml",
     "stack": "docker stack deploy -c docker-stack.yml relay",
     "start": "gjs -m _compiled/main.js",

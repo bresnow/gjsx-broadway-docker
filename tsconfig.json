@@ -8,8 +8,8 @@
     "allowJs": true,
     "paths": {
       "*": ["node_modules/@gi-types/*", "*"],
-      "gi://Gtk?version=*": ["node_modules/@gi-types/gtk"],
-      "gi:Gtk?version=4.0": ["types/Gjs/Gtk-4.0.d.ts"],
+      "gi://Gtk?version=*": ["node_modules/@gi-types/gtk","./types/Gjs/Gtk-4.0.d.ts"],
+      "gi:Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts"],
       "gi://WebKit2*": ["node_modules/@gi-types/webkit2"],
       "gi://Atk": ["node_modules/@gi-types/atk"],
       "gi://Cairo": [
@@ -32,5 +32,5 @@
     "lib": ["es2017"],
     "typeRoots": []
   },
-  "include": ["src/**/*.ts", "types/**/*.d.ts", "lib/*"]
+  "include": ["src/**/*", "types/**/*", "lib/*"]
 }

@@ -1,63 +1,35 @@
 version: "3.9"
 
 services:
-  gjs:
-    image: bresnow/nodegtk-broadway-gjs:alpine-3.15-${VERSION:-v1.0.3}
-    networks:
-      - edge
-      - socket-proxy
-      - public
-    environment:
-      KEEP_APP_RUNNING: 1
-      TZ: US/Eastern
+  gjsx_dev:
+    image: bresnow/gjsx-broadway:alpine-3.16-${VERSION:-v3.3.3}
     deploy:
+      placement:
+        constraints:
+          - node.role == manager
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.gjs-http.entrypoints=http,https
-        - traefik.http.routers.gjs-http.rule=Host(`gnomejs.fltngmmth.com`)
-        - traefik.http.routers.gjs-http.service=gjs-http
-        - traefik.http.routers.gjs-http.tls.certresolver=namecheap
-        - traefik.http.services.gjs-http.loadbalancer.server.port=8085
-
-        - traefik.tcp.routers.gjs-tcp.service=gjs-tcp
-        - traefik.tcp.routers.gjs-tcp.rule=HostSNI(`gjs.local`)
-        - traefik.tcp.routers.gjs-tcp.tls.certresolver=le
-        - traefik.tcp.services.gjs-tcp.loadbalancer.server.port=8085
-  nodegtk:
-    image: bresnow/nodegtk-broadway-app:alpine-3.15-${VERSION:-v1.0.3}
+        - traefik.http.routers.fm-gjsx.rule=Host(`${PROJECT:-gjsx-broadway.fltngmmth.com}`)
+        - traefik.http.routers.fm-gjsx.entrypoints=http,https
+        - traefik.http.routers.fm-gjsx.middlewares=https-redirect
+        - traefik.http.routers.fm-gjsx.service=fm-gjsx
+        - traefik.http.routers.fm-gjsx.tls=true
+        - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
+        - traefik.http.services.fm-gjsx.loadbalancer.server.port=8085
     networks:
-      - edge
-      - socket-proxy
       - public
-    environment:
-      KEEP_APP_RUNNING: 1
-      TZ: US/Eastern
-    deploy:
-      labels:
-        - traefik.enable=true
-        - traefik.docker.network=public
-        - traefik.constraint-label=public
-        - traefik.http.routers.nodegtk-http.entrypoints=http,https
-        - traefik.http.routers.nodegtk-http.rule=Host(`nodegtk.fltngmmth.com`)
-        - traefik.http.routers.nodegtk-http.service=nodegtk-http
-        - traefik.http.routers.nodegtk-http.tls.certresolver=namecheap
-        - traefik.http.services.nodegtk-http.loadbalancer.server.port=8085
-
-        - traefik.tcp.routers.nodegtk-tcp.service=nodegtk-tcp
-        - traefik.tcp.routers.nodegtk-tcp.rule=HostSNI(`nodegtk.local`)
-        - traefik.tcp.routers.nodegtk-tcp.tls.certresolver=le
-        - traefik.tcp.services.nodegtk-tcp.loadbalancer.server.port=8085
+    volumes:
+      - ${PWD}/src:/home/app/src
+      - ${PWD}/_compiled:/home/app/_compiled
+      - ${PWD}/types:/home/app/types
+      - ${PWD}/esbuild.mjs:/home/app/esbuild.mjs
+      - ${PWD}/gtk4-template.ui:/home/app/gtk4-template.ui
+      - ${PWD}/package.json:/home/app/package.json
+      - ${PWD}/tsconfig.json:/home/app/tsconfig.json
+      - ${PWD}/startapp.sh:/startapp.sh
 networks:
-  edge:
-    external: true
-  socket-proxy:
-    external: true
   public:
     external: true
-volumes:
-  nodegtk_src:
-    driver: local-persist
-    driver_opts:
-      mountpoint: ${HOME}/fltngmmth/relay/node-gtk/
+

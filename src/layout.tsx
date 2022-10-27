@@ -2,6 +2,7 @@ import * as Gtk from "gi://Gtk?version=4.0";
 import * as Gio from "gi://Gio";
 import * as GObject from "gi://GObject";
 import Gjsx from "./lib/gjsx.js";
+import * as ByteArray from "../types/Gjs"
 
 // template file path is based on the root folder
 const file = Gio.File.new_for_path("gtk4-template.ui");
@@ -14,37 +15,7 @@ const [isLoaded, template] = file.load_contents(null);
 const WelcomeWidget = GObject.registerClass(
   {
     GTypeName: "FbrWelcomeWidget",
-    Template: JSON.stringify(
-        <\?xml version="1.0" encoding="UTF-8"\?>
-<interface>
-	<template class="FbrWelcomeWidget">
-		<property name="layout-manager">
-			<object class="GtkBoxLayout">
-				<property name="orientation">vertical</property>
-				<property name="spacing">18</property>
-			</object>
-		</property>
-		<child>
-			<object class="GtkImage">
-				<property name="icon-name">system-file-manager-symbolic</property>
-				<property name="icon-size">large</property>
-			</object>
-		</child>
-		<child>
-			<object class="GtkLabel">
-				<property name="label">Welcome to our new file browser!</property>
-				<property name="wrap">true</property>
-				<property name="justify">center</property>
-			</object>
-		</child>
-		<child>
-			<object class="GtkButton">
-				<property name="label">Let's go!</property>
-				<property name="halign">center</property>
-			</object>
-		</child>
-	</template>
-</interface>)
+    Template: 
   },
   class extends Gtk.Widget {}
 );

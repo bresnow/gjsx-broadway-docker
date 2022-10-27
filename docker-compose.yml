@@ -2,11 +2,10 @@ version: "3.8"
 
 services:
   broadway:
-    image: bresnow/broadway-proxy:alpine-3.16-${VERSION:-v1.1.1}
+    image: bresnow/gjsx-broadway:alpine-3.16-${VERSION:-v3.3.3}
     build:
       context: .
-      dockerfile: Dockerfile
-      target: broadway-proxy
+      target: broadway
     ports:
       - 39660:8085
     volumes:
