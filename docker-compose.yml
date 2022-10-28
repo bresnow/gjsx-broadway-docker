@@ -2,17 +2,27 @@ version: "3.8"
 
 services:
   broadway:
-    image: bresnow/gjsx-broadway
+    image: bresnow/gjsx-broadway-dev
     build:
       context: .
-      target: broadway
+      dockerfile: Dockerfile
     ports:
       - 39660:8085
     volumes:
-      - ${PWD}/src:/home/app/src
       - ${PWD}/_compiled:/home/app/_compiled
-      - ${PWD}/types:/home/app/types
-      - ${PWD}/esbuild.mjs:/home/app/esbuild.mjs
-      - ${PWD}/gtk4-template.ui:/home/app/gtk4-template.ui
-      - ${PWD}/package.json:/home/app/package.json
-      - ${PWD}/tsconfig.json:/home/app/tsconfig.json
+      - ${PWD}/lib:/home/app/lib
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=public
+      - traefik.constraint-label=public
+      - traefik.http.routers.fm-gjsx.rule=Host(`${PROJECT:-gjsx-broadway.fltngmmth.com}`)
+      - traefik.http.routers.fm-gjsx.entrypoints=http,https
+      - traefik.http.routers.fm-gjsx.middlewares=https-redirect
+      - traefik.http.routers.fm-gjsx.service=fm-gjsx
+      - traefik.http.routers.fm-gjsx.tls=true
+      - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
+      - traefik.http.services.fm-gjsx.loadbalancer.server.port=8085
+networks:
+  public:
+    external: true
+

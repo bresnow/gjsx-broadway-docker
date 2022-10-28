@@ -1,17 +1,26 @@
-import  Gtk from "gi://Gtk?version=4.0"; 
-import  Gio from "gi://Gio"; 
-import  GObject from "gi://GObject"; 
-import Gjsx from "./lib/gjsx.js";
-const file = Gio.File.new_for_path("gtk4-template.ui");
-const [isLoaded, template] = file.load_contents(null);
-const WelcomeWidget = GObject.registerClass(
-  {
-    GTypeName: "FbrWelcomeWidget",
-    Template: template
-  },
-  class extends Gtk.Widget {
-  }
-);
+import Gtk from "gi://Gtk?version=4.0";
+import GObject from "gi://GObject";
+import Gjsx from "../lib/gjsx.js";
+const Template = /* @__PURE__ */ Gjsx.createWidget("xml", null, /* @__PURE__ */ Gjsx.createWidget("interface", null, /* @__PURE__ */ Gjsx.createWidget("template", {
+  class: "MyWidget"
+}, /* @__PURE__ */ Gjsx.createWidget("property", {
+  name: "layout-manager"
+}, /* @__PURE__ */ Gjsx.createWidget("object", {
+  class: "GtkBinLayout"
+})), /* @__PURE__ */ Gjsx.createWidget("child", null, /* @__PURE__ */ Gjsx.createWidget("object", {
+  class: "GtkLabel"
+}, /* @__PURE__ */ Gjsx.createWidget("property", {
+  name: "label"
+}, "Hello World"))))));
+const WelcomeWidget = function() {
+  return GObject.registerClass(
+    {
+      Template
+    },
+    class extends Gtk.Widget {
+    }
+  );
+};
 export function Layout({ names }) {
   return /* @__PURE__ */ Gjsx.createWidget(Gtk.Box, {
     spacing: 18,
@@ -20,17 +29,7 @@ export function Layout({ names }) {
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
     label: "Text label as widget tag",
     wrap: true
-  }), /* @__PURE__ */ Gjsx.createWidget(WelcomeWidget, null), names.map((name, i) => /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
-    onClicked: (button) => {
-      if (button.label !== name) {
-        button.label = name;
-      } else {
-        button.label = `Button ${i} was pressed`;
-      }
-    },
-    halign: Gtk.Align.CENTER,
-    label: name
-  })), "Text label as string. Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }), /* @__PURE__ */ Gjsx.createWidget(WelcomeWidget, null), "Text label as string. Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Pushing My Buttons",
     onClicked: (button) => {
       print("Event fired!!");

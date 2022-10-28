@@ -87,20 +87,14 @@ RUN \
     && rsync -av --progress 'Mc-OS-themes/Mc-OS-Transparent' /usr/share/themes/ \
     # Cleanup.
     && rm -rf /tmp/* /tmp/.[!.]*
-    
 
-FROM base as broadway
-COPY ./startapp.sh /startapp.sh
-COPY ./src /home/app/src
-COPY ./package.json /home/app/package.json 
-COPY ./tsconfig.json /home/app/tsconfig.json
-COPY ./esbuild.mjs /home/app/esbuild.mjs
-WORKDIR /home/app
+COPY  ./startapp.sh /startapp.sh
 RUN  \ 
     npm i -g yarn \
     typescript &&\
-    chmod +x /startapp.sh &&\
-    add-pkg gtk4.0-demo
+    chmod +x /startapp.sh 
+
 
 WORKDIR /home/app
+VOLUME [ "/home/_compiled" ] 
 CMD [ "/startapp.sh" ]

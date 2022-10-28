@@ -1,12 +1,30 @@
 import Gtk from "gi://Gtk?version=4.0";
-/*
- * <Fragment></Fragment> || <></> tags
- * */
+import {stringify} from "./gnompile/elemenopi.js"
+type _Widget = { Widget: Gtk.Widget; attributes: Record<string, any>; children: WidgetType[] }
+type WidgetType = string | _Widget
+
+
 const Fragment = Symbol("Fragment") || Symbol("");
-export const createWidget = (Widget: any, attributes: any, ...args: any[]) => {
+const temp_frag = Symbol("template"), iface_frag = Symbol("interface"), xml_frag = Symbol("<xml>")
+export const createWidget = (Widget: any, attributes: any, ...args: any[]): WidgetType => {
   const children = args.length ? [].concat(args) : null;
-  return { Widget, attributes, children };
+  let tmpl: string[] = [], $gtype: Record<string, string>, element: string;
+  if (Widget === xml_frag || Widget === iface_frag || Widget === temp_frag) {
+    if (Widget === temp_frag && Object.keys(attributes).some(key => key === "class")) {
+      $gtype = attributes["class"]
+    }
+    let childElements = children.map(el => el.toString()).join('\n')
+    element = Widget.toString()
+    element = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + element+ childElements;
+    let Template = stringify(element, 2,1)
+    print(Template)
+    return Template
+  } else {
+    return { Widget, attributes, children };
+  }
 };
+
+// <Fragment></Fragment> || <></> tags
 
 export const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget) && typeof Widget === "function") {
@@ -19,13 +37,13 @@ export const render = ({ Widget, attributes, children }) => {
   const signals: any = {};
   const styleClass: any = {};
   const constructParams: any = {};
-  const widgetMethods: any = {} 
+  
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
-        const signal = attributName.replace('on', '');
+        const signal = attributName.replace('on-', '');
         signals[signal] = element;
       } else if (attr === "class") {
         styleClass[attr.replace("Name", "")] = element;
@@ -44,18 +62,8 @@ export const render = ({ Widget, attributes, children }) => {
     }
   }
 
-  for(const method in widgetMethods){
-    if (widgetMethods.hasOwnProperty(method)) {
-      const handler = widgetMethods[method];
-      if (typeof handler === "function")
-     handler(widget)
-    }
-  }
 
   if (children) {
-    let isBox =
-      Widget === Gtk["Box"] || Widget === Gtk["VBox"] || Widget === Gtk["HBox"];
-    let isGrid = (w: Gtk.Widget) => w === new Gtk.Grid;
 
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])
@@ -69,10 +77,12 @@ export const render = ({ Widget, attributes, children }) => {
         }
       )
       .forEach((child: any) => {
-        if (isBox) {
+        if (typeof widget.append === "function") {
           widget.append(child);
-        } else {
+        } else if (typeof widget.add_child === "function") {
           widget.add_child(child);
+        } else if (typeof widget.set_child === "function") {
+          widget.set_child(child);
         }
       });
   }

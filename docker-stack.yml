@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   gjsx_dev:
-    image: bresnow/gjsx-broadway
+    image: bresnow/gjsx-broadway-dev
     deploy:
       placement:
         constraints:
@@ -11,22 +11,40 @@ services:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.fm-gjsx.rule=Host(`${PROJECT:-gjsx-broadway.fltngmmth.com}`)
+        - traefik.http.routers.fm-gjsx.rule=Host(`${PROJECT:-gjsx.fltngmmth.com}`)
         - traefik.http.routers.fm-gjsx.entrypoints=http,https
         - traefik.http.routers.fm-gjsx.middlewares=https-redirect
         - traefik.http.routers.fm-gjsx.service=fm-gjsx
         - traefik.http.routers.fm-gjsx.tls=true
         - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
         - traefik.http.services.fm-gjsx.loadbalancer.server.port=8085
+
+        - traefik.http.routers.fm-jsxgi.rule=Host(`${PROJECT1-jsxgi.fltngmmth.com}`)
+        - traefik.http.routers.fm-jsxgi.entrypoints=http,https
+        - traefik.http.routers.fm-jsxgi.middlewares=https-redirect
+        - traefik.http.routers.fm-jsxgi.service=fm-jsxgi
+        - traefik.http.routers.fm-jsxgi.tls=true
+        - traefik.http.routers.fm-jsxgi.tls.certresolver=namecheap
+        - traefik.http.services.fm-jsxgi.loadbalancer.server.port=8085
     networks:
       - public
     volumes:
-      - app:/home/app
+      - compiled:/home/app/_compiled
+      - lib:/home/app/lib
+      - logs:/var/log
 volumes:
-  app:
+  logs:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/fltngmmth/relay
+      mountpoint: ${HOME}/fltngmmth/relay/.log
+  lib:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/fltngmmth/relay/lib
+  compiled:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/fltngmmth/relay/_compiled
 
 networks:
   public:

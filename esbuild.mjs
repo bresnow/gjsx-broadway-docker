@@ -1,10 +1,10 @@
 import { transformSync } from "esbuild";
-import { $, argv, chalk,fs, glob } from "zx";
-import {cwd} from "process";
+import { $, argv, chalk, fs, glob } from "zx";
+import { cwd } from "process";
 import chokidar from "chokidar";
 // --watch option
 let watch = argv.watch !== undefined;
-let entryPoints = await glob("src/**/*.{ts,tsx}");
+let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
 if (watch) {
   let { red, green, blue, yellow } = chalk;
   /**
@@ -34,10 +34,7 @@ function compile(path) {
   let [dirRoute, ext] = path.split(".");
   let readable = fs.createReadStream(path, "utf8");
   readable.on("data", (chunk) => {
-    let ts_chunk = chunk;
-    if(ext === "tsx"){
-      
-    }
+    let ts_chunk = chunk, Temp = [];
     let transformedJs = transformSync(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",
       loader: ext,
@@ -51,17 +48,17 @@ function compile(path) {
       }
       return line;
     });
-    let _compiled ;
-      //if (ext === 'tsx' && !transformedJs.some((line)=> line.includes(`import Gjsx`))){
+    let _compiled;
+    //if (ext === 'tsx' && !transformedJs.some((line)=> line.includes(`import Gjsx`))){
 
-        //  _compiled = transformedJs.unshift(`import Gjsx from "./lib/gjsx.js"`)
-      //}
-          _compiled = transformedJs.join("\n");
-      
+    //  _compiled = transformedJs.unshift(`import Gjsx from "./lib/gjsx.js"`)
+    //}
+    _compiled = transformedJs.join("\n");
+
     fs.writeFileSync(
       dirRoute.replace("src", "_compiled") +
-        "." +
-        ext.replace("ts", "js").replace("jsx", "js"),
+      "." +
+      ext.replace("ts", "js").replace("jsx", "js"),
       _compiled,
       "utf8"
     );
