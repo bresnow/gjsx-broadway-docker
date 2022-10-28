@@ -1,7 +1,7 @@
-import * as Gtk from "gi://Gtk?version=4.0";
-import Gjsx from "./lib/gjsx.js";
+import Gtk from "gi://Gtk?version=4.0";
+import Gjsx from "../lib/gjsx.js";
 import { Layout } from "./layout.js";
-import { theme } from "./lib/util.js";
+import { theme } from "../lib/util.js";
 Gtk.init();
 let argv = ARGV;
 
@@ -24,4 +24,5 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
 
 const app = new Gtk.Application();
 app.connect("activate", () => Gjsx.render(<MainWindow app={app} />));
+ //@ts-ignore
 app.run([]);

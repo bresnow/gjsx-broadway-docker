@@ -1,6 +1,7 @@
 {
   "name": "gjsx-broadway",
   "private": true,
+  "type": "module",
   "scripts": {
     "compile": "node esbuild.mjs",
     "deploy":   "docker stack deploy -c docker-stack.yml gjsx",

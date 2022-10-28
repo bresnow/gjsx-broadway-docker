@@ -19,6 +19,7 @@ export const render = ({ Widget, attributes, children }) => {
   const signals: any = {};
   const styleClass: any = {};
   const constructParams: any = {};
+  const widgetMethods: any = {} 
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
@@ -26,7 +27,7 @@ export const render = ({ Widget, attributes, children }) => {
       if (attr.startsWith("on")) {
         const signal = attributName.replace('on', '');
         signals[signal] = element;
-      } else if (attr === "class" || attr === "className") {
+      } else if (attr === "class") {
         styleClass[attr.replace("Name", "")] = element;
       } else {
         constructParams[attr] = element;
@@ -40,6 +41,14 @@ export const render = ({ Widget, attributes, children }) => {
     if (signals.hasOwnProperty(signal)) {
       const handler = signals[signal];
       widget.connect(signal, handler);
+    }
+  }
+
+  for(const method in widgetMethods){
+    if (widgetMethods.hasOwnProperty(method)) {
+      const handler = widgetMethods[method];
+      if (typeof handler === "function")
+     handler(widget)
     }
   }
 
@@ -63,7 +72,7 @@ export const render = ({ Widget, attributes, children }) => {
         if (isBox) {
           widget.append(child);
         } else {
-          widget.set_child(child);
+          widget.add_child(child);
         }
       });
   }

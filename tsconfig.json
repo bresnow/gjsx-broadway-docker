@@ -1,30 +1,29 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "module": "esnext",
-    "target": "ES2018",
+    "target": "ES2022",
     "jsx": "react",
     "jsxFactory": "Gjsx.createWidget",
     "allowJs": true,
     "paths": {
       "*": ["node_modules/@gi-types/*"],
-      "byteArray":["types/Gjs/ByteArray*"],
+      "byteArray":["./types/Gjs/ByteArray.d.ts"],
       "gi://Atk": ["./types/Gjs/Atk-1.0.d.ts"],
       "gi://Cairo": ["./types/Gjs/cairo-1.0.d.ts"],
-      "gi://Gdk*":["./types/Gjs/Gdk*"],
-      "gi://Gtk?version=3.0": ["./types/Gjs/Gtk-3.0.d.ts" ],
-      "gi:Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts"],
-      "gi://GLib": ["./types/Gjs/GLib*"],
+      "gi://Gdk":["./types/Gjs/Gdk-4.0.d.ts"],
+      "gi://Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts","node_modules/@gi-types/gtk/index.d.ts"],
+      "gi://GLib": ["./types/Gjs/GLib-2.0.d.ts"],
       "gi://Gio": ["./types/Gjs/Gio-2.0.d.ts"],
-      "gi://Soup": ["./types/Gjs/Soup-*"],
+      "gi://Soup": ["./types/Gjs/Soup-3.0.d.ts"],
       "gi://WebKit2?version=5.0": ["./types/Gjs/WebKit2-5.0.d.ts"],
-      "gi://GObject": ["./types/Gjs/GObject-*"],
-      "system":["types/Gjs/System*"]
+      "gi://GObject": ["./types/Gjs/GObject-2.0.d.ts"],
+      "system":["./types/Gjs/System.d.ts"]
     },
     "baseUrl": ".",
     "outDir": "_compiled/",
     "lib": ["es2017"],
     "typeRoots": []
   },
-  "include": ["src/**/*", "types/*", "lib/*"]
+  "include": ["src/**/*","types/index.d.ts"]
 }

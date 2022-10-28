@@ -1,24 +1,27 @@
 import Gtk from "gi://Gtk?version=4.0";
 import Gio from "gi://Gio";
 import GObject from "gi://GObject";
-import Gjsx from "./lib/gjsx.js";
-import ByteArray from "../types/Gjs"
+import Gjsx from "../lib/gjsx.js";
+import { readTextFileSync } from "../lib/util.js";
+// import ByteArray from "byteArray"
 
 // template file path is based on the root folder
-const file = Gio.File.new_for_path("gtk4-template.ui");
-const [isLoaded, template] = file.load_contents(null);
+const Template = readTextFileSync(Gio.File.new_for_path("gtk4-template.ui"));
 
-/*
- * Widget rendered from XML template.
- *
- */
-const WelcomeWidget = GObject.registerClass(
-  {
-    GTypeName: "FbrWelcomeWidget",
-    Template: 
-  },
-  class extends Gtk.Widget {}
-);
+
+<template>
+  <object class="GtkVideo" id="video"></object>
+</template>
+
+const WelcomeWidget = function () {
+  return (GObject.registerClass(
+    {
+      GTypeName: "FbrWelcomeWidget",
+      Template
+    },
+    class extends Gtk.Widget { }
+  ));
+}
 
 export function Layout({ names }: { names: string[] }) {
   return (
@@ -30,14 +33,13 @@ export function Layout({ names }: { names: string[] }) {
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
       <WelcomeWidget />
       {names.map((name, i) => (
-        <Gtk.Button
-          onClicked={(button) => {
-            if (button.label !== name) {
-              button.label = name;
-            } else {
-              button.label = `Button ${i} was pressed`;
-            }
-          }}
+        <Gtk.Button onClicked={(button: Gtk.Button) => {
+          if (button.label !== name) {
+            button.label = name;
+          } else {
+            button.label = `Button ${i} was pressed`;
+          }
+        }}
           halign={Gtk.Align.CENTER}
           label={name}
         />

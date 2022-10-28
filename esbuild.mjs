@@ -35,6 +35,9 @@ function compile(path) {
   let readable = fs.createReadStream(path, "utf8");
   readable.on("data", (chunk) => {
     let ts_chunk = chunk;
+    if(ext === "tsx"){
+      
+    }
     let transformedJs = transformSync(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",
       loader: ext,
