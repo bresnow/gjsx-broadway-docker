@@ -9,7 +9,7 @@
     "format": "yarn prettier src/**/*.{ts,js} --write",
     "image": "docker-compose -f docker-compose.yml",
     "stack": "docker stack deploy -c docker-stack.yml relay",
-    "start": "gjs -m _compiled/main.js",
+    "start": "gjs -m _compiled/src/main.js",
     "watch": "yarn compile --watch"
   },
   "keywords": [

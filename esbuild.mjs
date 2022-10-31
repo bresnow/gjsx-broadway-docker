@@ -1,6 +1,5 @@
 import { transformSync } from "esbuild";
 import { $, argv, chalk, fs, glob } from "zx";
-import { cwd } from "process";
 import chokidar from "chokidar";
 // --watch option
 let watch = argv.watch !== undefined;
@@ -33,8 +32,24 @@ if (watch) {
 function compile(path) {
   let [dirRoute, ext] = path.split(".");
   let readable = fs.createReadStream(path, "utf8");
+
   readable.on("data", (chunk) => {
+
     let ts_chunk = chunk, Temp = [];
+      
+      ts_chunk = ts_chunk.split("\n").reduce((acc, curr)=>{
+if(curr.includes("<template class=\"")){
+curr = '`<?xml version="1.0" encoding="UTF-8" ?>\n<interface>\n'+curr
+}
+if(curr.includes("</template>")){
+  curr = curr + "\n</interface>`\n"
+}
+return `${acc}
+        ${curr}`
+}, "");
+
+console.log(Temp.join("\n"));
+    
     let transformedJs = transformSync(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",
       loader: ext,
@@ -56,7 +71,7 @@ function compile(path) {
     _compiled = transformedJs.join("\n");
 
     fs.writeFileSync(
-      dirRoute.replace("src", "_compiled") +
+      "_compiled/" + dirRoute +
       "." +
       ext.replace("ts", "js").replace("jsx", "js"),
       _compiled,

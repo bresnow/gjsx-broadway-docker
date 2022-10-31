@@ -2,33 +2,28 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../lib/gjsx.js";
 // import ByteArray from "byteArray"
-
 // template file path is based on the root folder
-const Template =(
-  <xml>
-<interface>
-	<template class="MyWidget">
-		<property name="layout-manager">
-			<object class="GtkBinLayout"/>
-		</property>
-		<child>
-			<object class="GtkLabel">
-				<property name="label">Hello World</property>
-			</object>
-		</child>
-	</template>
-</interface>
-</xml> )
+const Template =
+  <template class="MyWidget">
+    <property name="layout-manager">
+      <object class="GtkBinLayout" />
+    </property>
+    <child>
+      <object class="GtkLabel">
+        <property name="label">Hello World</property>
+      </object>
+    </child>
+  </template>
 
 
-const WelcomeWidget = function () {
-  return (GObject.registerClass(
-    {
-      Template
-    },
-    class extends Gtk.Widget { }
-  ));
-}
+const WelcomeWidget = GObject.registerClass(
+  {
+    GTypeName: "MyWidget",
+    Template
+  },
+  class extends Gtk.Widget { }
+);
+
 
 export function Layout({ names }: { names: string[] }) {
   return (
@@ -39,7 +34,7 @@ export function Layout({ names }: { names: string[] }) {
     >
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
       <WelcomeWidget />
-      {/* {names.map((name, i) => (
+      {names.map((name, i) => (
         <Gtk.Button onClicked={(button) => {
           if (button.label !== name) {
             button.label = name;
@@ -50,7 +45,7 @@ export function Layout({ names }: { names: string[] }) {
           halign={Gtk.Align.CENTER}
           label={name}
         />
-      ))} */}
+      ))}
       {"Text label as string. Placed right in the jsx markup."}
 
       <Gtk.Button
@@ -60,7 +55,7 @@ export function Layout({ names }: { names: string[] }) {
           button.label = "Pushed Real Guuud";
         }}
         halign={Gtk.Align.CENTER}
-      /> 
+      />
     </Gtk.Box>
   );
 }

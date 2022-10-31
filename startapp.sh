@@ -3,7 +3,7 @@
 broadway(){
 nohup gtk4-broadwayd $BROADWAY_DISPLAY &> /var/log/broadway.log
 }
-gnomeapp="gjs -m _compiled/main.js"
+gnomeapp="gjs -m _compiled/src/main.js"
 
 broadway &
 $gnomeapp --dark  &> /var/log/gjsx.log

@@ -5,23 +5,9 @@ type WidgetType = string | _Widget
 
 
 const Fragment = Symbol("Fragment") || Symbol("");
-const temp_frag = Symbol("template"), iface_frag = Symbol("interface"), xml_frag = Symbol("<xml>")
 export const createWidget = (Widget: any, attributes: any, ...args: any[]): WidgetType => {
-  const children = args.length ? [].concat(args) : null;
-  let tmpl: string[] = [], $gtype: Record<string, string>, element: string;
-  if (Widget === xml_frag || Widget === iface_frag || Widget === temp_frag) {
-    if (Widget === temp_frag && Object.keys(attributes).some(key => key === "class")) {
-      $gtype = attributes["class"]
-    }
-    let childElements = children.map(el => el.toString()).join('\n')
-    element = Widget.toString()
-    element = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n" + element+ childElements;
-    let Template = stringify(element, 2,1)
-    print(Template)
-    return Template
-  } else {
+  const children = args ? args.map(args => args) : []
     return { Widget, attributes, children };
-  }
 };
 
 // <Fragment></Fragment> || <></> tags
