@@ -1,10 +1,35 @@
 import Gtk from "gi://Gtk?version=4.0";
 const Fragment = Symbol("Fragment") || Symbol("");
-export const createWidget = (Widget, attributes, ...args) => {
+const createWidget = (Widget, attributes, ...args) => {
   const children = args ? args.map((args2) => args2) : [];
   return { Widget, attributes, children };
 };
-export const render = ({ Widget, attributes, children }) => {
+const renderUi = ({ element, attr, childs }) => {
+  if (typeof element === "string") {
+    let hasChild = false, nested;
+    let regex = /(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)/ig;
+    if (regex.test(element)) {
+      let props = Object.entries(attr).reduce((acc, [key, val]) => ` ${acc} ${key}="${val}" `, "");
+      if (childs) {
+        hasChild = true;
+        nested = childs.map((child) => {
+          if (typeof child.element === "string")
+            return renderUi(child);
+        }).reduce((prev, curr) => "\n" + prev + "\n" + curr, "");
+      }
+      element = `<${element}${props && props}${!hasChild ? "/>" : `>${nested}</${element}>`}`;
+    }
+    log(element);
+    return element;
+  }
+};
+const render = ({ Widget, attributes, children }) => {
+  if (!isConstructor(Widget) && typeof Widget === "string") {
+    if (!/(interface)/ig.test(Widget)) {
+      log("GJSXML template must be enclosed within an <interface> element.");
+    }
+    return renderUi({ element: Widget, attr: attributes, childs: children });
+  }
   if (!isConstructor(Widget) && typeof Widget === "function") {
     return render(Widget(attributes));
   }
@@ -18,6 +43,8 @@ export const render = ({ Widget, attributes, children }) => {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
+      log(attr);
+      log(element);
       if (attr.startsWith("on")) {
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
@@ -70,4 +97,4 @@ function isConstructor(f) {
   }
   return true;
 }
-export default { render, createWidget, isConstructor };
+export default { render, createWidget, isConstructor, renderUi };

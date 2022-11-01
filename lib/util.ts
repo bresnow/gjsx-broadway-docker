@@ -10,7 +10,12 @@ export class TimeoutError extends Error {
   }
 }
 
-export function promiseTask(object:any, method:string, finish:string, ...args:any) {
+export function promiseTask(
+  object: any,
+  method: string,
+  finish: string,
+  ...args: any
+) {
   return new Promise((resolve, reject) => {
     object[method](...args, (self: any, asyncResult: any) => {
       try {
@@ -89,7 +94,7 @@ function promiseEvent(object, signal, error_signal) {
   });
 }
 
-export function delay(ms:number) {
+export function delay(ms: number) {
   let timeout_id;
   const promise = new Promise<void>((resolve) => {
     // @ts-ignore
@@ -100,7 +105,7 @@ export function delay(ms:number) {
   return promise;
 }
 
-async function timeout(ms:number) {
+async function timeout(ms: number) {
   return delay(ms).then(() => {
     throw new TimeoutError(`Promise timed out after ${ms} milliseconds`);
   });
@@ -112,7 +117,7 @@ export function once(
   options = {
     error: "",
     timeout: -1,
-  },
+  }
 ) {
   let promise;
   if (object.connect && object.disconnect) {
@@ -134,7 +139,7 @@ export function once(
 
 function noop(...args) {}
 
-    // @ts-ignore
+// @ts-ignore
 export class Deferred extends Promise {
   constructor(def = noop) {
     let res, rej;
@@ -151,11 +156,7 @@ export class Deferred extends Promise {
 }
 
 export function getGIRepositoryVersion(repo) {
-  const {
-    get_major_version ,
-    get_minor_version,
-    get_micro_version ,
-  } = repo;
+  const { get_major_version, get_minor_version, get_micro_version } = repo;
   return `${get_major_version()}.${get_minor_version()}.${get_micro_version()}`;
 }
 
@@ -181,16 +182,18 @@ export function getPid() {
   return credentials.get_unix_pid();
 }
 function getFileInfo(): string[] {
-  let stack = (new Error()).stack,
-    stackLine = stack.split('\n')[1],
-    coincidence, path, file;
-  if (!stackLine) throw new Error('Could not find current file (1)');
-  coincidence = new RegExp('@(.+):\\d+').exec(stackLine);
-  if (!coincidence) throw new Error('Could not find current file (2)');
+  let stack = new Error().stack,
+    stackLine = stack.split("\n")[1],
+    coincidence,
+    path,
+    file;
+  if (!stackLine) throw new Error("Could not find current file (1)");
+  coincidence = new RegExp("@(.+):\\d+").exec(stackLine);
+  if (!coincidence) throw new Error("Could not find current file (2)");
   path = coincidence[1];
   file = Gio.File.new_for_path(path);
   let route = file.get_parent().get_path().split(":")[1];
-  let current = route + "/" + file.get_basename()
+  let current = route + "/" + file.get_basename();
   return [route, current];
 }
 // https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/784
@@ -198,7 +201,7 @@ export function* readDirSync(file: Gio.File) {
   const enumerator = file.enumerate_children(
     "standard::name",
     Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
-    null,
+    null
   );
 
   while (true) {
@@ -214,22 +217,22 @@ export function* readDirSync(file: Gio.File) {
   enumerator.close(null);
 }
 
-export function readTextFileSync(file:Gio.File) {
+export function readTextFileSync(file: Gio.File) {
   const [, contents] = file.load_contents(null);
   return decode(contents);
 }
 
-export function writeTextFileSync(file:Gio.File, contents:Uint8Array) {
+export function writeTextFileSync(file: Gio.File, contents: Uint8Array) {
   file.replace_contents(
     contents, // contents
     null, // etag
     false, // make_backup
     Gio.FileCreateFlags.NONE, // flags
-    null, // cancellable
+    null // cancellable
   );
 }
 
-export function decode(data:any) {
+export function decode(data: any) {
   //@ts-ignore
   return new TextDecoder().decode(data);
 }
@@ -247,7 +250,7 @@ export function basename(filename: string) {
 export function theme(argv: typeof ARGV, themeName?: string) {
   let gtkSettings = Gtk.Settings.get_default();
   if (argv.some((info) => info === "--dark")) {
-     gtkSettings = Gtk.Settings.get_default();
+    gtkSettings = Gtk.Settings.get_default();
     gtkSettings.gtk_application_prefer_dark_theme = true;
     gtkSettings.gtk_theme_name = themeName ?? "PRO-dark-XFCE-edition II";
   } else {

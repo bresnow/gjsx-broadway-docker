@@ -17,13 +17,13 @@ services:
       - traefik.enable=true
       - traefik.docker.network=public
       - traefik.constraint-label=public
-      - traefik.http.routers.fm-gjsx.rule=Host(`${PROJECT:-gjsx-broadway.fltngmmth.com}`)
-      - traefik.http.routers.fm-gjsx.entrypoints=http,https
-      - traefik.http.routers.fm-gjsx.middlewares=https-redirect
-      - traefik.http.routers.fm-gjsx.service=fm-gjsx
-      - traefik.http.routers.fm-gjsx.tls=true
-      - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
-      - traefik.http.services.fm-gjsx.loadbalancer.server.port=8085
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.rule=Host(`${PROJECT:-gjsx-broadway.fltngmmth.com}`)
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.entrypoints=http,https
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.middlewares=https-redirect
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.service=fm-gjsx-${NUMBER:-0}
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.tls=true
+      - traefik.http.routers.fm-gjsx-${NUMBER:-0}.tls.certresolver=namecheap
+      - traefik.http.services.fm-gjsx-${NUMBER:-0}.loadbalancer.server.port=8085
 networks:
   public:
     external: true

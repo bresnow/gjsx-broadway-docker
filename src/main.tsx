@@ -1,5 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
-import Gio from "gi://Gio"
+import Gio from "gi://Gio";
 import Gjsx from "gjsx";
 import { Layout } from "./layout.js";
 import { theme } from "../lib/util.js";
@@ -7,7 +7,6 @@ Gtk.init();
 let argv = ARGV;
 
 theme(argv);
-
 
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
   const names = [

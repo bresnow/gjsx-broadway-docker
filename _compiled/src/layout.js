@@ -1,24 +1,37 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../lib/gjsx.js";
-const WelcomeWidget = GObject.registerClass(
+const Template = /* @__PURE__ */ Gjsx.createWidget("interface", null, /* @__PURE__ */ Gjsx.createWidget("template", {
+  class: "MyWidget",
+  parent: "GtkBox"
+}, /* @__PURE__ */ Gjsx.createWidget("child", null, /* @__PURE__ */ Gjsx.createWidget("object", {
+  class: "GtkButton"
+}, /* @__PURE__ */ Gjsx.createWidget("property", {
+  name: "label"
+}, "Click Me"), /* @__PURE__ */ Gjsx.createWidget("signal", {
+  name: "clicked",
+  handler: "onButtonClicked"
+})))));
+const MyWidget = GObject.registerClass(
   {
-    GTypeName: "WelcomeWidget"
+    GTypeName: "MyWidget",
+    Template: Gjsx.renderUi(/* @__PURE__ */ Gjsx.createWidget(Template, null))
   },
-  class WelcomeWidget2 extends Gtk.Widget {
+  class extends Gtk.Box {
     constructor() {
       super();
+      this.orientation = Gtk.Orientation.HORIZONTAL;
+      this.initialize();
     }
-    buildUi() {
-      print("hello");
+    initialize() {
+      let button = new Gtk.Button({ label: "Click" });
+      button.connect("clicked", (button2) => {
+        log(button2.label);
+      });
+      this.append(button);
     }
-  }
-);
-const CustomGrid = GObject.registerClass(
-  { GTypeName: "CustomGrid" },
-  class CustomGrid2 extends Gtk.Grid {
-    constructor() {
-      super();
+    onButtonClicked(button) {
+      log(button.label);
     }
   }
 );
@@ -30,7 +43,7 @@ export function Layout({ names }) {
   }, /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
     label: "Text label as widget tag",
     wrap: true
-  }), /* @__PURE__ */ Gjsx.createWidget(WelcomeWidget, null), names.map((name, i) => /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  }), /* @__PURE__ */ Gjsx.createWidget(MyWidget, null, "Text label as string. Placed right in the jsx markup."), names.map((name, i) => /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     onClicked: (button) => {
       if (button.label !== name) {
         button.label = name;
@@ -40,7 +53,7 @@ export function Layout({ names }) {
     },
     halign: Gtk.Align.CENTER,
     label: name
-  })), "Text label as string. Placed right in the jsx markup.", /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+  })), /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
     label: "Pushing My Buttons",
     onClicked: (button) => {
       print("Event fired!!");
