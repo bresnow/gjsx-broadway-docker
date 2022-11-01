@@ -39,7 +39,7 @@ const renderUi = ({ element, attr, childs }: ResourceWidget): string => {
 const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget) && typeof Widget === "string") {
     if (!/(interface)/ig.test(Widget)) {
-      log("GJSXML template must be enclosed within an <interface> element.")
+      log("GJSXML template must be enclosed within an interface element.")
     }
     // renders JSX as Builder Ui.
     return renderUi({ element: Widget, attr: attributes, childs: children });

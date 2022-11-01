@@ -6,18 +6,26 @@ const createWidget = (Widget, attributes, ...args) => {
 };
 const renderUi = ({ element, attr, childs }) => {
   if (typeof element === "string") {
-    let hasChild = false, nested;
-    let regex = /(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)/ig;
+    let hasChild = false,
+      nested;
+    let regex =
+      /(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)/gi;
     if (regex.test(element)) {
-      let props = Object.entries(attr).reduce((acc, [key, val]) => ` ${acc} ${key}="${val}" `, "");
+      let props = Object.entries(attr).reduce(
+        (acc, [key, val]) => ` ${acc} ${key}="${val}" `,
+        ""
+      );
       if (childs) {
         hasChild = true;
-        nested = childs.map((child) => {
-          if (typeof child.element === "string")
-            return renderUi(child);
-        }).reduce((prev, curr) => "\n" + prev + "\n" + curr, "");
+        nested = childs
+          .map((child) => {
+            if (typeof child.element === "string") return renderUi(child);
+          })
+          .reduce((prev, curr) => "\n" + prev + "\n" + curr, "");
       }
-      element = `<${element}${props && props}${!hasChild ? "/>" : `>${nested}</${element}>`}`;
+      element = `<${element}${props && props}${
+        !hasChild ? "/>" : `>${nested}</${element}>`
+      }`;
     }
     log(element);
     return element;
@@ -25,8 +33,8 @@ const renderUi = ({ element, attr, childs }) => {
 };
 const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget) && typeof Widget === "string") {
-    if (!/(interface)/ig.test(Widget)) {
-      log("GJSXML template must be enclosed within an <interface> element.");
+    if (!/(interface)/gi.test(Widget)) {
+      log("GJSXML template must be enclosed within an interface element.");
     }
     return renderUi({ element: Widget, attr: attributes, childs: children });
   }
@@ -63,27 +71,27 @@ const render = ({ Widget, attributes, children }) => {
     }
   }
   if (children) {
-    children.reduce((acc, val) => acc.concat(val), []).map(
-      (child) => {
+    children
+      .reduce((acc, val) => acc.concat(val), [])
+      .map((child) => {
         if (typeof child === "string") {
           return new Gtk.Label({ label: child, visible: true });
         } else {
           return render(child);
         }
-      }
-    ).forEach((child) => {
-      if (typeof widget.append === "function") {
-        widget.append(child);
-      } else if (typeof widget.add_child === "function") {
-        widget.add_child(child);
-      } else if (typeof widget.set_child === "function") {
-        widget.set_child(child);
-      }
-    });
+      })
+      .forEach((child) => {
+        if (typeof widget.append === "function") {
+          widget.append(child);
+        } else if (typeof widget.add_child === "function") {
+          widget.add_child(child);
+        } else if (typeof widget.set_child === "function") {
+          widget.set_child(child);
+        }
+      });
   }
   const isWindow = Widget === Gtk.ApplicationWindow || Widget === Gtk.Window;
-  if (isWindow && typeof widget.present === "function")
-    widget.present();
+  if (isWindow && typeof widget.present === "function") widget.present();
   return widget;
 };
 function camelToKebab(string) {

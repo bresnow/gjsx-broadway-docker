@@ -3,6 +3,5 @@ import GObject from "gi://GObject";
 const Template = "";
 const Stack = GObject.registerClass(
   { Template },
-  class Stack2 extends Gtk.Widget {
-  }
+  class Stack2 extends Gtk.Widget {}
 );

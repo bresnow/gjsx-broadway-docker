@@ -3,7 +3,7 @@ import GObject from "gi://GObject";
 import Gjsx from "gjsx";
 // import ByteArray from "byteArray"
 // The build script will automatically compile ui tags down to string.
-const Template =
+const Template = () => (
   <interface>
     <template class="MyWidget" parent="GtkBox">
       <child>
@@ -13,7 +13,7 @@ const Template =
         </object>
       </child>
     </template>
-  </interface>
+  </interface>)
 
 const MyWidget = GObject.registerClass(
   {

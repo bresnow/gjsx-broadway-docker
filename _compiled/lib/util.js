@@ -20,14 +20,16 @@ export function promiseTask(object, method, finish, ...args) {
   });
 }
 function normalizeEmitter(emitter) {
-  const addListener = emitter.on || emitter.addListener || emitter.addEventListener;
-  const removeListener = emitter.off || emitter.removeListener || emitter.removeEventListener;
+  const addListener =
+    emitter.on || emitter.addListener || emitter.addEventListener;
+  const removeListener =
+    emitter.off || emitter.removeListener || emitter.removeEventListener;
   if (!addListener || !removeListener) {
     throw new TypeError("Emitter is not compatible");
   }
   return {
     addListener: addListener.bind(emitter),
-    removeListener: removeListener.bind(emitter)
+    removeListener: removeListener.bind(emitter),
   };
 }
 function promiseSignal(object, signal, error_signal) {
@@ -36,8 +38,7 @@ function promiseSignal(object, signal, error_signal) {
     let error_handler_id;
     function cleanup() {
       object.disconnect(handler_id);
-      if (error_handler_id)
-        object.disconnect(error_handler_id);
+      if (error_handler_id) object.disconnect(error_handler_id);
     }
     if (error_signal) {
       error_handler_id = object.connect(error_signal, (self, error) => {
@@ -57,8 +58,7 @@ function promiseEvent(object, signal, error_signal) {
     addListener(signal, listener);
     function cleanup() {
       removeListener(signal, listener);
-      if (error_signal)
-        removeListener(error_signal, error_listener);
+      if (error_signal) removeListener(error_signal, error_listener);
     }
     if (error_signal) {
       addListener(error_signal, error_listener);
@@ -87,10 +87,14 @@ async function timeout(ms) {
     throw new TimeoutError(`Promise timed out after ${ms} milliseconds`);
   });
 }
-export function once(object, signal, options = {
-  error: "",
-  timeout: -1
-}) {
+export function once(
+  object,
+  signal,
+  options = {
+    error: "",
+    timeout: -1,
+  }
+) {
   let promise;
   if (object.connect && object.disconnect) {
     promise = promiseSignal(object, signal, options.error);
@@ -105,8 +109,7 @@ export function once(object, signal, options = {
     clearTimeout(promise_timeout.timeout_id);
   });
 }
-function noop(...args) {
-}
+function noop(...args) {}
 export class Deferred extends Promise {
   constructor(def = noop) {
     let res, rej;
@@ -133,7 +136,7 @@ export function getGjsVersion() {
 export function resolve(uri, path) {
   return GLib.build_filenamev([
     GLib.path_get_dirname(GLib.Uri.parse(uri, null).get_path()),
-    path
+    path,
   ]);
 }
 export function getPid() {
@@ -141,12 +144,14 @@ export function getPid() {
   return credentials.get_unix_pid();
 }
 function getFileInfo() {
-  let stack = new Error().stack, stackLine = stack.split("\n")[1], coincidence, path, file;
-  if (!stackLine)
-    throw new Error("Could not find current file (1)");
+  let stack = new Error().stack,
+    stackLine = stack.split("\n")[1],
+    coincidence,
+    path,
+    file;
+  if (!stackLine) throw new Error("Could not find current file (1)");
   coincidence = new RegExp("@(.+):\\d+").exec(stackLine);
-  if (!coincidence)
-    throw new Error("Could not find current file (2)");
+  if (!coincidence) throw new Error("Could not find current file (2)");
   path = coincidence[1];
   file = Gio.File.new_for_path(path);
   let route = file.get_parent().get_path().split(":")[1];
@@ -162,8 +167,7 @@ export function* readDirSync(file) {
   while (true) {
     try {
       const info = enumerator.next_file(null);
-      if (info === null)
-        break;
+      if (info === null) break;
       yield enumerator.get_child(info);
     } catch (err) {
       enumerator.close(null);
@@ -177,13 +181,7 @@ export function readTextFileSync(file) {
   return decode(contents);
 }
 export function writeTextFileSync(file, contents) {
-  file.replace_contents(
-    contents,
-    null,
-    false,
-    Gio.FileCreateFlags.NONE,
-    null
-  );
+  file.replace_contents(contents, null, false, Gio.FileCreateFlags.NONE, null);
 }
 export function decode(data) {
   return new TextDecoder().decode(data);
@@ -192,7 +190,8 @@ export function appIdToPrefix(appid) {
   return `/${appid.replace(".", "/")}`;
 }
 export function basename(filename) {
-  const [name, basename2, extension] = GLib.path_get_basename(filename).match(/(.+?)(\.[^.]*$|$)/);
+  const [name, basename2, extension] =
+    GLib.path_get_basename(filename).match(/(.+?)(\.[^.]*$|$)/);
   return [name, basename2, extension];
 }
 export function theme(argv, themeName) {
