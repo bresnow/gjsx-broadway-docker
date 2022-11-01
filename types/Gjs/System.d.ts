@@ -1,3 +1,4 @@
+import GObject from "gi://GObject"
 export namespace System {
     export const programInvocationName: string
     export const version: number
@@ -13,3 +14,4 @@ export namespace System {
     export function dumpHeap(path: string): void
     export function dumpMemoryInfo(path: string): void
 }
+export default System

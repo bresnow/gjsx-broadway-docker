@@ -1,25 +1,25 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../lib/gjsx.js";
-const Template = `<?xml version="1.0" encoding="UTF-8" ?>
-<interface>
-  <template class="MyWidget">
-            <property name="layout-manager">
-              <object class="GtkBinLayout" />
-            </property>
-            <child>
-              <object class="GtkLabel">
-                <property name="label">Hello World</property>
-              </object>
-            </child>
-          </template>
-</interface>`;
 const WelcomeWidget = GObject.registerClass(
   {
-    GTypeName: "MyWidget",
-    Template
+    GTypeName: "WelcomeWidget"
   },
-  class extends Gtk.Widget {
+  class WelcomeWidget2 extends Gtk.Widget {
+    constructor() {
+      super();
+    }
+    buildUi() {
+      print("hello");
+    }
+  }
+);
+const CustomGrid = GObject.registerClass(
+  { GTypeName: "CustomGrid" },
+  class CustomGrid2 extends Gtk.Grid {
+    constructor() {
+      super();
+    }
   }
 );
 export function Layout({ names }) {

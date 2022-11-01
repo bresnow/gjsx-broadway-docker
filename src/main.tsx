@@ -1,11 +1,13 @@
 import Gtk from "gi://Gtk?version=4.0";
-import Gjsx from "../lib/gjsx.js";
+import Gio from "gi://Gio"
+import Gjsx from "gjsx";
 import { Layout } from "./layout.js";
 import { theme } from "../lib/util.js";
 Gtk.init();
 let argv = ARGV;
 
 theme(argv);
+
 
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
   const names = [
@@ -14,7 +16,6 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
     "Gtk-4.0",
     "Simplest React For Gjs Library",
   ];
-
   return (
     <Gtk.ApplicationWindow title={""} application={app}>
       <Layout names={names} />
@@ -24,5 +25,5 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
 
 const app = new Gtk.Application();
 app.connect("activate", () => Gjsx.render(<MainWindow app={app} />));
- //@ts-ignore
+//@ts-ignore
 app.run([]);

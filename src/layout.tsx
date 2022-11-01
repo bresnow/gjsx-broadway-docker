@@ -1,28 +1,30 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "../lib/gjsx.js";
+import Gjsx from "gjsx";
 // import ByteArray from "byteArray"
-// template file path is based on the root folder
-const Template =
-  <template class="MyWidget">
-    <property name="layout-manager">
-      <object class="GtkBinLayout" />
-    </property>
-    <child>
-      <object class="GtkLabel">
-        <property name="label">Hello World</property>
-      </object>
-    </child>
-  </template>
+// The build script will automatically compile ui tags down to string.
 
 
-const WelcomeWidget = GObject.registerClass(
-  {
-    GTypeName: "MyWidget",
-    Template
-  },
-  class extends Gtk.Widget { }
+const WelcomeWidget = GObject.registerClass({
+  GTypeName: "WelcomeWidget",
+}, class WelcomeWidget extends Gtk.Widget {
+  label: Gtk.Label
+  constructor() {
+    super();
+  };
+  buildUi() {
+    print("hello")
+  }
+
+}
 );
+
+const CustomGrid = GObject.registerClass({GTypeName: "CustomGrid"}, 
+class CustomGrid extends Gtk.Grid{
+constructor(){
+  super();
+}
+});
 
 
 export function Layout({ names }: { names: string[] }) {
@@ -46,6 +48,8 @@ export function Layout({ names }: { names: string[] }) {
           label={name}
         />
       ))}
+
+
       {"Text label as string. Placed right in the jsx markup."}
 
       <Gtk.Button
