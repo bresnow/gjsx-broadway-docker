@@ -13,13 +13,13 @@ declare interface GjsGiImports {
     versions: {
         [key: string]: string;
     };
-    GLib: typeof import("@gi-types/glib");
-    Gtk: typeof import("@gi-types/gtk");
-    Gio: typeof import("@gi-types/gio");
-    GObject: typeof import("@gi-types/gobject");
-    Gdk: typeof import("@gi-types/gdk");
-    WebKit2: typeof import("@gi-types/webkit2");
-    Soup: typeof import("@gi-types/soup");
+    GLib: typeof import("gi://GLib");
+    Gtk: typeof import("gi://Gtk?version=4.0");
+    Gio: typeof import("gi://Gio");
+    GObject: typeof import("gi://GObject");
+    Gdk: typeof import("gi://Gdk");
+    WebKit2: typeof import("gi://WebKit2?version=5.0");
+    Soup: typeof import("gi://Soup");
 }
 
 declare module "@gi-types/gmodule" {

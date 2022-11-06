@@ -4,44 +4,57 @@ import GLib from "gi://GLib";
 import Webkit from "gi://WebKit2?version=5.0";
 export const WebMessageGrid = GObject.registerClass(
   { GTypeName: "WebMessageWidget" },
-  class WebMessageWidget extends Gtk.Grid {
+  class WebMessageWidget extends Gtk.Box {
     constructor(options) {
       super(options);
       this.init();
     }
     init() {
-      this.margin_top = 10;
-      this.row_spacing = 10;
-      let webView, settings, button, label, box;
+      this.orientation = Gtk.Orientation.VERTICAL;
+      this.valign = Gtk.Align.CENTER;
+      this.homogeneous = true;
+      this.margin_start = 18;
+      let webView, settings, button, label, buttonLabel;
       try {
-        settings = new Webkit.Settings({ default_font_size: 14 });
+        settings = new Webkit.Settings();
+        settings.set_default_font_size(20);
         webView = new Webkit.WebView({ settings });
+        webView.set_zoom_level(1.1);
+        label = new Gtk.Label({ label: "", use_markup: true, wrap: true });
+        buttonLabel = new Gtk.Label({
+          label: "",
+          use_markup: true,
+          wrap: true,
+        });
         webView.load_uri(
           GLib.filename_to_uri("/home/app/assets/egWebmsg.html", null)
         );
         webView.connect("notify::title", (self, params) => {
-          label.label = webView.title;
+          buttonLabel.label =
+            "<small>Press To Send Message To WebView From Interface</small>";
+          label.label = `<b>Document Title: </b>${webView.title}`;
         });
-        button = new Gtk.Button({ label: "GTK to Webkit message" });
+        button = new Gtk.Button();
+        button.set_margin_top(20);
+        button.set_child(buttonLabel);
         button.connect("clicked", () => {
           webView.run_javascript(
-            'messageFromGTK("Message from GTK!");',
+            'messageFromGTK("Sent Web Message From Gtk Interface To Webkit Html!");',
             null,
             (self, result, error) => {
               self.run_javascript_finish(result);
+              button.set_has_frame(false);
+              buttonLabel.label = "<b>Sent!</b>";
+              label.label = "<b>Mutated Message</b>";
             }
           );
         });
-        label = new Gtk.Label({ label: "" });
-        this.attach(webView, 0, 0, 2, 3);
-        this.attach(button, 0, 1, 1, 1);
-        this.attach(label, 1, 1, 1, 1);
+        this.append(webView);
+        this.append(button);
+        this.append(label);
       } catch (e) {
-        log(e);
+        logError(e);
       }
-    }
-    add_child(widget) {
-      this.attach(widget, 0, 2, 2, 1);
     }
   }
 );

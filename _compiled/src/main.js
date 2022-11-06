@@ -23,10 +23,10 @@ const MainWindow = function ({ app: app2 }) {
     /* @__PURE__ */ Gjsx.createWidget(
       BoxContainer,
       null,
+      /* @__PURE__ */ Gjsx.createWidget(WebMessageGrid, null),
       /* @__PURE__ */ Gjsx.createWidget(Layout, {
         names,
-      }),
-      /* @__PURE__ */ Gjsx.createWidget(WebMessageGrid, null)
+      })
     )
   );
 };

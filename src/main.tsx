@@ -21,8 +21,8 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
   return (
     <AppWindow application={app} >
       <BoxContainer >
-        <Layout names={names} />
         <WebMessageGrid />
+        <Layout names={names} />
       </BoxContainer>
     </AppWindow>
   );

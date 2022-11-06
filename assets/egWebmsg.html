@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hello, GNOME!</title>
 
-        <script type="application/javascript">
-        function messageFromGTK (message) {
-            // GTK will execute this function to send messages to Webkit
-            document.getElementById ("msg").innerHTML = (message);
-        }
-        function messageToGTK () {
-            // Webkit will emit 'notify::title' signal to send messages to GTK
-            document.title = 'Message from Webkit';
-        }
-        </script>
+<head>
+    <title>WebKit Message Example</title>
 
-        <style type="text/css">
-            body {
-                font-family: Cantarell, sans-serif;
-                text-align: center; }
-            button {
-                font-size: 1.5em;
-                background: blue;
-                color: azure;
-                width: fit-content;
-            }
-        </style>
+            <script type="application/javascript">
+                function messageFromGTK(message) {
+                    let el =  document.getElementById("msg");
+                    // GTK will execute this function to send messages to Webkit
+                  el.innerHTML = message;
+                };
+                function messageToGTK() {
+                    // Webkit will emit 'notify::title' signal to send messages to GTK
+                    document.title = 'Mutation Occurred';
+                };
+            </script>
 
-    </head>
-    <body>
-        <div id="msg"></div>
-        <br />
-        <button type="button" class=".button button" onclick="messageToGTK()">Webkit to GTK message</button>
-        <br />
-        <br />
-    </body>
+            <style type="text/css">
+                body {
+                    font-family: Cantarell, sans-serif;
+                    text-align: center;
+                }
+
+                button {
+                    font-size: 1.5em;
+                    background: blue;
+                    color: azure;
+                    width: fit-content;
+                }
+            </style>
+
+</head>
+
+<body>
+    <div id="msg"></div>
+    <br />
+    <button type="button" onclick="messageToGTK()">Webkit to GTK message</button>
+    <br />
+</body>
+
 </html>
