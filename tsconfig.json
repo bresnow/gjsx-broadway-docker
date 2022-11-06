@@ -12,7 +12,7 @@
       "byteArray":["./types/Gjs/ByteArray.d.ts"],
       "gi://Atk": ["./types/Gjs/Atk-1.0.d.ts"],
       "gi://Cairo": ["./types/Gjs/cairo-1.0.d.ts"],
-      "gi://Gdk":["./types/Gjs/Gdk-4.0.d.ts"],
+      "gi://Gdk":["./types/Gjs/Gdk-2.0.d.ts","./types/Gjs/Gdk-3.0.d.ts" ],
       "gi://Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts","node_modules/@gi-types/gtk/index.d.ts"],
       "gi://GLib": ["./types/Gjs/GLib-2.0.d.ts"],
       "gi://Gio": ["./types/Gjs/Gio-2.0.d.ts"],
@@ -26,5 +26,5 @@
     "lib": ["es2018"],
     "typeRoots": []
   },
-  "include": ["src/**/*","types/index.d.ts"]
+  "include": ["src/**/*","types/index.d.ts", "assets"]
 }

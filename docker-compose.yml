@@ -11,6 +11,7 @@ services:
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/lib:/home/app/lib
+      - ${PWD}/assets:/home/app/assets
     networks:
       - public
     labels:

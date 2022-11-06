@@ -1,12 +1,15 @@
 import Gtk from "gi://Gtk?version=4.0";
-import Gio from "gi://Gio";
 import Gjsx from "gjsx";
 import { Layout } from "./layout.js";
 import { theme } from "../lib/util.js";
+import { AppWindow } from "./widgets/appwindow.js";
+import { BoxContainer } from "./widgets/box_container.js";
+import { WebMessageGrid } from "./widgets/webmsg_grid.js";
+
 Gtk.init();
 let argv = ARGV;
-
 theme(argv);
+
 
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
   const names = [
@@ -16,9 +19,12 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
     "Simplest React For Gjs Library",
   ];
   return (
-    <Gtk.ApplicationWindow title={""} application={app}>
-      <Layout names={names} />
-    </Gtk.ApplicationWindow>
+    <AppWindow application={app} >
+      <BoxContainer >
+        <Layout names={names} />
+        <WebMessageGrid />
+      </BoxContainer>
+    </AppWindow>
   );
 };
 

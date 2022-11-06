@@ -1,4 +1,4 @@
-import { transformSync } from "esbuild";
+import { transformSync, transform } from "esbuild";
 import { argv, chalk, fs, glob } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
@@ -33,9 +33,10 @@ if (watch) {
   });
 }
 
-function compile(path) {
-  let [dirRoute, ext] = path.split(".");
-  let readable = fs.createReadStream(path, "utf8");
+function compile(_path) {
+
+  let [dirRoute, ext] = _path.split(".");
+  let readable = fs.createReadStream(_path, "utf8");
   let pathto = dirRoute.split("/"), basename = pathto[pathto.length - 1];
   pathto.pop();
   pathto = pathto.join("/");
@@ -45,59 +46,64 @@ function compile(path) {
     }
   }).join("/")
 
+
   readable.on("data", async (chunk) => {
-    let ts_chunk = format(chunk, { semi: true, singleQuote: false, parser: "typescript" }), transformedJs, transformedUi;
+    let ts_chunk = chunk, transformedJs, transformedUi;
 
-    transformedUi = ts_chunk.split("\n").map((line) => {
-      let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g
-      if (uiregex.test(line));
-        return line;
-    }).join("\n").trim();
-    ts_chunk = ts_chunk.split("\n").map((line) => line).join("\n");
-    transformedUi = transformSync(transformedUi, { jsx: "preserve", loader: "jsx" });
-    if (transformedUi.code && transformedUi.warnings.length === 0) {
-      try {
-        if (!fs.existsSync("_compiled/ui")) {
-          fs.mkdirSync("_compiled/ui");
-        } else {
-          transformedUi = `<?xml version="1.0" encoding="UTF-8"?>\n` + transformedUi.code;
-        }
-        let uiPath = "_compiled/ui/" + basename + ext.replace("ts", "js").replace("jsx", ".ui"), uiData = format(transformedUi.trim(), { semi: false, bracketSpacing: false, singleQuote: false, parser: "mdx" });
-        fs.writeFileSync(
-          uiPath,
-          uiData,
-          "utf8"
-        );
-      } catch (error) {
-        console.error(red("UI BUILDER ERROR:-" + error.message))
-      }
-    };
-    try {
-      transformedJs = transformSync(ts_chunk, {
-        jsxFactory: "Gjsx.createWidget",
-        loader: ext,
-      }).code;
-      transformedJs = transformedJs.split("\n").map((line) => {
-        if (/(import)(.*)(from)\s("gjsx")/g.test(line)) {
-          line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx.js");
-        };
-        return line
-      });
 
-      let _compiled = transformedJs.join("\n");
-      if (!fs.existsSync("_compiled/" + pathto)) {
-        fs.mkdirSync("_compiled/" + pathto);
+    let _preserve= ts_chunk.split("\n")[0].trim().includes("@gjsx-resource")
+
+    if (ext === "tsx" && _preserve) {
+      // build ui resource
+        transformedUi = ts_chunk.split("\n").map(line => {
+          let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g
+          if (uiregex.test(line)) {
+            return line.replace(/[});]+/g, "")
+          };
+        }).join("\n").trim();
+        if (transformedUi.length > 0) {
+          if (!fs.existsSync("_compiled/ui/" + pathto)) {
+            fs.mkdirSync("_compiled/ui/" + pathto);
+          }
+          transformedUi = `<?xml version="1.0" encoding="UTF-8"?>\n` + transformedUi;
+          console.log(transformedUi)
+          let uiPath = `_compiled/ui/${pathto}/${basename}.${ext.replace(/tsx/g, "ui")}`, uiData = format(transformedUi.trim(), { semi: false, bracketSpacing: false, singleQuote: false, parser: "mdx" }).replace(";", "");
+          console.log(uiPath);
+          fs.writeFileSync(
+            uiPath,
+            uiData,
+            "utf8"
+          );
       }
-      const path = "_compiled/" + dirRoute + "." +
-        ext.replace("ts", "js").replace("jsx", "js")
-      fs.writeFileSync(
-        path,
-        format(_compiled, { semi: true, singleQuote: false, parser: "babel" }),
-        "utf8"
-      );
-    } catch (error) {
-      console.error(red("JSX => JS BUILDER ERROR:-" + error.message))
     }
-  });
+    console.log(_preserve, _path);
+    let { code } = await transform(ts_chunk, {
+      jsx: _preserve ? "preserve": "" ,
+      jsxFactory:"Gjsx.createWidget",
+      loader: ext
+    });
+
+    transformedJs = code
+    transformedJs = transformedJs.split("\n").map((line) => {
+      if (/(import)(.*)(from)\s(("|')gjsx("|'))/g.test(line)) {
+        line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx.js");
+      };
+      return line
+    });
+
+    let _compiled = transformedJs.join("\n");
+    if (!fs.existsSync("_compiled/" + pathto)) {
+      fs.mkdirSync("_compiled/" + pathto);
+    }
+    const path = "_compiled/" + dirRoute + "." +
+      ext.replace("ts", "js").replace("jsx", "js")
+    fs.writeFileSync(
+      path,
+      format(_compiled, { semi: true, singleQuote: false, parser: "babel" }),
+      "utf8"
+    );
+  })
 }
+
+
 

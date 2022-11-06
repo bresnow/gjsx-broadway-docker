@@ -143,7 +143,7 @@ export function getPid() {
   const credentials = new Gio.Credentials();
   return credentials.get_unix_pid();
 }
-function getFileInfo() {
+export function getFileInfo() {
   let stack = new Error().stack,
     stackLine = stack.split("\n")[1],
     coincidence,
@@ -156,7 +156,7 @@ function getFileInfo() {
   file = Gio.File.new_for_path(path);
   let route = file.get_parent().get_path().split(":")[1];
   let current = route + "/" + file.get_basename();
-  return [route, current];
+  return [route.replace("_compiled", ""), current, file.get_basename()];
 }
 export function* readDirSync(file) {
   const enumerator = file.enumerate_children(

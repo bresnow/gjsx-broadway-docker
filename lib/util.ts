@@ -4,7 +4,7 @@ import Gio from "gi://Gio";
 import system from "system";
 
 export class TimeoutError extends Error {
-  constructor(message) {
+  constructor(message: string) {
     super(message);
     this.name = "TimeoutError";
   }
@@ -27,7 +27,7 @@ export function promiseTask(
   });
 }
 
-function normalizeEmitter(emitter) {
+function normalizeEmitter(emitter: { on: any; addListener: any; addEventListener: any; off: any; removeListener: any; removeEventListener: any; }) {
   const addListener =
     emitter.on || emitter.addListener || emitter.addEventListener;
   const removeListener =
@@ -43,10 +43,10 @@ function normalizeEmitter(emitter) {
   };
 }
 
-function promiseSignal(object, signal, error_signal) {
+function promiseSignal(object: { connect: (arg0: any, arg1: { (self: any, ...params: any[]): void; (self: any, error: any): void; }) => any; disconnect: (arg0: any) => void; }, signal: any, error_signal: string) {
   return new Promise((resolve, reject) => {
     const handler_id = object.connect(signal, handler);
-    let error_handler_id;
+    let error_handler_id: any;
 
     function cleanup() {
       object.disconnect(handler_id);
@@ -54,20 +54,20 @@ function promiseSignal(object, signal, error_signal) {
     }
 
     if (error_signal) {
-      error_handler_id = object.connect(error_signal, (self, error) => {
+      error_handler_id = object.connect(error_signal, (self: any, error: any) => {
         cleanup();
         reject(error);
       });
     }
 
-    function handler(self, ...params) {
+    function handler(self: any, ...params: any[]) {
       cleanup();
       resolve(params);
     }
   });
 }
 
-function promiseEvent(object, signal, error_signal) {
+function promiseEvent(object: any, signal: any, error_signal: string) {
   const { addListener, removeListener } = normalizeEmitter(object);
 
   return new Promise((resolve, reject) => {
@@ -82,12 +82,12 @@ function promiseEvent(object, signal, error_signal) {
       addListener(error_signal, error_listener);
     }
 
-    function error_listener(err) {
+    function error_listener(err: any) {
       cleanup();
       reject(err);
     }
 
-    function listener(...params) {
+    function listener(...params: any[]) {
       cleanup();
       resolve(params);
     }
@@ -95,7 +95,7 @@ function promiseEvent(object, signal, error_signal) {
 }
 
 export function delay(ms: number) {
-  let timeout_id;
+  let timeout_id: any;
   const promise = new Promise<void>((resolve) => {
     // @ts-ignore
     setTimeout(() => {
@@ -112,14 +112,14 @@ async function timeout(ms: number) {
 }
 
 export function once(
-  object,
-  signal,
+  object: { connect: any; disconnect: any; },
+  signal: any,
   options = {
     error: "",
     timeout: -1,
   }
 ) {
-  let promise;
+  let promise: Promise<unknown>;
   if (object.connect && object.disconnect) {
     promise = promiseSignal(object, signal, options.error);
   } else {
@@ -137,13 +137,13 @@ export function once(
   });
 }
 
-function noop(...args) {}
+function noop(...args: any[]) {}
 
 // @ts-ignore
 export class Deferred extends Promise {
   constructor(def = noop) {
-    let res, rej;
-    super((resolve, reject) => {
+    let res: any, rej: any;
+    super((resolve: any, reject: any) => {
       def(resolve, reject);
       res = resolve;
       rej = reject;
@@ -155,7 +155,7 @@ export class Deferred extends Promise {
   }
 }
 
-export function getGIRepositoryVersion(repo) {
+export function getGIRepositoryVersion(repo: { get_major_version: any; get_minor_version: any; get_micro_version: any; }) {
   const { get_major_version, get_minor_version, get_micro_version } = repo;
   return `${get_major_version()}.${get_minor_version()}.${get_micro_version()}`;
 }
@@ -170,7 +170,7 @@ export function getGjsVersion() {
 }
 
 // To use with import.meta.url
-export function resolve(uri, path) {
+export function resolve(uri: string, path: string) {
   return GLib.build_filenamev([
     GLib.path_get_dirname(GLib.Uri.parse(uri, null).get_path()),
     path,
@@ -181,12 +181,12 @@ export function getPid() {
   const credentials = new Gio.Credentials();
   return credentials.get_unix_pid();
 }
-function getFileInfo(): string[] {
+export function getFileInfo(): string[] {
   let stack = new Error().stack,
     stackLine = stack.split("\n")[1],
-    coincidence,
-    path,
-    file;
+    coincidence: any[],
+    path: string,
+    file: Gio.File;
   if (!stackLine) throw new Error("Could not find current file (1)");
   coincidence = new RegExp("@(.+):\\d+").exec(stackLine);
   if (!coincidence) throw new Error("Could not find current file (2)");
@@ -194,7 +194,7 @@ function getFileInfo(): string[] {
   file = Gio.File.new_for_path(path);
   let route = file.get_parent().get_path().split(":")[1];
   let current = route + "/" + file.get_basename();
-  return [route, current];
+  return [route.replace("_compiled",""), current, file.get_basename()];
 }
 // https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/784
 export function* readDirSync(file: Gio.File) {
