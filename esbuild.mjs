@@ -1,4 +1,4 @@
-import { transformSync, transform } from "esbuild";
+import { transform } from "esbuild";
 import { argv, chalk, fs, glob } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
@@ -51,10 +51,11 @@ function compile(_path) {
     let ts_chunk = chunk, transformedJs, transformedUi;
 
 
-    let _preserve= ts_chunk.split("\n")[0].trim().includes("@gjsx-resource")
+    let _preserve = ts_chunk.split("\n")[0].trim().includes("@gjsx-resource")
 
-    if (ext === "tsx" && _preserve) {
+    if (ext === "tsx") {
       // build ui resource
+      if (argv["build-ui"] || argv.ui) {
         transformedUi = ts_chunk.split("\n").map(line => {
           let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g
           if (uiregex.test(line)) {
@@ -65,35 +66,37 @@ function compile(_path) {
           if (!fs.existsSync("_compiled/ui/" + pathto)) {
             fs.mkdirSync("_compiled/ui/" + pathto);
           }
-          transformedUi = `<?xml version="1.0" encoding="UTF-8"?>\n` + transformedUi;
-          console.log(transformedUi)
+          transformedUi = `<?xml version="1.0" encoding="UTF-8"?>` + transformedUi;
           let uiPath = `_compiled/ui/${pathto}/${basename}.${ext.replace(/tsx/g, "ui")}`, uiData = format(transformedUi.trim(), { semi: false, bracketSpacing: false, singleQuote: false, parser: "mdx" }).replace(";", "");
-          console.log(uiPath);
           fs.writeFileSync(
             uiPath,
             uiData,
             "utf8"
           );
+        }
       }
     }
-    console.log(_preserve, _path);
     let { code } = await transform(ts_chunk, {
-      jsx: _preserve ? "preserve": "" ,
-      jsxFactory:"Gjsx.createWidget",
+      // jsx: _preserve ? "preserve" : "",
+      jsxFactory: "Gjsx.createWidget",
       loader: ext
     });
 
-    transformedJs = code
+    transformedJs = code;
     transformedJs = transformedJs.split("\n").map((line) => {
-      if (/(import)(.*)(from)\s(("|')gjsx("|'))/g.test(line)) {
-        line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx.js");
+      if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
+        console.log(line)
+        line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
+      };
+      if (/(import)(.*)(from)(\s+)(("|')markdown-convert("|'))/g.test(line)) {
+        line = line.replace(/(markdown-convert)/, dotsToLibFromSrc + "/lib/markdown-convert/index.js");
       };
       return line
     });
 
     let _compiled = transformedJs.join("\n");
     if (!fs.existsSync("_compiled/" + pathto)) {
-      fs.mkdirSync("_compiled/" + pathto);
+      fs.mkdirpSync("_compiled/" + pathto);
     }
     const path = "_compiled/" + dirRoute + "." +
       ext.replace("ts", "js").replace("jsx", "js")

@@ -14,9 +14,9 @@ export function Layout({ names }: { names: string[] }) {
       orientation={Gtk.Orientation.VERTICAL}
     >
       <Gtk.Image iconName={'system-file-manager-symbolic'} iconSize={Gtk.IconSize.LARGE} />
-      
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
-      {"Text label as string. Placed right in the jsx markup."}
+      {"<span><b>String Widget Types</b></span>"}
+      {"<span><small>String Widget Types</small></span>"}
       {names.map((name, i) => (
         <Gtk.Button
           onClicked={(button) => {
@@ -30,8 +30,6 @@ export function Layout({ names }: { names: string[] }) {
           label={name}
         />
       ))}
-
-
       <Gtk.Button
         label={"Pushing My Buttons"}
         onClicked={(button) => {

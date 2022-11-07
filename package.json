@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "compile": "node esbuild.mjs",
-    "deploy":   "docker stack deploy -c docker-stack.yml gjsx",
+    "deploy": "docker stack deploy -c docker-stack.yml gjsx",
     "dev_ws": "docker stack deploy -c development-stack.yml dev_workspace",
     "format": "yarn prettier src/**/*.{ts,js} --write",
     "image": "docker-compose -f docker-compose.yml",
@@ -26,6 +26,7 @@
     "@gi-types/cairo1": "^1.0.1",
     "@gi-types/gtk": "^3.24.9",
     "@gi-types/webkit2": "^2.30.8",
+    "@types/prettier": "^2.7.1",
     "chokidar": "^3.5.3"
   },
   "dependencies": {

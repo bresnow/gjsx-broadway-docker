@@ -7,24 +7,61 @@
     "jsxFactory": "Gjsx.createWidget",
     "allowJs": true,
     "paths": {
-      "*": ["node_modules/@gi-types/*"],
-      "gjsx":["lib/gjsx.ts"],
-      "byteArray":["./types/Gjs/ByteArray.d.ts"],
-      "gi://Atk": ["./types/Gjs/Atk-1.0.d.ts"],
-      "gi://Cairo": ["./types/Gjs/cairo-1.0.d.ts"],
-      "gi://Gdk":["./types/Gjs/Gdk-2.0.d.ts","./types/Gjs/Gdk-3.0.d.ts" ],
-      "gi://Gtk?version=4.0": ["./types/Gjs/Gtk-4.0.d.ts","node_modules/@gi-types/gtk/index.d.ts"],
-      "gi://GLib": ["./types/Gjs/GLib-2.0.d.ts"],
-      "gi://Gio": ["./types/Gjs/Gio-2.0.d.ts"],
-      "gi://Soup": ["./types/Gjs/Soup-3.0.d.ts"],
-      "gi://WebKit2?version=5.0": ["./types/Gjs/WebKit2-5.0.d.ts"],
-      "gi://GObject": ["./types/Gjs/GObject-2.0.d.ts"],
-      "system":["./types/Gjs/System.d.ts"]
+      "gjsx": [
+        "lib/gjsx/index.ts"
+      ],
+      "byteArray": [
+        "./types/Gjs/ByteArray.d.ts"
+      ],
+      "gi://Atk": [
+        "./types/Gjs/Atk-1.0.d.ts"
+      ],
+      "gi://Cairo": [
+        "./types/Gjs/cairo-1.0.d.ts"
+      ],
+      "gi://Gdk": [
+        "./types/Gjs/Gdk-2.0.d.ts",
+        "./types/Gjs/Gdk-3.0.d.ts"
+      ],
+      "gi://Gtk?version=3.0": [
+        "./types/Gjs/Gtk-3.0.d.ts"
+      ],
+      "gi://Gtk?version=4.0": [
+        "./types/Gjs/Gtk-4.0.d.ts",
+        "node_modules/@gi-types/gtk/index.d.ts"
+      ],
+      "gi://GLib": [
+        "./types/Gjs/GLib-2.0.d.ts"
+      ],
+      "gi://Gio": [
+        "./types/Gjs/Gio-2.0.d.ts"
+      ],
+      "gi://Soup": [
+        "./types/Gjs/Soup-3.0.d.ts"
+      ],
+      "gi://WebKit2?version=5.0": [
+        "./types/Gjs/WebKit2-5.0.d.ts"
+      ],
+      "gi://GObject": [
+        "./types/Gjs/GObject-2.0.d.ts"
+      ],
+      "markdown-convert": [
+        "lib/markdown-convert/index.ts"
+      ],
+      "system": [
+        "./types/Gjs/System.d.ts"
+      ]
     },
     "baseUrl": ".",
     "outDir": "_compiled/",
-    "lib": ["es2018"],
+    "lib": [
+      "es2018"
+    ],
     "typeRoots": []
   },
-  "include": ["src/**/*","types/index.d.ts", "assets"]
+  "include": [
+    "src/**/*",
+    "types/index.d.ts",
+    "lib/**/*"
+  ]
 }

@@ -3,6 +3,11 @@ import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import system from "system";
 
+export function getPath(path: string) {
+  const res = `/home/app/${path}`
+  return res;
+}
+
 export class TimeoutError extends Error {
   constructor(message: string) {
     super(message);
@@ -137,7 +142,7 @@ export function once(
   });
 }
 
-function noop(...args: any[]) {}
+function noop(...args: any[]) { }
 
 // @ts-ignore
 export class Deferred extends Promise {
@@ -194,7 +199,7 @@ export function getFileInfo(): string[] {
   file = Gio.File.new_for_path(path);
   let route = file.get_parent().get_path().split(":")[1];
   let current = route + "/" + file.get_basename();
-  return [route.replace("_compiled",""), current, file.get_basename()];
+  return [route.replace("_compiled", ""), current, file.get_basename()];
 }
 // https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/784
 export function* readDirSync(file: Gio.File) {
