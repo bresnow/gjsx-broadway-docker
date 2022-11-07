@@ -11,20 +11,19 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
 
     init() {
         this.orientation = Gtk.Orientation.VERTICAL;
-        this.valign = Gtk.Align.CENTER;
+        this.valign = Gtk.Align.BASELINE;
+        this.vexpand = true;
         this.homogeneous = true;
         this.margin_start = 18;
-        let webView: Webkit.WebView, settings: Webkit.Settings, button: Gtk.Button, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
+        let webView: Webkit.WebView, settings: Webkit.Settings, button: Gtk.Button, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
         try {
 
-            settings = new Webkit.Settings()
-            settings.set_default_font_size(20)
-            webView = new Webkit.WebView({ settings });
+            settings = new Webkit.Settings({ default_monospace_font_size: 30, default_font_size: 30, zoom_text_only: true });
+            webView = new Webkit.WebView({ settings, zoom_level: 5 });
 
-            webView.set_zoom_level(1.5)
             // Label using markup syntax
             css1 = new Gtk.CssProvider();
-            css1.load_from_data(' * { color: #0a0; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }');
+            css1.load_from_data(' * { color: #a0a; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }');
             label = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             label.get_style_context().add_provider(css1, 0)
             buttonLabel = new Gtk.Label({ label: '', use_markup: true, wrap: true });
@@ -50,10 +49,11 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
                 });
             });
 
-
+            box2 = new Gtk.Box({ vexpand: true, spacing: 10, orientation: Gtk.Orientation.VERTICAL });
             this.append(webView as unknown as Gtk.Widget);
-            this.append(button);
-            this.append(label);
+            box2.append(button);
+            box2.append(label);
+            this.append(box2)
         } catch (e) {
             logError(e)
         }

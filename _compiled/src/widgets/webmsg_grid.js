@@ -11,18 +11,21 @@ export const WebMessageGrid = GObject.registerClass(
     }
     init() {
       this.orientation = Gtk.Orientation.VERTICAL;
-      this.valign = Gtk.Align.CENTER;
+      this.valign = Gtk.Align.BASELINE;
+      this.vexpand = true;
       this.homogeneous = true;
       this.margin_start = 18;
-      let webView, settings, button, label, css1, buttonLabel;
+      let webView, settings, button, box2, label, css1, buttonLabel;
       try {
-        settings = new Webkit.Settings();
-        settings.set_default_font_size(20);
-        webView = new Webkit.WebView({ settings });
-        webView.set_zoom_level(1.5);
+        settings = new Webkit.Settings({
+          default_monospace_font_size: 30,
+          default_font_size: 30,
+          zoom_text_only: true,
+        });
+        webView = new Webkit.WebView({ settings, zoom_level: 5 });
         css1 = new Gtk.CssProvider();
         css1.load_from_data(
-          " * { color: #0a0; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }"
+          " * { color: #a0a; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }"
         );
         label = new Gtk.Label({ label: "", use_markup: true, wrap: true });
         label.get_style_context().add_provider(css1, 0);
@@ -53,9 +56,15 @@ export const WebMessageGrid = GObject.registerClass(
             }
           );
         });
+        box2 = new Gtk.Box({
+          vexpand: true,
+          spacing: 10,
+          orientation: Gtk.Orientation.VERTICAL,
+        });
         this.append(webView);
-        this.append(button);
-        this.append(label);
+        box2.append(button);
+        box2.append(label);
+        this.append(box2);
       } catch (e) {
         logError(e);
       }

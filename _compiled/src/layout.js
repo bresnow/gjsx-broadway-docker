@@ -17,7 +17,6 @@ export function Layout({ names }) {
       label: "Text label as widget tag",
       wrap: true,
     }),
-    "**String Widget",
     "<span><b>String Widget Types</b></span>",
     "<span><small>String Widget Types</small></span>",
     names.map((name, i) =>

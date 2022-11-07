@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>WebKit Message Example</title>
+    <head>
+        <title>WebKit Message Example</title>
 
-            <script type="application/javascript">
-                function messageFromGTK(message) {
-                    let el =  document.getElementById("msg");
-                    // GTK will execute this function to send messages to Webkit
-                  el.innerHTML = message;
-                };
-                function messageToGTK() {
-                    // Webkit will emit 'notify::title' signal to send messages to GTK
-                    document.title = 'Mutation Occurred';
-                };
-            </script>
+        <script type="application/javascript">
+            function messageFromGTK(message) {
+                let el = document.getElementById("msg");
+                // GTK will execute this function to send messages to Webkit
+                el.innerHTML = message;
+            };
+            function messageToGTK() {
+                // Webkit will emit 'notify::title' signal to send messages to GTK
+                document.title = 'Mutation Occurred';
+            };
+        </script>
 
-            <style type="text/css">
-                body {
-                    font-family: Cantarell, sans-serif;
-                    text-align: center;
-                }
+        <style type="text/css">
+            body {
+                font-family: Cantarell, sans-serif;
+                text-align: center;
+                font-size: 5em;
+            }
 
-                button {
-                    font-size: 1.5em;
-                    background: blue;
-                    color: azure;
-                    width: fit-content;
-                }
-            </style>
+            button {
+                font-size: 10em;
+                background: blue;
+                color: azure;
+                width: fit-content;
+            }
+        </style>
 
-</head>
+    </head>
 
-<body>
-    <div id="msg"></div>
-    <br />
-    <button type="button" onclick="messageToGTK()">Webkit to GTK message</button>
-    <br />
-</body>
+    <body>
+        <div id="msg"></div>
+        <br />
+        <button type="button" onclick="messageToGTK()">Webkit to GTK message</button>
+        <br />
+    </body>
 
 </html>
