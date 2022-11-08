@@ -18,7 +18,7 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
         let webView: Webkit.WebView, settings: Webkit.Settings, button: Gtk.Button, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
         try {
 
-            settings = new Webkit.Settings({ default_monospace_font_size: 30, default_font_size: 30, zoom_text_only: true });
+            settings = new Webkit.Settings({ default_monospace_font_size: 30, default_font_size: 30 });
             webView = new Webkit.WebView({ settings, zoom_level: 5 });
 
             // Label using markup syntax
@@ -39,6 +39,9 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
             button = new Gtk.Button();
             button.set_margin_top(20)
             button.set_child(buttonLabel)
+            webView.connect("notify::zoom-level", (self, params) => {
+                print(params)
+            })
             button.connect('clicked', () => {
                 // Execute one Webkit function to send a message from GTK to Webkit
                 webView.run_javascript('messageFromGTK("Sent Web Message From Gtk Interface To Webkit Html!");', null, (self: Webkit.WebView, result: any, error: any) => {

@@ -5,12 +5,11 @@ import { theme } from "../lib/util.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { WebMessageGrid } from "./widgets/webmsg_grid.js";
-import convertMd from "markdown-convert"
+// import convertMd from "markdown-convert"
 
 Gtk.init();
 let argv = ARGV;
 theme(argv);
-print(convertMd(`# Lemony Snicket\n - lego my eggo \n \`\`\`\n code master\n \`\`\` `))
 
 const MainWindow = function ({ app }: { app: Gtk.Application }) {
   const names = [
@@ -19,13 +18,14 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
     "Gtk-4.0",
     "Simplest React For Gjs Library",
   ];
+  const layoutStyle = { color: "#fff", fontSize: "18px", backgroundColor: "rgba(0, 0, 50, 0.8)", borderRadius: "10px", padding: "10px" }
+
   return (
     <AppWindow application={app} >
-      <BoxContainer css_name="" css_classes={[]}>
-        <WebMessageGrid />
-        <Gtk.Separator />
+      <BoxContainer style={layoutStyle} >
         <Layout names={names} />
         <Gtk.Separator />
+        <WebMessageGrid />
       </BoxContainer>
     </AppWindow>
   );

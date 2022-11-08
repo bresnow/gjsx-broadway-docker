@@ -21,8 +21,6 @@ const render = ({ Widget, attributes, children }) => {
       if (attr.startsWith("on")) {
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
-      } else if (attr === "css_name") {
-        styleClass[attr] = element;
       } else if (attr === "style") {
         styleClass[attr] = element;
       } else {
@@ -37,16 +35,20 @@ const render = ({ Widget, attributes, children }) => {
       widget.connect(signal, handler);
     }
   }
+  for (const style in styleClass) {
+    if (styleClass["style"]) {
+      let css = new Gtk.CssProvider();
+      const _style = styleClass[style];
+      css.load_from_data(`* { ${styleObjectToCssData(_style)} }`);
+      widget.get_style_context().add_provider(css, 0);
+    }
+  }
   if (children) {
     children
       .reduce((acc, val) => acc.concat(val), [])
       .map((child) => {
         if (typeof child === "string") {
-          return new Gtk.Label({
-            label: child,
-            use_markup: true,
-            visible: true,
-          });
+          return new Gtk.Label({ label: child, use_markup: true, wrap: true });
         } else {
           return render(child);
         }
@@ -79,5 +81,18 @@ function isConstructor(f) {
     return false;
   }
   return true;
+}
+function styleObjectToCssData(styleAttr) {
+  if (typeof styleAttr === "object") {
+    return Object.entries(styleAttr).reduce((acc, curr) => {
+      let [key, value] = curr;
+      key = camelToKebab(key);
+      let result = acc + ` ${key}:${value};`;
+      print(`STYLE RESULT: ${result}`);
+      return result;
+    }, "");
+  } else {
+    throw new Error("Style attributes must be an object");
+  }
 }
 export default { render, createWidget, isConstructor };

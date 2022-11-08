@@ -20,7 +20,6 @@ export const WebMessageGrid = GObject.registerClass(
         settings = new Webkit.Settings({
           default_monospace_font_size: 30,
           default_font_size: 30,
-          zoom_text_only: true,
         });
         webView = new Webkit.WebView({ settings, zoom_level: 5 });
         css1 = new Gtk.CssProvider();
@@ -44,6 +43,9 @@ export const WebMessageGrid = GObject.registerClass(
         button = new Gtk.Button();
         button.set_margin_top(20);
         button.set_child(buttonLabel);
+        webView.connect("notify::zoom-level", (self, params) => {
+          print(params);
+        });
         button.connect("clicked", () => {
           webView.run_javascript(
             'messageFromGTK("Sent Web Message From Gtk Interface To Webkit Html!");',

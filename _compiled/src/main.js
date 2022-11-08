@@ -5,17 +5,9 @@ import { theme } from "../lib/util.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { WebMessageGrid } from "./widgets/webmsg_grid.js";
-import convertMd from "../lib/markdown-convert/index.js";
 Gtk.init();
 let argv = ARGV;
 theme(argv);
-print(
-  convertMd(`# Lemony Snicket
- - lego my eggo 
- \`\`\`
- code master
- \`\`\` `)
-);
 const MainWindow = function ({ app: app2 }) {
   const names = [
     "GnomeJSX",
@@ -23,6 +15,13 @@ const MainWindow = function ({ app: app2 }) {
     "Gtk-4.0",
     "Simplest React For Gjs Library",
   ];
+  const layoutStyle = {
+    color: "#fff",
+    fontSize: "18px",
+    backgroundColor: "rgba(0, 0, 50, 0.8)",
+    borderRadius: "10px",
+    padding: "10px",
+  };
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -31,15 +30,13 @@ const MainWindow = function ({ app: app2 }) {
     /* @__PURE__ */ Gjsx.createWidget(
       BoxContainer,
       {
-        css_name: "",
-        css_classes: [],
+        style: layoutStyle,
       },
-      /* @__PURE__ */ Gjsx.createWidget(WebMessageGrid, null),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
       /* @__PURE__ */ Gjsx.createWidget(Layout, {
         names,
       }),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null)
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
+      /* @__PURE__ */ Gjsx.createWidget(WebMessageGrid, null)
     )
   );
 };

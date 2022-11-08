@@ -11,12 +11,12 @@ export function Layout({ names }: { names: string[] }) {
   return (
     <Gtk.Box
       spacing={18}
-      orientation={Gtk.Orientation.VERTICAL}
+      orientation={Gtk.Orientation.HORIZONTAL}
     >
       <Gtk.Image iconName={'system-file-manager-symbolic'} iconSize={Gtk.IconSize.LARGE} />
       <Gtk.Label label={"Text label as widget tag"} wrap={true} />
-      {"<span><b>String Widget Types</b></span>"}
-      {"<span><small>String Widget Types</small></span>"}
+      {`<span><b>Bold string using markup syntax.</b></span>`}
+      {"<span><small>Small string using markup syntax.</small></span>"}
       {names.map((name, i) => (
         <Gtk.Button
           onClicked={(button) => {
@@ -30,14 +30,6 @@ export function Layout({ names }: { names: string[] }) {
           label={name}
         />
       ))}
-      <Gtk.Button
-        label={"Pushing My Buttons"}
-        onClicked={(button) => {
-          print("Event fired!!");
-          button.label = "Pushed Real Guuud";
-        }}
-        halign={Gtk.Align.CENTER}
-      />
     </Gtk.Box>
   );
 }

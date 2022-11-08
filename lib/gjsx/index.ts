@@ -33,8 +33,6 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       if (attr.startsWith("on")) {
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
-      } else if (attr === "css_name") {
-        styleClass[attr] = element;
       } else if (attr === "style") {
         styleClass[attr] = element;
       } else {
@@ -52,6 +50,15 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
     }
   }
 
+  for (const style in styleClass) {
+    if (styleClass["style"]) {
+      let css = new Gtk.CssProvider();
+      const _style = styleClass[style];
+      css.load_from_data(`* { ${styleObjectToCssData(_style)} }`);
+      widget.get_style_context().add_provider(css, 0)
+    }
+  }
+
   if (children) {
     children
       .reduce((acc: string | any[], val: any) => acc.concat(val), [])
@@ -62,8 +69,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
             | string
         ) => {
           if (typeof child === "string") {
-            return new Gtk.Label({ label: child, use_markup: true, visible: true });
-
+            return new Gtk.Label({ label: child, use_markup: true, wrap: true });
           } else {
             return render(child);
           }
@@ -93,7 +99,7 @@ function camelToKebab(string: string) {
   return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 }
 
-function isConstructor(f: new () => any) {
+function isConstructor(f: any) {
   try {
     new f();
   } catch (err) {
@@ -102,9 +108,20 @@ function isConstructor(f: new () => any) {
   return true;
 }
 
+function styleObjectToCssData(styleAttr: Record<string, string>) {
+  if (typeof styleAttr === "object") {
+    return Object.entries(styleAttr).reduce((acc, curr) => {
+      let [key, value] = curr;
+      key = camelToKebab(key)
+      let result = acc + ` ${key}:${value};`
+      print(`STYLE RESULT: ${result}`);
+      return result
+    }, "");
+  } else {
+    throw new Error('Style attributes must be an object')
+  }
+}
 
-
-type ResourceWidget = { element: string, attr: Record<string, string>, childs: ResourceWidget[] }
 
 type WidgetConstructed = {
   Widget: Gtk.Widget | string;

@@ -9,12 +9,7 @@ export const BoxContainer = GObject.registerClass(
     }
     init() {
       this.orientation = Gtk.Orientation.VERTICAL;
-      this.spacing = 18;
-      let css1 = new Gtk.CssProvider();
-      css1.load_from_data(
-        " * { color: #000; font-size: 12px; background-color: rgba(255, 100, 146 , 0.6); border-radius: 5px; }"
-      );
-      this.get_style_context().add_provider(css1, 0);
+      this.spacing = 8;
     }
   }
 );
