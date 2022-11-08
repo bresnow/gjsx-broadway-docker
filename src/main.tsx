@@ -18,7 +18,13 @@ const MainWindow = function ({ app }: { app: Gtk.Application }) {
     "Gtk-4.0",
     "Simplest React For Gjs Library",
   ];
-  const layoutStyle = { color: "#fff", fontSize: "18px", backgroundColor: "rgba(0, 0, 50, 0.8)", borderRadius: "10px", padding: "10px" }
+  const layoutStyle = {
+    color: "#fff",
+    fontSize: "12px",
+    backgroundColor: "rgba(0, 0, 50, 0.8)",
+    borderRadius: "10px",
+    padding: "10px"
+  }
 
   return (
     <AppWindow application={app} >

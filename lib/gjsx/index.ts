@@ -25,7 +25,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
   const signals: any = {};
   const styleClass: any = {};
   const constructParams: any = {};
-
+// Separate attributes 
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
@@ -40,16 +40,17 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       }
     }
   }
-
+// call the widget constructor
   const widget = new Widget({ visible: true, ...constructParams });
 
+  // connect signals TODO: Signal handlers to run as attributes
   for (const signal in signals) {
     if (signals.hasOwnProperty(signal)) {
       const handler = signals[signal];
       widget.connect(signal, handler);
     }
   }
-
+// Css attributes to add to the widget style context
   for (const style in styleClass) {
     if (styleClass["style"]) {
       let css = new Gtk.CssProvider();
@@ -114,7 +115,7 @@ function styleObjectToCssData(styleAttr: Record<string, string>) {
       let [key, value] = curr;
       key = camelToKebab(key)
       let result = acc + ` ${key}:${value};`
-      print(`STYLE RESULT: ${result}`);
+      // print(`STYLE RESULT: ${result}`);
       return result
     }, "");
   } else {

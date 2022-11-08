@@ -88,7 +88,6 @@ function styleObjectToCssData(styleAttr) {
       let [key, value] = curr;
       key = camelToKebab(key);
       let result = acc + ` ${key}:${value};`;
-      print(`STYLE RESULT: ${result}`);
       return result;
     }, "");
   } else {
