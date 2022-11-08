@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>WebKit2?version=5.0 Message</title>
+
+        <script type="application/javascript">
+            function messageFromGTK(message) {
+                let el = document.getElementById("msg");
+                // GTK will execute this function to send messages to Webkit
+                el.innerHTML = message;
+            };
+            function messageToGTK() {
+                // Webkit will emit 'notify::title' signal to send messages to GTK
+                document.title = 'Change Occurred';
+            };
+        </script>
+
+        <style type="text/css">
+            body {
+                font-family: Cantarell, sans-serif;
+                text-align: center;
+                font-size: 5em;
+            }
+
+            button {
+                font-size: 10em;
+                background: red;
+                color: azure;
+                width: fit-content;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <h1 id="msg"></h1>
+        <br />
+        <button type="button" onclick="messageToGTK()">Send Message To Interface</button>
+        <br />
+    </body>
+
+</html>

@@ -1,23 +1,20 @@
 import Gtk from "gi://Gtk?version=4.0";
+import GLib from "gi://GLib";
 import Gjsx from "../lib/gjsx/index.js";
 import { Layout } from "./layout.js";
 import { theme } from "../lib/util.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
-import { WebMessageGrid } from "./widgets/webmsg_grid.js";
+import { WebMessage } from "./widgets/webmsg_grid.js";
+export const __dirname = GLib.get_current_dir();
 Gtk.init();
 let argv = ARGV;
 theme(argv);
 const MainWindow = function ({ app: app2 }) {
-  const names = [
-    "GnomeJSX",
-    "Typescript",
-    "Gtk-4.0",
-    "Simplest React For Gjs Library",
-  ];
+  const names = ["GnomeJSX", "Typescript", "Gtk-4.0"];
   const layoutStyle = {
     color: "#fff",
-    fontSize: "18px",
+    fontSize: "12px",
     backgroundColor: "rgba(0, 0, 50, 0.8)",
     borderRadius: "10px",
     padding: "10px",
@@ -36,7 +33,7 @@ const MainWindow = function ({ app: app2 }) {
         names,
       }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
-      /* @__PURE__ */ Gjsx.createWidget(WebMessageGrid, null)
+      /* @__PURE__ */ Gjsx.createWidget(WebMessage, null)
     )
   );
 };

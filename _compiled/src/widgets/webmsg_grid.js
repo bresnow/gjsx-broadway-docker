@@ -1,12 +1,13 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import GLib from "gi://GLib";
 import Webkit from "gi://WebKit2?version=5.0";
-export const WebMessageGrid = GObject.registerClass(
+import GLib from "gi://GLib";
+import { __dirname } from "../main.js";
+export const WebMessage = GObject.registerClass(
   { GTypeName: "WebMessageWidget" },
   class WebMessageWidget extends Gtk.Box {
-    constructor(options) {
-      super(options);
+    constructor(opts) {
+      super(opts);
       this.init();
     }
     init() {
@@ -19,9 +20,10 @@ export const WebMessageGrid = GObject.registerClass(
       try {
         settings = new Webkit.Settings({
           default_monospace_font_size: 30,
-          default_font_size: 30,
+          default_font_size: 50,
         });
-        webView = new Webkit.WebView({ settings, zoom_level: 5 });
+        webView = new Webkit.WebView({ settings, zoom_level: 3 });
+        settings.set_minimum_font_size(30);
         css1 = new Gtk.CssProvider();
         css1.load_from_data(
           " * { color: #a0a; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }"
@@ -34,7 +36,7 @@ export const WebMessageGrid = GObject.registerClass(
           wrap: true,
         });
         webView.load_uri(
-          GLib.filename_to_uri("/home/app/assets/egWebmsg.html", null)
+          GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null)
         );
         webView.connect("notify::title", (self, params) => {
           buttonLabel.label = `<small>Press To Send Message To WebView From Interface</small>`;

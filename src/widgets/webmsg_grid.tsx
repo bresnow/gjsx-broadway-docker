@@ -1,14 +1,17 @@
 // @gjsx-resource
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from 'gi://GObject';
-import GLib from "gi://GLib"
 import Webkit from "gi://WebKit2?version=5.0";
-export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidget" }, class WebMessageWidget extends Gtk.Box {
-    constructor(options: Gtk.Grid_ConstructProps) {
-        super(options);
-        this.init()
-    };
+import GLib from 'gi://GLib';
+import { __dirname } from '../main.js';
 
+
+export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" }, class WebMessageWidget extends Gtk.Box {
+
+    constructor(opts: Gtk.Box_ConstructProps) {
+        super(opts);
+        this.init();
+    };
     init() {
         this.orientation = Gtk.Orientation.VERTICAL;
         this.valign = Gtk.Align.BASELINE;
@@ -18,17 +21,15 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
         let webView: Webkit.WebView, settings: Webkit.Settings, button: Gtk.Button, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
         try {
 
-            settings = new Webkit.Settings({ default_monospace_font_size: 30, default_font_size: 30 });
-            webView = new Webkit.WebView({ settings, zoom_level: 5 });
-
-            // Label using markup syntax
+            settings = new Webkit.Settings({ default_monospace_font_size: 30, minimum_font_size: 50 });
+            webView = new Webkit.WebView({ settings, zoom_level: 3 });
             css1 = new Gtk.CssProvider();
-            css1.load_from_data(' * { color: #a0a; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }');
+            css1.load_from_data(' * { color: #fff; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }');
             label = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             label.get_style_context().add_provider(css1, 0)
             buttonLabel = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             // Load the html asset 
-            webView.load_uri(GLib.filename_to_uri('/home/app/assets/egWebmsg.html', null));
+            webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
 
             // Get Webkit messages into GTK listening to 'notify::title' signals
             webView.connect('notify::title', (self: Webkit.WebView, params: any) => {
@@ -44,6 +45,7 @@ export const WebMessageGrid = GObject.registerClass({ GTypeName: "WebMessageWidg
             })
             button.connect('clicked', () => {
                 // Execute one Webkit function to send a message from GTK to Webkit
+                settings.set_minimum_font_size(90)
                 webView.run_javascript('messageFromGTK("Sent Web Message From Gtk Interface To Webkit Html!");', null, (self: Webkit.WebView, result: any, error: any) => {
                     self.run_javascript_finish(result);
                     button.set_has_frame(false);
