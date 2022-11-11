@@ -92,5 +92,6 @@ COPY ./startapp.sh /startapp.sh
 RUN \
     chmod +x /startapp.sh 
 
+ENV  XDG_RUNTIME_DIR /home
 WORKDIR /home/app
 CMD [ "/startapp.sh" ]

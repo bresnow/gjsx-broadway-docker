@@ -1,12 +1,10 @@
 import Gtk from "gi://Gtk?version=4.0";
-import GLib from "gi://GLib";
 import Gjsx from "../lib/gjsx/index.js";
 import { Layout } from "./layout.js";
 import { theme } from "../lib/util.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { WebMessage } from "./widgets/webmsg_grid.js";
-export const __dirname = GLib.get_current_dir();
 Gtk.init();
 let argv = ARGV;
 theme(argv);

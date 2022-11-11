@@ -253,7 +253,7 @@ export function basename(filename: string) {
 }
 
 export function theme(argv: typeof ARGV, themeName?: string) {
-  let gtkSettings = Gtk.Settings.get_default();
+  let gtkSettings: Gtk.Settings
   if (argv.some((info) => info === "--dark")) {
     gtkSettings = Gtk.Settings.get_default();
     gtkSettings.gtk_application_prefer_dark_theme = true;

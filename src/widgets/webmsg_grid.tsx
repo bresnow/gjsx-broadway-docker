@@ -18,20 +18,7 @@ type Buttons = {
     reload: Gtk.Button | undefined;
 }
 
-function CssProvider({ data, }: { data?: Record<string, string>; }) {
-    let provider = new Gtk.CssProvider({ data });
-    return {
-        addToWidget(widget: Gtk.Widget) {
-            widget.get_style_context().add_provider(provider, null)
-        },
-        loadStyle(data: Record<string, string>) {
-            provider.load_from_data(` * { ${styleObjectToCssData(data)} }`);
-        },
-        loadFile(file: string) {
-            provider.load_from_path(__dirname + "/" + file);
-        }
-    }
-}
+
 export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" }, class WebMessageWidget extends Gtk.Box {
 
     constructor(opts: Gtk.Box_ConstructProps) {
@@ -46,7 +33,7 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
         this.margin_start = 18;
     }
     init() {
-
+        this.setBoxAttributes();
         let webView: Webkit.WebView, settings: Webkit.Settings, button: Buttons = { reload: undefined, send: undefined }, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
         try {
 
@@ -58,7 +45,8 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
             label.get_style_context().add_provider(css1, 0)
             buttonLabel = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             // Load the html asset 
-            webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
+            // webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
+            webView.load_uri("https://fileshare.fltngmmth.com");
 
             // Get Webkit messages into GTK listening to 'notify::title' signals
             webView.connect('notify::title', (self: Webkit.WebView, params: any) => {

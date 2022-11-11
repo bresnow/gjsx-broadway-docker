@@ -7,9 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 39660:8085
+      - 3966:8085
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/lib:/home/app/lib
       - ${PWD}/assets:/home/app/assets
-

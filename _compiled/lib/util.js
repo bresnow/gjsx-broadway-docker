@@ -199,7 +199,7 @@ export function basename(filename) {
   return [name, basename2, extension];
 }
 export function theme(argv, themeName) {
-  let gtkSettings = Gtk.Settings.get_default();
+  let gtkSettings;
   if (argv.some((info) => info === "--dark")) {
     gtkSettings = Gtk.Settings.get_default();
     gtkSettings.gtk_application_prefer_dark_theme = true;

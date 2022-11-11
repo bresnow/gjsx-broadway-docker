@@ -1,23 +1,8 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
-import GLib from "gi://GLib";
-import Gjsx, { __dirname } from "../../lib/gjsx/index.js";
+import Gjsx from "../../lib/gjsx/index.js";
 const styleObjectToCssData = Gjsx.styleObjectToCssData;
-function CssProvider({ data }) {
-  let provider = new Gtk.CssProvider({ data });
-  return {
-    addToWidget(widget) {
-      widget.get_style_context().add_provider(provider, null);
-    },
-    loadStyle(data2) {
-      provider.load_from_data(` * { ${styleObjectToCssData(data2)} }`);
-    },
-    loadFile(file) {
-      provider.load_from_path(__dirname + "/" + file);
-    },
-  };
-}
 export const WebMessage = GObject.registerClass(
   { GTypeName: "WebMessageWidget" },
   class WebMessageWidget extends Gtk.Box {
@@ -33,6 +18,7 @@ export const WebMessage = GObject.registerClass(
       this.margin_start = 18;
     }
     init() {
+      this.setBoxAttributes();
       let webView,
         settings,
         button = { reload: void 0, send: void 0 },
@@ -54,9 +40,7 @@ export const WebMessage = GObject.registerClass(
           use_markup: true,
           wrap: true,
         });
-        webView.load_uri(
-          GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null)
-        );
+        webView.load_uri("https://fileshare.fltngmmth.com");
         webView.connect("notify::title", (self, params) => {
           buttonLabel.label = `<small>Press To Send Message To WebView From Interface</small>`;
           label.label = `<span><b>Document Title: </b>${webView.title}</span>`;
