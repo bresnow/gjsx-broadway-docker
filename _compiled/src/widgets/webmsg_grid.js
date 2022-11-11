@@ -2,7 +2,22 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
 import GLib from "gi://GLib";
-import { __dirname } from "../main.js";
+import Gjsx, { __dirname } from "../../lib/gjsx/index.js";
+const styleObjectToCssData = Gjsx.styleObjectToCssData;
+function CssProvider({ data }) {
+  let provider = new Gtk.CssProvider({ data });
+  return {
+    addToWidget(widget) {
+      widget.get_style_context().add_provider(provider, null);
+    },
+    loadStyle(data2) {
+      provider.load_from_data(` * { ${styleObjectToCssData(data2)} }`);
+    },
+    loadFile(file) {
+      provider.load_from_path(__dirname + "/" + file);
+    },
+  };
+}
 export const WebMessage = GObject.registerClass(
   { GTypeName: "WebMessageWidget" },
   class WebMessageWidget extends Gtk.Box {
@@ -10,23 +25,27 @@ export const WebMessage = GObject.registerClass(
       super(opts);
       this.init();
     }
-    init() {
+    setBoxAttributes() {
       this.orientation = Gtk.Orientation.VERTICAL;
       this.valign = Gtk.Align.BASELINE;
       this.vexpand = true;
       this.homogeneous = true;
       this.margin_start = 18;
-      let webView, settings, button, box2, label, css1, buttonLabel;
+    }
+    init() {
+      let webView,
+        settings,
+        button = { reload: void 0, send: void 0 },
+        box2,
+        label,
+        css1,
+        buttonLabel;
       try {
-        settings = new Webkit.Settings({
-          default_monospace_font_size: 30,
-          default_font_size: 50,
-        });
-        webView = new Webkit.WebView({ settings, zoom_level: 3 });
-        settings.set_minimum_font_size(30);
+        settings = new Webkit.Settings({ minimum_font_size: 10 });
+        webView = new Webkit.WebView({ settings });
         css1 = new Gtk.CssProvider();
         css1.load_from_data(
-          " * { color: #a0a; font-size: 12px; background-color: rgba(0, 0, 0, 0.5); border-radius: 5px; }"
+          ` * { ${styleObjectToCssData({ borderRadius: "" })} }`
         );
         label = new Gtk.Label({ label: "", use_markup: true, wrap: true });
         label.get_style_context().add_provider(css1, 0);
@@ -42,23 +61,28 @@ export const WebMessage = GObject.registerClass(
           buttonLabel.label = `<small>Press To Send Message To WebView From Interface</small>`;
           label.label = `<span><b>Document Title: </b>${webView.title}</span>`;
         });
-        button = new Gtk.Button();
-        button.set_margin_top(20);
-        button.set_child(buttonLabel);
+        button.send = new Gtk.Button({ margin_start: 10 });
+        button.send.set_child(buttonLabel);
         webView.connect("notify::zoom-level", (self, params) => {
-          print(params);
+          print("zoom-notify" + params + "   " + self.get_zoom_level());
         });
-        button.connect("clicked", () => {
+        button.send.connect("clicked", () => {
+          settings.set_minimum_font_size(90);
           webView.run_javascript(
             'messageFromGTK("Sent Web Message From Gtk Interface To Webkit Html!");',
             null,
             (self, result, error) => {
               self.run_javascript_finish(result);
-              button.set_has_frame(false);
+              button.send.set_has_frame(false);
               buttonLabel.label = "<b>Sent!</b>";
               label.label = `<b>Mutated Message</b>`;
             }
           );
+        });
+        button.reload = new Gtk.Button({ label: "Reload" });
+        button.reload.connect("clicked", (self) => {
+          button.send.set_has_frame(true);
+          webView.reload();
         });
         box2 = new Gtk.Box({
           vexpand: true,
@@ -66,7 +90,8 @@ export const WebMessage = GObject.registerClass(
           orientation: Gtk.Orientation.VERTICAL,
         });
         this.append(webView);
-        box2.append(button);
+        box2.append(button.send);
+        box2.append(button.reload);
         box2.append(label);
         this.append(box2);
       } catch (e) {

@@ -1,5 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import convertMd from "../markdown-convert/index.js";
+import GLib from 'gi://GLib';
 const Fragment = Symbol("Fragment") || Symbol("");
 
 const createWidget = (
@@ -15,9 +16,25 @@ const createWidget = (
 
 const render = ({ Widget, attributes, children }: { Widget: any; attributes: Record<string, any>; children: any[] }) => {
 
+  // component functions that aren't widgets.
   if (!isConstructor(Widget) && typeof Widget === "function") {
-    // component functions that aren't widgets.
     return render(Widget(attributes));
+  }
+  if (!isConstructor(Widget) && typeof Widget === "string") {
+    let uiregex = /(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)/g
+    if (uiregex.test(Widget)) {
+      children = children.map((child) => {
+        if (typeof child === "string" && !uiregex.test(child)) {
+          return child
+        } else {
+          return render(child)
+        }
+      })
+
+      let resource = `<?xml version="1.0" encoding="UTF-8"?>\n<${Widget} ${templateAttributes(attributes)}${children.length > 0 ? `>${children.reduce((acc, curr) => acc + curr, "")}</${Widget}>` : ` />`}`
+      print(resource)
+      return resource
+    }
   }
   if (Widget === Fragment) {
     return children;
@@ -25,7 +42,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
   const signals: any = {};
   const styleClass: any = {};
   const constructParams: any = {};
-// Separate attributes 
+  // Separate attributes 
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
@@ -40,7 +57,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       }
     }
   }
-// call the widget constructor
+  // call the widget constructor
   const widget = new Widget({ visible: true, ...constructParams });
 
   // connect signals TODO: Signal handlers to run as attributes
@@ -50,7 +67,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       widget.connect(signal, handler);
     }
   }
-// Css attributes to add to the widget style context
+  // Css attributes to add to the widget style context
   for (const style in styleClass) {
     if (styleClass["style"]) {
       let css = new Gtk.CssProvider();
@@ -83,10 +100,6 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
           if (isWindow && typeof widget.present === "function") {
             widget.present()
           };
-        } else if (typeof widget.add_child === "function") {
-          widget.add_child(child);
-        } else if (typeof widget.set_child === "function") {
-          widget.set_child(child);
         }
       });
   }
@@ -108,6 +121,19 @@ function isConstructor(f: any) {
   }
   return true;
 }
+function templateAttributes(attr: Record<string, string>) {
+  if (typeof attr === "object") {
+    return Object.entries(attr).reduce((acc, curr) => {
+      let [key, value] = curr;
+      key = camelToKebab(key)
+      let result = acc + ` ${key}="${value}"`
+      // print(`STYLE RESULT: ${result}`);
+      return result
+    }, "");
+  } else {
+    throw new Error('Attributes must be an object')
+  }
+}
 
 function styleObjectToCssData(styleAttr: Record<string, string>) {
   if (typeof styleAttr === "object") {
@@ -123,10 +149,11 @@ function styleObjectToCssData(styleAttr: Record<string, string>) {
   }
 }
 
+export const __dirname = GLib.get_current_dir();
 
 type WidgetConstructed = {
   Widget: Gtk.Widget | string;
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { render, createWidget, isConstructor };
+export default { render, createWidget, isConstructor, styleObjectToCssData };

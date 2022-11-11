@@ -1,4 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
+import GLib from "gi://GLib";
 const Fragment = Symbol("Fragment") || Symbol("");
 const createWidget = (Widget, attributes, ...args) => {
   const children = args ? args.map((args2) => args2) : [];
@@ -7,6 +8,27 @@ const createWidget = (Widget, attributes, ...args) => {
 const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget) && typeof Widget === "function") {
     return render(Widget(attributes));
+  }
+  if (!isConstructor(Widget) && typeof Widget === "string") {
+    let uiregex =
+      /(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)/g;
+    if (uiregex.test(Widget)) {
+      children = children.map((child) => {
+        if (typeof child === "string" && !uiregex.test(child)) {
+          return child;
+        } else {
+          return render(child);
+        }
+      });
+      let resource = `<?xml version="1.0" encoding="UTF-8"?>
+<${Widget} ${templateAttributes(attributes)}${
+        children.length > 0
+          ? `>${children.reduce((acc, curr) => acc + curr, "")}</${Widget}>`
+          : ` />`
+      }`;
+      print(resource);
+      return resource;
+    }
   }
   if (Widget === Fragment) {
     return children;
@@ -62,10 +84,6 @@ const render = ({ Widget, attributes, children }) => {
           if (isWindow && typeof widget.present === "function") {
             widget.present();
           }
-        } else if (typeof widget.add_child === "function") {
-          widget.add_child(child);
-        } else if (typeof widget.set_child === "function") {
-          widget.set_child(child);
         }
       });
   }
@@ -82,6 +100,18 @@ function isConstructor(f) {
   }
   return true;
 }
+function templateAttributes(attr) {
+  if (typeof attr === "object") {
+    return Object.entries(attr).reduce((acc, curr) => {
+      let [key, value] = curr;
+      key = camelToKebab(key);
+      let result = acc + ` ${key}="${value}"`;
+      return result;
+    }, "");
+  } else {
+    throw new Error("Attributes must be an object");
+  }
+}
 function styleObjectToCssData(styleAttr) {
   if (typeof styleAttr === "object") {
     return Object.entries(styleAttr).reduce((acc, curr) => {
@@ -94,4 +124,5 @@ function styleObjectToCssData(styleAttr) {
     throw new Error("Style attributes must be an object");
   }
 }
-export default { render, createWidget, isConstructor };
+export const __dirname = GLib.get_current_dir();
+export default { render, createWidget, isConstructor, styleObjectToCssData };
