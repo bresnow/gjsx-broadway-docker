@@ -1,17 +1,31 @@
+import Gjsx from "../lib/gjsx/index.js";
 import Gtk from "gi://Gtk?version=4.0";
-import Gjsx from "../lib/gjsx.js";
 import { Layout } from "./layout.js";
-export const MainWindow = function({ app }) {
-  const names = [
-    "GnomeJSX",
-    "Typescript",
-    "Gtk-4.0",
-    "Simplest React For Gjs Library"
-  ];
-  return /* @__PURE__ */ Gjsx.createWidget(Gtk.ApplicationWindow, {
-    title: "",
-    application: app
-  }, /* @__PURE__ */ Gjsx.createWidget(Layout, {
-    names
-  }));
-};
+import { AppWindow } from "./widgets/appwindow.js";
+import { BoxContainer } from "./widgets/box_container.js";
+import { WebMessage } from "./widgets/webmsg_grid.js";
+export function MainWindow({ app }) {
+  const names = ["GnomeJSX", "Typescript", "Gtk-4.0"];
+  const layoutStyle = {
+    borderRadius: "10px",
+    padding: "10px",
+  };
+  return /* @__PURE__ */ Gjsx.createWidget(
+    AppWindow,
+    {
+      application: app,
+    },
+    /* @__PURE__ */ Gjsx.createWidget(
+      BoxContainer,
+      {
+        css_name: "box",
+        style: layoutStyle,
+      },
+      /* @__PURE__ */ Gjsx.createWidget(Layout, {
+        names,
+      }),
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
+      /* @__PURE__ */ Gjsx.createWidget(WebMessage, null)
+    )
+  );
+}

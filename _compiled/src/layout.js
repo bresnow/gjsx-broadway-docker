@@ -1,6 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import { getFileInfo } from "../lib/util.js";
 import Gjsx from "../lib/gjsx/index.js";
+import { __dirname } from "./main.js";
 let [route, file] = getFileInfo();
 export function Layout({ names }) {
   return /* @__PURE__ */ Gjsx.createWidget(
@@ -10,8 +11,7 @@ export function Layout({ names }) {
       orientation: Gtk.Orientation.HORIZONTAL,
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
-      iconName: "system-file-manager-symbolic",
-      iconSize: Gtk.IconSize.LARGE,
+      file: __dirname + "/assets/mrs_arnold.jpeg",
     }),
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
       label: "Text label as widget tag",

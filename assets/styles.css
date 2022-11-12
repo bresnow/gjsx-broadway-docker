@@ -1,4 +1,10 @@
-welcome>label {
+box {
+    color: #ff6;
+    font-size: 12px;
+    background-color: rgba(0, 0, 50, 0.8);
+}
+
+label {
     font-size: 1.4em;
     font-weight: bold;
 }

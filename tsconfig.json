@@ -7,6 +7,9 @@
     "jsxFactory": "Gjsx.createWidget",
     "allowJs": true,
     "paths": {
+      "gjsx/utils": [
+        "lib/gjsx/utils/index.ts"
+      ],
       "gjsx": [
         "lib/gjsx/index.ts"
       ],

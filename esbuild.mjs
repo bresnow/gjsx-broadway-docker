@@ -10,12 +10,14 @@ if (watch) {
   /**
    * File watcher rebuilds after changes are made to the src directory.
    */
-  let scope = chokidar.watch(entryPoints, {
+  let watched = ["esbuild.mjs", ...entryPoints];
+  let scope = chokidar.watch(watched, {
     ignored: /(^|[\/\\])\../,
     persistent: true,
   });
   ["add", "change", "unlink"].forEach((e) => {
     scope.on(e, async (path) => {
+      if (path === "esbuild.mjs") return;
       try {
         console.log(
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
@@ -87,6 +89,10 @@ function compile(_path) {
       if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
         console.log(line)
         line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
+      };
+      if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
+        console.log(line)
+        line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
       };
       if (/(import)(.*)(from)(\s+)(("|')markdown-convert("|'))/g.test(line)) {
         line = line.replace(/(markdown-convert)/, dotsToLibFromSrc + "/lib/markdown-convert/index.js");
