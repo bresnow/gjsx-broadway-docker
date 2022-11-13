@@ -102,7 +102,6 @@ function promiseEvent(object: any, signal: any, error_signal: string) {
 export function delay(ms: number) {
   let timeout_id: any;
   const promise = new Promise<void>((resolve) => {
-    // @ts-ignore
     setTimeout(() => {
       resolve();
     }, ms);
@@ -144,18 +143,17 @@ export function once(
 
 function noop(...args: any[]) { }
 
-// @ts-ignore
-export class Deferred extends Promise {
-  constructor(def = noop) {
+export class Deferred extends Promise<any> {
+  resolve: any;
+  reject: any;
+  constructor(def: typeof noop) {
     let res: any, rej: any;
     super((resolve: any, reject: any) => {
       def(resolve, reject);
       res = resolve;
       rej = reject;
     });
-    // @ts-ignore
     this.resolve = res;
-    // @ts-ignore
     this.reject = rej;
   }
 }
@@ -238,7 +236,6 @@ export function writeTextFileSync(file: Gio.File, contents: Uint8Array) {
 }
 
 export function decode(data: any) {
-  //@ts-ignore
   return new TextDecoder().decode(data);
 }
 
@@ -252,8 +249,8 @@ export function basename(filename: string) {
   return [name, basename, extension];
 }
 
-export function theme(argv: typeof ARGV, themeName?: string) {
-  let gtkSettings = Gtk.Settings.get_default();
+export function gtkSystemTheme(argv: typeof ARGV, themeName?: string) {
+  let gtkSettings: Gtk.Settings;
   if (argv.some((info) => info === "--dark")) {
     gtkSettings = Gtk.Settings.get_default();
     gtkSettings.gtk_application_prefer_dark_theme = true;

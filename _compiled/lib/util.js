@@ -115,7 +115,7 @@ export function once(
 }
 function noop(...args) {}
 export class Deferred extends Promise {
-  constructor(def = noop) {
+  constructor(def) {
     let res, rej;
     super((resolve2, reject) => {
       def(resolve2, reject);
@@ -198,8 +198,8 @@ export function basename(filename) {
     GLib.path_get_basename(filename).match(/(.+?)(\.[^.]*$|$)/);
   return [name, basename2, extension];
 }
-export function theme(argv, themeName) {
-  let gtkSettings = Gtk.Settings.get_default();
+export function gtkSystemTheme(argv, themeName) {
+  let gtkSettings;
   if (argv.some((info) => info === "--dark")) {
     gtkSettings = Gtk.Settings.get_default();
     gtkSettings.gtk_application_prefer_dark_theme = true;

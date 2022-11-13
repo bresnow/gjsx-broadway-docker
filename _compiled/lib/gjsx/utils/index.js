@@ -2,57 +2,14 @@ import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Gdk from "gi://Gdk";
-import { TextDecoder } from "../../textcoderlite/index.js";
 const File = Gio.File;
 export const __dirname = GLib.get_current_dir();
-export default function Util() {
-  return {
-    CssProvider,
-    Spawn,
-  };
-}
-export function spawn_sync(command) {
+export default {
+  CssProvider,
+  execCmd,
+};
+export function execCmd(command) {
   return GLib.spawn_command_line_sync(command);
-}
-function Spawn(options) {
-  let prefix,
-    array_prefix = null;
-  if (!options?.prefix) {
-    prefix = "";
-  } else {
-    array_prefix = Object.entries(options.prefix);
-    prefix = array_prefix.reduce((pre, curr) => {
-      let [key, val] = curr;
-      return `${pre}${key}=${val} `;
-    }, "");
-  }
-  return {
-    exec(command_line) {
-      return GLib.spawn_command_line_async(prefix + command_line);
-    },
-    stream(command_line, callback, { decode = true }) {
-      let [res, pid, stdin, stdout, stderr] = GLib.spawn_async_with_pipes(
-        __dirname,
-        command_line.split(/(\s)+/),
-        null,
-        GLib.SpawnFlags.SEARCH_PATH,
-        null
-      );
-      const stream = new Gio.DataInputStream({
-        base_stream: new Gio.UnixInputStream({ fd: stdout }),
-      });
-      stream.read_line_async(GLib.PRIORITY_LOW, null, function (self, res2) {
-        let [out, length] = self.read_line_finish(res2);
-        if (out !== null) {
-          if (decode) {
-            callback(TextDecoder().decode(out));
-          } else {
-            callback(out);
-          }
-        }
-      });
-    },
-  };
 }
 function CssProvider() {
   let provider = new Gtk.CssProvider();

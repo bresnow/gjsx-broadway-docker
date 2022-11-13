@@ -30,7 +30,7 @@ export const WebMessage = GObject.registerClass(
           use_markup: true,
           wrap: true,
         });
-        webView.load_uri("https://fileshare.fltngmmth.com");
+        webView.load_uri("http://0.0.0.0:8085");
         webView.connect("notify::title", (self, params) => {
           label.label = `<span><b>Document Title: </b>${webView.title}</span>`;
         });

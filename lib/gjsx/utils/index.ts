@@ -2,62 +2,17 @@ import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Gdk from "gi://Gdk";
-import { TextDecoder } from '../../textcoderlite/index.js';
 const File = Gio.File;
 
 export const __dirname = GLib.get_current_dir();
 
-export default function Util() {
-    return {
-        CssProvider,
-        Spawn
-    }
+export default {
+    CssProvider,
+    execCmd
 }
-export function spawn_sync(command: string) {
+
+export function execCmd(command: string) {
     return GLib.spawn_command_line_sync(command);
-}
-/**
- * Execute or stream commands asynchronously
- * @param options 
- * @returns 
- */
-function Spawn(options?: { prefix: Record<string, string> }) {
-    let prefix: string, array_prefix: [string, string][] | null = null;
-    if (!options?.prefix) {
-        prefix = ""
-    }
-    else {
-        array_prefix = Object.entries(options.prefix)
-        prefix = array_prefix.reduce((pre, curr) => {
-            let [key, val] = curr;
-            return `${pre}` + `${key}=${val} `;
-        }, "")
-    };
-    return {
-        exec(command_line: string) {
-            return GLib.spawn_command_line_async(prefix + command_line)
-        },
-        stream(command_line: string, callback: (data: string | Uint8Array) => void, { decode = true }) {
-            let [res, pid, stdin, stdout, stderr] = GLib.spawn_async_with_pipes(
-                __dirname, command_line.split(/(\s)+/), null, GLib.SpawnFlags.SEARCH_PATH, null);
-
-            const stream = new Gio.DataInputStream({ base_stream: new Gio.UnixInputStream({ fd: stdout }) });
-
-            stream.read_line_async(GLib.PRIORITY_LOW, null, function (self: Gio.DataInputStream, res) {
-
-                let [out, length] = self.read_line_finish(res);
-                if (out !== null) {
-                    if (decode) {
-                        callback(TextDecoder().decode(out))
-                    } else {
-                        callback(out)
-                    };
-                }
-            });
-        }
-
-
-    }
 }
 
 /**

@@ -29,7 +29,7 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
             label.get_style_context().add_provider(css1, 0)
             buttonLabel = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             // Load the html asset 
-            webView.load_uri('https://fileshare.fltngmmth.com');
+            webView.load_uri('http://0.0.0.0:8085');
             // webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
 
             // Get Webkit messages into GTK listening to 'notify::title' signals
