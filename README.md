@@ -3,7 +3,7 @@
 - Uses nodejs for compiling typescript
 - Uses docker to run gnome js and gtk4 
 - Gtk-4 Broadway runs native applications in the browser.
-- Custom JSX runtime ["Gjsx"]("lib/gjsx/index.ts") 
+- Custom JSX runtime ["Gjsx"](lib/gjsx/index.ts) 
 
 ```terminal
 yarn
