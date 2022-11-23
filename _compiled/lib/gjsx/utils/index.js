@@ -8,6 +8,12 @@ export default {
   CssProvider,
   execCmd,
 };
+export function atob(data) {
+  return new TextDecoder().decode(GLib.base64_decode(data));
+}
+export function btoa(data) {
+  return GLib.base64_encode(data);
+}
 export function execCmd(command) {
   return GLib.spawn_command_line_sync(command);
 }

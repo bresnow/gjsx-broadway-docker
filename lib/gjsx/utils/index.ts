@@ -10,7 +10,13 @@ export default {
     CssProvider,
     execCmd
 }
+export function atob(data: string) {
+    return new TextDecoder().decode(GLib.base64_decode(data));
+}
 
+export function btoa(data: Uint8Array) {
+    return GLib.base64_encode(data);
+}
 export function execCmd(command: string) {
     return GLib.spawn_command_line_sync(command);
 }

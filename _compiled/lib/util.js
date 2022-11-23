@@ -126,8 +126,8 @@ export class Deferred extends Promise {
     this.reject = rej;
   }
 }
-export function getGIRepositoryVersion(repo) {
-  const { get_major_version, get_minor_version, get_micro_version } = repo;
+export function getGtkVersion() {
+  const { get_major_version, get_minor_version, get_micro_version } = Gtk;
   return `${get_major_version()}.${get_minor_version()}.${get_micro_version()}`;
 }
 export function getGLibVersion() {

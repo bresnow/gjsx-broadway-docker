@@ -4,12 +4,9 @@ import { Layout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { WebMessage } from "./widgets/webmsg_grid.js";
+import { Web2 } from "./widgets/web.js";
 export function MainWindow({ app }) {
   const names = ["GnomeJSX", "Typescript", "Gtk-4.0"];
-  const layoutStyle = {
-    borderRadius: "10px",
-    padding: "10px",
-  };
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -19,13 +16,13 @@ export function MainWindow({ app }) {
       BoxContainer,
       {
         css_name: "box",
-        style: layoutStyle,
       },
       /* @__PURE__ */ Gjsx.createWidget(Layout, {
         names,
       }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
-      /* @__PURE__ */ Gjsx.createWidget(WebMessage, null)
+      /* @__PURE__ */ Gjsx.createWidget(WebMessage, null),
+      /* @__PURE__ */ Gjsx.createWidget(Web2, null)
     )
   );
 }

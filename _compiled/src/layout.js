@@ -11,26 +11,8 @@ export function Layout({ names }) {
       orientation: Gtk.Orientation.HORIZONTAL,
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
-      file: __dirname + "/assets/mrs_arnold.jpeg",
-    }),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
-      label: "Text label as widget tag",
-      wrap: true,
-    }),
-    `<span><b>Bold string using markup syntax.</b></span>`,
-    "<span><small>Small string using markup syntax.</small></span>",
-    names.map((name, i) =>
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
-        onClicked: (button) => {
-          if (button.label !== name) {
-            button.label = name;
-          } else {
-            button.label = `Button ${i} was pressed`;
-          }
-        },
-        halign: Gtk.Align.CENTER,
-        label: name,
-      })
-    )
+      file: __dirname + "/assets/cnxt.png",
+      pixel_size: 100,
+    })
   );
 }

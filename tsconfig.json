@@ -63,7 +63,7 @@
     "typeRoots": []
   },
   "include": [
-    "src/**/*",
+    "src/**/*.tsx",
     "types/index.d.ts",
     "lib/**/*"
   ]

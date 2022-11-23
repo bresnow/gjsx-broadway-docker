@@ -4,7 +4,7 @@ FROM alpine:${ALPINE_VERSION}
 EXPOSE 8085
 WORKDIR /tmp
 # Copy helpers.
-COPY ./helpers /usr/bin/
+COPY ./docker/helpers /usr/bin/
 
 ENV GDK_BACKEND=broadway \  
     BROADWAY_DISPLAY=:5
@@ -40,8 +40,11 @@ RUN add-pkg  \
     graphene \
     gst-plugins-good-gtk \
     gstreamer \
+    # gthumb-gstreamer \
+    gthumb \
     gtksourceview \
     libadwaita \
+    libcamera-gstreamer \
     libepoxy \
     libgcc \
     libmediainfo \
@@ -88,6 +91,8 @@ RUN \
     && rm -rf /tmp/* /tmp/.[!.]*
 
 COPY ./startapp.sh /startapp.sh
+COPY ./_compiled /home/app/_compiled
+COPY ./assets /home/app/assets
 
 RUN \
     chmod +x /startapp.sh 

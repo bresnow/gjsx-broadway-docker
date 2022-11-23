@@ -48,7 +48,7 @@ function normalizeEmitter(emitter: { on: any; addListener: any; addEventListener
   };
 }
 
-function promiseSignal(object: { connect: (arg0: any, arg1: { (self: any, ...params: any[]): void; (self: any, error: any): void; }) => any; disconnect: (arg0: any) => void; }, signal: any, error_signal: string) {
+function promiseSignal<Namespace,>(object: { connect: (arg0: any, arg1: { (self: any, ...params: any[]): void; (self: any, error: any): void; }) => any; disconnect: (arg0: any) => void; }, signal: any, error_signal: string) {
   return new Promise((resolve, reject) => {
     const handler_id = object.connect(signal, handler);
     let error_handler_id: any;
@@ -158,8 +158,9 @@ export class Deferred extends Promise<any> {
   }
 }
 
-export function getGIRepositoryVersion(repo: { get_major_version: any; get_minor_version: any; get_micro_version: any; }) {
-  const { get_major_version, get_minor_version, get_micro_version } = repo;
+
+export function getGtkVersion() {
+  const { get_major_version, get_minor_version, get_micro_version } = Gtk;
   return `${get_major_version()}.${get_minor_version()}.${get_micro_version()}`;
 }
 
