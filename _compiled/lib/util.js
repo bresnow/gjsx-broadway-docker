@@ -12,11 +12,11 @@ export class TimeoutError extends Error {
     this.name = "TimeoutError";
   }
 }
-export function promiseTask(object, method, finish, ...args) {
+export function promiseTask(object, method, finishMethod, ...args) {
   return new Promise((resolve2, reject) => {
     object[method](...args, (self, asyncResult) => {
       try {
-        resolve2(object[finish](asyncResult));
+        resolve2(object[finishMethod](asyncResult));
       } catch (err) {
         reject(err);
       }

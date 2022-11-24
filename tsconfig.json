@@ -39,7 +39,7 @@
       "gi://Gio": [
         "./types/Gjs/Gio-2.0.d.ts"
       ],
-      "gi://Soup": [
+      "gi://Soup?version=3.0": [
         "./types/Gjs/Soup-3.0.d.ts"
       ],
       "gi://WebKit2?version=5.0": [

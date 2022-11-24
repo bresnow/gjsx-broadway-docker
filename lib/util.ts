@@ -15,16 +15,16 @@ export class TimeoutError extends Error {
   }
 }
 
-export function promiseTask(
+export function promiseTask<ResolveType>(
   object: any,
   method: string,
-  finish: string,
+  finishMethod: string,
   ...args: any
-) {
+): Promise<ResolveType> {
   return new Promise((resolve, reject) => {
     object[method](...args, (self: any, asyncResult: any) => {
       try {
-        resolve(object[finish](asyncResult));
+        resolve(object[finishMethod](asyncResult));
       } catch (err) {
         reject(err);
       }
