@@ -7,7 +7,7 @@
     "deploy": "docker stack deploy -c docker-stack.yml gjsx",
     "dev_ws": "docker stack deploy -c docker/development-stack.yml dev_workspace",
     "format": "yarn prettier src/**/*.{ts,js} --write",
-    "image": "docker-compose -f docker/docker-compose.yml",
+    "image": "docker-compose -f docker-compose.yml",
     "start": "gjs -m _compiled/src/main.js",
     "watch": "yarn compile --watch"
   },

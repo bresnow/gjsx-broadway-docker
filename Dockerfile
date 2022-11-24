@@ -1,13 +1,9 @@
 ARG ALPINE_VERSION=3.16
 
-FROM alpine:${ALPINE_VERSION}
-EXPOSE 8085
+FROM alpine:${ALPINE_VERSION} as base-dependencies
 WORKDIR /tmp
 # Copy helpers.
 COPY ./docker/helpers /usr/bin/
-
-ENV GDK_BACKEND=broadway \  
-    BROADWAY_DISPLAY=:5
 
 RUN  \
     gvfs_pkgs=$(apk search gvfs -q | grep -v '\-dev') \
@@ -21,7 +17,6 @@ RUN add-pkg  \
     apk-gtk3 \
     gtk4.0 \
     bash \
-    bash-completion \
     ca-certificates \
     cmake \
     cairo \
@@ -29,19 +24,21 @@ RUN add-pkg  \
     clutter-gtk \
     curl \
     dconf \
+    dbus \
+    dbus-x11 \
     g++ \
-    gcc \
     gcompat \
     git \
     gjs \
     glib \
     gnome \
+    gnunet-gtk \
     gobject-introspection \
     graphene \
     gst-plugins-good-gtk \
     gstreamer \
-    # gthumb-gstreamer \
     gthumb \
+    gtk-vnc \
     gtksourceview \
     libadwaita \
     libcamera-gstreamer \
@@ -61,41 +58,56 @@ RUN add-pkg  \
     python3 \
     py3-opengl \
     py3-pip \
+    py3-qt5 \
+    qt5-qtbase \
+    qt5-qtsvg \
     rsync \
     socat \
     sudo \
     tar \
     webkit2gtk-5.0 \
     wget \
+    wxgtk \
     vim 
 
-RUN \
-    git clone https://github.com/daniruiz/flat-remix \
-    && mkdir -p /usr/share/icons/ \
-    && rsync -av --progress flat-remix/Flat-Remix-Green-Dark /usr/share/icons/ \
-    && gtk-update-icon-cache /usr/share/icons/Flat-Remix-Green-Dark/ \
-    && rm -rf /tmp/* /tmp/.[!.]*
+FROM base-dependencies as broadway-app
 
-# Install PRO Dark XFCE theme
-RUN \
-    git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git \
-    && mkdir -p /usr/share/themes/ \
-    && rsync -av --progress 'PRO-Dark-XFCE-Edition/PRO-dark-XFCE-edition II' /usr/share/themes/ \
-    && rm -rf /tmp/* /tmp/.[!.]*
-
-# Mc-OS transparent theme
-RUN \
-    git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
-    && mkdir -p /usr/share/themes/ \
-    && rsync -av --progress 'Mc-OS-themes/Mc-OS-Transparent' /usr/share/themes/ \
-    && rm -rf /tmp/* /tmp/.[!.]*
-
+WORKDIR /home/app
 COPY ./startapp.sh /startapp.sh
-COPY ./_compiled /home/app/_compiled
-COPY ./assets /home/app/assets
+COPY ./_compiled _compiled
+COPY ./assets assets
 
 RUN \
     chmod +x /startapp.sh 
 
-WORKDIR /home/app
+ENV HOME=/home/app \
+    XDG_RUNTIME_DIR=$HOME \
+    GDK_BACKEND=broadway \  
+    BROADWAY_DISPLAY=:5
+
 CMD [ "/startapp.sh" ]
+
+
+
+
+
+# RUN \
+#     git clone https://github.com/daniruiz/flat-remix \
+#     && mkdir -p /usr/share/icons/ \
+#     && rsync -av --progress flat-remix/Flat-Remix-Green-Dark /usr/share/icons/ \
+#     && gtk-update-icon-cache /usr/share/icons/Flat-Remix-Green-Dark/ \
+#     && rm -rf /tmp/* /tmp/.[!.]*
+
+# # Install PRO Dark XFCE theme
+# RUN \
+#     git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git \
+#     && mkdir -p /usr/share/themes/ \
+#     && rsync -av --progress 'PRO-Dark-XFCE-Edition/PRO-dark-XFCE-edition II' /usr/share/themes/ \
+#     && rm -rf /tmp/* /tmp/.[!.]*
+
+# Mc-OS transparent theme
+# RUN \
+#     git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
+#     && mkdir -p /usr/share/themes/ \
+#     && rsync -av --progress 'Mc-OS-themes/Mc-OS-Transparent' /usr/share/themes/ \
+#     && rm -rf /tmp/* /tmp/.[!.]*

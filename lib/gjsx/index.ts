@@ -1,5 +1,4 @@
 import Gtk from "gi://Gtk?version=4.0";
-import convertMd from "../markdown-convert/index.js";
 const Fragment = Symbol("Fragment") || Symbol("");
 
 const createWidget = (
@@ -25,7 +24,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
   const signals: any = {};
   const styleClass: any = {};
   const constructParams: any = {};
-// Separate attributes 
+  // Separate attributes 
   for (const attr in attributes) {
     if (attributes.hasOwnProperty(attr)) {
       const element = attributes[attr];
@@ -40,7 +39,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       }
     }
   }
-// call the widget constructor
+  // call the widget constructor
   const widget = new Widget({ visible: true, ...constructParams });
 
   // connect signals TODO: Signal handlers to run as attributes
@@ -50,7 +49,7 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       widget.connect(signal, handler);
     }
   }
-// Css attributes to add to the widget style context
+  // Css attributes to add to the widget style context
   for (const style in styleClass) {
     if (styleClass["style"]) {
       let css = new Gtk.CssProvider();
@@ -70,7 +69,9 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
             | string
         ) => {
           if (typeof child === "string") {
+
             return new Gtk.Label({ label: child, use_markup: true, wrap: true });
+
           } else {
             return render(child);
           }
