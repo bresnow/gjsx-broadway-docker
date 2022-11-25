@@ -29,15 +29,14 @@ services:
     networks:
       - public
     volumes:
-      - project:/home/fltngmmth/gjsx
+      - data:/home/main
       - ${HOME}/fltngmmth/config:/home/fltngmmth/config
-      - ${HOME}/broadway-dev:/home/fltngmmth/broadway-dev
+      - ${HOME}/com.fltngmmth.fileshare:/home/fltngmmth/broadway-dev
       - code_extensions:/opt/vscode
       - filebrowser_db:/opt/filebrowser
       - filebrowser_branding:/branding
     environment:
-      - PROXY_DOMAIN=${CODESERVER_DOMAIN:-code.fltngmmth.com}
-      - DIRECTORY=fltngmmth
+      - PROXY_DOMAIN=${CODESERVER_SUBDOMAIN}.fltngmmth.com
 volumes:
   filebrowser_branding:
     driver: local-persist
@@ -51,10 +50,10 @@ volumes:
     driver: local-persist
     driver_opts:
       mountpoint: ${HOME}/.vscode-server
-  project:
+  data:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/fltngmmth/relay
+      mountpoint: ${HOME}/com.fltngmmth.fileshare
 
 networks:
   public:

@@ -4,6 +4,7 @@ import Gjsx from "../lib/gjsx/index.js";
 import { gtkSystemTheme } from "../lib/util.js";
 import util from "../lib/gjsx/utils/index.js";
 import { MainWindow } from "./mainwindow.js";
+import WebSocket from "../lib/websocket.js";
 Gtk.init();
 const css = util.CssProvider();
 const spawn = util.execCmd;
@@ -12,7 +13,6 @@ gtkSystemTheme(argv);
 css.load("assets/styles.css").display;
 export const __dirname = GLib.get_current_dir();
 const app = new Gtk.Application();
-exec('echo "DONE"');
 app.connect("activate", () => {
   Gjsx.render(
     /* @__PURE__ */ Gjsx.createWidget(MainWindow, {
@@ -20,6 +20,10 @@ app.connect("activate", () => {
     })
   );
 });
+let websocket = new WebSocket("ws://localhost:8085/socket", "broadway");
+websocket.onerror = (err) => {
+  logError(err);
+};
 app.run([]);
 function exec(cmd = "") {
   let [done, stdout, stderr] = spawn(`${cmd}`);

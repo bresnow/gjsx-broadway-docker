@@ -2,10 +2,6 @@ import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import system from "system";
-export function getPath(path) {
-  const res = `/home/app/${path}`;
-  return res;
-}
 export class TimeoutError extends Error {
   constructor(message) {
     super(message);

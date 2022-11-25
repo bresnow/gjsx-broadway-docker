@@ -87,11 +87,9 @@ function compile(_path) {
     transformedJs = code;
     transformedJs = transformedJs.split("\n").map((line) => {
       if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
-        console.log(line)
         line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
       };
       if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
-        console.log(line)
         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
       };
       if (/(import)(.*)(from)(\s+)(("|')markdown-convert("|'))/g.test(line)) {

@@ -30,8 +30,7 @@
         "./types/Gjs/Gtk-3.0.d.ts"
       ],
       "gi://Gtk?version=4.0": [
-        "./types/Gjs/Gtk-4.0.d.ts",
-        "node_modules/@gi-types/gtk/index.d.ts"
+        "./types/Gjs/Gtk-4.0.d.ts"
       ],
       "gi://GLib": [
         "./types/Gjs/GLib-2.0.d.ts"
@@ -47,9 +46,6 @@
       ],
       "gi://GObject": [
         "./types/Gjs/GObject-2.0.d.ts"
-      ],
-      "markdown-convert": [
-        "lib/markdown-convert/index.ts"
       ],
       "system": [
         "./types/Gjs/System.d.ts"

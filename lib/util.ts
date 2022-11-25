@@ -3,10 +3,6 @@ import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import system from "system";
 
-export function getPath(path: string) {
-  const res = `/home/app/${path}`
-  return res;
-}
 
 export class TimeoutError extends Error {
   constructor(message: string) {

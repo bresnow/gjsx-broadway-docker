@@ -15,7 +15,6 @@ RUN  \
 # dependencies
 RUN add-pkg  \
     apk-gtk3 \
-    gtk4.0 \
     bash \
     ca-certificates \
     cmake \
@@ -38,6 +37,8 @@ RUN add-pkg  \
     gst-plugins-good-gtk \
     gstreamer \
     gthumb \
+    gtk+2.0 \
+    gtk4.0 \
     gtk-vnc \
     gtksourceview \
     libadwaita \
@@ -70,22 +71,32 @@ RUN add-pkg  \
     wxgtk \
     vim 
 
+
 FROM base-dependencies as broadway-app
 
 WORKDIR /home/app
-COPY ./startapp.sh /startapp.sh
 COPY ./_compiled _compiled
 COPY ./assets assets
-
+COPY docker/supervisord.conf /etc/
 RUN \
-    chmod +x /startapp.sh 
+    add-pkg \
+    supervisor \
+    desktop-file-utils 
+
+# # Gwebgl GObject-introspection bindings
+# RUN \
+#     git clone https://github.com/realh/gwebgl.git /tmp/gwebgl\
+#     && cd /tmp/gwebgl \
+#     && meson setup build . \
+#     && meson compile -C build \
+#     && meson install -C build 
 
 ENV HOME=/home/app \
     XDG_RUNTIME_DIR=$HOME \
     GDK_BACKEND=broadway \  
     BROADWAY_DISPLAY=:5
 
-CMD [ "/startapp.sh" ]
+ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
 
 

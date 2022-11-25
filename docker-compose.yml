@@ -14,3 +14,4 @@ services:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/lib:/home/app/lib
       - ${PWD}/assets:/home/app/assets
+      - ${PWD}/log:/var/log

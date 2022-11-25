@@ -7,17 +7,17 @@ import GObject from 'gi://GObject';
 const text_decoder = new TextDecoder();
 const text_encoder = new TextEncoder();
 
-class _WebSocket {
+class WebSocket {
     eventListeners: WeakMap<object, any>;
     _connection: Soup.WebsocketConnection | null;
     readyState: number;
     url: string;
     _uri: GLib.Uri;
-    onopen: (self: this) => void;
+    onopen: () => void;
     onmessage: any;
     onclose: any;
     onerror: any;
-    constructor(url: string, protocols: string[] = []) {
+    constructor(url: string, protocols: string[] | string = []) {
         this.eventListeners = new WeakMap();
         this._connection = null;
         this.readyState = 0;
@@ -42,27 +42,20 @@ class _WebSocket {
             uri: this._uri,
         });
 
-        let connection: Soup.WebsocketConnection;
-        // session.websocket_connect_async(message, this.url, protocols, null, null, (s, res) => {
-        //     session.websocket_connect_finish(res)
-        // })
-        try {
-            connection = await promiseTask<Soup.WebsocketConnection>(
-                session,
-                "websocket_connect_async",
-                "websocket_connect_finish",
-                message,
-                "origin",
-                protocols,
-                null,
-                null,
-            );
-        } catch (err) {
-            this._onerror(err);
-            return;
-        }
+        await promiseTask<Soup.WebsocketConnection>(
+            session,
+            "websocket_connect_async",
+            "websocket_connect_finish",
+            message,
+            "origin",
+            protocols,
+            null,
+            null,
+        ).then((conn) => this._onconnection(conn)
+        ).catch((err) => logError(err));
 
-        this._onconnection(connection);
+
+
     }
 
     _onconnection(connection: Soup.WebsocketConnection) {
@@ -106,31 +99,31 @@ class _WebSocket {
 
     _onopen() {
         this.readyState = 1;
-        if (typeof this.onopen === "function") this.onopen(this);
+        if (typeof this.onopen === "function") this.onopen();
 
         this.emit("open");
     }
     emit(arg0: string) {
-        throw new Error("Method not implemented.");
+        throw new Error("Method not implemented");
     }
 
     _onmessage(message: { data: string }) {
-        if (typeof this.onmessage === "function") this.onmessage(message);
-
-        this.emit(message.data);
+        if (typeof this.onmessage === "function") { this.onmessage(message) }
+        else;
+        { this.emit(message.data) };
     }
 
     _onclose() {
         this.readyState = 3;
         if (typeof this.onclose === "function") this.onclose();
-
-        this.emit("close");
+        else
+            this.emit("close");
     }
 
     _onerror(error: string) {
         if (typeof this.onerror === "function") this.onerror(error);
-
-        this.emit(error);
+        else
+            this.emit(error);
     }
 
     addEventListener(name: any, fn: any) {
@@ -153,5 +146,4 @@ class _WebSocket {
     }
 }
 
-const WebSocket = GObject.registerClass({ GTypeName: "WebSocket" }, _WebSocket)
 export default WebSocket

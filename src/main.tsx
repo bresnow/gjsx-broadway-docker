@@ -5,7 +5,7 @@ import Gjsx from "gjsx";
 import { gtkSystemTheme } from "../lib/util.js";
 import util from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
-
+import WebSocket from '../lib/websocket.js';
 
 Gtk.init();
 const css = util.CssProvider();
@@ -18,10 +18,15 @@ css.load("assets/styles.css").display
 export const __dirname = GLib.get_current_dir();
 const app = new Gtk.Application();
 
-exec('echo "DONE"')
+// exec('echo "DONE"')
 app.connect("activate", () => {
   Gjsx.render(<MainWindow app={app} />)
 });
+let websocket = new WebSocket('ws://localhost:8085/socket', 'broadway')
+// log(websocket._connection.get_uri())
+websocket.onerror = (err) => {
+  logError(err)
+}
 app.run([]);
 
 function exec(cmd = '') {

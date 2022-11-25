@@ -1,0 +1,8 @@
+2022-11-25 21:29:33,557 INFO Set uid to user 0 succeeded
+2022-11-25 21:29:33,563 INFO supervisord started with pid 1
+2022-11-25 21:29:34,568 INFO spawned: 'broadwayd' with pid 7
+2022-11-25 21:29:34,574 INFO spawned: 'gjsx' with pid 8
+2022-11-25 21:29:35,658 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-25 21:29:35,659 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-25 21:41:12,026 INFO reaped unknown pid 202 (terminated by SIGINT)
+2022-11-25 21:41:12,026 INFO reaped unknown pid 204 (terminated by SIGINT)
