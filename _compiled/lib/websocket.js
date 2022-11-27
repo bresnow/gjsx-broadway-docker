@@ -23,8 +23,7 @@ class WebSocket {
       method: "GET",
       uri: this._uri,
     });
-    let connection;
-    connection = await promiseTask(
+    await promiseTask(
       session,
       "websocket_connect_async",
       "websocket_connect_finish",
@@ -33,8 +32,9 @@ class WebSocket {
       protocols,
       null,
       null
-    ).catch((err) => logError(err));
-    if (connection) this._onconnection(connection);
+    )
+      .then((conn) => this._onconnection(conn))
+      .catch((err) => logError(err));
   }
   _onconnection(connection) {
     this._connection = connection;
@@ -74,29 +74,24 @@ class WebSocket {
     this.emit("open");
   }
   emit(arg0) {
-    throw new Error("Method not implemen");
+    throw new Error("Method not implemented");
   }
   _onmessage(message) {
-    if (typeof this.onmessage === "function") this.onmessage(message);
-    this.emit(message.data);
+    if (typeof this.onmessage === "function") {
+      this.onmessage(message);
+    } else;
+    {
+      this.emit(message.data);
+    }
   }
   _onclose() {
     this.readyState = 3;
     if (typeof this.onclose === "function") this.onclose();
-    this.emit("close");
+    else this.emit("close");
   }
   _onerror(error) {
     if (typeof this.onerror === "function") this.onerror(error);
-    this.emit(error);
-  }
-  addEventListener(name, fn) {
-    const id = this.connect(name, (self, ...args) => {
-      fn(...args);
-    });
-    this.eventListeners.set(fn, id);
-  }
-  connect(name, fn) {
-    throw new Error("Method not implemented.");
+    else this.emit(error);
   }
   removeEventListener(name, fn) {
     const id = this.eventListeners.get(fn);

@@ -1,8 +1,197 @@
-2022-11-25 21:29:33,557 INFO Set uid to user 0 succeeded
-2022-11-25 21:29:33,563 INFO supervisord started with pid 1
-2022-11-25 21:29:34,568 INFO spawned: 'broadwayd' with pid 7
-2022-11-25 21:29:34,574 INFO spawned: 'gjsx' with pid 8
-2022-11-25 21:29:35,658 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2022-11-25 21:29:35,659 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
-2022-11-25 21:41:12,026 INFO reaped unknown pid 202 (terminated by SIGINT)
-2022-11-25 21:41:12,026 INFO reaped unknown pid 204 (terminated by SIGINT)
+2022-11-27 01:23:18,911 INFO Set uid to user 0 succeeded
+2022-11-27 01:23:18,920 INFO supervisord started with pid 1
+2022-11-27 01:23:19,926 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 01:23:19,933 INFO spawned: 'gjsx' with pid 8
+2022-11-27 01:23:21,873 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 01:23:21,874 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 01:24:48,997 WARN received SIGTERM indicating exit request
+2022-11-27 01:24:48,999 INFO waiting for broadwayd, gjsx to die
+2022-11-27 01:24:49,147 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 01:24:49,148 INFO reaped unknown pid 32 (exit status 0)
+2022-11-27 01:24:49,148 INFO reaped unknown pid 34 (exit status 0)
+2022-11-27 01:24:49,152 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 01:25:57,251 INFO Set uid to user 0 succeeded
+2022-11-27 01:25:57,261 INFO supervisord started with pid 1
+2022-11-27 01:25:58,271 INFO spawned: 'broadwayd' with pid 6
+2022-11-27 01:25:58,279 INFO spawned: 'gjsx' with pid 7
+2022-11-27 01:25:59,306 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 01:25:59,307 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:54:11,777 WARN received SIGTERM indicating exit request
+2022-11-27 11:54:11,780 INFO waiting for broadwayd, gjsx to die
+2022-11-27 11:54:12,784 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 11:54:12,784 INFO reaped unknown pid 31 (exit status 0)
+2022-11-27 11:54:12,785 INFO reaped unknown pid 33 (exit status 0)
+2022-11-27 11:54:13,788 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 11:54:16,299 INFO Set uid to user 0 succeeded
+2022-11-27 11:54:16,307 INFO supervisord started with pid 1
+2022-11-27 11:54:17,312 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 11:54:17,321 INFO spawned: 'gjsx' with pid 8
+2022-11-27 11:54:18,335 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:54:18,336 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:54:18,336 INFO exited: gjsx (exit status 1; not expected)
+2022-11-27 11:54:19,343 INFO spawned: 'gjsx' with pid 20
+2022-11-27 11:54:20,359 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:54:20,359 INFO exited: gjsx (exit status 1; not expected)
+2022-11-27 11:54:21,365 INFO spawned: 'gjsx' with pid 31
+2022-11-27 11:54:22,383 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:54:22,383 INFO exited: gjsx (exit status 1; not expected)
+2022-11-27 11:54:23,389 INFO spawned: 'gjsx' with pid 42
+2022-11-27 11:54:23,391 WARN received SIGTERM indicating exit request
+2022-11-27 11:54:23,392 INFO waiting for broadwayd, gjsx to die
+2022-11-27 11:54:24,412 INFO stopped: gjsx (exit status 1)
+2022-11-27 11:54:25,415 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 11:55:57,413 INFO Set uid to user 0 succeeded
+2022-11-27 11:55:57,428 INFO supervisord started with pid 1
+2022-11-27 11:55:58,434 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 11:55:58,445 INFO spawned: 'gjsx' with pid 8
+2022-11-27 11:55:58,454 INFO spawned: 'nodeserver' with pid 9
+2022-11-27 11:55:59,476 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:55:59,476 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:55:59,477 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:55:59,477 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:00,484 INFO spawned: 'nodeserver' with pid 88
+2022-11-27 11:56:01,524 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:01,536 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:02,545 INFO spawned: 'nodeserver' with pid 144
+2022-11-27 11:56:03,570 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:03,572 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:04,579 INFO spawned: 'nodeserver' with pid 155
+2022-11-27 11:56:05,621 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:05,622 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:06,629 INFO spawned: 'nodeserver' with pid 166
+2022-11-27 11:56:07,653 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:07,654 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:08,662 INFO spawned: 'nodeserver' with pid 177
+2022-11-27 11:56:09,679 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:09,681 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:10,689 INFO spawned: 'nodeserver' with pid 197
+2022-11-27 11:56:11,704 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:11,705 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:12,729 INFO spawned: 'nodeserver' with pid 208
+2022-11-27 11:56:13,750 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:13,750 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:14,758 INFO spawned: 'nodeserver' with pid 219
+2022-11-27 11:56:15,782 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:15,783 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:16,790 INFO spawned: 'nodeserver' with pid 230
+2022-11-27 11:56:17,812 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:17,812 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:18,826 INFO spawned: 'nodeserver' with pid 241
+2022-11-27 11:56:19,859 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:19,860 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:20,868 INFO spawned: 'nodeserver' with pid 252
+2022-11-27 11:56:21,902 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:21,902 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:22,913 INFO spawned: 'nodeserver' with pid 263
+2022-11-27 11:56:23,935 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:23,935 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:24,943 INFO spawned: 'nodeserver' with pid 274
+2022-11-27 11:56:25,964 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:25,965 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:26,971 INFO spawned: 'nodeserver' with pid 285
+2022-11-27 11:56:27,995 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:27,996 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:29,006 INFO spawned: 'nodeserver' with pid 296
+2022-11-27 11:56:30,025 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:30,026 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:31,032 INFO spawned: 'nodeserver' with pid 307
+2022-11-27 11:56:32,051 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:32,051 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:33,057 INFO spawned: 'nodeserver' with pid 318
+2022-11-27 11:56:34,093 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:34,094 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:35,099 INFO spawned: 'nodeserver' with pid 329
+2022-11-27 11:56:36,114 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:36,115 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:37,122 INFO spawned: 'nodeserver' with pid 340
+2022-11-27 11:56:38,169 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:38,170 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:39,175 INFO spawned: 'nodeserver' with pid 351
+2022-11-27 11:56:40,191 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:40,191 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:41,199 INFO spawned: 'nodeserver' with pid 362
+2022-11-27 11:56:42,220 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:42,221 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:43,227 INFO spawned: 'nodeserver' with pid 373
+2022-11-27 11:56:44,244 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:56:44,245 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:56:45,251 INFO spawned: 'nodeserver' with pid 384
+2022-11-27 11:56:45,252 WARN received SIGTERM indicating exit request
+2022-11-27 11:56:45,254 INFO waiting for broadwayd, gjsx, nodeserver to die
+2022-11-27 11:56:46,266 INFO stopped: nodeserver (exit status 1)
+2022-11-27 11:56:47,270 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 11:56:47,270 INFO reaped unknown pid 43 (exit status 0)
+2022-11-27 11:56:47,270 INFO reaped unknown pid 45 (exit status 0)
+2022-11-27 11:56:48,273 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 11:59:29,227 INFO Set uid to user 0 succeeded
+2022-11-27 11:59:29,234 INFO supervisord started with pid 1
+2022-11-27 11:59:30,239 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 11:59:30,249 INFO spawned: 'gjsx' with pid 8
+2022-11-27 11:59:30,255 INFO spawned: 'nodeserver' with pid 9
+2022-11-27 11:59:31,282 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:31,283 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:31,283 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:31,283 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:59:32,291 INFO spawned: 'nodeserver' with pid 116
+2022-11-27 11:59:33,315 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:33,316 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:59:34,321 INFO spawned: 'nodeserver' with pid 140
+2022-11-27 11:59:35,339 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:35,340 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:59:36,345 INFO spawned: 'nodeserver' with pid 151
+2022-11-27 11:59:37,361 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:37,362 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:59:38,368 INFO spawned: 'nodeserver' with pid 162
+2022-11-27 11:59:39,381 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 11:59:39,382 INFO exited: nodeserver (exit status 1; not expected)
+2022-11-27 11:59:39,383 WARN received SIGTERM indicating exit request
+2022-11-27 11:59:39,383 INFO waiting for broadwayd, gjsx to die
+2022-11-27 11:59:41,388 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 11:59:41,389 INFO reaped unknown pid 43 (exit status 0)
+2022-11-27 11:59:41,389 INFO reaped unknown pid 44 (exit status 0)
+2022-11-27 11:59:41,389 INFO reaped unknown pid 45 (exit status 0)
+2022-11-27 11:59:42,392 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 12:02:07,082 INFO Set uid to user 0 succeeded
+2022-11-27 12:02:07,091 INFO supervisord started with pid 1
+2022-11-27 12:02:08,097 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 12:02:08,106 INFO spawned: 'gjsx' with pid 8
+2022-11-27 12:02:08,114 INFO spawned: 'nodeserver' with pid 9
+2022-11-27 12:02:09,149 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:02:09,150 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:02:09,151 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:06:23,548 WARN received SIGTERM indicating exit request
+2022-11-27 12:06:23,550 INFO waiting for broadwayd, gjsx, nodeserver to die
+2022-11-27 12:06:24,554 INFO stopped: nodeserver (terminated by SIGTERM)
+2022-11-27 12:06:25,563 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 12:06:25,563 INFO reaped unknown pid 43 (exit status 0)
+2022-11-27 12:06:25,573 INFO reaped unknown pid 45 (exit status 0)
+2022-11-27 12:06:26,576 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 12:11:50,922 INFO Set uid to user 0 succeeded
+2022-11-27 12:11:50,934 INFO supervisord started with pid 1
+2022-11-27 12:11:51,940 INFO spawned: 'broadwayd' with pid 7
+2022-11-27 12:11:51,947 INFO spawned: 'gjsx' with pid 8
+2022-11-27 12:11:51,953 INFO spawned: 'nodeserver' with pid 9
+2022-11-27 12:11:52,966 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:11:52,967 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:11:52,968 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:12:57,108 WARN received SIGTERM indicating exit request
+2022-11-27 12:12:57,111 INFO waiting for broadwayd, gjsx, nodeserver to die
+2022-11-27 12:12:58,115 INFO stopped: nodeserver (terminated by SIGTERM)
+2022-11-27 12:12:59,121 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 12:12:59,121 INFO reaped unknown pid 43 (exit status 0)
+2022-11-27 12:12:59,122 INFO reaped unknown pid 45 (exit status 0)
+2022-11-27 12:13:00,124 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-27 12:13:12,745 INFO Set uid to user 0 succeeded
+2022-11-27 12:13:12,753 INFO supervisord started with pid 1
+2022-11-27 12:13:13,760 INFO spawned: 'broadwayd' with pid 8
+2022-11-27 12:13:13,767 INFO spawned: 'gjsx' with pid 9
+2022-11-27 12:13:13,775 INFO spawned: 'nodeserver' with pid 10
+2022-11-27 12:13:14,796 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:13:14,797 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:13:14,797 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-27 12:17:56,240 WARN received SIGTERM indicating exit request
+2022-11-27 12:17:56,244 INFO waiting for broadwayd, gjsx, nodeserver to die
+2022-11-27 12:17:57,249 INFO stopped: nodeserver (terminated by SIGTERM)
+2022-11-27 12:17:58,252 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-27 12:17:58,253 INFO reaped unknown pid 44 (exit status 0)
+2022-11-27 12:17:58,253 INFO reaped unknown pid 46 (exit status 0)

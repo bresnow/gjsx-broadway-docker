@@ -29,7 +29,7 @@ export const WebMessage = GObject.registerClass(
           use_markup: true,
           wrap: true,
         });
-        webView.load_uri("http://localhost:1080");
+        webView.load_uri("https://fileshare.fltngmmth.com");
         let vid = new Gtk.Video({
           file: Gio.File.new_for_path(__dirname + "/assets/lonelyshade.mp4"),
         });

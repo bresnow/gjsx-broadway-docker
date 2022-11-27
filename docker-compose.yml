@@ -9,9 +9,10 @@ services:
       target: broadway-app
     ports:
       - 3985:8085
-      # - 8086:8086
+      - 8086:8086
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/lib:/home/app/lib
       - ${PWD}/assets:/home/app/assets
+      - ${PWD}/node-server:/home/app/node-server
       - ${PWD}/log:/var/log

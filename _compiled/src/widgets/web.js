@@ -20,7 +20,7 @@ export const Web2 = GObject.registerClass(
       this._setAttr();
       let webView, scroll, settings, button, box2, label, css1, buttonLabel;
       try {
-        let vid = new Gtk.Video({
+        let vid = new Gtk.Picture({
           file: Gio.File.new_for_path(__dirname + "/assets/640.mp4"),
         });
         this.append(vid);

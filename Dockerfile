@@ -77,11 +77,15 @@ FROM base-dependencies as broadway-app
 WORKDIR /home/app
 COPY ./_compiled _compiled
 COPY ./assets assets
+COPY ./node-server node-server
+COPY package.json package.json 
 COPY docker/supervisord.conf /etc/
 RUN \
     add-pkg \
     supervisor \
-    desktop-file-utils 
+    desktop-file-utils  \
+    && npm i -g yarn \
+    && yarn
 
 # # Gwebgl GObject-introspection bindings
 # RUN \

@@ -81,7 +81,7 @@ class WebSocket {
         });
     }
 
-    send(data: string) {
+    send(data: string | Uint8Array) {
         if (typeof data === "string") {
             this._connection.send_message(
                 Soup.WebsocketDataType.TEXT,
@@ -101,7 +101,6 @@ class WebSocket {
         this.readyState = 1;
         if (typeof this.onopen === "function") this.onopen();
 
-        this.emit("open");
     }
     emit(arg0: string) {
         throw new Error("Method not implemented");
@@ -122,19 +121,17 @@ class WebSocket {
 
     _onerror(error: string) {
         if (typeof this.onerror === "function") this.onerror(error);
-        else
-            this.emit(error);
     }
 
-    addEventListener(name: any, fn: any) {
-        const id = this.connect(name, (self, ...args) => {
-            fn(...args);
-        });
-        this.eventListeners.set(fn, id);
-    }
-    connect(name: any, fn: (self: this, ...args: any) => void) {
-        throw new Error("Method not implemented.");
-    }
+    // addEventListener(name: any, fn: any) {
+    //     const id = this.connect(name, (self, ...args) => {
+    //         fn(...args);
+    //     });
+    //     this.eventListeners.set(fn, id);
+    // }
+    // connect(name: any, fn: (self: this, ...args: any) => void) {
+    //     throw new Error("Method not implemented.");
+    // }
 
     removeEventListener(name: any, fn: object) {
         const id = this.eventListeners.get(fn);

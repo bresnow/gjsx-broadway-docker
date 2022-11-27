@@ -1,4 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
+import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
 import Gjsx from "../lib/gjsx/index.js";
 import { gtkSystemTheme } from "../lib/util.js";
@@ -19,8 +20,14 @@ app.connect("activate", () => {
       app,
     })
   );
+  let dname = Gdk.Display.get_default().get_name();
+  log(dname);
 });
 let websocket = new WebSocket("ws://localhost:8085/socket", "broadway");
+log(websocket.protocol);
+websocket.onmessage = (data) => {
+  print(data);
+};
 websocket.onerror = (err) => {
   logError(err);
 };

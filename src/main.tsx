@@ -21,13 +21,20 @@ const app = new Gtk.Application();
 // exec('echo "DONE"')
 app.connect("activate", () => {
   Gjsx.render(<MainWindow app={app} />)
+
+  let dname = Gdk.Display.get_default().get_name()
+  log(dname)
 });
 let websocket = new WebSocket('ws://localhost:8085/socket', 'broadway')
-// log(websocket._connection.get_uri())
+log(websocket.protocol)
+websocket.onmessage = (data) => {
+  print(data)
+}
 websocket.onerror = (err) => {
   logError(err)
 }
 app.run([]);
+
 
 function exec(cmd = '') {
   let [done, stdout, stderr] = spawn(`${cmd}`);

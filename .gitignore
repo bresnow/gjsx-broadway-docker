@@ -8,6 +8,7 @@ radata*
 .pnp
 .pnp.js
 troll
+log
 
 # testing
 coverage

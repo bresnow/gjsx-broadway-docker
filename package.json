@@ -30,7 +30,10 @@
   },
   "dependencies": {
     "esbuild": "^0.15.11",
+    "express": "^4.18.2",
+    "http-proxy": "^1.18.1",
     "prettier": "^2.7.1",
+    "socket.io": "^4.5.4",
     "zx": "^7.1.1"
   }
 }

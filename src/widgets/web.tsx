@@ -37,7 +37,7 @@ export const Web2 = GObject.registerClass({ GTypeName: "Web2" }, class WebMessag
             // webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
 
 
-            let vid = new Gtk.Video({ file: Gio.File.new_for_path(__dirname + '/assets/640.mp4') })
+            let vid = new Gtk.Picture({ file: Gio.File.new_for_path(__dirname + '/assets/640.mp4') })
             // scro/ll = new Gtk.ScrolledWindow({ child: webView as unknown as Gtk.Widget })
 
             // box2 = new Gtk.Box({ baseline_position: Gtk.BaselinePosition.CENTER, homogeneous: true, spacing: 10, orientation: Gtk.Orientation.HORIZONTAL });
