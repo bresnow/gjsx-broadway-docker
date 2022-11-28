@@ -3,11 +3,12 @@ import hp from "http-proxy";
 import { createServer } from 'http';
 import process from 'process';
 import Gun from 'gun';
-
+import TransparentProxy from 'transparent-proxy';
 const proxyport = process.env.PORT || 8086;
 const app = express();
 const proxy = hp.createProxyServer({ target: `http://localhost:${displayport()}`, ws: true });
 const server = createServer(app)
+const transparent = new TransparentProxy()
 
 // Proxy websockets
 server.on('upgrade', function (req, socket, head) {

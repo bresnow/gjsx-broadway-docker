@@ -332,3 +332,412 @@
 2022-11-28 15:42:06,416 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2022-11-28 15:42:06,417 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2022-11-28 15:42:06,418 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:00,861 WARN received SIGTERM indicating exit request
+2022-11-28 16:21:00,863 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 16:21:01,867 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 16:21:02,871 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:21:02,872 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 16:21:02,873 INFO reaped unknown pid 45 (exit status 0)
+2022-11-28 16:21:03,875 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:21:10,788 INFO Set uid to user 0 succeeded
+2022-11-28 16:21:10,795 INFO supervisord started with pid 1
+2022-11-28 16:21:11,801 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 16:21:11,807 INFO spawned: 'gjsx' with pid 8
+2022-11-28 16:21:11,816 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 16:21:12,831 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:12,832 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:12,832 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:13,836 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:14,870 INFO spawned: 'proxyserver' with pid 143
+2022-11-28 16:21:15,902 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:16,905 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:17,911 INFO spawned: 'proxyserver' with pid 154
+2022-11-28 16:21:18,921 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:18,922 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:19,928 INFO spawned: 'proxyserver' with pid 165
+2022-11-28 16:21:20,943 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:20,944 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:21,953 INFO spawned: 'proxyserver' with pid 185
+2022-11-28 16:21:22,965 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:22,967 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:23,974 INFO spawned: 'proxyserver' with pid 196
+2022-11-28 16:21:24,988 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:24,989 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:25,996 INFO spawned: 'proxyserver' with pid 207
+2022-11-28 16:21:27,014 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:27,018 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:28,025 INFO spawned: 'proxyserver' with pid 218
+2022-11-28 16:21:29,037 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:21:29,038 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:21:29,038 WARN received SIGTERM indicating exit request
+2022-11-28 16:21:29,039 INFO waiting for broadwayd, gjsx to die
+2022-11-28 16:21:31,043 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:21:31,043 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 16:21:31,044 INFO reaped unknown pid 45 (exit status 0)
+2022-11-28 16:21:32,049 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:22:50,546 INFO Set uid to user 0 succeeded
+2022-11-28 16:22:50,553 INFO supervisord started with pid 1
+2022-11-28 16:22:51,558 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 16:22:51,564 INFO spawned: 'gjsx' with pid 8
+2022-11-28 16:22:51,571 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 16:22:52,590 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:22:52,591 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:22:52,591 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:22:53,596 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:22:54,605 INFO spawned: 'proxyserver' with pid 122
+2022-11-28 16:22:55,637 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:22:56,640 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:22:57,646 INFO spawned: 'proxyserver' with pid 140
+2022-11-28 16:22:58,663 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:22:58,664 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:22:59,673 INFO spawned: 'proxyserver' with pid 151
+2022-11-28 16:23:00,692 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:23:00,693 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:23:01,713 INFO spawned: 'proxyserver' with pid 162
+2022-11-28 16:23:02,729 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:23:03,732 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-28 16:23:04,739 INFO spawned: 'proxyserver' with pid 177
+2022-11-28 16:23:05,756 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:23:06,760 WARN received SIGTERM indicating exit request
+2022-11-28 16:23:06,762 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 16:23:07,765 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 16:23:08,768 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:23:08,768 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 16:23:08,768 INFO reaped unknown pid 45 (exit status 0)
+2022-11-28 16:23:09,770 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:23:13,352 INFO Set uid to user 0 succeeded
+2022-11-28 16:23:13,360 INFO supervisord started with pid 1
+2022-11-28 16:23:14,367 INFO spawned: 'broadwayd' with pid 8
+2022-11-28 16:23:14,376 INFO spawned: 'gjsx' with pid 9
+2022-11-28 16:23:14,384 INFO spawned: 'proxyserver' with pid 10
+2022-11-28 16:23:15,417 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:23:15,419 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:23:15,419 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:35:21,515 WARN received SIGTERM indicating exit request
+2022-11-28 16:35:21,521 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 16:35:22,529 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 16:35:23,533 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:35:23,534 INFO reaped unknown pid 44 (exit status 0)
+2022-11-28 16:35:23,534 INFO reaped unknown pid 46 (exit status 0)
+2022-11-28 16:35:24,537 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:35:39,668 INFO Set uid to user 0 succeeded
+2022-11-28 16:35:39,676 INFO supervisord started with pid 1
+2022-11-28 16:35:40,683 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 16:35:40,691 INFO spawned: 'gjsx' with pid 7
+2022-11-28 16:35:40,698 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 16:35:41,713 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:35:41,714 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:35:41,733 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:36:47,839 WARN received SIGTERM indicating exit request
+2022-11-28 16:36:47,840 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 16:36:48,844 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 16:36:49,848 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:36:50,849 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:39:17,350 INFO Set uid to user 0 succeeded
+2022-11-28 16:39:17,357 INFO supervisord started with pid 1
+2022-11-28 16:39:18,362 INFO spawned: 'broadwayd' with pid 8
+2022-11-28 16:39:18,368 INFO spawned: 'gjsx' with pid 9
+2022-11-28 16:39:18,374 INFO spawned: 'proxyserver' with pid 10
+2022-11-28 16:39:19,387 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:39:19,388 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:39:19,388 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:52:28,516 WARN received SIGTERM indicating exit request
+2022-11-28 16:52:28,518 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 16:52:29,522 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 16:52:30,526 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 16:52:31,528 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 16:52:40,070 INFO Set uid to user 0 succeeded
+2022-11-28 16:52:40,078 INFO supervisord started with pid 1
+2022-11-28 16:52:41,085 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 16:52:41,094 INFO spawned: 'gjsx' with pid 8
+2022-11-28 16:52:41,101 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 16:52:42,113 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:52:42,114 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 16:52:42,114 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:08:04,582 WARN received SIGTERM indicating exit request
+2022-11-28 17:08:04,584 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:08:05,590 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:08:06,597 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:08:07,600 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:09:13,894 INFO Set uid to user 0 succeeded
+2022-11-28 17:09:13,904 INFO supervisord started with pid 1
+2022-11-28 17:09:14,915 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 17:09:14,921 INFO spawned: 'gjsx' with pid 7
+2022-11-28 17:09:14,927 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 17:09:15,940 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:09:15,941 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:09:15,941 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:18:24,741 WARN received SIGTERM indicating exit request
+2022-11-28 17:18:24,744 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:18:25,751 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:18:26,756 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:18:26,756 INFO reaped unknown pid 42 (exit status 0)
+2022-11-28 17:18:26,756 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 17:18:26,757 INFO reaped unknown pid 44 (exit status 0)
+2022-11-28 17:18:27,759 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:18:35,256 INFO Set uid to user 0 succeeded
+2022-11-28 17:18:35,263 INFO supervisord started with pid 1
+2022-11-28 17:18:36,268 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 17:18:36,272 INFO spawned: 'gjsx' with pid 8
+2022-11-28 17:18:36,276 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 17:18:37,287 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:18:37,287 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:18:37,288 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:25:18,866 WARN received SIGTERM indicating exit request
+2022-11-28 17:25:18,869 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:25:19,873 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:25:20,878 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:25:20,879 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 17:25:20,880 INFO reaped unknown pid 44 (exit status 0)
+2022-11-28 17:25:20,880 INFO reaped unknown pid 45 (exit status 0)
+2022-11-28 17:25:21,886 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:25:28,887 INFO Set uid to user 0 succeeded
+2022-11-28 17:25:28,895 INFO supervisord started with pid 1
+2022-11-28 17:25:29,901 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 17:25:29,910 INFO spawned: 'gjsx' with pid 8
+2022-11-28 17:25:29,917 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 17:25:30,937 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:25:30,938 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:25:30,938 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:37:01,921 WARN received SIGTERM indicating exit request
+2022-11-28 17:37:01,923 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:37:02,930 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:37:03,933 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:37:03,935 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 17:37:04,947 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:37:12,172 INFO Set uid to user 0 succeeded
+2022-11-28 17:37:12,185 INFO supervisord started with pid 1
+2022-11-28 17:37:13,191 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 17:37:13,197 INFO spawned: 'gjsx' with pid 8
+2022-11-28 17:37:13,202 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 17:37:14,214 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:37:14,215 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:37:14,215 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:38:53,361 WARN received SIGTERM indicating exit request
+2022-11-28 17:38:53,363 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:38:54,368 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:38:55,371 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:38:55,372 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 17:38:56,374 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:39:00,664 INFO Set uid to user 0 succeeded
+2022-11-28 17:39:00,675 INFO supervisord started with pid 1
+2022-11-28 17:39:01,682 INFO spawned: 'broadwayd' with pid 8
+2022-11-28 17:39:01,705 INFO spawned: 'gjsx' with pid 9
+2022-11-28 17:39:01,732 INFO spawned: 'proxyserver' with pid 11
+2022-11-28 17:39:02,752 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:39:02,753 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:39:02,753 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:36,827 WARN received SIGTERM indicating exit request
+2022-11-28 17:51:36,832 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 17:51:37,838 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:51:38,842 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 17:51:38,843 INFO reaped unknown pid 44 (exit status 0)
+2022-11-28 17:51:39,845 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:51:47,189 INFO Set uid to user 0 succeeded
+2022-11-28 17:51:47,200 INFO supervisord started with pid 1
+2022-11-28 17:51:48,206 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 17:51:48,212 INFO spawned: 'gjsx' with pid 8
+2022-11-28 17:51:48,226 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 17:51:49,250 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:49,251 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:49,251 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:49,252 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:49,252 INFO reaped unknown pid 35 (exit status 0)
+2022-11-28 17:51:49,252 INFO reaped unknown pid 36 (exit status 0)
+2022-11-28 17:51:50,258 INFO spawned: 'gjsx' with pid 58
+2022-11-28 17:51:51,271 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:51,271 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:51,271 INFO reaped unknown pid 73 (exit status 0)
+2022-11-28 17:51:51,272 INFO reaped unknown pid 74 (exit status 0)
+2022-11-28 17:51:52,279 INFO spawned: 'gjsx' with pid 96
+2022-11-28 17:51:53,292 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:53,293 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:53,293 INFO reaped unknown pid 111 (exit status 0)
+2022-11-28 17:51:53,294 INFO reaped unknown pid 112 (exit status 0)
+2022-11-28 17:51:54,299 INFO spawned: 'gjsx' with pid 129
+2022-11-28 17:51:55,310 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:55,310 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:55,311 INFO reaped unknown pid 144 (exit status 0)
+2022-11-28 17:51:55,311 INFO reaped unknown pid 145 (exit status 0)
+2022-11-28 17:51:56,318 INFO spawned: 'gjsx' with pid 167
+2022-11-28 17:51:57,330 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:57,331 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:57,331 INFO reaped unknown pid 182 (exit status 0)
+2022-11-28 17:51:57,332 INFO reaped unknown pid 183 (exit status 0)
+2022-11-28 17:51:58,339 INFO spawned: 'gjsx' with pid 200
+2022-11-28 17:51:59,351 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:51:59,352 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:51:59,352 INFO reaped unknown pid 215 (exit status 0)
+2022-11-28 17:51:59,352 INFO reaped unknown pid 216 (exit status 0)
+2022-11-28 17:52:00,359 INFO spawned: 'gjsx' with pid 233
+2022-11-28 17:52:01,370 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:01,371 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:52:01,371 INFO reaped unknown pid 248 (exit status 0)
+2022-11-28 17:52:01,372 INFO reaped unknown pid 249 (exit status 0)
+2022-11-28 17:52:02,383 INFO spawned: 'gjsx' with pid 271
+2022-11-28 17:52:03,397 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:03,398 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:52:03,399 INFO reaped unknown pid 286 (exit status 0)
+2022-11-28 17:52:03,399 INFO reaped unknown pid 287 (exit status 0)
+2022-11-28 17:52:04,405 INFO spawned: 'gjsx' with pid 304
+2022-11-28 17:52:05,417 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:05,418 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:52:05,419 INFO reaped unknown pid 319 (exit status 0)
+2022-11-28 17:52:05,419 INFO reaped unknown pid 320 (exit status 0)
+2022-11-28 17:52:06,423 INFO spawned: 'gjsx' with pid 337
+2022-11-28 17:52:07,432 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:07,433 INFO exited: gjsx (exit status 0; expected)
+2022-11-28 17:52:07,434 INFO reaped unknown pid 352 (exit status 0)
+2022-11-28 17:52:07,435 INFO reaped unknown pid 353 (exit status 0)
+2022-11-28 17:52:07,435 WARN received SIGTERM indicating exit request
+2022-11-28 17:52:07,436 INFO waiting for broadwayd, proxyserver to die
+2022-11-28 17:52:08,443 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 17:52:10,448 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 17:52:56,263 INFO Set uid to user 0 succeeded
+2022-11-28 17:52:56,271 INFO supervisord started with pid 1
+2022-11-28 17:52:57,277 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 17:52:57,284 INFO spawned: 'gjsx' with pid 8
+2022-11-28 17:52:57,292 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 17:52:58,306 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:58,306 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 17:52:58,307 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:05:33,418 WARN received SIGTERM indicating exit request
+2022-11-28 18:05:33,420 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:05:34,427 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:05:35,431 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:05:35,431 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:05:36,433 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:07:28,765 INFO Set uid to user 0 succeeded
+2022-11-28 18:07:28,772 INFO supervisord started with pid 1
+2022-11-28 18:07:29,778 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:07:29,784 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:07:29,793 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:07:30,804 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:07:30,805 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:07:30,805 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:14:11,414 WARN received SIGTERM indicating exit request
+2022-11-28 18:14:11,417 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:14:12,421 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:14:13,424 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:14:13,425 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:14:14,427 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:14:26,278 INFO Set uid to user 0 succeeded
+2022-11-28 18:14:26,288 INFO supervisord started with pid 1
+2022-11-28 18:14:27,293 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 18:14:27,300 INFO spawned: 'gjsx' with pid 7
+2022-11-28 18:14:27,326 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 18:14:28,339 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:14:28,340 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:14:28,340 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:16:08,482 WARN received SIGTERM indicating exit request
+2022-11-28 18:16:08,485 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:16:09,490 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:16:10,494 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:16:10,495 INFO reaped unknown pid 42 (exit status 0)
+2022-11-28 18:16:11,497 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:16:16,004 INFO Set uid to user 0 succeeded
+2022-11-28 18:16:16,014 INFO supervisord started with pid 1
+2022-11-28 18:16:17,021 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:16:17,027 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:16:17,032 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:16:18,045 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:16:18,046 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:16:18,046 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:17:34,157 WARN received SIGTERM indicating exit request
+2022-11-28 18:17:34,158 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:17:35,162 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:17:36,165 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:17:36,165 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:17:37,168 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:17:41,326 INFO Set uid to user 0 succeeded
+2022-11-28 18:17:41,334 INFO supervisord started with pid 1
+2022-11-28 18:17:42,341 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:17:42,347 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:17:42,354 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:17:43,367 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:17:43,368 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:17:43,369 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:18:03,398 WARN received SIGTERM indicating exit request
+2022-11-28 18:18:03,400 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:18:04,403 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:18:05,406 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:18:05,408 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:18:06,414 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:20:06,598 INFO Set uid to user 0 succeeded
+2022-11-28 18:20:06,626 INFO supervisord started with pid 1
+2022-11-28 18:20:07,640 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:20:07,647 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:20:07,655 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:20:08,666 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:20:08,667 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:20:08,667 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:20:32,703 WARN received SIGTERM indicating exit request
+2022-11-28 18:20:32,704 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:20:33,707 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:20:34,710 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:20:34,710 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:20:35,713 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:22:55,361 INFO Set uid to user 0 succeeded
+2022-11-28 18:22:55,369 INFO supervisord started with pid 1
+2022-11-28 18:22:56,373 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:22:56,378 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:22:56,382 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:22:57,393 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:22:57,393 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:22:57,394 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:24:12,503 WARN received SIGTERM indicating exit request
+2022-11-28 18:24:12,507 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:24:13,512 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:24:14,518 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:24:14,519 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:24:15,522 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:24:25,033 INFO Set uid to user 0 succeeded
+2022-11-28 18:24:25,040 INFO supervisord started with pid 1
+2022-11-28 18:24:26,046 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 18:24:26,056 INFO spawned: 'gjsx' with pid 7
+2022-11-28 18:24:26,062 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 18:24:27,078 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:24:27,079 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:24:27,080 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:26:00,232 WARN received SIGTERM indicating exit request
+2022-11-28 18:26:00,234 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:26:01,239 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:26:02,253 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:26:02,254 INFO reaped unknown pid 42 (exit status 0)
+2022-11-28 18:26:03,257 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:26:08,423 INFO Set uid to user 0 succeeded
+2022-11-28 18:26:08,431 INFO supervisord started with pid 1
+2022-11-28 18:26:09,435 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:26:09,441 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:26:09,447 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:26:10,458 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:26:10,458 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:26:10,459 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:27:43,580 WARN received SIGTERM indicating exit request
+2022-11-28 18:27:43,583 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:27:44,589 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:27:45,595 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:27:45,596 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:27:46,599 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:27:51,414 INFO Set uid to user 0 succeeded
+2022-11-28 18:27:51,423 INFO supervisord started with pid 1
+2022-11-28 18:27:52,441 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 18:27:52,447 INFO spawned: 'gjsx' with pid 8
+2022-11-28 18:27:52,452 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 18:27:53,463 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:27:53,464 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:27:53,464 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:28:51,547 WARN received SIGTERM indicating exit request
+2022-11-28 18:28:51,549 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 18:28:52,554 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 18:28:53,557 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 18:28:53,557 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 18:28:54,560 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 18:29:02,130 INFO Set uid to user 0 succeeded
+2022-11-28 18:29:02,136 INFO supervisord started with pid 1
+2022-11-28 18:29:03,142 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 18:29:03,149 INFO spawned: 'gjsx' with pid 7
+2022-11-28 18:29:03,157 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 18:29:04,169 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:29:04,170 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 18:29:04,170 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

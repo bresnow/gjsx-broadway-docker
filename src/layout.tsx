@@ -16,9 +16,10 @@ export function Layout({ names }: { names: string[] }) {
         file={__dirname + "/assets/images/cnxt.png"}
         pixel_size={100}
       />
-      {/* 
+
       {names.map((name, i) => (
         <Gtk.Button
+          style={{ backgroundColor: 'red' }}
           onClicked={(button) => {
             if (button.label !== name) {
               button.label = name;
@@ -29,7 +30,7 @@ export function Layout({ names }: { names: string[] }) {
           halign={Gtk.Align.CENTER}
           label={name}
         />
-      ))} */}
+      ))}
     </Gtk.Box>
   );
 }

@@ -1217,6 +1217,11 @@ toidentifier@1.0.1:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
   integrity sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==
 
+transparent-proxy@^1.9.1:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/transparent-proxy/-/transparent-proxy-1.9.1.tgz#eadd21cb19bca382a967c9293522efc57163e68a"
+  integrity sha512-1Y32CDNQJrVExGpsJM4ugEHNKYwHHmZL7SZZT7CyYwnMN8upisZYqufWPSXPi5x35Y3q9LWZR2O7sqF5BSiobQ==
+
 tslib@^2.0.0, tslib@^2.4.0, tslib@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"

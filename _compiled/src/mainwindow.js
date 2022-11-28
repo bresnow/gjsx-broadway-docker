@@ -3,8 +3,7 @@ import Gtk from "gi://Gtk?version=4.0";
 import { Layout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
-import { WebMessage } from "./widgets/webmsg_grid.js";
-export function MainWindow({ app }) {
+export function MainWindow({ app, reference }) {
   const names = ["GnomeJSX", "Typescript", "Gtk-4.0"];
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
@@ -20,7 +19,9 @@ export function MainWindow({ app }) {
         names,
       }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
-      /* @__PURE__ */ Gjsx.createWidget(WebMessage, null)
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
+        label: reference,
+      })
     )
   );
 }

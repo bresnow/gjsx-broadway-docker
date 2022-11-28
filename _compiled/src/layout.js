@@ -13,6 +13,20 @@ export function Layout({ names }) {
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
       file: __dirname + "/assets/images/cnxt.png",
       pixel_size: 100,
-    })
+    }),
+    names.map((name, i) =>
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+        style: { backgroundColor: "red" },
+        onClicked: (button) => {
+          if (button.label !== name) {
+            button.label = name;
+          } else {
+            button.label = `Button ${i} was pressed`;
+          }
+        },
+        halign: Gtk.Align.CENTER,
+        label: name,
+      })
+    )
   );
 }
