@@ -16,7 +16,7 @@ export function MainWindow({ app }: { app: Gtk.Application }) {
 
     return (
         <AppWindow application={app}>
-            <BoxContainer css_name="box">
+            <BoxContainer css_classes={["bg-black"]}>
                 <Layout names={names} />
                 <Gtk.Separator />
                 <WebMessage />

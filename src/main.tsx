@@ -13,7 +13,7 @@ const spawn = util.execCmd;
 
 let argv = ARGV;
 gtkSystemTheme(argv);
-css.load("assets/styles.css").display
+css.load("assets/styles/output.css").display
 
 export const __dirname = GLib.get_current_dir();
 const app = new Gtk.Application();
@@ -23,21 +23,7 @@ app.connect("activate", () => {
   Gjsx.render(<MainWindow app={app} />)
 
   let dname = Gdk.Display.get_default().get_name()
-  log(dname)
+dname === 'Broadway' && log('Broadway Proxy Initiated For Application')
 });
-let websocket = new WebSocket('ws://localhost:8085/socket', 'broadway')
-log(websocket.protocol)
-websocket.onmessage = (data) => {
-  print(data)
-}
-websocket.onerror = (err) => {
-  logError(err)
-}
 app.run([]);
 
-
-function exec(cmd = '') {
-  let [done, stdout, stderr] = spawn(`${cmd}`);
-  print('EXEC CMD')
-  print(new TextDecoder().decode(stdout))
-}

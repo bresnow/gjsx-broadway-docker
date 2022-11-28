@@ -195,3 +195,26 @@
 2022-11-27 12:17:58,252 INFO stopped: gjsx (terminated by SIGTERM)
 2022-11-27 12:17:58,253 INFO reaped unknown pid 44 (exit status 0)
 2022-11-27 12:17:58,253 INFO reaped unknown pid 46 (exit status 0)
+2022-11-28 02:10:58,839 INFO Set uid to user 0 succeeded
+2022-11-28 02:10:58,846 INFO supervisord started with pid 1
+2022-11-28 02:10:59,851 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 02:10:59,856 INFO spawned: 'gjsx' with pid 8
+2022-11-28 02:10:59,862 INFO spawned: 'nodeserver' with pid 9
+2022-11-28 02:11:00,874 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 02:11:00,874 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 02:11:00,874 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 03:22:09,187 WARN received SIGTERM indicating exit request
+2022-11-28 03:22:09,196 INFO waiting for broadwayd, gjsx, nodeserver to die
+2022-11-28 03:22:10,200 INFO stopped: nodeserver (terminated by SIGTERM)
+2022-11-28 03:22:11,206 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 03:22:11,207 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 03:22:11,207 INFO reaped unknown pid 45 (exit status 0)
+2022-11-28 03:22:12,210 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 03:22:19,317 INFO Set uid to user 0 succeeded
+2022-11-28 03:22:19,325 INFO supervisord started with pid 1
+2022-11-28 03:22:20,332 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 03:22:20,340 INFO spawned: 'gjsx' with pid 8
+2022-11-28 03:22:20,348 INFO spawned: 'nodeserver' with pid 9
+2022-11-28 03:22:21,360 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 03:22:21,360 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 03:22:21,360 INFO success: nodeserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

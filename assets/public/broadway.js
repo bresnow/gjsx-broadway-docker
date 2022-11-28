@@ -3195,7 +3195,7 @@ function connect() {
     }
 
     var loc = window.location.toString().replace("http:", "ws:").replace("https:", "wss:");
-    loc = loc.substr(0, loc.lastIndexOf('/')) + "/socket";
+    loc = loc.slice(0, loc.lastIndexOf('/')) + "/socket";
     ws = new WebSocket(loc, "broadway");
     ws.binaryType = "arraybuffer";
 
@@ -3204,7 +3204,7 @@ function connect() {
     };
     ws.onclose = function () {
         if (inputSocket != null)
-            alert("disconnected");
+            alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
         inputSocket = null;
     };
     ws.onmessage = function (event) {

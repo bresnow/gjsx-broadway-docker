@@ -9,6 +9,7 @@ let [route, file] = getFileInfo()
 export function Layout({ names }: { names: string[] }) {
   return (
     <Gtk.Box
+      css_classes={['bg-light']}
       spacing={18}
       orientation={Gtk.Orientation.HORIZONTAL}
     >
