@@ -1,12 +1,10 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
-import util from "../../lib/gjsx/utils/index.js";
 import { __dirname } from "../main.js";
-const css_prov = util.CssProvider();
-export const Web2 = GObject.registerClass(
-  { GTypeName: "Web2" },
-  class WebMessageWidget extends Gtk.Box {
+export const Video = GObject.registerClass(
+  { GTypeName: "Video" },
+  class extends Gtk.Box {
     _setAttr() {
       this.orientation = Gtk.Orientation.VERTICAL;
       this.valign = Gtk.Align.BASELINE;
@@ -18,12 +16,17 @@ export const Web2 = GObject.registerClass(
     _init() {
       super._init();
       this._setAttr();
-      let webView, scroll, settings, button, box2, label, css1, buttonLabel;
       try {
-        let vid = new Gtk.Picture({
-          file: Gio.File.new_for_path(__dirname + "/assets/video/640.mp4"),
-        });
-        this.append(vid);
+        let lonelyShades = Gio.File.new_for_path(
+            __dirname + "/assets/video/lonelyshade.mp4"
+          ),
+          stream = Gtk.MediaFile.new_for_file(lonelyShades);
+        let video = Gtk.Video.new_for_media_stream(stream);
+        video.set_autoplay(true);
+        video.set_hexpand(true);
+        video.set_vexpand(true);
+        video.show();
+        this.append(video);
       } catch (e) {
         logError(e);
       }

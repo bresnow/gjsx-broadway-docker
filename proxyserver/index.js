@@ -18,7 +18,13 @@ server.on('upgrade', function (req, socket, head) {
 // serve static content
 app.use('/', express.static("/home/app/assets/public"));
 server.listen(proxyport);
-const gun = Gun({ web: server, radisk: true, file: 'proxyserver/db' })
+
+// Gun Database Server
+const gun = Gun({
+    ws: proxy, radisk: true, file: 'proxyserver/db'
+})
+gun.get('BroadwayGjsx').put({ date: Date.now().toLocaleString() })
+
 
 function displayport() {
     return Number(process.env.BROADWAY_DISPLAY.replace(':', '')) + 8080

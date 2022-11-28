@@ -5,6 +5,7 @@
     "target": "ES2022",
     "jsx": "react",
     "jsxFactory": "Gjsx.createWidget",
+    "jsxImportSource": "",
     "allowJs": true,
     "paths": {
       "gjsx/utils": [

@@ -7,7 +7,6 @@ import GLib from 'gi://GLib';
 import util from "gjsx/utils";
 import { __dirname } from '../main.js';
 
-const css_prov = util.CssProvider()
 export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" }, class WebMessageWidget extends Gtk.Box {
 
     _setAttr() {
@@ -28,8 +27,6 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
             settings = new Webkit.Settings({ minimum_font_size: 16 });
             webView = new Webkit.WebView({ settings, editable: true });
 
-            // css_prov.load({ borderRadius: "20px" })
-            css_prov.append(webView as unknown as Gtk.Widget)
 
             buttonLabel = new Gtk.Label({ label: '', use_markup: true, wrap: true });
             // Load the html asset 
@@ -37,7 +34,7 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
             // webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
 
 
-            let vid = new Gtk.Video({ file: Gio.File.new_for_path(__dirname + '/assets/lonelyshade.mp4') })
+            let vid = new Gtk.Video({ file: Gio.File.new_for_path(__dirname + '/assets/video/lonelyshade.mp4') })
             scroll = new Gtk.ScrolledWindow({ child: webView as unknown as Gtk.Widget })
 
             box2 = new Gtk.Box({ vexpand: true, spacing: 10, orientation: Gtk.Orientation.VERTICAL });

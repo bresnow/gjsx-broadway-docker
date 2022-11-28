@@ -71,7 +71,6 @@ class WebSocket {
   _onopen() {
     this.readyState = 1;
     if (typeof this.onopen === "function") this.onopen();
-    this.emit("open");
   }
   emit(arg0) {
     throw new Error("Method not implemented");
@@ -91,7 +90,6 @@ class WebSocket {
   }
   _onerror(error) {
     if (typeof this.onerror === "function") this.onerror(error);
-    else this.emit(error);
   }
   removeEventListener(name, fn) {
     const id = this.eventListeners.get(fn);

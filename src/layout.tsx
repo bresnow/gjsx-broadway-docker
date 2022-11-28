@@ -9,12 +9,11 @@ let [route, file] = getFileInfo()
 export function Layout({ names }: { names: string[] }) {
   return (
     <Gtk.Box
-      css_classes={['bg-light']}
       spacing={18}
       orientation={Gtk.Orientation.HORIZONTAL}
     >
       <Gtk.Image
-        file={__dirname + "/assets/cnxt.png"}
+        file={__dirname + "/assets/images/cnxt.png"}
         pixel_size={100}
       />
       {/* 

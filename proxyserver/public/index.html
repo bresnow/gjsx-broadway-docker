@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>Floating Mammoth Broadway View</title>
+        <script type="application/javascript">
+            function getOrigin() {
+                return window.location.origin;
+            }
+        </script>
+        <link href="../tailwind.css" rel="stylesheet">
+        <script type="text/javascript" src="broadway.js"></script>
+
+    </head>
+
+    <body onload="connect()"
+        onclick="if (!document.hasFocus() && window.topElement !== window.self) { console.log('Clicked Window') }">
+    </body>
+
+</html>

@@ -11,7 +11,7 @@ export function Layout({ names }) {
       orientation: Gtk.Orientation.HORIZONTAL,
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
-      file: __dirname + "/assets/cnxt.png",
+      file: __dirname + "/assets/images/cnxt.png",
       pixel_size: 100,
     })
   );

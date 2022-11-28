@@ -14,5 +14,6 @@ services:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/lib:/home/app/lib
       - ${PWD}/assets:/home/app/assets
-      - ${PWD}/node-server:/home/app/node-server
+      - ${PWD}/proxyserver:/home/app/proxyserver
+      - ${PWD}/node_modules:/home/app/node_modules
       - ${PWD}/log:/var/log

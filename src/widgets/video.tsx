@@ -21,7 +21,7 @@ export const Video = GObject.registerClass({ GTypeName: "Video" }, class extends
         super._init();
         this._setAttr();
         try {
-            let lonelyShades = Gio.File.new_for_path(__dirname + '/assets/lonelyshade.mp4'), stream = Gtk.MediaFile.new_for_file(lonelyShades);
+            let lonelyShades = Gio.File.new_for_path(__dirname + '/assets/video/lonelyshade.mp4'), stream = Gtk.MediaFile.new_for_file(lonelyShades);
             let video = Gtk.Video.new_for_media_stream(stream);
             video.set_autoplay(true)
             video.set_hexpand(true)
