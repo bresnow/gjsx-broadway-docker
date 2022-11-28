@@ -20,9 +20,10 @@ server.on('upgrade', function (req, socket, head) {
 app.use('/', express.static("/home/app/assets/public"));
 server.listen(proxyport);
 
+let gunserver = createServer(app);
 // Gun Database Server
 const gun = Gun({
-    ws: proxy, radisk: true, file: 'proxyserver/db'
+    web: gunserver.listen(8087), radisk: true, file: 'proxyserver/db'
 })
 gun.get('BroadwayGjsx').put({ date: Date.now().toLocaleString() })
 

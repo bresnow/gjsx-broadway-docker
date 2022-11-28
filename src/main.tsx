@@ -25,13 +25,13 @@ app.connect("activate", () => {
     try {
       let webView = new Webkit.WebView();
       // Load the html asset 
-      webView.load_uri('http://google.com/');
+      webView.load_uri('http://0.0.0.0:8086');
       webView.connect("notify::title", function ($obj) {
         let doc = $obj
         log(doc.title)
-        // doc.run_javascript('gun.get(\'poop\').put({tuff: \'wipe\'});', null, function (self, res, err) {
-        //   self.run_javascript_finish(res)
-        // })
+        doc.run_javascript('test();', null, function (self, res, err) {
+          self.run_javascript_finish(res)
+        })
       })
     } catch (e) {
       logError(e)

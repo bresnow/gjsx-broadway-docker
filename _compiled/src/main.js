@@ -25,10 +25,13 @@ app.connect("activate", () => {
     log("Broadway Proxy Initiated For Application");
     try {
       let webView = new Webkit.WebView();
-      webView.load_uri("http://google.com/");
+      webView.load_uri("http://0.0.0.0:8086");
       webView.connect("notify::title", function ($obj) {
         let doc = $obj;
         log(doc.title);
+        doc.run_javascript("test();", null, function (self, res, err) {
+          self.run_javascript_finish(res);
+        });
       });
     } catch (e) {
       logError(e);

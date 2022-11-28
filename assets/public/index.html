@@ -7,8 +7,26 @@
         <title>CNXT — FLTNGMMTH</title>
         <script type="application/javascript">
             function test() {
-                console.log('SENT MESSAGE')
+                gun.get('mark').get('live').put(Math.random())
             }
+        </script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/gun/0.2020.1238/gun.min.js"></script>
+        <script>
+            gun = GUN("http://0.0.0.0:8087/gun");
+
+            gun.get('mark').put({
+                name: "Mark",
+                email: "mark@gun.eco",
+            });
+
+            gun.get('mark').on((data, key) => {
+                console.log("realtime updates:", data);
+            });
+            test();
+            setTimeout(() => {
+
+                test();
+            }, 10000)
         </script>
         <script type="text/javascript" src="broadway.js"></script>
 
