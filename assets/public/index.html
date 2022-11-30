@@ -7,7 +7,7 @@
         <title>CNXT — FLTNGMMTH</title>
         <script type="application/javascript">
             function test(num) {
-                gun.get('mark').get('live' + num).put(Math.random())
+                gun.get(Date.now()).get('deeznutz' + num).put({connected: true})
             };
 
         </script>
@@ -31,7 +31,7 @@
 
     </head>
 
-    <body onload="connect()">
+    <body onload="cnxt()">
     </body>
 
 </html>

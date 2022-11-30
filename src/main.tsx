@@ -5,7 +5,6 @@ import Gio from "gi://Gio";
 import Gjsx from "gjsx";
 import util from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
-import { writeTextFileSync } from '../lib/util.js';
 
 Gtk.init();
 export const __dirname = GLib.get_current_dir();

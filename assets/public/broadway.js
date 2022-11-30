@@ -3181,7 +3181,7 @@ function start() {
     sendScreenSizeChanged();
 }
 
-function connect() {
+function cnxt() {
     var url = window.location.toString();
     var query_string = url.split("?");
     if (query_string.length > 1) {

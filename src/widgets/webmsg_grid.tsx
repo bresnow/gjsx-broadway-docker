@@ -3,8 +3,6 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from 'gi://GObject';
 import Webkit from "gi://WebKit2?version=5.0";
 import Gio from "gi://Gio"
-import GLib from 'gi://GLib';
-import util from "gjsx/utils";
 import { __dirname } from '../main.js';
 
 export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" }, class WebMessageWidget extends Gtk.Box {
@@ -21,7 +19,7 @@ export const WebMessage = GObject.registerClass({ GTypeName: "WebMessageWidget" 
         super._init();
         this._setAttr();
 
-        let webView: Webkit.WebView, scroll: Gtk.ScrolledWindow, settings: Webkit.Settings, button: Gtk.Button, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
+        let webView: Webkit.WebView, scroll: Gtk.ScrolledWindow, settings: Webkit.Settings, box2: Gtk.Box, buttonLabel: Gtk.Label;
         try {
 
             settings = new Webkit.Settings({ minimum_font_size: 16 });

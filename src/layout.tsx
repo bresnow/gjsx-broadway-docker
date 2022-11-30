@@ -28,7 +28,7 @@ export function HeadLayout({ services }: { services: { name: string; executable:
     >
       <Gtk.Image
         file={logo}
-        pixel_size={100}
+        pixel_size={125}
       />
 
       {services.map(({ name, executable: execCmd, icon_path, icon_name }, i) => {
@@ -55,7 +55,7 @@ export function HeadLayout({ services }: { services: { name: string; executable:
             onClicked={clickHandler}
             halign={Gtk.Align.CENTER}
             label={name}
-          ><Gtk.Image file={__dirname + "/" + icon_path} pixel_size={150} /></Gtk.Button>
+          ><Gtk.Image file={__dirname + "/" + icon_path} pixel_size={50} /></Gtk.Button>
         )
       })}
     </Gtk.Box>
