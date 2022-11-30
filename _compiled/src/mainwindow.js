@@ -3,6 +3,7 @@ import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
+import { AppPanel } from "./widgets/panel.js";
 export function MainWindow({ app, reference }) {
   const panel = [
     {
@@ -13,7 +14,7 @@ export function MainWindow({ app, reference }) {
     {
       name: "Gtk4 Tour",
       icon_path: "assets/images/logo.svg",
-      executable: "gtk-tour",
+      executable: "gtk4-tour",
     },
     {
       name: "Demo App",
@@ -37,7 +38,8 @@ export function MainWindow({ app, reference }) {
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
         label: reference,
-      })
+      }),
+      /* @__PURE__ */ Gjsx.createWidget(AppPanel, null)
     )
   );
 }

@@ -16,8 +16,8 @@ export function exec(cmd: string, opt?: { logfile: string; }) {
     writeTextFileSync(Gio.File.new_for_path(`/var/log/${opt?.logfile}`), stdout)
 }
 export function HeadLayout({ services }: { services: { name: string; executable: string | string[]; icon_path?: string; icon_name?: string }[] }) {
-  let webView = new Webkit.WebView();
-  webView.load_uri('http://0.0.0.0:8086');
+  let webview = new Webkit.WebView();
+  webview.load_uri('http://0.0.0.0:8086');
   let logo = __dirname + "/assets/images/cnxt.png"
 
   return (
@@ -35,17 +35,17 @@ export function HeadLayout({ services }: { services: { name: string; executable:
         function clickHandler(self: Gtk.Button) {
           if (self.has_frame) {
             self.set_has_frame(false)
-            typeof execCmd === "string" ? exec(execCmd) : exec(execCmd.join(" "))
+            typeof execCmd === "string" ? exec(execCmd, { logfile: "clickhandle" }) : exec(execCmd.join(" "), { logfile: "clickhandle" })
             try {
-              let doc = webView
-              doc.run_javascript(`clickmsg(${name}); test(12345678);`, null, function (self: Webkit.WebView, res, err) {
+              let doc = webview
+              doc.run_javascript(`clickmsg(${name}); test(12345678);`, null, function (self: Webkit.WebView, res: Gio.AsyncResult) {
                 self.run_javascript_finish(res)
               })
             } catch (error) {
               logError(error)
             }
           } else {
-            self.set_has_frame(true)
+            self.set_has_frame(false)
           }
 
         }

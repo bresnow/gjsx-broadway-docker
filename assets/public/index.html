@@ -7,14 +7,14 @@
         <title>CNXT — FLTNGMMTH</title>
         <script type="application/javascript">
             function test(num) {
-                gun.get(Date.now()).get('deeznutz' + num).put({connected: true})
+                gun.get(Date.now()).get('deeznutz' + num).put({ connected: true })
             };
 
         </script>
         <script src=" https://cdnjs.cloudflare.com/ajax/libs/gun/0.2020.1238/gun.min.js"></script>
         <script>
             // connect to the database server
-            gun = GUN("http://0.0.0.0:8087/gun");
+            gun = GUN({ peers: ["http://0.0.0.0:8087/gun"], localStorage: false, file: "proxyserver/db" });
             test(001);
             // hold up... heyyyy ... for the niggaz that think we soft
             setTimeout(() => {

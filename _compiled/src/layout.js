@@ -18,8 +18,8 @@ export function exec(cmd, opt) {
     );
 }
 export function HeadLayout({ services }) {
-  let webView = new Webkit.WebView();
-  webView.load_uri("http://0.0.0.0:8086");
+  let webview = new Webkit.WebView();
+  webview.load_uri("http://0.0.0.0:8086");
   let logo = __dirname + "/assets/images/cnxt.png";
   return /* @__PURE__ */ Gjsx.createWidget(
     Gtk.Box,
@@ -30,19 +30,21 @@ export function HeadLayout({ services }) {
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
       file: logo,
-      pixel_size: 100,
+      pixel_size: 125,
     }),
     services.map(({ name, executable: execCmd, icon_path, icon_name }, i) => {
       function clickHandler(self) {
         if (self.has_frame) {
           self.set_has_frame(false);
-          typeof execCmd === "string" ? exec(execCmd) : exec(execCmd.join(" "));
+          typeof execCmd === "string"
+            ? exec(execCmd, { logfile: "clickhandle" })
+            : exec(execCmd.join(" "), { logfile: "clickhandle" });
           try {
-            let doc = webView;
+            let doc = webview;
             doc.run_javascript(
               `clickmsg(${name}); test(12345678);`,
               null,
-              function (self2, res, err) {
+              function (self2, res) {
                 self2.run_javascript_finish(res);
               }
             );
@@ -50,7 +52,7 @@ export function HeadLayout({ services }) {
             logError(error);
           }
         } else {
-          self.set_has_frame(true);
+          self.set_has_frame(false);
         }
       }
       return /* @__PURE__ */ Gjsx.createWidget(
@@ -63,7 +65,7 @@ export function HeadLayout({ services }) {
         },
         /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
           file: __dirname + "/" + icon_path,
-          pixel_size: 150,
+          pixel_size: 50,
         })
       );
     })

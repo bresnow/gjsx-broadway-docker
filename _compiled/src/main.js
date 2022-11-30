@@ -8,7 +8,7 @@ import { MainWindow } from "./mainwindow.js";
 Gtk.init();
 export const __dirname = GLib.get_current_dir();
 const css = util.CssProvider();
-css.load("assets/styles/gtk.css").display;
+css.load("assets/styles/gtk.css").display(true);
 let dname = Gdk.Display.get_default().get_name(),
   DEBUG = GLib.getenv("DEBUG"),
   argv = ARGV;
@@ -32,10 +32,11 @@ argv.some((info) => {
         );
         output.write_bytes(new TextDecoder().decode(out ?? err), null);
       }
-    } catch (e) {}
+    } catch (e) { }
   }
 });
 const app = new Gtk.Application();
+let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
 app.connect("activate", () => {
   if (
     dname === "Broadway" ||
@@ -43,11 +44,14 @@ app.connect("activate", () => {
   ) {
     Gjsx.render(
       /* @__PURE__ */ Gjsx.createWidget(MainWindow, {
-        app,
-        reference: "cool",
-      })
+      app,
+      reference: description,
+    })
     );
     log("Broadway Proxy Initiated For Application");
+  } else {
+    throw new Error(`The ${dname} display backend is not supported`);
   }
 });
+
 app.run([]);

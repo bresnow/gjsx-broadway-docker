@@ -4,7 +4,6 @@ import GObject from 'gi://GObject';
 import util from "gjsx/utils";
 import { __dirname } from '../main.js';
 
-const css_prov = util.CssProvider()
 export const ProxiedBroadwayWebView = GObject.registerClass({ GTypeName: "ProxiedBroadwayWebView" }, class extends Gtk.Box {
 
     _setAttr() {

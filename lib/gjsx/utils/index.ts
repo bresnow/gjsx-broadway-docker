@@ -43,7 +43,7 @@ function CssProvider() {
                 provider.load_from_file(file);
             }
             return {
-                display: Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
+                display: (bool: boolean) => bool && Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
                     provider,
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 

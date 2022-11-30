@@ -31,3 +31,10 @@ Gun({
 function displayport() {
     return Number(process.env.BROADWAY_DISPLAY.replace(':', '')) + 8080
 }
+
+const debugapp = express();
+const debugServer = createServer(debugapp)
+if(!!process.env.DEBUG)
+debugServer.listen(4379, function(){
+console.log('Debug terminal listening on ' + 4379)
+})

@@ -9,9 +9,9 @@
 yarn
 yarn image up --build
 ```
-Visit http://localhost:39660 
+Visit http://localhost:8086 
 
 ### Todos & Goals
 
-- Eliminate the need for nodejs to compile by using Gnome classes during the build stage.
+- Eliminate the need for nodejs to compile by using gjs during the build stage.
     Esbuild is fast and performant but using multiple runtimes can be resource heavy with larger applications.
