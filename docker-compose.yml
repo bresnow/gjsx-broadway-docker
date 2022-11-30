@@ -9,6 +9,7 @@ services:
       target: broadway-app
     ports:
       - 3985:8085
+      - 4739:4739
       - 8086:8086
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled

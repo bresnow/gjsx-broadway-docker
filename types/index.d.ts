@@ -21,13 +21,14 @@ declare interface GjsGiImports {
     versions: {
         [key: string]: string;
     };
+    byteArray: typeof import("byteArray");
     GLib: typeof import("gi://GLib");
     Gtk: typeof import("gi://Gtk?version=4.0");
     Gio: typeof import("gi://Gio");
     GObject: typeof import("gi://GObject");
     Gdk: typeof import("gi://Gdk");
     WebKit2: typeof import("gi://WebKit2?version=5.0");
-    Soup: typeof import("gi://Soup");
+    Soup: typeof import("gi://Soup?version=3.0");
 }
 
 declare module "@gi-types/gmodule" {

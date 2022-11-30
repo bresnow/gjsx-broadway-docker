@@ -803,3 +803,1447 @@
 2022-11-28 18:51:04,371 INFO stopped: gjsx (terminated by SIGTERM)
 2022-11-28 18:51:04,372 INFO reaped unknown pid 42 (exit status 0)
 2022-11-28 18:51:05,375 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 19:40:57,984 INFO Set uid to user 0 succeeded
+2022-11-28 19:40:57,991 INFO supervisord started with pid 1
+2022-11-28 19:40:59,012 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 19:40:59,017 INFO spawned: 'gjsx' with pid 8
+2022-11-28 19:40:59,022 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 19:41:00,032 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:41:00,032 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:41:00,034 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:10,737 WARN received SIGTERM indicating exit request
+2022-11-28 19:49:10,738 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 19:49:11,741 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 19:49:12,748 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 19:49:12,748 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 19:49:12,749 INFO reaped unknown pid 104 (exit status 0)
+2022-11-28 19:49:13,752 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 19:49:26,466 INFO Set uid to user 0 succeeded
+2022-11-28 19:49:26,473 INFO supervisord started with pid 1
+2022-11-28 19:49:27,478 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 19:49:27,485 INFO spawned: 'gjsx' with pid 8
+2022-11-28 19:49:27,490 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 19:49:28,500 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:28,501 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:28,501 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:28,502 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:29,508 INFO spawned: 'gjsx' with pid 28
+2022-11-28 19:49:30,524 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:30,525 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:31,539 INFO spawned: 'gjsx' with pid 36
+2022-11-28 19:49:32,554 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:32,554 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:33,560 INFO spawned: 'gjsx' with pid 44
+2022-11-28 19:49:34,573 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:34,573 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:35,580 INFO spawned: 'gjsx' with pid 52
+2022-11-28 19:49:36,595 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:36,596 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:37,601 INFO spawned: 'gjsx' with pid 60
+2022-11-28 19:49:38,616 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:38,616 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:39,622 INFO spawned: 'gjsx' with pid 68
+2022-11-28 19:49:40,635 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:40,636 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:41,643 INFO spawned: 'gjsx' with pid 76
+2022-11-28 19:49:42,658 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:42,659 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:43,665 INFO spawned: 'gjsx' with pid 84
+2022-11-28 19:49:44,679 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:44,680 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:45,684 INFO spawned: 'gjsx' with pid 92
+2022-11-28 19:49:46,695 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:46,695 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:47,701 INFO spawned: 'gjsx' with pid 100
+2022-11-28 19:49:48,712 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:48,712 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:49,717 INFO spawned: 'gjsx' with pid 108
+2022-11-28 19:49:50,728 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:50,729 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:51,733 INFO spawned: 'gjsx' with pid 116
+2022-11-28 19:49:52,746 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:52,747 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:53,752 INFO spawned: 'gjsx' with pid 124
+2022-11-28 19:49:54,762 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:54,763 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:55,768 INFO spawned: 'gjsx' with pid 132
+2022-11-28 19:49:56,781 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:56,782 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:57,788 INFO spawned: 'gjsx' with pid 140
+2022-11-28 19:49:58,799 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:49:58,800 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:49:59,806 INFO spawned: 'gjsx' with pid 148
+2022-11-28 19:50:00,826 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:00,827 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:01,834 INFO spawned: 'gjsx' with pid 156
+2022-11-28 19:50:02,878 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:02,879 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:03,891 INFO spawned: 'gjsx' with pid 164
+2022-11-28 19:50:04,908 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:04,909 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:05,917 INFO spawned: 'gjsx' with pid 172
+2022-11-28 19:50:06,933 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:06,933 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:07,944 INFO spawned: 'gjsx' with pid 180
+2022-11-28 19:50:08,960 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:08,961 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:09,966 INFO spawned: 'gjsx' with pid 188
+2022-11-28 19:50:10,982 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:10,982 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:11,989 INFO spawned: 'gjsx' with pid 196
+2022-11-28 19:50:13,003 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:13,005 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:14,011 INFO spawned: 'gjsx' with pid 204
+2022-11-28 19:50:15,027 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:15,028 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:16,034 INFO spawned: 'gjsx' with pid 212
+2022-11-28 19:50:17,046 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:17,047 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:18,053 INFO spawned: 'gjsx' with pid 220
+2022-11-28 19:50:19,064 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:19,065 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:20,070 INFO spawned: 'gjsx' with pid 228
+2022-11-28 19:50:21,086 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:21,090 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:22,096 INFO spawned: 'gjsx' with pid 236
+2022-11-28 19:50:23,113 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:23,113 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:24,119 INFO spawned: 'gjsx' with pid 244
+2022-11-28 19:50:25,136 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:25,137 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:26,144 INFO spawned: 'gjsx' with pid 252
+2022-11-28 19:50:27,160 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:27,160 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:28,166 INFO spawned: 'gjsx' with pid 260
+2022-11-28 19:50:29,180 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:29,180 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:30,186 INFO spawned: 'gjsx' with pid 268
+2022-11-28 19:50:30,191 WARN received SIGTERM indicating exit request
+2022-11-28 19:50:30,193 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 19:50:31,201 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:50:31,202 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 19:50:31,202 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 19:50:33,207 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 19:55:32,121 INFO Set uid to user 0 succeeded
+2022-11-28 19:55:32,128 INFO supervisord started with pid 1
+2022-11-28 19:55:33,133 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 19:55:33,137 INFO spawned: 'gjsx' with pid 8
+2022-11-28 19:55:33,142 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 19:55:34,152 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:55:34,153 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 19:55:34,153 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 21:42:52,390 INFO reaped unknown pid 696 (exit status 1)
+2022-11-28 23:09:27,952 WARN received SIGTERM indicating exit request
+2022-11-28 23:09:27,955 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 23:09:28,959 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 23:09:29,976 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 23:09:29,977 INFO reaped unknown pid 43 (exit status 0)
+2022-11-28 23:09:29,978 INFO reaped unknown pid 44 (exit status 0)
+2022-11-28 23:09:30,981 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 23:10:58,814 INFO Set uid to user 0 succeeded
+2022-11-28 23:10:58,824 INFO supervisord started with pid 1
+2022-11-28 23:10:59,830 INFO spawned: 'broadwayd' with pid 6
+2022-11-28 23:10:59,837 INFO spawned: 'gjsx' with pid 7
+2022-11-28 23:10:59,842 INFO spawned: 'proxyserver' with pid 8
+2022-11-28 23:11:00,855 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:00,856 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:00,856 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:00,856 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:01,865 INFO spawned: 'gjsx' with pid 27
+2022-11-28 23:11:02,893 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:02,894 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:03,899 INFO spawned: 'gjsx' with pid 35
+2022-11-28 23:11:04,914 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:04,915 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:05,920 INFO spawned: 'gjsx' with pid 43
+2022-11-28 23:11:06,934 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:06,935 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:07,941 INFO spawned: 'gjsx' with pid 51
+2022-11-28 23:11:08,954 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:08,954 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:09,960 INFO spawned: 'gjsx' with pid 59
+2022-11-28 23:11:10,980 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:11:10,981 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:11:11,986 INFO spawned: 'gjsx' with pid 67
+2022-11-28 23:11:11,987 WARN received SIGTERM indicating exit request
+2022-11-28 23:11:11,989 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 23:11:11,995 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 23:11:12,998 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 23:11:14,001 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 23:14:10,178 INFO Set uid to user 0 succeeded
+2022-11-28 23:14:10,186 INFO supervisord started with pid 1
+2022-11-28 23:14:11,191 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 23:14:11,196 INFO spawned: 'gjsx' with pid 8
+2022-11-28 23:14:11,201 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 23:14:12,213 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:12,214 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:12,214 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:12,214 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:13,221 INFO spawned: 'gjsx' with pid 28
+2022-11-28 23:14:14,232 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:14,233 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:15,238 INFO spawned: 'gjsx' with pid 36
+2022-11-28 23:14:16,254 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:16,256 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:17,261 INFO spawned: 'gjsx' with pid 44
+2022-11-28 23:14:18,277 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:18,278 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:19,284 INFO spawned: 'gjsx' with pid 52
+2022-11-28 23:14:20,299 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:20,300 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:21,306 INFO spawned: 'gjsx' with pid 60
+2022-11-28 23:14:22,321 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:22,322 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:23,339 INFO spawned: 'gjsx' with pid 68
+2022-11-28 23:14:24,362 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:24,363 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:25,377 INFO spawned: 'gjsx' with pid 76
+2022-11-28 23:14:26,394 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:26,395 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:27,402 INFO spawned: 'gjsx' with pid 84
+2022-11-28 23:14:28,416 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:28,416 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:29,422 INFO spawned: 'gjsx' with pid 92
+2022-11-28 23:14:30,438 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:30,439 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:31,446 INFO spawned: 'gjsx' with pid 100
+2022-11-28 23:14:32,466 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:32,467 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:33,474 INFO spawned: 'gjsx' with pid 108
+2022-11-28 23:14:34,488 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:34,488 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:35,494 INFO spawned: 'gjsx' with pid 116
+2022-11-28 23:14:36,507 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:36,508 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:37,513 INFO spawned: 'gjsx' with pid 124
+2022-11-28 23:14:38,529 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:38,529 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:39,535 INFO spawned: 'gjsx' with pid 132
+2022-11-28 23:14:40,553 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:40,554 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:41,560 INFO spawned: 'gjsx' with pid 140
+2022-11-28 23:14:42,576 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:42,577 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:43,583 INFO spawned: 'gjsx' with pid 148
+2022-11-28 23:14:44,599 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:44,601 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:45,608 INFO spawned: 'gjsx' with pid 156
+2022-11-28 23:14:46,623 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:46,624 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:47,634 INFO spawned: 'gjsx' with pid 164
+2022-11-28 23:14:48,651 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:48,651 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:49,658 INFO spawned: 'gjsx' with pid 172
+2022-11-28 23:14:50,673 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:50,673 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:51,681 INFO spawned: 'gjsx' with pid 180
+2022-11-28 23:14:52,697 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:52,698 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:53,707 INFO spawned: 'gjsx' with pid 188
+2022-11-28 23:14:54,724 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:54,725 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:55,732 INFO spawned: 'gjsx' with pid 196
+2022-11-28 23:14:56,747 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:56,748 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:57,755 INFO spawned: 'gjsx' with pid 204
+2022-11-28 23:14:58,768 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:14:58,769 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:14:59,774 INFO spawned: 'gjsx' with pid 212
+2022-11-28 23:14:59,776 WARN received SIGTERM indicating exit request
+2022-11-28 23:14:59,777 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 23:14:59,786 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 23:15:00,788 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 23:15:01,790 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-28 23:15:06,054 INFO Set uid to user 0 succeeded
+2022-11-28 23:15:06,064 INFO supervisord started with pid 1
+2022-11-28 23:15:07,071 INFO spawned: 'broadwayd' with pid 7
+2022-11-28 23:15:07,077 INFO spawned: 'gjsx' with pid 8
+2022-11-28 23:15:07,082 INFO spawned: 'proxyserver' with pid 9
+2022-11-28 23:15:08,098 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:08,098 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:08,099 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:08,099 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:09,106 INFO spawned: 'gjsx' with pid 28
+2022-11-28 23:15:10,121 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:10,122 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:11,129 INFO spawned: 'gjsx' with pid 36
+2022-11-28 23:15:12,145 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:12,145 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:13,151 INFO spawned: 'gjsx' with pid 44
+2022-11-28 23:15:14,172 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:14,173 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:15,178 INFO spawned: 'gjsx' with pid 52
+2022-11-28 23:15:16,200 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:16,201 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:17,207 INFO spawned: 'gjsx' with pid 60
+2022-11-28 23:15:18,232 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:18,233 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:19,239 INFO spawned: 'gjsx' with pid 68
+2022-11-28 23:15:20,259 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:20,259 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:21,267 INFO spawned: 'gjsx' with pid 76
+2022-11-28 23:15:22,286 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:22,287 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:23,293 INFO spawned: 'gjsx' with pid 84
+2022-11-28 23:15:24,325 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:24,325 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:25,331 INFO spawned: 'gjsx' with pid 92
+2022-11-28 23:15:26,348 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:26,349 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:27,355 INFO spawned: 'gjsx' with pid 100
+2022-11-28 23:15:28,372 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-28 23:15:28,373 INFO exited: gjsx (exit status 1; not expected)
+2022-11-28 23:15:29,378 INFO spawned: 'gjsx' with pid 108
+2022-11-28 23:15:29,379 WARN received SIGTERM indicating exit request
+2022-11-28 23:15:29,381 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-28 23:15:29,391 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-28 23:15:30,394 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-28 23:15:31,397 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 00:38:51,871 INFO Set uid to user 0 succeeded
+2022-11-29 00:38:51,880 INFO supervisord started with pid 1
+2022-11-29 00:38:52,884 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 00:38:52,889 INFO spawned: 'gjsx' with pid 8
+2022-11-29 00:38:52,893 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 00:38:53,904 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:38:53,904 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:38:53,904 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:43:03,269 WARN received SIGTERM indicating exit request
+2022-11-29 00:43:03,272 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 00:43:04,276 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 00:43:05,280 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 00:43:05,281 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 00:43:06,284 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 00:43:08,772 INFO Set uid to user 0 succeeded
+2022-11-29 00:43:08,780 INFO supervisord started with pid 1
+2022-11-29 00:43:09,785 INFO spawned: 'broadwayd' with pid 6
+2022-11-29 00:43:09,812 INFO spawned: 'gjsx' with pid 7
+2022-11-29 00:43:09,818 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 00:43:10,833 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:43:10,834 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:43:10,834 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:43:33,867 WARN received SIGTERM indicating exit request
+2022-11-29 00:43:33,867 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 00:43:34,871 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 00:43:35,874 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 00:43:35,874 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 00:43:35,875 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 00:43:36,877 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 00:45:02,026 INFO Set uid to user 0 succeeded
+2022-11-29 00:45:02,035 INFO supervisord started with pid 1
+2022-11-29 00:45:03,040 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 00:45:03,047 INFO spawned: 'gjsx' with pid 8
+2022-11-29 00:45:03,052 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 00:45:04,065 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:45:04,066 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:45:04,067 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:54:51,926 WARN received SIGTERM indicating exit request
+2022-11-29 00:54:51,928 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 00:54:52,932 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 00:54:53,935 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 00:54:53,936 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 00:54:53,936 INFO reaped unknown pid 45 (exit status 0)
+2022-11-29 00:54:54,939 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 00:56:15,635 INFO Set uid to user 0 succeeded
+2022-11-29 00:56:15,643 INFO supervisord started with pid 1
+2022-11-29 00:56:16,649 INFO spawned: 'broadwayd' with pid 6
+2022-11-29 00:56:16,656 INFO spawned: 'gjsx' with pid 7
+2022-11-29 00:56:16,661 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 00:56:17,677 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:56:17,678 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:56:17,679 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:58:18,847 WARN received SIGTERM indicating exit request
+2022-11-29 00:58:18,849 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 00:58:19,854 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 00:58:20,858 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 00:58:20,859 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 00:58:20,859 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 00:58:21,864 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 00:59:14,024 INFO Set uid to user 0 succeeded
+2022-11-29 00:59:14,032 INFO supervisord started with pid 1
+2022-11-29 00:59:15,037 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 00:59:15,044 INFO spawned: 'gjsx' with pid 8
+2022-11-29 00:59:15,050 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 00:59:16,061 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:59:16,062 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 00:59:16,062 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:01:11,253 WARN received SIGTERM indicating exit request
+2022-11-29 01:01:11,255 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 01:01:12,260 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 01:01:13,264 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 01:01:13,264 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 01:01:13,265 INFO reaped unknown pid 45 (exit status 0)
+2022-11-29 01:01:14,268 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 01:01:22,739 INFO Set uid to user 0 succeeded
+2022-11-29 01:01:22,749 INFO supervisord started with pid 1
+2022-11-29 01:01:23,756 INFO spawned: 'broadwayd' with pid 6
+2022-11-29 01:01:23,766 INFO spawned: 'gjsx' with pid 7
+2022-11-29 01:01:23,771 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 01:01:24,790 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:01:24,791 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:01:24,791 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:04:00,041 WARN received SIGTERM indicating exit request
+2022-11-29 01:04:00,044 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 01:04:01,049 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 01:04:02,053 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 01:04:02,054 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 01:04:02,054 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 01:04:03,056 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 01:05:26,560 INFO Set uid to user 0 succeeded
+2022-11-29 01:05:26,566 INFO supervisord started with pid 1
+2022-11-29 01:05:27,571 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 01:05:27,576 INFO spawned: 'gjsx' with pid 8
+2022-11-29 01:05:27,581 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 01:05:28,594 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:05:28,596 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:05:28,597 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:21:50,067 WARN received SIGTERM indicating exit request
+2022-11-29 01:21:50,069 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 01:21:51,071 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 01:21:52,077 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 01:21:52,078 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 01:21:52,078 INFO reaped unknown pid 45 (exit status 0)
+2022-11-29 01:21:53,081 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 01:23:20,401 INFO Set uid to user 0 succeeded
+2022-11-29 01:23:20,419 INFO supervisord started with pid 1
+2022-11-29 01:23:21,425 INFO spawned: 'broadwayd' with pid 6
+2022-11-29 01:23:21,432 INFO spawned: 'gjsx' with pid 7
+2022-11-29 01:23:21,437 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 01:23:22,449 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:23:22,450 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 01:23:22,451 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 02:15:25,933 INFO reaped unknown pid 223 (exit status 0)
+2022-11-29 05:39:38,686 WARN received SIGTERM indicating exit request
+2022-11-29 05:39:38,688 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 05:39:39,692 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 05:39:40,698 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 05:39:40,698 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 05:39:40,698 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 05:39:41,701 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 05:39:41,701 INFO reaped unknown pid 915 (exit status 1)
+2022-11-29 05:39:48,488 INFO Set uid to user 0 succeeded
+2022-11-29 05:39:48,498 INFO supervisord started with pid 1
+2022-11-29 05:39:49,506 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 05:39:49,515 INFO spawned: 'gjsx' with pid 8
+2022-11-29 05:39:49,521 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 05:39:50,557 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 05:39:50,558 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 05:39:50,558 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:01:00,411 WARN received SIGTERM indicating exit request
+2022-11-29 06:01:00,413 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 06:01:01,422 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:01:02,426 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 06:01:02,426 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 06:01:02,427 INFO reaped unknown pid 45 (exit status 0)
+2022-11-29 06:01:03,429 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 06:22:20,339 INFO Set uid to user 0 succeeded
+2022-11-29 06:22:20,351 INFO supervisord started with pid 1
+2022-11-29 06:22:21,358 INFO spawned: 'gjsx-xpra' with pid 7
+2022-11-29 06:22:21,363 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 06:22:21,648 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:22:21,648 INFO reaped unknown pid 20 (exit status 0)
+2022-11-29 06:22:22,653 INFO spawned: 'gjsx-xpra' with pid 23
+2022-11-29 06:22:22,654 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:22:22,948 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:22:22,948 INFO reaped unknown pid 25 (exit status 0)
+2022-11-29 06:22:24,956 INFO spawned: 'gjsx-xpra' with pid 28
+2022-11-29 06:22:25,249 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:22:25,249 INFO reaped unknown pid 30 (exit status 0)
+2022-11-29 06:22:28,256 INFO spawned: 'gjsx-xpra' with pid 33
+2022-11-29 06:22:28,567 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:22:28,568 INFO reaped unknown pid 35 (exit status 0)
+2022-11-29 06:22:28,569 INFO gave up: gjsx-xpra entered FATAL state, too many start retries too quickly
+2022-11-29 06:22:38,580 INFO reaped unknown pid 52 (exit status 0)
+2022-11-29 06:22:39,584 INFO reaped unknown pid 21 (exit status 1)
+2022-11-29 06:22:40,587 INFO reaped unknown pid 56 (exit status 0)
+2022-11-29 06:22:41,590 INFO reaped unknown pid 26 (exit status 1)
+2022-11-29 06:22:43,593 INFO reaped unknown pid 31 (exit status 1)
+2022-11-29 06:22:43,594 INFO reaped unknown pid 64 (exit status 0)
+2022-11-29 06:22:46,599 INFO reaped unknown pid 36 (exit status 1)
+2022-11-29 06:22:46,599 INFO reaped unknown pid 68 (exit status 0)
+2022-11-29 06:24:05,711 WARN received SIGTERM indicating exit request
+2022-11-29 06:24:05,715 INFO waiting for proxyserver to die
+2022-11-29 06:24:06,718 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:25:34,742 INFO Set uid to user 0 succeeded
+2022-11-29 06:25:34,748 INFO supervisord started with pid 1
+2022-11-29 06:25:35,754 INFO spawned: 'gjsx-xpra' with pid 6
+2022-11-29 06:25:35,759 INFO spawned: 'proxyserver' with pid 7
+2022-11-29 06:25:36,032 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:25:36,033 INFO reaped unknown pid 19 (exit status 0)
+2022-11-29 06:25:37,040 INFO spawned: 'gjsx-xpra' with pid 22
+2022-11-29 06:25:37,043 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:25:37,288 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:25:37,289 INFO reaped unknown pid 24 (exit status 0)
+2022-11-29 06:25:39,300 INFO spawned: 'gjsx-xpra' with pid 27
+2022-11-29 06:25:39,619 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:25:39,619 INFO reaped unknown pid 29 (exit status 0)
+2022-11-29 06:25:42,629 INFO spawned: 'gjsx-xpra' with pid 32
+2022-11-29 06:25:42,956 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:25:42,957 INFO reaped unknown pid 34 (exit status 0)
+2022-11-29 06:25:42,974 INFO gave up: gjsx-xpra entered FATAL state, too many start retries too quickly
+2022-11-29 06:25:55,028 INFO reaped unknown pid 20 (exit status 1)
+2022-11-29 06:25:55,028 INFO reaped unknown pid 25 (exit status 1)
+2022-11-29 06:25:55,029 INFO reaped unknown pid 51 (exit status 0)
+2022-11-29 06:25:55,030 INFO reaped unknown pid 54 (exit status 0)
+2022-11-29 06:25:58,033 INFO reaped unknown pid 30 (exit status 1)
+2022-11-29 06:25:58,034 INFO reaped unknown pid 63 (exit status 0)
+2022-11-29 06:26:01,038 INFO reaped unknown pid 35 (exit status 1)
+2022-11-29 06:26:01,039 INFO reaped unknown pid 67 (exit status 0)
+2022-11-29 06:26:46,115 WARN received SIGTERM indicating exit request
+2022-11-29 06:26:46,116 INFO waiting for proxyserver to die
+2022-11-29 06:26:47,119 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:28:36,318 INFO Set uid to user 0 succeeded
+2022-11-29 06:28:36,325 INFO supervisord started with pid 1
+2022-11-29 06:28:37,331 INFO spawned: 'gjsx-xpra' with pid 7
+2022-11-29 06:28:37,339 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 06:28:37,698 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:28:37,699 INFO reaped unknown pid 20 (exit status 0)
+2022-11-29 06:28:38,704 INFO spawned: 'gjsx-xpra' with pid 23
+2022-11-29 06:28:38,706 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:28:39,039 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:28:39,040 INFO reaped unknown pid 25 (exit status 0)
+2022-11-29 06:28:41,063 INFO spawned: 'gjsx-xpra' with pid 28
+2022-11-29 06:28:41,342 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:28:41,343 INFO reaped unknown pid 30 (exit status 0)
+2022-11-29 06:28:44,350 INFO spawned: 'gjsx-xpra' with pid 33
+2022-11-29 06:28:44,705 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 06:28:44,705 INFO reaped unknown pid 35 (exit status 0)
+2022-11-29 06:28:44,707 INFO gave up: gjsx-xpra entered FATAL state, too many start retries too quickly
+2022-11-29 06:28:55,722 INFO reaped unknown pid 52 (exit status 0)
+2022-11-29 06:28:56,724 INFO reaped unknown pid 21 (exit status 1)
+2022-11-29 06:28:56,726 INFO reaped unknown pid 26 (exit status 1)
+2022-11-29 06:28:56,726 INFO reaped unknown pid 55 (exit status 0)
+2022-11-29 06:28:58,730 INFO reaped unknown pid 31 (exit status 1)
+2022-11-29 06:28:58,732 INFO reaped unknown pid 64 (exit status 0)
+2022-11-29 06:29:01,736 INFO reaped unknown pid 36 (exit status 1)
+2022-11-29 06:29:01,741 INFO reaped unknown pid 68 (exit status 0)
+2022-11-29 06:29:49,811 WARN received SIGTERM indicating exit request
+2022-11-29 06:29:49,813 INFO waiting for proxyserver to die
+2022-11-29 06:29:50,815 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:31:59,201 INFO Set uid to user 0 succeeded
+2022-11-29 06:31:59,209 INFO supervisord started with pid 1
+2022-11-29 06:32:00,215 INFO spawned: 'gjsx-xpra' with pid 7
+2022-11-29 06:32:00,222 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 06:32:01,232 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:01,232 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:01,233 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:01,233 INFO reaped unknown pid 20 (exit status 0)
+2022-11-29 06:32:02,238 INFO spawned: 'gjsx-xpra' with pid 23
+2022-11-29 06:32:03,253 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:03,253 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:03,253 INFO reaped unknown pid 25 (exit status 0)
+2022-11-29 06:32:04,259 INFO spawned: 'gjsx-xpra' with pid 28
+2022-11-29 06:32:05,272 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:05,272 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:05,273 INFO reaped unknown pid 30 (exit status 0)
+2022-11-29 06:32:06,279 INFO spawned: 'gjsx-xpra' with pid 33
+2022-11-29 06:32:07,291 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:07,292 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:07,292 INFO reaped unknown pid 35 (exit status 0)
+2022-11-29 06:32:08,299 INFO spawned: 'gjsx-xpra' with pid 38
+2022-11-29 06:32:09,318 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:09,319 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:09,319 INFO reaped unknown pid 40 (exit status 0)
+2022-11-29 06:32:10,326 INFO spawned: 'gjsx-xpra' with pid 43
+2022-11-29 06:32:11,340 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:11,341 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:11,341 INFO reaped unknown pid 46 (exit status 0)
+2022-11-29 06:32:12,356 INFO spawned: 'gjsx-xpra' with pid 52
+2022-11-29 06:32:13,396 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:13,396 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:13,397 INFO reaped unknown pid 58 (exit status 0)
+2022-11-29 06:32:14,403 INFO spawned: 'gjsx-xpra' with pid 61
+2022-11-29 06:32:15,440 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:15,441 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:15,441 INFO reaped unknown pid 63 (exit status 0)
+2022-11-29 06:32:16,470 INFO spawned: 'gjsx-xpra' with pid 70
+2022-11-29 06:32:17,491 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:17,492 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:17,492 INFO reaped unknown pid 72 (exit status 0)
+2022-11-29 06:32:18,521 INFO spawned: 'gjsx-xpra' with pid 78
+2022-11-29 06:32:19,553 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:19,554 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:19,554 INFO reaped unknown pid 80 (exit status 0)
+2022-11-29 06:32:20,577 INFO spawned: 'gjsx-xpra' with pid 87
+2022-11-29 06:32:21,596 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:21,597 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:21,597 INFO reaped unknown pid 89 (exit status 0)
+2022-11-29 06:32:21,597 INFO reaped unknown pid 77 (exit status 0)
+2022-11-29 06:32:22,605 INFO spawned: 'gjsx-xpra' with pid 96
+2022-11-29 06:32:23,652 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:23,652 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:23,652 INFO reaped unknown pid 98 (exit status 0)
+2022-11-29 06:32:24,658 INFO spawned: 'gjsx-xpra' with pid 101
+2022-11-29 06:32:24,659 INFO reaped unknown pid 21 (exit status 1)
+2022-11-29 06:32:25,695 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:25,695 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:25,696 INFO reaped unknown pid 103 (exit status 0)
+2022-11-29 06:32:26,702 INFO spawned: 'gjsx-xpra' with pid 109
+2022-11-29 06:32:27,725 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:27,726 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:27,726 INFO reaped unknown pid 95 (exit status 0)
+2022-11-29 06:32:27,727 INFO reaped unknown pid 116 (exit status 0)
+2022-11-29 06:32:28,734 INFO spawned: 'gjsx-xpra' with pid 119
+2022-11-29 06:32:28,736 INFO reaped unknown pid 26 (exit status 1)
+2022-11-29 06:32:29,780 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:29,780 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:29,780 INFO reaped unknown pid 125 (exit status 0)
+2022-11-29 06:32:30,787 INFO spawned: 'gjsx-xpra' with pid 129
+2022-11-29 06:32:30,789 INFO reaped unknown pid 108 (exit status 0)
+2022-11-29 06:32:31,830 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:31,831 INFO reaped unknown pid 31 (exit status 1)
+2022-11-29 06:32:31,832 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:31,833 INFO reaped unknown pid 131 (exit status 0)
+2022-11-29 06:32:32,839 INFO spawned: 'gjsx-xpra' with pid 137
+2022-11-29 06:32:33,876 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:33,876 INFO reaped unknown pid 59 (exit status 1)
+2022-11-29 06:32:33,877 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:33,877 INFO reaped unknown pid 139 (exit status 0)
+2022-11-29 06:32:34,883 INFO spawned: 'gjsx-xpra' with pid 142
+2022-11-29 06:32:35,936 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:35,936 INFO reaped unknown pid 64 (exit status 1)
+2022-11-29 06:32:35,937 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:35,937 INFO reaped unknown pid 144 (exit status 0)
+2022-11-29 06:32:35,938 INFO reaped unknown pid 136 (exit status 0)
+2022-11-29 06:32:36,943 INFO spawned: 'gjsx-xpra' with pid 148
+2022-11-29 06:32:37,975 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:37,976 INFO reaped unknown pid 36 (exit status 1)
+2022-11-29 06:32:37,976 INFO reaped unknown pid 73 (exit status 1)
+2022-11-29 06:32:37,977 INFO reaped unknown pid 66 (exit status 1)
+2022-11-29 06:32:37,977 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:37,978 INFO reaped unknown pid 151 (exit status 0)
+2022-11-29 06:32:38,984 INFO spawned: 'gjsx-xpra' with pid 155
+2022-11-29 06:32:40,029 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:40,030 INFO reaped unknown pid 81 (exit status 1)
+2022-11-29 06:32:40,031 INFO reaped unknown pid 60 (exit status 1)
+2022-11-29 06:32:40,031 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:40,032 INFO reaped unknown pid 160 (exit status 0)
+2022-11-29 06:32:41,040 INFO spawned: 'gjsx-xpra' with pid 163
+2022-11-29 06:32:42,158 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:42,158 INFO reaped unknown pid 90 (exit status 1)
+2022-11-29 06:32:42,158 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:42,159 INFO reaped unknown pid 168 (exit status 0)
+2022-11-29 06:32:43,164 INFO spawned: 'gjsx-xpra' with pid 171
+2022-11-29 06:32:44,202 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:44,203 INFO reaped unknown pid 99 (exit status 1)
+2022-11-29 06:32:44,203 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:44,204 INFO reaped unknown pid 158 (exit status 0)
+2022-11-29 06:32:44,204 INFO reaped unknown pid 174 (exit status 0)
+2022-11-29 06:32:45,215 INFO spawned: 'gjsx-xpra' with pid 178
+2022-11-29 06:32:45,216 INFO reaped unknown pid 41 (exit status 1)
+2022-11-29 06:32:45,217 INFO reaped unknown pid 74 (exit status 1)
+2022-11-29 06:32:46,275 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:46,276 INFO reaped unknown pid 104 (exit status 1)
+2022-11-29 06:32:46,276 INFO reaped unknown pid 92 (exit status 1)
+2022-11-29 06:32:46,277 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:46,277 INFO reaped unknown pid 166 (exit status 0)
+2022-11-29 06:32:46,278 INFO reaped unknown pid 182 (exit status 0)
+2022-11-29 06:32:47,299 INFO spawned: 'gjsx-xpra' with pid 186
+2022-11-29 06:32:47,310 INFO reaped unknown pid 47 (exit status 1)
+2022-11-29 06:32:47,311 INFO reaped unknown pid 82 (exit status 1)
+2022-11-29 06:32:48,343 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:48,343 INFO reaped unknown pid 117 (exit status 1)
+2022-11-29 06:32:48,344 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:48,344 INFO reaped unknown pid 188 (exit status 0)
+2022-11-29 06:32:49,349 INFO spawned: 'gjsx-xpra' with pid 191
+2022-11-29 06:32:50,396 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:50,397 INFO reaped unknown pid 126 (exit status 1)
+2022-11-29 06:32:50,397 INFO reaped unknown pid 100 (exit status 1)
+2022-11-29 06:32:50,398 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:50,399 INFO reaped unknown pid 194 (exit status 0)
+2022-11-29 06:32:51,404 INFO spawned: 'gjsx-xpra' with pid 198
+2022-11-29 06:32:51,405 INFO reaped unknown pid 105 (exit status 1)
+2022-11-29 06:32:52,464 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:52,465 INFO reaped unknown pid 132 (exit status 1)
+2022-11-29 06:32:52,466 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:52,466 INFO reaped unknown pid 200 (exit status 0)
+2022-11-29 06:32:53,472 INFO spawned: 'gjsx-xpra' with pid 204
+2022-11-29 06:32:53,473 INFO reaped unknown pid 118 (exit status 1)
+2022-11-29 06:32:54,512 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:54,512 INFO reaped unknown pid 140 (exit status 1)
+2022-11-29 06:32:54,513 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:54,513 INFO reaped unknown pid 206 (exit status 0)
+2022-11-29 06:32:55,542 INFO spawned: 'gjsx-xpra' with pid 209
+2022-11-29 06:32:56,582 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:56,582 INFO reaped unknown pid 145 (exit status 1)
+2022-11-29 06:32:56,583 INFO reaped unknown pid 127 (exit status 1)
+2022-11-29 06:32:56,583 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:56,584 INFO reaped unknown pid 213 (exit status 0)
+2022-11-29 06:32:57,589 INFO spawned: 'gjsx-xpra' with pid 216
+2022-11-29 06:32:57,591 INFO reaped unknown pid 133 (exit status 1)
+2022-11-29 06:32:58,645 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:32:58,646 INFO reaped unknown pid 152 (exit status 1)
+2022-11-29 06:32:58,646 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:32:58,646 INFO reaped unknown pid 218 (exit status 0)
+2022-11-29 06:32:59,652 INFO spawned: 'gjsx-xpra' with pid 221
+2022-11-29 06:33:00,697 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:00,698 INFO reaped unknown pid 161 (exit status 1)
+2022-11-29 06:33:00,702 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:00,702 INFO reaped unknown pid 223 (exit status 0)
+2022-11-29 06:33:01,709 INFO spawned: 'gjsx-xpra' with pid 226
+2022-11-29 06:33:02,754 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:02,754 INFO reaped unknown pid 169 (exit status 1)
+2022-11-29 06:33:02,754 INFO reaped unknown pid 141 (exit status 1)
+2022-11-29 06:33:02,754 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:02,755 INFO reaped unknown pid 229 (exit status 0)
+2022-11-29 06:33:03,761 INFO spawned: 'gjsx-xpra' with pid 233
+2022-11-29 06:33:03,763 INFO reaped unknown pid 147 (exit status 1)
+2022-11-29 06:33:04,806 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:04,806 INFO reaped unknown pid 175 (exit status 1)
+2022-11-29 06:33:04,806 INFO reaped unknown pid 153 (exit status 1)
+2022-11-29 06:33:04,807 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:04,808 INFO reaped unknown pid 236 (exit status 0)
+2022-11-29 06:33:05,813 INFO spawned: 'gjsx-xpra' with pid 240
+2022-11-29 06:33:05,815 INFO reaped unknown pid 162 (exit status 1)
+2022-11-29 06:33:06,867 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:06,868 INFO reaped unknown pid 183 (exit status 1)
+2022-11-29 06:33:06,869 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:06,869 INFO reaped unknown pid 242 (exit status 0)
+2022-11-29 06:33:07,876 INFO spawned: 'gjsx-xpra' with pid 245
+2022-11-29 06:33:08,922 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:08,923 INFO reaped unknown pid 189 (exit status 1)
+2022-11-29 06:33:08,923 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:08,929 INFO reaped unknown pid 247 (exit status 0)
+2022-11-29 06:33:09,937 INFO spawned: 'gjsx-xpra' with pid 251
+2022-11-29 06:33:09,939 INFO reaped unknown pid 170 (exit status 1)
+2022-11-29 06:33:10,987 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:10,988 INFO reaped unknown pid 195 (exit status 1)
+2022-11-29 06:33:10,989 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:10,989 INFO reaped unknown pid 253 (exit status 0)
+2022-11-29 06:33:11,995 INFO spawned: 'gjsx-xpra' with pid 257
+2022-11-29 06:33:11,997 INFO reaped unknown pid 176 (exit status 1)
+2022-11-29 06:33:13,041 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:13,042 INFO reaped unknown pid 201 (exit status 1)
+2022-11-29 06:33:13,043 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:13,043 INFO reaped unknown pid 259 (exit status 0)
+2022-11-29 06:33:14,050 INFO spawned: 'gjsx-xpra' with pid 263
+2022-11-29 06:33:14,051 INFO reaped unknown pid 184 (exit status 1)
+2022-11-29 06:33:15,089 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:15,090 INFO reaped unknown pid 207 (exit status 1)
+2022-11-29 06:33:15,090 INFO reaped unknown pid 190 (exit status 1)
+2022-11-29 06:33:15,090 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:15,090 INFO reaped unknown pid 266 (exit status 0)
+2022-11-29 06:33:16,098 INFO spawned: 'gjsx-xpra' with pid 269
+2022-11-29 06:33:17,140 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:17,140 INFO reaped unknown pid 214 (exit status 1)
+2022-11-29 06:33:17,141 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:17,141 INFO reaped unknown pid 271 (exit status 0)
+2022-11-29 06:33:18,162 INFO spawned: 'gjsx-xpra' with pid 274
+2022-11-29 06:33:19,207 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:19,208 INFO reaped unknown pid 219 (exit status 1)
+2022-11-29 06:33:19,208 INFO reaped unknown pid 196 (exit status 1)
+2022-11-29 06:33:19,209 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:19,210 INFO reaped unknown pid 277 (exit status 0)
+2022-11-29 06:33:20,216 INFO spawned: 'gjsx-xpra' with pid 280
+2022-11-29 06:33:21,259 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:21,259 INFO reaped unknown pid 224 (exit status 1)
+2022-11-29 06:33:21,260 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:21,260 INFO reaped unknown pid 282 (exit status 0)
+2022-11-29 06:33:22,270 INFO spawned: 'gjsx-xpra' with pid 286
+2022-11-29 06:33:22,279 INFO reaped unknown pid 202 (exit status 1)
+2022-11-29 06:33:23,324 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:23,325 INFO reaped unknown pid 230 (exit status 1)
+2022-11-29 06:33:23,326 INFO reaped unknown pid 208 (exit status 1)
+2022-11-29 06:33:23,326 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:23,327 INFO reaped unknown pid 289 (exit status 0)
+2022-11-29 06:33:24,333 INFO spawned: 'gjsx-xpra' with pid 292
+2022-11-29 06:33:25,379 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:25,380 INFO reaped unknown pid 237 (exit status 1)
+2022-11-29 06:33:26,381 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:26,382 INFO reaped unknown pid 294 (exit status 0)
+2022-11-29 06:33:27,387 INFO spawned: 'gjsx-xpra' with pid 298
+2022-11-29 06:33:27,388 INFO reaped unknown pid 243 (exit status 1)
+2022-11-29 06:33:27,389 INFO reaped unknown pid 215 (exit status 1)
+2022-11-29 06:33:28,437 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:28,438 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:28,438 INFO reaped unknown pid 301 (exit status 0)
+2022-11-29 06:33:29,444 INFO spawned: 'gjsx-xpra' with pid 304
+2022-11-29 06:33:29,445 INFO reaped unknown pid 248 (exit status 1)
+2022-11-29 06:33:29,446 INFO reaped unknown pid 220 (exit status 1)
+2022-11-29 06:33:30,493 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:30,494 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:30,495 INFO reaped unknown pid 306 (exit status 0)
+2022-11-29 06:33:31,501 INFO spawned: 'gjsx-xpra' with pid 310
+2022-11-29 06:33:31,503 INFO reaped unknown pid 254 (exit status 1)
+2022-11-29 06:33:31,503 INFO reaped unknown pid 225 (exit status 1)
+2022-11-29 06:33:32,555 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:32,556 INFO reaped unknown pid 238 (exit status 1)
+2022-11-29 06:33:32,557 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:32,558 INFO reaped unknown pid 313 (exit status 0)
+2022-11-29 06:33:33,564 INFO spawned: 'gjsx-xpra' with pid 317
+2022-11-29 06:33:33,565 INFO reaped unknown pid 260 (exit status 1)
+2022-11-29 06:33:33,566 INFO reaped unknown pid 231 (exit status 1)
+2022-11-29 06:33:34,611 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:34,612 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:34,613 INFO reaped unknown pid 319 (exit status 0)
+2022-11-29 06:33:35,619 INFO spawned: 'gjsx-xpra' with pid 322
+2022-11-29 06:33:35,621 INFO reaped unknown pid 267 (exit status 1)
+2022-11-29 06:33:36,650 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:36,651 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:36,651 INFO reaped unknown pid 324 (exit status 0)
+2022-11-29 06:33:37,657 INFO spawned: 'gjsx-xpra' with pid 328
+2022-11-29 06:33:37,660 INFO reaped unknown pid 272 (exit status 1)
+2022-11-29 06:33:37,661 INFO reaped unknown pid 244 (exit status 1)
+2022-11-29 06:33:38,698 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:38,699 INFO reaped unknown pid 249 (exit status 1)
+2022-11-29 06:33:38,699 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:38,700 INFO reaped unknown pid 331 (exit status 0)
+2022-11-29 06:33:39,706 INFO spawned: 'gjsx-xpra' with pid 335
+2022-11-29 06:33:39,707 INFO reaped unknown pid 278 (exit status 1)
+2022-11-29 06:33:39,708 INFO reaped unknown pid 255 (exit status 1)
+2022-11-29 06:33:40,752 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:40,753 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:40,754 INFO reaped unknown pid 337 (exit status 0)
+2022-11-29 06:33:41,761 INFO spawned: 'gjsx-xpra' with pid 340
+2022-11-29 06:33:41,763 INFO reaped unknown pid 283 (exit status 1)
+2022-11-29 06:33:42,815 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:42,816 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:42,816 INFO reaped unknown pid 342 (exit status 0)
+2022-11-29 06:33:43,822 INFO spawned: 'gjsx-xpra' with pid 347
+2022-11-29 06:33:43,824 INFO reaped unknown pid 290 (exit status 1)
+2022-11-29 06:33:43,825 INFO reaped unknown pid 261 (exit status 1)
+2022-11-29 06:33:43,825 INFO reaped unknown pid 268 (exit status 1)
+2022-11-29 06:33:44,871 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:44,872 INFO reaped unknown pid 273 (exit status 1)
+2022-11-29 06:33:44,873 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:44,874 INFO reaped unknown pid 350 (exit status 0)
+2022-11-29 06:33:45,879 INFO spawned: 'gjsx-xpra' with pid 353
+2022-11-29 06:33:45,880 INFO reaped unknown pid 295 (exit status 1)
+2022-11-29 06:33:46,918 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:46,919 INFO reaped unknown pid 279 (exit status 1)
+2022-11-29 06:33:46,919 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:46,920 INFO reaped unknown pid 356 (exit status 0)
+2022-11-29 06:33:47,926 INFO spawned: 'gjsx-xpra' with pid 359
+2022-11-29 06:33:48,971 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:48,972 INFO reaped unknown pid 302 (exit status 1)
+2022-11-29 06:33:48,972 INFO reaped unknown pid 284 (exit status 1)
+2022-11-29 06:33:48,972 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:48,973 INFO reaped unknown pid 361 (exit status 0)
+2022-11-29 06:33:49,981 INFO spawned: 'gjsx-xpra' with pid 366
+2022-11-29 06:33:49,983 INFO reaped unknown pid 291 (exit status 1)
+2022-11-29 06:33:51,019 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:51,020 INFO reaped unknown pid 307 (exit status 1)
+2022-11-29 06:33:51,020 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:51,020 INFO reaped unknown pid 368 (exit status 0)
+2022-11-29 06:33:52,030 INFO spawned: 'gjsx-xpra' with pid 371
+2022-11-29 06:33:53,068 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:53,068 INFO reaped unknown pid 314 (exit status 1)
+2022-11-29 06:33:53,069 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:53,069 INFO reaped unknown pid 373 (exit status 0)
+2022-11-29 06:33:54,075 INFO spawned: 'gjsx-xpra' with pid 377
+2022-11-29 06:33:54,076 INFO reaped unknown pid 296 (exit status 1)
+2022-11-29 06:33:55,117 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:55,118 INFO reaped unknown pid 320 (exit status 1)
+2022-11-29 06:33:55,118 INFO reaped unknown pid 303 (exit status 1)
+2022-11-29 06:33:55,118 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:55,119 INFO reaped unknown pid 380 (exit status 0)
+2022-11-29 06:33:56,125 INFO spawned: 'gjsx-xpra' with pid 384
+2022-11-29 06:33:56,127 INFO reaped unknown pid 308 (exit status 1)
+2022-11-29 06:33:57,160 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:57,161 INFO reaped unknown pid 325 (exit status 1)
+2022-11-29 06:33:57,161 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:57,162 INFO reaped unknown pid 386 (exit status 0)
+2022-11-29 06:33:58,167 INFO spawned: 'gjsx-xpra' with pid 391
+2022-11-29 06:33:58,169 INFO reaped unknown pid 315 (exit status 1)
+2022-11-29 06:33:59,195 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:33:59,196 INFO reaped unknown pid 332 (exit status 1)
+2022-11-29 06:33:59,196 INFO reaped unknown pid 321 (exit status 1)
+2022-11-29 06:33:59,197 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:33:59,198 INFO reaped unknown pid 393 (exit status 0)
+2022-11-29 06:34:00,204 INFO spawned: 'gjsx-xpra' with pid 396
+2022-11-29 06:34:01,244 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:01,245 INFO reaped unknown pid 338 (exit status 1)
+2022-11-29 06:34:01,245 INFO reaped unknown pid 326 (exit status 1)
+2022-11-29 06:34:01,246 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:01,246 INFO reaped unknown pid 399 (exit status 0)
+2022-11-29 06:34:02,253 INFO spawned: 'gjsx-xpra' with pid 403
+2022-11-29 06:34:03,312 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:03,313 INFO reaped unknown pid 343 (exit status 1)
+2022-11-29 06:34:03,313 INFO reaped unknown pid 339 (exit status 1)
+2022-11-29 06:34:03,314 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:03,315 INFO reaped unknown pid 405 (exit status 0)
+2022-11-29 06:34:04,321 INFO spawned: 'gjsx-xpra' with pid 409
+2022-11-29 06:34:04,323 INFO reaped unknown pid 333 (exit status 1)
+2022-11-29 06:34:05,353 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:05,354 INFO reaped unknown pid 351 (exit status 1)
+2022-11-29 06:34:05,355 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:05,355 INFO reaped unknown pid 411 (exit status 0)
+2022-11-29 06:34:06,366 INFO spawned: 'gjsx-xpra' with pid 414
+2022-11-29 06:34:07,421 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:07,422 INFO reaped unknown pid 357 (exit status 1)
+2022-11-29 06:34:07,423 INFO reaped unknown pid 344 (exit status 1)
+2022-11-29 06:34:07,423 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:07,424 INFO reaped unknown pid 417 (exit status 0)
+2022-11-29 06:34:08,429 INFO spawned: 'gjsx-xpra' with pid 420
+2022-11-29 06:34:09,483 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:09,484 INFO reaped unknown pid 362 (exit status 1)
+2022-11-29 06:34:09,485 INFO reaped unknown pid 352 (exit status 1)
+2022-11-29 06:34:09,485 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:09,487 INFO reaped unknown pid 423 (exit status 0)
+2022-11-29 06:34:10,492 INFO spawned: 'gjsx-xpra' with pid 427
+2022-11-29 06:34:10,494 INFO reaped unknown pid 358 (exit status 1)
+2022-11-29 06:34:11,531 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:11,533 INFO reaped unknown pid 369 (exit status 1)
+2022-11-29 06:34:11,533 INFO reaped unknown pid 364 (exit status 1)
+2022-11-29 06:34:11,534 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:11,535 INFO reaped unknown pid 430 (exit status 0)
+2022-11-29 06:34:12,540 INFO spawned: 'gjsx-xpra' with pid 434
+2022-11-29 06:34:12,541 INFO reaped unknown pid 370 (exit status 1)
+2022-11-29 06:34:13,576 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:13,577 INFO reaped unknown pid 374 (exit status 1)
+2022-11-29 06:34:13,577 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:13,579 INFO reaped unknown pid 436 (exit status 0)
+2022-11-29 06:34:14,586 INFO spawned: 'gjsx-xpra' with pid 439
+2022-11-29 06:34:15,623 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:15,624 INFO reaped unknown pid 381 (exit status 1)
+2022-11-29 06:34:15,625 INFO reaped unknown pid 375 (exit status 1)
+2022-11-29 06:34:15,625 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:15,626 INFO reaped unknown pid 442 (exit status 0)
+2022-11-29 06:34:16,631 INFO spawned: 'gjsx-xpra' with pid 445
+2022-11-29 06:34:17,667 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:17,668 INFO reaped unknown pid 387 (exit status 1)
+2022-11-29 06:34:17,669 INFO reaped unknown pid 383 (exit status 1)
+2022-11-29 06:34:17,669 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:17,670 INFO reaped unknown pid 447 (exit status 0)
+2022-11-29 06:34:18,676 INFO spawned: 'gjsx-xpra' with pid 452
+2022-11-29 06:34:18,678 INFO reaped unknown pid 388 (exit status 1)
+2022-11-29 06:34:19,714 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:19,715 INFO reaped unknown pid 394 (exit status 1)
+2022-11-29 06:34:19,715 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:19,715 INFO reaped unknown pid 395 (exit status 1)
+2022-11-29 06:34:19,716 INFO reaped unknown pid 454 (exit status 0)
+2022-11-29 06:34:20,722 INFO spawned: 'gjsx-xpra' with pid 462
+2022-11-29 06:34:21,753 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:21,754 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:21,755 INFO reaped unknown pid 464 (exit status 0)
+2022-11-29 06:34:22,761 INFO spawned: 'gjsx-xpra' with pid 473
+2022-11-29 06:34:23,790 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:23,791 INFO reaped unknown pid 406 (exit status 1)
+2022-11-29 06:34:23,791 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:23,792 INFO reaped unknown pid 475 (exit status 0)
+2022-11-29 06:34:24,797 INFO spawned: 'gjsx-xpra' with pid 483
+2022-11-29 06:34:24,799 INFO reaped unknown pid 408 (exit status 1)
+2022-11-29 06:34:25,845 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:25,846 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:25,846 INFO reaped unknown pid 486 (exit status 0)
+2022-11-29 06:34:25,847 INFO reaped unknown pid 490 (exit status 0)
+2022-11-29 06:34:26,854 INFO spawned: 'gjsx-xpra' with pid 493
+2022-11-29 06:34:27,904 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:27,904 INFO reaped unknown pid 418 (exit status 1)
+2022-11-29 06:34:27,905 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:27,905 INFO reaped unknown pid 495 (exit status 0)
+2022-11-29 06:34:28,915 INFO spawned: 'gjsx-xpra' with pid 505
+2022-11-29 06:34:29,972 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:29,972 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:29,973 INFO reaped unknown pid 507 (exit status 0)
+2022-11-29 06:34:30,984 INFO spawned: 'gjsx-xpra' with pid 511
+2022-11-29 06:34:30,986 INFO reaped unknown pid 419 (exit status 1)
+2022-11-29 06:34:32,029 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:32,030 INFO reaped unknown pid 431 (exit status 1)
+2022-11-29 06:34:32,031 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:32,031 INFO reaped unknown pid 513 (exit status 0)
+2022-11-29 06:34:33,037 INFO spawned: 'gjsx-xpra' with pid 521
+2022-11-29 06:34:33,038 INFO reaped unknown pid 504 (exit status 0)
+2022-11-29 06:34:34,082 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:34,083 INFO reaped unknown pid 400 (exit status 1)
+2022-11-29 06:34:34,084 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:34,084 INFO reaped unknown pid 523 (exit status 0)
+2022-11-29 06:34:35,092 INFO spawned: 'gjsx-xpra' with pid 527
+2022-11-29 06:34:35,095 INFO reaped unknown pid 432 (exit status 1)
+2022-11-29 06:34:36,131 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:36,132 INFO reaped unknown pid 443 (exit status 1)
+2022-11-29 06:34:36,132 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:36,133 INFO reaped unknown pid 529 (exit status 0)
+2022-11-29 06:34:37,139 INFO spawned: 'gjsx-xpra' with pid 535
+2022-11-29 06:34:38,195 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:38,195 INFO reaped unknown pid 448 (exit status 1)
+2022-11-29 06:34:38,196 INFO reaped unknown pid 444 (exit status 1)
+2022-11-29 06:34:38,197 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:38,197 INFO reaped unknown pid 538 (exit status 0)
+2022-11-29 06:34:39,203 INFO spawned: 'gjsx-xpra' with pid 541
+2022-11-29 06:34:40,259 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:40,259 INFO reaped unknown pid 455 (exit status 1)
+2022-11-29 06:34:40,260 INFO reaped unknown pid 450 (exit status 1)
+2022-11-29 06:34:40,260 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:40,261 INFO reaped unknown pid 544 (exit status 0)
+2022-11-29 06:34:41,268 INFO spawned: 'gjsx-xpra' with pid 548
+2022-11-29 06:34:41,270 INFO reaped unknown pid 534 (exit status 0)
+2022-11-29 06:34:42,313 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:42,314 INFO reaped unknown pid 465 (exit status 1)
+2022-11-29 06:34:42,314 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:42,315 INFO reaped unknown pid 553 (exit status 0)
+2022-11-29 06:34:43,322 INFO spawned: 'gjsx-xpra' with pid 556
+2022-11-29 06:34:43,324 INFO reaped unknown pid 412 (exit status 1)
+2022-11-29 06:34:44,365 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:44,368 INFO reaped unknown pid 476 (exit status 1)
+2022-11-29 06:34:44,369 INFO reaped unknown pid 456 (exit status 1)
+2022-11-29 06:34:44,369 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:44,370 INFO reaped unknown pid 559 (exit status 0)
+2022-11-29 06:34:45,375 INFO spawned: 'gjsx-xpra' with pid 562
+2022-11-29 06:34:46,406 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:46,406 INFO reaped unknown pid 487 (exit status 1)
+2022-11-29 06:34:46,407 INFO reaped unknown pid 491 (exit status 1)
+2022-11-29 06:34:46,408 INFO reaped unknown pid 466 (exit status 1)
+2022-11-29 06:34:46,408 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:46,409 INFO reaped unknown pid 565 (exit status 0)
+2022-11-29 06:34:47,414 INFO spawned: 'gjsx-xpra' with pid 572
+2022-11-29 06:34:47,416 INFO reaped unknown pid 552 (exit status 0)
+2022-11-29 06:34:48,461 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:48,462 INFO reaped unknown pid 424 (exit status 1)
+2022-11-29 06:34:48,463 INFO reaped unknown pid 496 (exit status 1)
+2022-11-29 06:34:48,463 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:48,464 INFO reaped unknown pid 574 (exit status 0)
+2022-11-29 06:34:49,469 INFO spawned: 'gjsx-xpra' with pid 578
+2022-11-29 06:34:49,470 INFO reaped unknown pid 477 (exit status 1)
+2022-11-29 06:34:50,513 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:50,514 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-29 06:34:50,514 INFO reaped unknown pid 508 (exit status 1)
+2022-11-29 06:34:50,515 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:50,516 INFO reaped unknown pid 580 (exit status 0)
+2022-11-29 06:34:51,521 INFO spawned: 'gjsx-xpra' with pid 584
+2022-11-29 06:34:51,528 INFO spawned: 'proxyserver' with pid 585
+2022-11-29 06:34:51,538 INFO reaped unknown pid 571 (exit status 0)
+2022-11-29 06:34:52,574 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:52,575 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:52,575 INFO reaped unknown pid 437 (exit status 1)
+2022-11-29 06:34:52,576 INFO reaped unknown pid 514 (exit status 1)
+2022-11-29 06:34:52,576 INFO reaped unknown pid 488 (exit status 1)
+2022-11-29 06:34:52,577 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:52,577 INFO reaped unknown pid 598 (exit status 0)
+2022-11-29 06:34:53,583 INFO spawned: 'gjsx-xpra' with pid 602
+2022-11-29 06:34:54,620 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:54,620 INFO reaped unknown pid 524 (exit status 1)
+2022-11-29 06:34:54,621 INFO reaped unknown pid 492 (exit status 1)
+2022-11-29 06:34:54,621 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:54,622 INFO reaped unknown pid 604 (exit status 0)
+2022-11-29 06:34:55,627 INFO spawned: 'gjsx-xpra' with pid 608
+2022-11-29 06:34:55,628 INFO reaped unknown pid 497 (exit status 1)
+2022-11-29 06:34:56,681 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:56,683 INFO reaped unknown pid 530 (exit status 1)
+2022-11-29 06:34:56,685 INFO reaped unknown pid 509 (exit status 1)
+2022-11-29 06:34:56,687 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:56,689 INFO reaped unknown pid 611 (exit status 0)
+2022-11-29 06:34:57,696 INFO spawned: 'gjsx-xpra' with pid 614
+2022-11-29 06:34:58,743 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:34:58,744 INFO reaped unknown pid 539 (exit status 1)
+2022-11-29 06:34:58,744 INFO reaped unknown pid 515 (exit status 1)
+2022-11-29 06:34:58,745 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:34:58,745 INFO reaped unknown pid 617 (exit status 0)
+2022-11-29 06:34:59,751 INFO spawned: 'gjsx-xpra' with pid 620
+2022-11-29 06:35:00,788 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:00,789 INFO reaped unknown pid 545 (exit status 1)
+2022-11-29 06:35:00,790 INFO reaped unknown pid 525 (exit status 1)
+2022-11-29 06:35:00,791 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:00,792 INFO reaped unknown pid 623 (exit status 0)
+2022-11-29 06:35:01,801 INFO spawned: 'gjsx-xpra' with pid 626
+2022-11-29 06:35:02,844 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:02,845 INFO reaped unknown pid 554 (exit status 1)
+2022-11-29 06:35:02,846 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-29 06:35:02,847 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:02,847 INFO reaped unknown pid 628 (exit status 0)
+2022-11-29 06:35:03,853 INFO spawned: 'gjsx-xpra' with pid 634
+2022-11-29 06:35:03,860 INFO spawned: 'proxyserver' with pid 635
+2022-11-29 06:35:03,866 INFO reaped unknown pid 531 (exit status 1)
+2022-11-29 06:35:03,867 INFO reaped unknown pid 540 (exit status 1)
+2022-11-29 06:35:03,868 INFO reaped unknown pid 546 (exit status 1)
+2022-11-29 06:35:04,908 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:04,908 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:04,909 INFO reaped unknown pid 560 (exit status 1)
+2022-11-29 06:35:04,909 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:04,910 INFO reaped unknown pid 647 (exit status 0)
+2022-11-29 06:35:05,916 INFO spawned: 'gjsx-xpra' with pid 650
+2022-11-29 06:35:06,967 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:06,968 INFO reaped unknown pid 566 (exit status 1)
+2022-11-29 06:35:06,968 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:06,969 INFO reaped unknown pid 652 (exit status 0)
+2022-11-29 06:35:07,976 INFO spawned: 'gjsx-xpra' with pid 655
+2022-11-29 06:35:09,016 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:09,016 INFO reaped unknown pid 575 (exit status 1)
+2022-11-29 06:35:09,016 INFO reaped unknown pid 555 (exit status 1)
+2022-11-29 06:35:09,017 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:09,017 INFO reaped unknown pid 658 (exit status 0)
+2022-11-29 06:35:10,024 INFO spawned: 'gjsx-xpra' with pid 662
+2022-11-29 06:35:10,025 INFO reaped unknown pid 561 (exit status 1)
+2022-11-29 06:35:11,069 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:11,070 INFO reaped unknown pid 581 (exit status 1)
+2022-11-29 06:35:11,070 INFO reaped unknown pid 567 (exit status 1)
+2022-11-29 06:35:11,071 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:11,072 INFO reaped unknown pid 665 (exit status 0)
+2022-11-29 06:35:12,077 INFO spawned: 'gjsx-xpra' with pid 668
+2022-11-29 06:35:13,135 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:13,136 INFO reaped unknown pid 599 (exit status 1)
+2022-11-29 06:35:13,136 INFO reaped unknown pid 576 (exit status 1)
+2022-11-29 06:35:13,136 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:13,137 INFO reaped unknown pid 671 (exit status 0)
+2022-11-29 06:35:14,146 INFO spawned: 'gjsx-xpra' with pid 674
+2022-11-29 06:35:15,178 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:15,179 INFO reaped unknown pid 605 (exit status 1)
+2022-11-29 06:35:15,179 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:15,180 INFO reaped unknown pid 676 (exit status 0)
+2022-11-29 06:35:16,185 INFO spawned: 'gjsx-xpra' with pid 680
+2022-11-29 06:35:16,187 INFO reaped unknown pid 582 (exit status 1)
+2022-11-29 06:35:17,243 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:17,244 INFO reaped unknown pid 612 (exit status 1)
+2022-11-29 06:35:17,244 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:17,245 INFO reaped unknown pid 682 (exit status 0)
+2022-11-29 06:35:18,254 INFO spawned: 'gjsx-xpra' with pid 686
+2022-11-29 06:35:18,302 INFO reaped unknown pid 600 (exit status 1)
+2022-11-29 06:35:19,303 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:19,303 INFO reaped unknown pid 618 (exit status 1)
+2022-11-29 06:35:19,303 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:19,304 INFO reaped unknown pid 688 (exit status 0)
+2022-11-29 06:35:20,310 INFO spawned: 'gjsx-xpra' with pid 692
+2022-11-29 06:35:21,365 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:21,366 INFO reaped unknown pid 624 (exit status 1)
+2022-11-29 06:35:21,366 INFO reaped unknown pid 606 (exit status 1)
+2022-11-29 06:35:21,373 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:21,374 INFO reaped unknown pid 694 (exit status 0)
+2022-11-29 06:35:22,384 INFO spawned: 'gjsx-xpra' with pid 698
+2022-11-29 06:35:23,421 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:23,422 INFO reaped unknown pid 629 (exit status 1)
+2022-11-29 06:35:23,422 INFO reaped unknown pid 619 (exit status 1)
+2022-11-29 06:35:23,422 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:23,422 INFO reaped unknown pid 700 (exit status 0)
+2022-11-29 06:35:24,428 INFO spawned: 'gjsx-xpra' with pid 704
+2022-11-29 06:35:24,429 INFO reaped unknown pid 613 (exit status 1)
+2022-11-29 06:35:25,459 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:25,460 INFO reaped unknown pid 648 (exit status 1)
+2022-11-29 06:35:25,460 INFO reaped unknown pid 625 (exit status 1)
+2022-11-29 06:35:25,461 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:25,461 INFO reaped unknown pid 706 (exit status 0)
+2022-11-29 06:35:26,466 INFO spawned: 'gjsx-xpra' with pid 710
+2022-11-29 06:35:27,515 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:27,516 INFO reaped unknown pid 653 (exit status 1)
+2022-11-29 06:35:27,516 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:27,517 INFO reaped unknown pid 712 (exit status 0)
+2022-11-29 06:35:28,523 INFO spawned: 'gjsx-xpra' with pid 715
+2022-11-29 06:35:29,567 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:29,568 INFO reaped unknown pid 659 (exit status 1)
+2022-11-29 06:35:29,568 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:29,569 INFO reaped unknown pid 717 (exit status 0)
+2022-11-29 06:35:30,575 INFO spawned: 'gjsx-xpra' with pid 722
+2022-11-29 06:35:30,576 INFO reaped unknown pid 649 (exit status 1)
+2022-11-29 06:35:31,616 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:31,617 INFO reaped unknown pid 666 (exit status 1)
+2022-11-29 06:35:31,617 INFO reaped unknown pid 630 (exit status 1)
+2022-11-29 06:35:31,618 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:31,618 INFO reaped unknown pid 724 (exit status 0)
+2022-11-29 06:35:32,626 INFO spawned: 'gjsx-xpra' with pid 727
+2022-11-29 06:35:33,660 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:33,661 INFO reaped unknown pid 672 (exit status 1)
+2022-11-29 06:35:33,662 INFO reaped unknown pid 654 (exit status 1)
+2022-11-29 06:35:34,664 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:34,664 INFO reaped unknown pid 730 (exit status 0)
+2022-11-29 06:35:35,671 INFO spawned: 'gjsx-xpra' with pid 733
+2022-11-29 06:35:35,672 INFO reaped unknown pid 677 (exit status 1)
+2022-11-29 06:35:36,712 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:36,713 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:36,713 INFO reaped unknown pid 735 (exit status 0)
+2022-11-29 06:35:37,719 INFO spawned: 'gjsx-xpra' with pid 740
+2022-11-29 06:35:37,721 INFO reaped unknown pid 683 (exit status 1)
+2022-11-29 06:35:37,721 INFO reaped unknown pid 660 (exit status 1)
+2022-11-29 06:35:37,721 INFO reaped unknown pid 667 (exit status 1)
+2022-11-29 06:35:38,770 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:38,771 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:38,771 INFO reaped unknown pid 742 (exit status 0)
+2022-11-29 06:35:39,778 INFO spawned: 'gjsx-xpra' with pid 746
+2022-11-29 06:35:39,780 INFO reaped unknown pid 689 (exit status 1)
+2022-11-29 06:35:39,780 INFO reaped unknown pid 673 (exit status 1)
+2022-11-29 06:35:40,843 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:40,844 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:40,844 INFO reaped unknown pid 748 (exit status 0)
+2022-11-29 06:35:41,851 INFO spawned: 'gjsx-xpra' with pid 752
+2022-11-29 06:35:41,852 INFO reaped unknown pid 695 (exit status 1)
+2022-11-29 06:35:41,853 INFO reaped unknown pid 678 (exit status 1)
+2022-11-29 06:35:42,895 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:42,895 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:42,896 INFO reaped unknown pid 754 (exit status 0)
+2022-11-29 06:35:43,901 INFO spawned: 'gjsx-xpra' with pid 760
+2022-11-29 06:35:43,902 INFO reaped unknown pid 701 (exit status 1)
+2022-11-29 06:35:43,903 INFO reaped unknown pid 684 (exit status 1)
+2022-11-29 06:35:43,903 INFO reaped unknown pid 690 (exit status 1)
+2022-11-29 06:35:44,947 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:44,947 INFO reaped unknown pid 696 (exit status 1)
+2022-11-29 06:35:44,948 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:44,948 INFO reaped unknown pid 762 (exit status 0)
+2022-11-29 06:35:45,954 INFO spawned: 'gjsx-xpra' with pid 765
+2022-11-29 06:35:45,955 INFO reaped unknown pid 707 (exit status 1)
+2022-11-29 06:35:46,985 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:46,986 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:46,986 INFO reaped unknown pid 767 (exit status 0)
+2022-11-29 06:35:47,991 INFO spawned: 'gjsx-xpra' with pid 772
+2022-11-29 06:35:47,992 INFO reaped unknown pid 713 (exit status 1)
+2022-11-29 06:35:47,992 INFO reaped unknown pid 708 (exit status 1)
+2022-11-29 06:35:49,017 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:49,017 INFO reaped unknown pid 702 (exit status 1)
+2022-11-29 06:35:49,017 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:49,018 INFO reaped unknown pid 774 (exit status 0)
+2022-11-29 06:35:50,022 INFO spawned: 'gjsx-xpra' with pid 777
+2022-11-29 06:35:50,023 INFO reaped unknown pid 718 (exit status 1)
+2022-11-29 06:35:51,079 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:51,079 INFO reaped unknown pid 714 (exit status 1)
+2022-11-29 06:35:51,079 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:51,080 INFO reaped unknown pid 780 (exit status 0)
+2022-11-29 06:35:52,085 INFO spawned: 'gjsx-xpra' with pid 784
+2022-11-29 06:35:52,086 INFO reaped unknown pid 725 (exit status 1)
+2022-11-29 06:35:52,086 INFO reaped unknown pid 719 (exit status 1)
+2022-11-29 06:35:53,120 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:53,121 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:53,121 INFO reaped unknown pid 786 (exit status 0)
+2022-11-29 06:35:54,126 INFO spawned: 'gjsx-xpra' with pid 790
+2022-11-29 06:35:54,127 INFO reaped unknown pid 731 (exit status 1)
+2022-11-29 06:35:54,128 INFO reaped unknown pid 726 (exit status 1)
+2022-11-29 06:35:55,156 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:55,156 INFO reaped unknown pid 732 (exit status 1)
+2022-11-29 06:35:55,157 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:55,157 INFO reaped unknown pid 793 (exit status 0)
+2022-11-29 06:35:56,163 INFO spawned: 'gjsx-xpra' with pid 796
+2022-11-29 06:35:57,197 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:57,197 INFO reaped unknown pid 736 (exit status 1)
+2022-11-29 06:35:57,198 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:57,198 INFO reaped unknown pid 737 (exit status 1)
+2022-11-29 06:35:57,198 INFO reaped unknown pid 798 (exit status 0)
+2022-11-29 06:35:58,206 INFO spawned: 'gjsx-xpra' with pid 806
+2022-11-29 06:35:59,225 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:35:59,226 INFO reaped unknown pid 743 (exit status 1)
+2022-11-29 06:35:59,226 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:35:59,226 INFO reaped unknown pid 808 (exit status 0)
+2022-11-29 06:35:59,227 INFO reaped unknown pid 744 (exit status 1)
+2022-11-29 06:36:00,233 INFO spawned: 'gjsx-xpra' with pid 812
+2022-11-29 06:36:01,251 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:01,252 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:01,252 INFO reaped unknown pid 814 (exit status 0)
+2022-11-29 06:36:02,258 INFO spawned: 'gjsx-xpra' with pid 818
+2022-11-29 06:36:03,294 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:03,295 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:03,295 INFO reaped unknown pid 823 (exit status 0)
+2022-11-29 06:36:04,302 INFO spawned: 'gjsx-xpra' with pid 826
+2022-11-29 06:36:05,340 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:05,341 INFO reaped unknown pid 763 (exit status 1)
+2022-11-29 06:36:05,341 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:05,342 INFO reaped unknown pid 828 (exit status 0)
+2022-11-29 06:36:06,347 INFO spawned: 'gjsx-xpra' with pid 831
+2022-11-29 06:36:07,390 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:07,391 INFO reaped unknown pid 768 (exit status 1)
+2022-11-29 06:36:07,391 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:07,391 INFO reaped unknown pid 834 (exit status 0)
+2022-11-29 06:36:08,425 INFO spawned: 'gjsx-xpra' with pid 841
+2022-11-29 06:36:08,432 INFO reaped unknown pid 764 (exit status 1)
+2022-11-29 06:36:08,433 INFO reaped unknown pid 769 (exit status 1)
+2022-11-29 06:36:09,461 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:09,462 INFO reaped unknown pid 775 (exit status 1)
+2022-11-29 06:36:09,462 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:09,462 INFO reaped unknown pid 843 (exit status 0)
+2022-11-29 06:36:10,471 INFO spawned: 'gjsx-xpra' with pid 851
+2022-11-29 06:36:11,498 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:11,499 INFO reaped unknown pid 776 (exit status 1)
+2022-11-29 06:36:11,499 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:11,500 INFO reaped unknown pid 857 (exit status 0)
+2022-11-29 06:36:12,505 INFO spawned: 'gjsx-xpra' with pid 861
+2022-11-29 06:36:12,507 INFO reaped unknown pid 840 (exit status 0)
+2022-11-29 06:36:13,555 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:13,555 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:13,556 INFO reaped unknown pid 863 (exit status 0)
+2022-11-29 06:36:14,562 INFO spawned: 'gjsx-xpra' with pid 869
+2022-11-29 06:36:14,563 INFO reaped unknown pid 749 (exit status 1)
+2022-11-29 06:36:15,624 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:15,625 INFO reaped unknown pid 794 (exit status 1)
+2022-11-29 06:36:15,625 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:15,626 INFO reaped unknown pid 795 (exit status 1)
+2022-11-29 06:36:15,626 INFO reaped unknown pid 871 (exit status 0)
+2022-11-29 06:36:16,631 INFO spawned: 'gjsx-xpra' with pid 876
+2022-11-29 06:36:16,632 INFO reaped unknown pid 868 (exit status 0)
+2022-11-29 06:36:17,676 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:17,676 INFO reaped unknown pid 799 (exit status 1)
+2022-11-29 06:36:17,677 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:17,677 INFO reaped unknown pid 878 (exit status 0)
+2022-11-29 06:36:18,681 INFO spawned: 'gjsx-xpra' with pid 882
+2022-11-29 06:36:18,683 INFO reaped unknown pid 755 (exit status 1)
+2022-11-29 06:36:18,684 INFO reaped unknown pid 801 (exit status 1)
+2022-11-29 06:36:19,716 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:19,717 INFO reaped unknown pid 809 (exit status 1)
+2022-11-29 06:36:19,718 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:19,718 INFO reaped unknown pid 884 (exit status 0)
+2022-11-29 06:36:20,772 INFO spawned: 'gjsx-xpra' with pid 890
+2022-11-29 06:36:21,811 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:21,812 INFO reaped unknown pid 815 (exit status 1)
+2022-11-29 06:36:21,812 INFO reaped unknown pid 810 (exit status 1)
+2022-11-29 06:36:21,813 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:21,813 INFO reaped unknown pid 893 (exit status 0)
+2022-11-29 06:36:22,819 INFO spawned: 'gjsx-xpra' with pid 899
+2022-11-29 06:36:23,863 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:23,864 INFO reaped unknown pid 824 (exit status 1)
+2022-11-29 06:36:23,865 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:23,865 INFO reaped unknown pid 901 (exit status 0)
+2022-11-29 06:36:24,872 INFO spawned: 'gjsx-xpra' with pid 905
+2022-11-29 06:36:24,875 INFO reaped unknown pid 889 (exit status 0)
+2022-11-29 06:36:25,921 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:25,922 INFO reaped unknown pid 781 (exit status 1)
+2022-11-29 06:36:25,923 INFO reaped unknown pid 829 (exit status 1)
+2022-11-29 06:36:25,923 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:25,924 INFO reaped unknown pid 898 (exit status 0)
+2022-11-29 06:36:25,924 INFO reaped unknown pid 908 (exit status 0)
+2022-11-29 06:36:26,931 INFO spawned: 'gjsx-xpra' with pid 912
+2022-11-29 06:36:26,934 INFO reaped unknown pid 787 (exit status 1)
+2022-11-29 06:36:26,934 INFO reaped unknown pid 816 (exit status 1)
+2022-11-29 06:36:27,976 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:27,977 INFO reaped unknown pid 835 (exit status 1)
+2022-11-29 06:36:27,978 INFO reaped unknown pid 825 (exit status 1)
+2022-11-29 06:36:27,978 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:27,979 INFO reaped unknown pid 915 (exit status 0)
+2022-11-29 06:36:28,985 INFO spawned: 'gjsx-xpra' with pid 919
+2022-11-29 06:36:30,045 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:30,046 INFO reaped unknown pid 844 (exit status 1)
+2022-11-29 06:36:30,046 INFO reaped unknown pid 830 (exit status 1)
+2022-11-29 06:36:30,046 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:30,047 INFO reaped unknown pid 921 (exit status 0)
+2022-11-29 06:36:31,053 INFO spawned: 'gjsx-xpra' with pid 924
+2022-11-29 06:36:32,099 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:32,100 INFO reaped unknown pid 858 (exit status 1)
+2022-11-29 06:36:32,100 INFO reaped unknown pid 836 (exit status 1)
+2022-11-29 06:36:32,101 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:32,101 INFO reaped unknown pid 927 (exit status 0)
+2022-11-29 06:36:33,107 INFO spawned: 'gjsx-xpra' with pid 930
+2022-11-29 06:36:34,151 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:34,152 INFO reaped unknown pid 864 (exit status 1)
+2022-11-29 06:36:34,152 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:34,153 INFO reaped unknown pid 932 (exit status 0)
+2022-11-29 06:36:35,162 INFO spawned: 'gjsx-xpra' with pid 936
+2022-11-29 06:36:35,164 INFO reaped unknown pid 845 (exit status 1)
+2022-11-29 06:36:36,210 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:36,210 INFO reaped unknown pid 872 (exit status 1)
+2022-11-29 06:36:36,211 INFO reaped unknown pid 859 (exit status 1)
+2022-11-29 06:36:36,211 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:36,212 INFO reaped unknown pid 939 (exit status 0)
+2022-11-29 06:36:37,218 INFO spawned: 'gjsx-xpra' with pid 943
+2022-11-29 06:36:37,220 INFO reaped unknown pid 865 (exit status 1)
+2022-11-29 06:36:38,244 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:38,245 INFO reaped unknown pid 879 (exit status 1)
+2022-11-29 06:36:38,246 INFO reaped unknown pid 874 (exit status 1)
+2022-11-29 06:36:38,246 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:38,247 INFO reaped unknown pid 945 (exit status 0)
+2022-11-29 06:36:39,252 INFO spawned: 'gjsx-xpra' with pid 949
+2022-11-29 06:36:40,275 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:36:40,276 INFO reaped unknown pid 885 (exit status 1)
+2022-11-29 06:36:40,276 INFO reaped unknown pid 880 (exit status 1)
+2022-11-29 06:36:40,277 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:36:40,277 INFO reaped unknown pid 951 (exit status 0)
+2022-11-29 06:36:41,284 INFO spawned: 'gjsx-xpra' with pid 955
+2022-11-29 06:36:41,286 WARN received SIGTERM indicating exit request
+2022-11-29 06:36:41,287 INFO waiting for gjsx-xpra, proxyserver to die
+2022-11-29 06:36:41,351 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:36:42,354 INFO reaped unknown pid 894 (exit status 1)
+2022-11-29 06:36:42,354 INFO reaped unknown pid 886 (exit status 1)
+2022-11-29 06:36:42,355 INFO stopped: gjsx-xpra (terminated by SIGTERM)
+2022-11-29 06:38:45,216 INFO Set uid to user 0 succeeded
+2022-11-29 06:38:45,224 INFO supervisord started with pid 1
+2022-11-29 06:38:46,230 INFO spawned: 'gjsx-xpra' with pid 7
+2022-11-29 06:38:46,239 INFO spawned: 'proxyserver' with pid 8
+2022-11-29 06:38:47,255 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:38:47,255 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:38:47,255 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:38:47,255 INFO reaped unknown pid 20 (exit status 0)
+2022-11-29 06:39:03,273 INFO reaped unknown pid 29 (exit status 0)
+2022-11-29 06:39:04,276 INFO reaped unknown pid 21 (exit status 1)
+2022-11-29 06:39:05,277 INFO exited: proxyserver (exit status 1; not expected)
+2022-11-29 06:39:06,284 INFO spawned: 'proxyserver' with pid 31
+2022-11-29 06:39:07,295 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:41:23,483 WARN received SIGTERM indicating exit request
+2022-11-29 06:41:23,485 INFO waiting for proxyserver to die
+2022-11-29 06:41:24,488 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 06:42:57,594 INFO Set uid to user 0 succeeded
+2022-11-29 06:42:57,600 INFO supervisord started with pid 1
+2022-11-29 06:42:58,606 INFO spawned: 'gjsx-xpra' with pid 8
+2022-11-29 06:42:58,614 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 06:42:59,631 INFO success: gjsx-xpra entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:42:59,631 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 06:42:59,632 INFO exited: gjsx-xpra (exit status 0; expected)
+2022-11-29 06:42:59,632 INFO reaped unknown pid 21 (exit status 0)
+2022-11-29 06:43:15,660 INFO reaped unknown pid 30 (exit status 0)
+2022-11-29 06:43:16,662 INFO reaped unknown pid 22 (exit status 1)
+2022-11-29 07:02:55,348 WARN received SIGTERM indicating exit request
+2022-11-29 07:02:55,349 INFO waiting for proxyserver to die
+2022-11-29 07:02:56,352 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 07:05:14,060 INFO Set uid to user 0 succeeded
+2022-11-29 07:05:14,067 INFO supervisord started with pid 1
+2022-11-29 07:05:15,076 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 07:05:15,081 INFO spawned: 'gjsx-xpra' with pid 8
+2022-11-29 07:05:15,087 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 07:05:15,411 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 07:05:15,412 INFO reaped unknown pid 22 (exit status 0)
+2022-11-29 07:05:16,415 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:05:16,421 INFO spawned: 'gjsx-xpra' with pid 25
+2022-11-29 07:05:16,423 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:05:16,672 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 07:05:16,672 INFO reaped unknown pid 27 (exit status 0)
+2022-11-29 07:05:18,679 INFO spawned: 'gjsx-xpra' with pid 30
+2022-11-29 07:05:18,997 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 07:05:18,999 INFO reaped unknown pid 32 (exit status 0)
+2022-11-29 07:05:22,017 INFO spawned: 'gjsx-xpra' with pid 35
+2022-11-29 07:05:22,363 INFO exited: gjsx-xpra (exit status 0; not expected)
+2022-11-29 07:05:22,366 INFO reaped unknown pid 37 (exit status 0)
+2022-11-29 07:05:22,368 INFO gave up: gjsx-xpra entered FATAL state, too many start retries too quickly
+2022-11-29 07:05:34,389 INFO reaped unknown pid 54 (exit status 0)
+2022-11-29 07:05:34,391 INFO reaped unknown pid 57 (exit status 0)
+2022-11-29 07:05:35,393 INFO reaped unknown pid 23 (exit status 1)
+2022-11-29 07:05:35,394 INFO reaped unknown pid 28 (exit status 1)
+2022-11-29 07:05:38,399 INFO reaped unknown pid 33 (exit status 1)
+2022-11-29 07:05:38,399 INFO reaped unknown pid 66 (exit status 0)
+2022-11-29 07:05:41,402 INFO reaped unknown pid 38 (exit status 1)
+2022-11-29 07:05:41,403 INFO reaped unknown pid 70 (exit status 0)
+2022-11-29 07:21:57,799 WARN received SIGTERM indicating exit request
+2022-11-29 07:21:57,801 INFO waiting for broadwayd, proxyserver to die
+2022-11-29 07:21:58,802 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 07:22:00,806 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 07:29:43,180 INFO Set uid to user 0 succeeded
+2022-11-29 07:29:43,190 INFO supervisord started with pid 1
+2022-11-29 07:29:44,195 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 07:29:44,200 INFO spawned: 'gjsx' with pid 8
+2022-11-29 07:29:44,205 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 07:29:45,217 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:29:45,218 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:29:45,218 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:30:17,266 WARN received SIGTERM indicating exit request
+2022-11-29 07:30:17,267 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 07:30:18,270 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 07:30:19,274 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 07:30:19,274 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 07:30:19,274 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 07:30:20,277 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 07:30:56,569 INFO Set uid to user 0 succeeded
+2022-11-29 07:30:56,580 INFO supervisord started with pid 1
+2022-11-29 07:30:57,585 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 07:30:57,591 INFO spawned: 'gjsx' with pid 8
+2022-11-29 07:30:57,596 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 07:30:58,613 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:30:58,614 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:30:58,614 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:32:13,722 WARN received SIGTERM indicating exit request
+2022-11-29 07:32:13,724 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 07:32:14,727 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 07:32:15,731 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 07:32:15,732 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 07:32:15,732 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 07:32:16,736 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 07:32:21,526 INFO Set uid to user 0 succeeded
+2022-11-29 07:32:21,534 INFO supervisord started with pid 1
+2022-11-29 07:32:22,540 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 07:32:22,547 INFO spawned: 'gjsx' with pid 8
+2022-11-29 07:32:22,554 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 07:32:23,564 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:32:23,564 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:32:23,565 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:32:35,586 WARN received SIGTERM indicating exit request
+2022-11-29 07:32:35,587 INFO waiting for broadwayd, gjsx, proxyserver to die
+2022-11-29 07:32:36,590 INFO stopped: proxyserver (terminated by SIGTERM)
+2022-11-29 07:32:37,592 INFO stopped: gjsx (terminated by SIGTERM)
+2022-11-29 07:32:37,593 INFO reaped unknown pid 43 (exit status 0)
+2022-11-29 07:32:37,593 INFO reaped unknown pid 44 (exit status 0)
+2022-11-29 07:32:38,596 INFO stopped: broadwayd (terminated by SIGTERM)
+2022-11-29 07:36:54,056 INFO Set uid to user 0 succeeded
+2022-11-29 07:36:54,064 INFO supervisord started with pid 1
+2022-11-29 07:36:55,070 INFO spawned: 'broadwayd' with pid 7
+2022-11-29 07:36:55,074 INFO spawned: 'gjsx' with pid 8
+2022-11-29 07:36:55,078 INFO spawned: 'proxyserver' with pid 9
+2022-11-29 07:36:56,092 INFO success: broadwayd entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:36:56,092 INFO success: gjsx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2022-11-29 07:36:56,092 INFO success: proxyserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

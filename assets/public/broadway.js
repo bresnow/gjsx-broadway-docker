@@ -3206,7 +3206,6 @@ function connect() {
         if (inputSocket != null)
             alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
         inputSocket = null;
-        window.reload()
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

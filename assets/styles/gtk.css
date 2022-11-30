@@ -4,6 +4,10 @@ box {
 }
 
 label {
-    font-size: 1.4em;
-    font-weight: bold;
+    font-size: small;
+}
+
+button {
+    font-size: medium;
+    background-color: transparent;
 }

@@ -69,7 +69,8 @@ RUN add-pkg  \
     webkit2gtk-5.0 \
     wget \
     wxgtk \
-    vim 
+    vim \
+    vlc 
 
 
 FROM base-dependencies as broadway-app
@@ -83,43 +84,29 @@ COPY ./docker/supervisord.conf /etc/
 RUN \
     add-pkg \
     supervisor \
+    gedit \
     desktop-file-utils  \
+    gtk4.0-demo \
     && npm i -g yarn \
     && yarn
-
-# # Gwebgl GObject-introspection bindings
-# RUN \
-#     git clone https://github.com/realh/gwebgl.git /tmp/gwebgl\
-#     && cd /tmp/gwebgl \
-#     && meson setup build . \
-#     && meson compile -C build \
-#     && meson install -C build 
 
 ENV HOME=/home/app \
     XDG_RUNTIME_DIR=$HOME \
     GDK_BACKEND=broadway \  
     BROADWAY_DISPLAY=:5
 
+# RUN \
+#     git clone https://github.com/Xpra-org/xpra; cd xpra &&\
+#     python3 ./setup.py install 
+
+# Install PRO Dark XFCE theme
+RUN \
+    git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git \
+    && mkdir -p /usr/share/themes/ \
+    && rsync -av --progress 'PRO-Dark-XFCE-Edition/PRO-dark-XFCE-edition II' /usr/share/themes/ \
+    && rm -rf /tmp/* /tmp/.[!.]*
+
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-
-
-
-
-
-# RUN \
-#     git clone https://github.com/daniruiz/flat-remix \
-#     && mkdir -p /usr/share/icons/ \
-#     && rsync -av --progress flat-remix/Flat-Remix-Green-Dark /usr/share/icons/ \
-#     && gtk-update-icon-cache /usr/share/icons/Flat-Remix-Green-Dark/ \
-#     && rm -rf /tmp/* /tmp/.[!.]*
-
-# # Install PRO Dark XFCE theme
-# RUN \
-#     git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git \
-#     && mkdir -p /usr/share/themes/ \
-#     && rsync -av --progress 'PRO-Dark-XFCE-Edition/PRO-dark-XFCE-edition II' /usr/share/themes/ \
-#     && rm -rf /tmp/* /tmp/.[!.]*
-
 # Mc-OS transparent theme
 # RUN \
 #     git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \

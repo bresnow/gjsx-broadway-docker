@@ -22,7 +22,6 @@ export const ProxiedBroadwayWebView = GObject.registerClass({ GTypeName: "Proxie
         super._init();
         this._setAttr();
 
-        let webView: Webkit.WebView, scroll: Gtk.ScrolledWindow, settings: Webkit.Settings, button: Gtk.Button, box2: Gtk.Box, label: Gtk.Label, css1: Gtk.CssProvider, buttonLabel: Gtk.Label;
 
     }
 })

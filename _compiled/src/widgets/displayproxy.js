@@ -16,7 +16,6 @@ export const ProxiedBroadwayWebView = GObject.registerClass(
     _init() {
       super._init();
       this._setAttr();
-      let webView, scroll, settings, button, box2, label, css1, buttonLabel;
     }
   }
 );
