@@ -5,33 +5,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>CNXT — FLTNGMMTH</title>
-        <script type="application/javascript">
-            function test(num) {
-                gun.get(Date.now()).get('deeznutz' + num).put({ connected: true })
-            };
-
-        </script>
         <script src=" https://cdnjs.cloudflare.com/ajax/libs/gun/0.2020.1238/gun.min.js"></script>
-        <script>
-            // connect to the database server
-            gun = GUN({ peers: ["http://0.0.0.0:8087/gun"], localStorage: false, file: "proxyserver/db" });
-            test(001);
-            // hold up... heyyyy ... for the niggaz that think we soft
+        <script type="text/javascript" src="broadway.js"></script>
+        <script type="application/javascript">
+            document.body.onload = cnxt()
+            var gun = GUN({ peers: ["http://0.0.0.0:8087/gun"], localStorage: false, file: "proxyserver/db" });
+
+            function test(num) {
+                gun.get(Date.now()).get(num).put({ connected: true })
+            };
+            function clickmsg(name) {
+                gun.get("applicationPanel").get(name).set({ dummyData: Date.now().toLocaleString() })
+            };
+            gun.get('testing_events/connection').on((data) => {
+                console.log(data.event)
+            })
+
             setTimeout(() => {
                 test(002 + "timeout");
             }, 10000)
-            function clickmsg(name) {
-                let app = gun.get("applicationPanel").get(name);
-                app.on(data => {
-                    app.get('analyticsDemo_clickRate').set({ dummyData: Date.now().toLocaleString() })
-                });
-            };
         </script>
-        <script type="text/javascript" src="broadway.js"></script>
-
     </head>
 
-    <body onload="cnxt()">
+    <body>
+        <img src="White_FullStack.png"
+            style="position: fixed;width: 64px;z-index: 1000000;display: block;bottom: 30px;right: 30px;opacity: 100%"></img>
     </body>
 
 </html>

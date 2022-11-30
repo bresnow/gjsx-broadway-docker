@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile
       target: broadway-app
     ports:
-      - 3985:8085
-      - 4739:4739
+      - 8085:8085
+      - 8088:8088
       - 8086:8086
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled

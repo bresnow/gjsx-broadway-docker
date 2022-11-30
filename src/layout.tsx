@@ -18,7 +18,7 @@ export function exec(cmd: string, opt?: { logfile: string; }) {
 export function HeadLayout({ services }: { services: { name: string; executable: string | string[]; icon_path?: string; icon_name?: string }[] }) {
   let webview = new Webkit.WebView();
   webview.load_uri('http://0.0.0.0:8086');
-  let logo = __dirname + "/assets/images/cnxt.png"
+  let logo = __dirname + "/assets/images/cnxt.png";
 
   return (
     <Gtk.Box
@@ -28,30 +28,24 @@ export function HeadLayout({ services }: { services: { name: string; executable:
     >
       <Gtk.Image
         file={logo}
-        pixel_size={125}
+        style={{ marginLeft: '5px' }}
+        pixel_size={100}
       />
 
       {services.map(({ name, executable: execCmd, icon_path, icon_name }, i) => {
         function clickHandler(self: Gtk.Button) {
-          if (self.has_frame) {
-            self.set_has_frame(false)
-            typeof execCmd === "string" ? exec(execCmd, { logfile: "clickhandle" }) : exec(execCmd.join(" "), { logfile: "clickhandle" })
-            try {
-              let doc = webview
-              doc.run_javascript(`clickmsg(${name}); test(12345678);`, null, function (self: Webkit.WebView, res: Gio.AsyncResult) {
-                self.run_javascript_finish(res)
-              })
-            } catch (error) {
-              logError(error)
-            }
-          } else {
-            self.set_has_frame(false)
+          typeof execCmd === "string" ? exec(execCmd, { logfile: "clickhandle.log" }) : exec(execCmd.join(" "), { logfile: "clickhandle.log" })
+          try {
+            webview.run_javascript('clickmsg("willy lumpppp lump");', null, function (self: Webkit.WebView, res: Gio.AsyncResult) {
+              self.run_javascript_finish(res)
+            })
+          } catch (error) {
+            logError(error)
           }
 
         }
         return (
           <Gtk.Button
-            css_name="button"
             onClicked={clickHandler}
             halign={Gtk.Align.CENTER}
             label={name}

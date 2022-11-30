@@ -1,5 +1,4 @@
 box {
-    color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 50, 0.8);
 }
 
@@ -9,5 +8,8 @@ label {
 
 button {
     font-size: medium;
-    background-color: transparent;
+}
+
+button>hover {
+    margin-top: 10;
 }

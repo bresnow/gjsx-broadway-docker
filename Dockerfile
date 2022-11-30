@@ -73,7 +73,14 @@ RUN add-pkg  \
     vlc \
     xorg-server xf86-input-libinput xinit udev
 
-
+RUN \
+    add-pkg \
+    supervisor \
+    # gedit \
+    desktop-file-utils  \
+    gtk4.0-demo \
+    gnome-apps-extra \
+    tmux 
 # Install themes
 RUN \
     git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git  \
@@ -94,18 +101,14 @@ COPY ./assets assets
 COPY ./proxyserver proxyserver
 COPY ./package.json package.json 
 COPY ./docker/supervisord.conf /etc/
-
 RUN \
-    add-pkg \
-    supervisor \
-    # gedit \
-    desktop-file-utils  \
-    gtk4.0-demo \
-    gnome-apps-extra \
-    # gnome-desktop \
-    && npm i -g yarn \
+    npm i -g yarn \
     && yarn
-RUN export $(dbus-launch)
+
+RUN export $(dbus-launch) \
+    && cd /tmp && wget https://github.com/tsl0922/ttyd/releases/download/1.7.1/ttyd.x86_64 \
+    && mv ttyd.x86_64 /usr/bin/ttyd \
+    && rm -rf /tmp/* /tmp/.[!.]*
 
 ENV HOME=/home/app \
     XDG_RUNTIME_DIR=$HOME \
