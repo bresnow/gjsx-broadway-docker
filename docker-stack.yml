@@ -11,32 +11,31 @@ services:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.fm-gjsx.rule=Host(`gjsx.fltngmmth.com`)
+        - traefik.http.routers.fm-gjsx.rule=Host(`${SUBDOMAIN:-gjsx}.fltngmmth.com`)
         - traefik.http.routers.fm-gjsx.entrypoints=http,https
         - traefik.http.routers.fm-gjsx.middlewares=https-redirect
         - traefik.http.routers.fm-gjsx.service=fm-gjsx
         - traefik.http.routers.fm-gjsx.tls=true
         - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
-        - traefik.http.services.fm-gjsx.loadbalancer.server.port=8085
-
-        # - traefik.http.routers.fm-jsxgi.rule=Host(`${PROJECT1:-noah.fltngmmth.com}`)
-        # - traefik.http.routers.fm-jsxgi.entrypoints=http,https
-        # - traefik.http.routers.fm-jsxgi.middlewares=https-redirect
-        # - traefik.http.routers.fm-jsxgi.service=fm-jsxgi
-        # - traefik.http.routers.fm-jsxgi.tls=true
-        # - traefik.http.routers.fm-jsxgi.tls.certresolver=namecheap
-        # - traefik.http.services.fm-jsxgi.loadbalancer.server.port=8086
+        - traefik.http.services.fm-gjsx.loadbalancer.server.port=8086
     networks:
       - public
+      - edge 
+      - socket-proxy
     volumes:
-      - compiled:/home/app/_compiled
+      - compiled:/home/app/_compiled    
       - assets:/home/app/assets
-      - lib:/home/app/lib
+      - proxyserver:/home/app/proxyserver
+      - logs:/var/log
 volumes:
-  lib:
+  proxyserver:
     driver: local-persist
     driver_opts:
-      mountpoint: ${PWD}/lib
+      mountpoint: ${PWD}/proxyserver
+  logs:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${PWD}/log
   compiled:
     driver: local-persist
     driver_opts:
@@ -47,6 +46,10 @@ volumes:
       mountpoint: ${PWD}/assets
 
 networks:
+  edge:
+    external: true
   public:
+    external: true
+  socket-proxy:
     external: true
 

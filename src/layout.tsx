@@ -16,9 +16,9 @@ export function exec(cmd: string, opt?: { logfile: string; }) {
     writeTextFileSync(Gio.File.new_for_path(`/var/log/${opt?.logfile}`), stdout)
 }
 export function HeadLayout({ services }: { services: { name: string; executable: string | string[]; icon_path?: string; icon_name?: string }[] }) {
-  let webView = new Webkit.WebView();
-  webView.load_uri('http://0.0.0.0:8086');
-  let logo = __dirname + "/assets/images/cnxt.png"
+  let webview = new Webkit.WebView();
+  webview.load_uri('http://0.0.0.0:8086');
+  let logo = __dirname + "/assets/images/cnxt.png";
 
   return (
     <Gtk.Box
@@ -28,34 +28,28 @@ export function HeadLayout({ services }: { services: { name: string; executable:
     >
       <Gtk.Image
         file={logo}
+        style={{ marginLeft: '5px' }}
         pixel_size={100}
       />
 
       {services.map(({ name, executable: execCmd, icon_path, icon_name }, i) => {
         function clickHandler(self: Gtk.Button) {
-          if (self.has_frame) {
-            self.set_has_frame(false)
-            typeof execCmd === "string" ? exec(execCmd) : exec(execCmd.join(" "))
-            try {
-              let doc = webView
-              doc.run_javascript(`clickmsg(${name}); test(12345678);`, null, function (self: Webkit.WebView, res, err) {
-                self.run_javascript_finish(res)
-              })
-            } catch (error) {
-              logError(error)
-            }
-          } else {
-            self.set_has_frame(true)
+          typeof execCmd === "string" ? exec(execCmd, { logfile: "clickhandle.log" }) : exec(execCmd.join(" "), { logfile: "clickhandle.log" })
+          try {
+            webview.run_javascript('clickmsg("willy lumpppp lump");', null, function (self: Webkit.WebView, res: Gio.AsyncResult) {
+              self.run_javascript_finish(res)
+            })
+          } catch (error) {
+            logError(error)
           }
 
         }
         return (
           <Gtk.Button
-            css_name="button"
             onClicked={clickHandler}
             halign={Gtk.Align.CENTER}
             label={name}
-          ><Gtk.Image file={__dirname + "/" + icon_path} pixel_size={150} /></Gtk.Button>
+          ><Gtk.Image file={__dirname + "/" + icon_path} pixel_size={50} /></Gtk.Button>
         )
       })}
     </Gtk.Box>

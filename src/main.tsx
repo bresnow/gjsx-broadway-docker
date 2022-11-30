@@ -5,19 +5,19 @@ import Gio from "gi://Gio";
 import Gjsx from "gjsx";
 import util from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
-import { writeTextFileSync } from '../lib/util.js';
 
 Gtk.init();
 export const __dirname = GLib.get_current_dir();
 const css = util.CssProvider();
-css.load("assets/styles/gtk.css").display;
+// Global stylesheet
+css.load("assets/styles/gtk.css").display(true);
 
 let dname = Gdk.Display.get_default().get_name(), DEBUG = GLib.getenv("DEBUG"), argv = ARGV;
-// DEBUG TERMINAL ON PORT 4379 {(help)}
+// DEBUG TERMINAL ON PORT 4379 {(help)} 
 argv.some((info) => {
   if (info === "--debug" || DEBUG === "true") {
     try {
-      let connection = (new Gio.SocketClient()).connect_to_host("0.0.0.0:4379", null, null);
+      let connection = (new Gio.SocketClient()).connect_to_host("0.0.0.0:4379", 4379, null);
       let output = connection.get_output_stream();
       let input = new Gio.DataInputStream({ base_stream: connection.get_input_stream() });
       let res: any, out: Uint8Array, err: any, status: any
@@ -31,11 +31,14 @@ argv.some((info) => {
 })
 
 const app = new Gtk.Application();
+let description = `CNXT is built using the FLTNGMMTH mobile operating system.`
 app.connect("activate", () => {
   // make sure the display matches the backend environnment ( Broadway)
   if (dname === "Broadway" || dname.toLowerCase() === GLib.getenv('GDK_BACKEND')) {
-    Gjsx.render(<MainWindow app={app} reference={'cool'} />)
+    Gjsx.render(<MainWindow app={app} reference={description} />)
     log('Broadway Proxy Initiated For Application')
+  } else {
+    throw new Error(`The ${dname} display backend is not supported`)
   }
 });
 
@@ -46,4 +49,4 @@ app.run([]);
 
 
 
-// TODO: Refactor this shit please.  Figure out a silent connection to the backend display
+// TODO: Refactor this shit please.

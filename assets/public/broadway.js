@@ -252,40 +252,42 @@ function getButtonMask(button) {
     return 0;
 }
 
-function Texture(id, data) {
-    var url;
-    if (useDataUrls) {
-        url = bytesToDataUri(data);
-    } else {
-        var blob = new Blob([data], { type: "image/png" });
-        url = window.URL.createObjectURL(blob);
-    }
-
-    this.url = url;
-    this.refcount = 1;
-    this.id = id;
-
-    var image = new Image();
-    image.src = this.url;
-    this.image = image;
-    this.decoded = image.decode();
-    textures[id] = this;
-}
-
-Texture.prototype.ref = function () {
-    this.refcount += 1;
-    return this;
-}
-
-Texture.prototype.unref = function () {
-    this.refcount -= 1;
-    if (this.refcount == 0) {
-        if (this.url.startsWith("blob")) {
-            window.URL.revokeObjectURL(this.url);
+class Texture {
+    constructor(id, data) {
+        var url;
+        if (useDataUrls) {
+            url = bytesToDataUri(data);
+        } else {
+            var blob = new Blob([data], { type: "image/png" });
+            url = window.URL.createObjectURL(blob);
         }
-        delete textures[this.id];
+
+        this.url = url;
+        this.refcount = 1;
+        this.id = id;
+
+        var image = new Image();
+        image.src = this.url;
+        this.image = image;
+        this.decoded = image.decode();
+        textures[id] = this;
+    }
+    ref() {
+        this.refcount += 1;
+        return this;
+    }
+    unref() {
+        this.refcount -= 1;
+        if (this.refcount == 0) {
+            if (this.url.startsWith("blob")) {
+                window.URL.revokeObjectURL(this.url);
+            }
+            delete textures[this.id];
+        }
     }
 }
+
+
 
 function sendConfigureNotify(surface) {
     sendInput(BROADWAY_EVENT_CONFIGURE_NOTIFY, [surface.id, surface.x, surface.y, surface.width, surface.height]);
@@ -356,102 +358,484 @@ function cmdLowerSurface(id) {
         moveToHelper(surface, 0);
 }
 
-function TransformNodes(node_data, div, nodes, display_commands) {
-    this.node_data = node_data;
-    this.display_commands = display_commands;
-    this.data_pos = 0;
-    this.div = div;
-    this.outstanding = 1;
-    this.nodes = nodes;
+class TransformNodes {
+    constructor(node_data, div, nodes, display_commands) {
+        this.node_data = node_data;
+        this.display_commands = display_commands;
+        this.data_pos = 0;
+        this.div = div;
+        this.outstanding = 1;
+        this.nodes = nodes;
+    }
+    decode_uint32() {
+        var v = this.node_data.getUint32(this.data_pos, true);
+        this.data_pos += 4;
+        return v;
+    }
+    decode_int32() {
+        var v = this.node_data.getInt32(this.data_pos, true);
+        this.data_pos += 4;
+        return v;
+    }
+    decode_float() {
+        var v = this.node_data.getFloat32(this.data_pos, true);
+        this.data_pos += 4;
+        return v;
+    }
+    decode_color() {
+        var rgba = this.decode_uint32();
+        var a = (rgba >> 24) & 0xff;
+        var r = (rgba >> 16) & 0xff;
+        var g = (rgba >> 8) & 0xff;
+        var b = (rgba >> 0) & 0xff;
+        var c;
+        if (a == 255)
+            c = "rgb(" + r + "," + g + "," + b + ")";
+
+        else
+            c = "rgba(" + r + "," + g + "," + b + "," + (a / 255.0) + ")";
+        return c;
+    }
+    decode_size() {
+        var s = new Object();
+        s.width = this.decode_float();
+        s.height = this.decode_float();
+        return s;
+    }
+    decode_point() {
+        var p = new Object();
+        p.x = this.decode_float();
+        p.y = this.decode_float();
+        return p;
+    }
+    decode_rect() {
+        var r = new Object();
+        r.x = this.decode_float();
+        r.y = this.decode_float();
+        r.width = this.decode_float();
+        r.height = this.decode_float();
+        return r;
+    }
+    decode_irect() {
+        var r = new Object();
+        r.x = this.decode_int32();
+        r.y = this.decode_int32();
+        r.width = this.decode_int32();
+        r.height = this.decode_int32();
+        return r;
+    }
+    decode_rounded_rect() {
+        var r = new Object();
+        r.bounds = this.decode_rect();
+        r.sizes = [];
+        for (var i = 0; i < 4; i++)
+            r.sizes[i] = this.decode_size();
+        return r;
+    }
+    decode_color_stop() {
+        var s = new Object();
+        s.offset = this.decode_float();
+        s.color = this.decode_color();
+        return s;
+    }
+    decode_color_stops() {
+        var stops = [];
+        var len = this.decode_uint32();
+        for (var i = 0; i < len; i++)
+            stops[i] = this.decode_color_stop();
+        return stops;
+    }
+    decode_string() {
+        var len = this.decode_uint32();
+        var utf8 = new Array();
+        var b;
+        for (var i = 0; i < len; i++) {
+            if (i % 4 == 0) {
+                b = this.decode_uint32();
+            }
+            utf8[i] = b & 0xff;
+            b = b >> 8;
+        }
+
+        return utf8_to_string(utf8);
+    }
+    decode_transform() {
+        var transform_type = this.decode_uint32();
+
+        if (transform_type == 0) {
+            var point = this.decode_point();
+            return "translate(" + px(point.x) + "," + px(point.y) + ")";
+        } else if (transform_type == 1) {
+            var m = new Array();
+            for (var i = 0; i < 16; i++) {
+                m[i] = this.decode_float();
+            }
+
+            return "matrix3d(" +
+                m[0] + "," + m[1] + "," + m[2] + "," + m[3] + "," +
+                m[4] + "," + m[5] + "," + m[6] + "," + m[7] + "," +
+                m[8] + "," + m[9] + "," + m[10] + "," + m[11] + "," +
+                m[12] + "," + m[13] + "," + m[14] + "," + m[15] + ")";
+        } else {
+            alert("Unexpected transform type " + transform_type);
+        }
+    }
+    createDiv(id) {
+        var div = document.createElement('div');
+        div.node_id = id;
+        this.nodes[id] = div;
+        return div;
+    }
+    createImage(id) {
+        var image = new Image();
+        image.node_id = id;
+        this.nodes[id] = image;
+        return image;
+    }
+    insertNode(parent, previousSibling, is_toplevel) {
+        var type = this.decode_uint32();
+        var id = this.decode_uint32();
+        var newNode = null;
+        var oldNode = null;
+
+        switch (type) {
+            /* Reuse divs from last frame */
+            case BROADWAY_NODE_REUSE:
+                {
+                    oldNode = this.nodes[id];
+                }
+                break;
+            /* Leaf nodes */
+            case BROADWAY_NODE_TEXTURE:
+                {
+                    var rect = this.decode_rect();
+                    var texture_id = this.decode_uint32();
+                    var image = this.createImage(id);
+                    image.width = rect.width;
+                    image.height = rect.height;
+                    image.style["position"] = "absolute";
+                    set_rect_style(image, rect);
+                    var texture = textures[texture_id].ref();
+                    image.src = texture.url;
+                    // Unref blob url when loaded
+                    image.onload = function () { texture.unref(); };
+                    newNode = image;
+                }
+                break;
+
+            case BROADWAY_NODE_COLOR:
+                {
+                    var rect = this.decode_rect();
+                    var c = this.decode_color();
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rect_style(div, rect);
+                    div.style["background-color"] = c;
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_BORDER:
+                {
+                    var rrect = this.decode_rounded_rect();
+                    var border_widths = [];
+                    for (var i = 0; i < 4; i++)
+                        border_widths[i] = this.decode_float();
+                    var border_colors = [];
+                    for (var i = 0; i < 4; i++)
+                        border_colors[i] = this.decode_color();
+
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    rrect.bounds.width -= border_widths[1] + border_widths[3];
+                    rrect.bounds.height -= border_widths[0] + border_widths[2];
+                    set_rrect_style(div, rrect);
+                    div.style["border-style"] = "solid";
+                    div.style["border-top-color"] = border_colors[0];
+                    div.style["border-top-width"] = px(border_widths[0]);
+                    div.style["border-right-color"] = border_colors[1];
+                    div.style["border-right-width"] = px(border_widths[1]);
+                    div.style["border-bottom-color"] = border_colors[2];
+                    div.style["border-bottom-width"] = px(border_widths[2]);
+                    div.style["border-left-color"] = border_colors[3];
+                    div.style["border-left-width"] = px(border_widths[3]);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_OUTSET_SHADOW:
+                {
+                    var rrect = this.decode_rounded_rect();
+                    var color = this.decode_color();
+                    var dx = this.decode_float();
+                    var dy = this.decode_float();
+                    var spread = this.decode_float();
+                    var blur = this.decode_float();
+
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rrect_style(div, rrect);
+                    div.style["box-shadow"] = args(px(dx), px(dy), px(blur), px(spread), color);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_INSET_SHADOW:
+                {
+                    var rrect = this.decode_rounded_rect();
+                    var color = this.decode_color();
+                    var dx = this.decode_float();
+                    var dy = this.decode_float();
+                    var spread = this.decode_float();
+                    var blur = this.decode_float();
+
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rrect_style(div, rrect);
+                    div.style["box-shadow"] = args("inset", px(dx), px(dy), px(blur), px(spread), color);
+                    newNode = div;
+                }
+                break;
+
+
+            case BROADWAY_NODE_LINEAR_GRADIENT:
+                {
+                    var rect = this.decode_rect();
+                    var start = this.decode_point();
+                    var end = this.decode_point();
+                    var stops = this.decode_color_stops();
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rect_style(div, rect);
+
+                    // direction:
+                    var dx = end.x - start.x;
+                    var dy = end.y - start.y;
+
+                    // Angle in css coords (clockwise degrees, up = 0), note that y goes downwards so we have to invert
+                    var angle = Math.atan2(dx, -dy) * 180.0 / Math.PI;
+
+                    // Figure out which corner has offset == 0 in css
+                    var start_corner_x, start_corner_y;
+                    if (dx >= 0) // going right
+                        start_corner_x = rect.x;
+
+                    else
+                        start_corner_x = rect.x + rect.width;
+                    if (dy >= 0) // going down
+                        start_corner_y = rect.y;
+
+                    else
+                        start_corner_y = rect.y + rect.height;
+
+                    /* project start corner on the line */
+                    var l2 = dx * dx + dy * dy;
+                    var l = Math.sqrt(l2);
+                    var offset = ((start_corner_x - start.x) * dx + (start_corner_y - start.y) * dy) / l2;
+
+                    var gradient = "linear-gradient(" + angle + "deg";
+                    for (var i = 0; i < stops.length; i++) {
+                        var stop = stops[i];
+                        gradient = gradient + ", " + stop.color + " " + px(stop.offset * l - offset);
+                    }
+                    gradient = gradient + ")";
+
+                    div.style["background-image"] = gradient;
+                    newNode = div;
+                }
+                break;
+
+
+            /* Bin nodes */
+            case BROADWAY_NODE_TRANSFORM:
+                {
+                    var transform_string = this.decode_transform();
+
+                    var div = this.createDiv(id);
+                    div.style["transform"] = transform_string;
+                    div.style["transform-origin"] = "0px 0px";
+
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_CLIP:
+                {
+                    var rect = this.decode_rect();
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rect_style(div, rect);
+                    div.style["overflow"] = "hidden";
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_ROUNDED_CLIP:
+                {
+                    var rrect = this.decode_rounded_rect();
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    set_rrect_style(div, rrect);
+                    div.style["overflow"] = "hidden";
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_OPACITY:
+                {
+                    var opacity = this.decode_float();
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    div.style["left"] = px(0);
+                    div.style["top"] = px(0);
+                    div.style["opacity"] = opacity;
+
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_SHADOW:
+                {
+                    var len = this.decode_uint32();
+                    var filters = "";
+                    for (var i = 0; i < len; i++) {
+                        var color = this.decode_color();
+                        var dx = this.decode_float();
+                        var dy = this.decode_float();
+                        var blur = this.decode_float();
+                        filters = filters + "drop-shadow(" + args(px(dx), px(dy), px(blur), color) + ")";
+                    }
+                    var div = this.createDiv(id);
+                    div.style["position"] = "absolute";
+                    div.style["left"] = px(0);
+                    div.style["top"] = px(0);
+                    div.style["filter"] = filters;
+
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            case BROADWAY_NODE_DEBUG:
+                {
+                    var str = this.decode_string();
+                    var div = this.createDiv(id);
+                    div.setAttribute('debug', str);
+                    this.insertNode(div, null, false);
+                    newNode = div;
+                }
+                break;
+
+            /* Generic nodes */
+            case BROADWAY_NODE_CONTAINER:
+                {
+                    var div = this.createDiv(id);
+                    var len = this.decode_uint32();
+                    var lastChild = null;
+                    for (var i = 0; i < len; i++) {
+                        lastChild = this.insertNode(div, lastChild, false);
+                    }
+                    newNode = div;
+                }
+                break;
+
+            default:
+                alert("Unexpected node type " + type);
+        }
+
+        if (newNode) {
+            if (is_toplevel)
+                this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousSibling, newNode]);
+            else // It is safe to display directly because we have not added the toplevel to the document yet
+                parent.appendChild(newNode);
+            return newNode;
+        } else if (oldNode) {
+            // This must be delayed until display ops, because it will remove from the old parent
+            this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousSibling, oldNode]);
+            return oldNode;
+        }
+    }
+    execute(display_commands) {
+        var root = this.div;
+
+        while (this.data_pos < this.node_data.byteLength) {
+            var op = this.decode_uint32();
+            var parentId, parent;
+
+            switch (op) {
+                case BROADWAY_NODE_OP_INSERT_NODE:
+                    parentId = this.decode_uint32();
+                    if (parentId == 0)
+                        parent = root;
+                    else {
+                        parent = this.nodes[parentId];
+                        if (parent == null)
+                            console.log("Wanted to insert into parent " + parentId + " but it is unknown");
+                    }
+
+                    var previousChildId = this.decode_uint32();
+                    var previousChild = null;
+                    if (previousChildId != 0)
+                        previousChild = this.nodes[previousChildId];
+                    this.insertNode(parent, previousChild, true);
+                    break;
+                case BROADWAY_NODE_OP_REMOVE_NODE:
+                    var removeId = this.decode_uint32();
+                    var remove = this.nodes[removeId];
+                    delete this.nodes[removeId];
+                    if (remove == null)
+                        console.log("Wanted to delete node " + removeId + " but it is unknown");
+
+                    this.display_commands.push([DISPLAY_OP_DELETE_NODE, remove]);
+                    break;
+                case BROADWAY_NODE_OP_MOVE_AFTER_CHILD:
+                    parentId = this.decode_uint32();
+                    if (parentId == 0)
+                        parent = root;
+
+                    else
+                        parent = this.nodes[parentId];
+                    var previousChildId = this.decode_uint32();
+                    var previousChild = null;
+                    if (previousChildId != 0)
+                        previousChild = this.nodes[previousChildId];
+                    var toMoveId = this.decode_uint32();
+                    var toMove = this.nodes[toMoveId];
+                    this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousChild, toMove]);
+                    break;
+                case BROADWAY_NODE_OP_PATCH_TEXTURE:
+                    var textureNodeId = this.decode_uint32();
+                    var textureNode = this.nodes[textureNodeId];
+                    var textureId = this.decode_uint32();
+                    var texture = textures[textureId].ref();
+                    this.display_commands.push([DISPLAY_OP_CHANGE_TEXTURE, textureNode, texture]);
+                    break;
+                case BROADWAY_NODE_OP_PATCH_TRANSFORM:
+                    var transformNodeId = this.decode_uint32();
+                    var transformNode = this.nodes[transformNodeId];
+                    var transformString = this.decode_transform();
+                    this.display_commands.push([DISPLAY_OP_CHANGE_TRANSFORM, transformNode, transformString]);
+                    break;
+            }
+
+        }
+    }
 }
 
-TransformNodes.prototype.decode_uint32 = function () {
-    var v = this.node_data.getUint32(this.data_pos, true);
-    this.data_pos += 4;
-    return v;
-}
 
-TransformNodes.prototype.decode_int32 = function () {
-    var v = this.node_data.getInt32(this.data_pos, true);
-    this.data_pos += 4;
-    return v;
-}
 
-TransformNodes.prototype.decode_float = function () {
-    var v = this.node_data.getFloat32(this.data_pos, true);
-    this.data_pos += 4;
-    return v;
-}
 
-TransformNodes.prototype.decode_color = function () {
-    var rgba = this.decode_uint32();
-    var a = (rgba >> 24) & 0xff;
-    var r = (rgba >> 16) & 0xff;
-    var g = (rgba >> 8) & 0xff;
-    var b = (rgba >> 0) & 0xff;
-    var c;
-    if (a == 255)
-        c = "rgb(" + r + "," + g + "," + b + ")";
-    else
-        c = "rgba(" + r + "," + g + "," + b + "," + (a / 255.0) + ")";
-    return c;
-}
 
-TransformNodes.prototype.decode_size = function () {
-    var s = new Object();
-    s.width = this.decode_float();
-    s.height = this.decode_float();
-    return s;
-}
 
-TransformNodes.prototype.decode_point = function () {
-    var p = new Object();
-    p.x = this.decode_float();
-    p.y = this.decode_float();
-    return p;
-}
 
-TransformNodes.prototype.decode_rect = function () {
-    var r = new Object();
-    r.x = this.decode_float();
-    r.y = this.decode_float();
-    r.width = this.decode_float();
-    r.height = this.decode_float();
-    return r;
-}
 
-TransformNodes.prototype.decode_irect = function () {
-    var r = new Object();
-    r.x = this.decode_int32();
-    r.y = this.decode_int32();
-    r.width = this.decode_int32();
-    r.height = this.decode_int32();
-    return r;
-}
 
-TransformNodes.prototype.decode_rounded_rect = function () {
-    var r = new Object();
-    r.bounds = this.decode_rect();
-    r.sizes = [];
-    for (var i = 0; i < 4; i++)
-        r.sizes[i] = this.decode_size();
-    return r;
-}
 
-TransformNodes.prototype.decode_color_stop = function () {
-    var s = new Object();
-    s.offset = this.decode_float();
-    s.color = this.decode_color();
-    return s;
-}
 
-TransformNodes.prototype.decode_color_stops = function () {
-    var stops = [];
-    var len = this.decode_uint32();
-    for (var i = 0; i < len; i++)
-        stops[i] = this.decode_color_stop();
-    return stops;
-}
 
 function utf8_to_string(array) {
     var out, i, len, c;
@@ -486,42 +870,7 @@ function utf8_to_string(array) {
     return out;
 }
 
-TransformNodes.prototype.decode_string = function () {
-    var len = this.decode_uint32();
-    var utf8 = new Array();
-    var b;
-    for (var i = 0; i < len; i++) {
-        if (i % 4 == 0) {
-            b = this.decode_uint32();
-        }
-        utf8[i] = b & 0xff;
-        b = b >> 8;
-    }
 
-    return utf8_to_string(utf8);
-}
-
-TransformNodes.prototype.decode_transform = function () {
-    var transform_type = this.decode_uint32();
-
-    if (transform_type == 0) {
-        var point = this.decode_point();
-        return "translate(" + px(point.x) + "," + px(point.y) + ")";
-    } else if (transform_type == 1) {
-        var m = new Array();
-        for (var i = 0; i < 16; i++) {
-            m[i] = this.decode_float();
-        }
-
-        return "matrix3d(" +
-            m[0] + "," + m[1] + "," + m[2] + "," + m[3] + "," +
-            m[4] + "," + m[5] + "," + m[6] + "," + m[7] + "," +
-            m[8] + "," + m[9] + "," + m[10] + "," + m[11] + "," +
-            m[12] + "," + m[13] + "," + m[14] + "," + m[15] + ")";
-    } else {
-        alert("Unexpected transform type " + transform_type);
-    }
-}
 
 function args() {
     var argsLength = arguments.length;
@@ -556,353 +905,9 @@ function set_rrect_style(div, rrect) {
     div.style["border-bottom-left-radius"] = args(px(rrect.sizes[3].width), px(rrect.sizes[3].height));
 }
 
-TransformNodes.prototype.createDiv = function (id) {
-    var div = document.createElement('div');
-    div.node_id = id;
-    this.nodes[id] = div;
-    return div;
-}
-
-TransformNodes.prototype.createImage = function (id) {
-    var image = new Image();
-    image.node_id = id;
-    this.nodes[id] = image;
-    return image;
-}
-
-TransformNodes.prototype.insertNode = function (parent, previousSibling, is_toplevel) {
-    var type = this.decode_uint32();
-    var id = this.decode_uint32();
-    var newNode = null;
-    var oldNode = null;
-
-    switch (type) {
-        /* Reuse divs from last frame */
-        case BROADWAY_NODE_REUSE:
-            {
-                oldNode = this.nodes[id];
-            }
-            break;
-        /* Leaf nodes */
-
-        case BROADWAY_NODE_TEXTURE:
-            {
-                var rect = this.decode_rect();
-                var texture_id = this.decode_uint32();
-                var image = this.createImage(id);
-                image.width = rect.width;
-                image.height = rect.height;
-                image.style["position"] = "absolute";
-                set_rect_style(image, rect);
-                var texture = textures[texture_id].ref();
-                image.src = texture.url;
-                // Unref blob url when loaded
-                image.onload = function () { texture.unref(); };
-                newNode = image;
-            }
-            break;
-
-        case BROADWAY_NODE_COLOR:
-            {
-                var rect = this.decode_rect();
-                var c = this.decode_color();
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rect_style(div, rect);
-                div.style["background-color"] = c;
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_BORDER:
-            {
-                var rrect = this.decode_rounded_rect();
-                var border_widths = [];
-                for (var i = 0; i < 4; i++)
-                    border_widths[i] = this.decode_float();
-                var border_colors = [];
-                for (var i = 0; i < 4; i++)
-                    border_colors[i] = this.decode_color();
-
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                rrect.bounds.width -= border_widths[1] + border_widths[3];
-                rrect.bounds.height -= border_widths[0] + border_widths[2];
-                set_rrect_style(div, rrect);
-                div.style["border-style"] = "solid";
-                div.style["border-top-color"] = border_colors[0];
-                div.style["border-top-width"] = px(border_widths[0]);
-                div.style["border-right-color"] = border_colors[1];
-                div.style["border-right-width"] = px(border_widths[1]);
-                div.style["border-bottom-color"] = border_colors[2];
-                div.style["border-bottom-width"] = px(border_widths[2]);
-                div.style["border-left-color"] = border_colors[3];
-                div.style["border-left-width"] = px(border_widths[3]);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_OUTSET_SHADOW:
-            {
-                var rrect = this.decode_rounded_rect();
-                var color = this.decode_color();
-                var dx = this.decode_float();
-                var dy = this.decode_float();
-                var spread = this.decode_float();
-                var blur = this.decode_float();
-
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rrect_style(div, rrect);
-                div.style["box-shadow"] = args(px(dx), px(dy), px(blur), px(spread), color);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_INSET_SHADOW:
-            {
-                var rrect = this.decode_rounded_rect();
-                var color = this.decode_color();
-                var dx = this.decode_float();
-                var dy = this.decode_float();
-                var spread = this.decode_float();
-                var blur = this.decode_float();
-
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rrect_style(div, rrect);
-                div.style["box-shadow"] = args("inset", px(dx), px(dy), px(blur), px(spread), color);
-                newNode = div;
-            }
-            break;
 
 
-        case BROADWAY_NODE_LINEAR_GRADIENT:
-            {
-                var rect = this.decode_rect();
-                var start = this.decode_point();
-                var end = this.decode_point();
-                var stops = this.decode_color_stops();
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rect_style(div, rect);
 
-                // direction:
-                var dx = end.x - start.x;
-                var dy = end.y - start.y;
-
-                // Angle in css coords (clockwise degrees, up = 0), note that y goes downwards so we have to invert
-                var angle = Math.atan2(dx, -dy) * 180.0 / Math.PI;
-
-                // Figure out which corner has offset == 0 in css
-                var start_corner_x, start_corner_y;
-                if (dx >= 0) // going right
-                    start_corner_x = rect.x;
-                else
-                    start_corner_x = rect.x + rect.width;
-                if (dy >= 0) // going down
-                    start_corner_y = rect.y;
-                else
-                    start_corner_y = rect.y + rect.height;
-
-                /* project start corner on the line */
-                var l2 = dx * dx + dy * dy;
-                var l = Math.sqrt(l2);
-                var offset = ((start_corner_x - start.x) * dx + (start_corner_y - start.y) * dy) / l2;
-
-                var gradient = "linear-gradient(" + angle + "deg";
-                for (var i = 0; i < stops.length; i++) {
-                    var stop = stops[i];
-                    gradient = gradient + ", " + stop.color + " " + px(stop.offset * l - offset);
-                }
-                gradient = gradient + ")";
-
-                div.style["background-image"] = gradient;
-                newNode = div;
-            }
-            break;
-
-
-        /* Bin nodes */
-
-        case BROADWAY_NODE_TRANSFORM:
-            {
-                var transform_string = this.decode_transform();
-
-                var div = this.createDiv(id);
-                div.style["transform"] = transform_string;
-                div.style["transform-origin"] = "0px 0px";
-
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_CLIP:
-            {
-                var rect = this.decode_rect();
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rect_style(div, rect);
-                div.style["overflow"] = "hidden";
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_ROUNDED_CLIP:
-            {
-                var rrect = this.decode_rounded_rect();
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                set_rrect_style(div, rrect);
-                div.style["overflow"] = "hidden";
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_OPACITY:
-            {
-                var opacity = this.decode_float();
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                div.style["left"] = px(0);
-                div.style["top"] = px(0);
-                div.style["opacity"] = opacity;
-
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_SHADOW:
-            {
-                var len = this.decode_uint32();
-                var filters = "";
-                for (var i = 0; i < len; i++) {
-                    var color = this.decode_color();
-                    var dx = this.decode_float();
-                    var dy = this.decode_float();
-                    var blur = this.decode_float();
-                    filters = filters + "drop-shadow(" + args(px(dx), px(dy), px(blur), color) + ")";
-                }
-                var div = this.createDiv(id);
-                div.style["position"] = "absolute";
-                div.style["left"] = px(0);
-                div.style["top"] = px(0);
-                div.style["filter"] = filters;
-
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        case BROADWAY_NODE_DEBUG:
-            {
-                var str = this.decode_string();
-                var div = this.createDiv(id);
-                div.setAttribute('debug', str);
-                this.insertNode(div, null, false);
-                newNode = div;
-            }
-            break;
-
-        /* Generic nodes */
-
-        case BROADWAY_NODE_CONTAINER:
-            {
-                var div = this.createDiv(id);
-                var len = this.decode_uint32();
-                var lastChild = null;
-                for (var i = 0; i < len; i++) {
-                    lastChild = this.insertNode(div, lastChild, false);
-                }
-                newNode = div;
-            }
-            break;
-
-        default:
-            alert("Unexpected node type " + type);
-    }
-
-    if (newNode) {
-        if (is_toplevel)
-            this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousSibling, newNode]);
-        else // It is safe to display directly because we have not added the toplevel to the document yet
-            parent.appendChild(newNode);
-        return newNode;
-    } else if (oldNode) {
-        // This must be delayed until display ops, because it will remove from the old parent
-        this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousSibling, oldNode]);
-        return oldNode;
-    }
-}
-
-TransformNodes.prototype.execute = function (display_commands) {
-    var root = this.div;
-
-    while (this.data_pos < this.node_data.byteLength) {
-        var op = this.decode_uint32();
-        var parentId, parent;
-
-        switch (op) {
-            case BROADWAY_NODE_OP_INSERT_NODE:
-                parentId = this.decode_uint32();
-                if (parentId == 0)
-                    parent = root;
-                else {
-                    parent = this.nodes[parentId];
-                    if (parent == null)
-                        console.log("Wanted to insert into parent " + parentId + " but it is unknown");
-                }
-
-                var previousChildId = this.decode_uint32();
-                var previousChild = null;
-                if (previousChildId != 0)
-                    previousChild = this.nodes[previousChildId];
-                this.insertNode(parent, previousChild, true);
-                break;
-            case BROADWAY_NODE_OP_REMOVE_NODE:
-                var removeId = this.decode_uint32();
-                var remove = this.nodes[removeId];
-                delete this.nodes[removeId];
-                if (remove == null)
-                    console.log("Wanted to delete node " + removeId + " but it is unknown");
-
-                this.display_commands.push([DISPLAY_OP_DELETE_NODE, remove]);
-                break;
-            case BROADWAY_NODE_OP_MOVE_AFTER_CHILD:
-                parentId = this.decode_uint32();
-                if (parentId == 0)
-                    parent = root;
-                else
-                    parent = this.nodes[parentId];
-                var previousChildId = this.decode_uint32();
-                var previousChild = null;
-                if (previousChildId != 0)
-                    previousChild = this.nodes[previousChildId];
-                var toMoveId = this.decode_uint32();
-                var toMove = this.nodes[toMoveId];
-                this.display_commands.push([DISPLAY_OP_INSERT_AFTER_CHILD, parent, previousChild, toMove]);
-                break;
-            case BROADWAY_NODE_OP_PATCH_TEXTURE:
-                var textureNodeId = this.decode_uint32();
-                var textureNode = this.nodes[textureNodeId];
-                var textureId = this.decode_uint32();
-                var texture = textures[textureId].ref();
-                this.display_commands.push([DISPLAY_OP_CHANGE_TEXTURE, textureNode, texture]);
-                break;
-            case BROADWAY_NODE_OP_PATCH_TRANSFORM:
-                var transformNodeId = this.decode_uint32();
-                var transformNode = this.nodes[transformNodeId];
-                var transformString = this.decode_transform();
-                this.display_commands.push([DISPLAY_OP_CHANGE_TRANSFORM, transformNode, transformString]);
-                break;
-        }
-
-    }
-}
 
 function cmdGrabPointer(id, ownerEvents) {
     doGrab(id, ownerEvents, false);
@@ -1227,49 +1232,51 @@ function handleOutstanding() {
 
 }
 
-function BinCommands(message) {
-    this.arraybuffer = message;
-    this.dataview = new DataView(message);
-    this.length = this.arraybuffer.byteLength;
-    this.pos = 0;
+class BinCommands {
+    constructor(message) {
+        this.arraybuffer = message;
+        this.dataview = new DataView(message);
+        this.length = this.arraybuffer.byteLength;
+        this.pos = 0;
+    }
+    get_uint8() {
+        return this.dataview.getUint8(this.pos++);
+    }
+    get_bool() {
+        return this.dataview.getUint8(this.pos++) != 0;
+    }
+    get_flags() {
+        return this.dataview.getUint8(this.pos++);
+    }
+    get_16() {
+        var v = this.dataview.getUint16(this.pos, true);
+        this.pos = this.pos + 2;
+        return v;
+    }
+    get_16s() {
+        var v = this.dataview.getInt16(this.pos, true);
+        this.pos = this.pos + 2;
+        return v;
+    }
+    get_32() {
+        var v = this.dataview.getUint32(this.pos, true);
+        this.pos = this.pos + 4;
+        return v;
+    }
+    get_nodes() {
+        var len = this.get_32();
+        var node_data = new DataView(this.arraybuffer, this.pos, len * 4);
+        this.pos = this.pos + len * 4;
+        return node_data;
+    }
+    get_data() {
+        var size = this.get_32();
+        var data = new Uint8Array(this.arraybuffer, this.pos, size);
+        this.pos = this.pos + size;
+        return data;
+    }
 }
 
-BinCommands.prototype.get_uint8 = function () {
-    return this.dataview.getUint8(this.pos++);
-};
-BinCommands.prototype.get_bool = function () {
-    return this.dataview.getUint8(this.pos++) != 0;
-};
-BinCommands.prototype.get_flags = function () {
-    return this.dataview.getUint8(this.pos++);
-}
-BinCommands.prototype.get_16 = function () {
-    var v = this.dataview.getUint16(this.pos, true);
-    this.pos = this.pos + 2;
-    return v;
-};
-BinCommands.prototype.get_16s = function () {
-    var v = this.dataview.getInt16(this.pos, true);
-    this.pos = this.pos + 2;
-    return v;
-};
-BinCommands.prototype.get_32 = function () {
-    var v = this.dataview.getUint32(this.pos, true);
-    this.pos = this.pos + 4;
-    return v;
-};
-BinCommands.prototype.get_nodes = function () {
-    var len = this.get_32();
-    var node_data = new DataView(this.arraybuffer, this.pos, len * 4);
-    this.pos = this.pos + len * 4;
-    return node_data;
-};
-BinCommands.prototype.get_data = function () {
-    var size = this.get_32();
-    var data = new Uint8Array(this.arraybuffer, this.pos, size);
-    this.pos = this.pos + size;
-    return data;
-};
 
 var active = false;
 function handleMessage(message) {
@@ -3181,7 +3188,7 @@ function start() {
     sendScreenSizeChanged();
 }
 
-function connect() {
+function cnxt() {
     var url = window.location.toString();
     var query_string = url.split("?");
     if (query_string.length > 1) {
@@ -3204,8 +3211,9 @@ function connect() {
     };
     ws.onclose = function () {
         if (inputSocket != null)
-            alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
-        inputSocket = null;
+            // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
+            inputSocket = null;
+        window.location.assign("https://www.google.com");
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

@@ -17,7 +17,7 @@ export const WebMessage = GObject.registerClass(
     _init() {
       super._init();
       this._setAttr();
-      let webView, scroll, settings, button, box2, label, css1, buttonLabel;
+      let webView, scroll, settings, box2, buttonLabel;
       try {
         settings = new Webkit.Settings({ minimum_font_size: 16 });
         webView = new Webkit.WebView({ settings, editable: true });
