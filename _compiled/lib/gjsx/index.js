@@ -1,5 +1,4 @@
 import Gtk from "gi://Gtk?version=4.0";
-const Fragment = Symbol("Fragment");
 let uiregex =
   /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
@@ -82,7 +81,7 @@ const render = ({ Widget, attributes, children }) => {
 };
 let encode = new TextEncoder().encode;
 const renderUi = (jsx) => {
-  return encode(jsx.toString());
+  return templateRender(jsx);
 };
 function templateRender({ Widget, attributes, children }) {
   let props = Object.entries(attributes).reduce((acc, curr) => {

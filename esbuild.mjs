@@ -4,16 +4,13 @@ import chokidar from "chokidar";
 import { format } from "prettier"
 import Docker from "dockerode"
 let { red, green, blue, yellow } = chalk;
-const docker = new Docker({ socketPath: "/var/run/docker.sock" })
-async function updateService() {
-  (await docker.listServices()).forEach(ser => {
-    console.log(ser.ID)
-    console.log(ser.inspect())
-    // ser.update({}, () => {
-    //   console.log(ser.UpdateStatus)
-    // })
-  })
-}
+// const docker = new Docker({ socketPath: "/var/run/docker.sock" })
+// async function updateService() {
+//   (await docker.listServices()).forEach(ser => {
+//     console.log(ser.ID)
+//     console.log(ser.inspect())
+//   })
+// }
 // --watch option
 let watch = argv.watch !== undefined;
 let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
@@ -40,12 +37,12 @@ if (watch) {
       }
     });
   });
-  await updateService()
+  // await updateService()
 } else {
   entryPoints.forEach((path) => {
     compile(path);
   });
-  await updateService()
+  // await updateService()
 }
 
 function compile(_path) {

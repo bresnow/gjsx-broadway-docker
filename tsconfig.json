@@ -16,6 +16,9 @@
       "gjsx-ui": [
         "lib/gjsx/index.ts"
       ],
+      "gettext": [
+        "./types/Gjs/gettext.d.ts"
+      ],
       "byteArray": [
         "./types/Gjs/ByteArray.d.ts"
       ],
@@ -37,6 +40,9 @@
       ],
       "gi://Gtk?version=4.0": [
         "./types/Gjs/Gtk-4.0.d.ts"
+      ],
+      "gi://Gst": [
+        "./types/Gjs/Gst-1.0.d.ts"
       ],
       "gi://GLib": [
         "./types/Gjs/GLib-2.0.d.ts"

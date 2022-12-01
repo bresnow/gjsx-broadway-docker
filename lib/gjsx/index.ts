@@ -1,5 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
-const Fragment = Symbol("Fragment");
+import { ResourceJsx } from "gjsx-ui";
 let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 
 const createWidget = (
@@ -106,8 +106,8 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 
 /* UTILS */
 let encode = new TextEncoder().encode
-const renderUi = (jsx: JSX.IntrinsicElements) => {
-  return encode(jsx.toString()) as any
+const renderUi = (jsx: ResourceJsx.IntrinsicElements) => {
+  return templateRender(jsx as any)
 }
 function templateRender({ Widget, attributes, children }: { Widget: string; attributes: Record<string, string>; children: any[] }) {
   let props = Object.entries(attributes).reduce((acc, curr) => {
