@@ -7,26 +7,29 @@ export const Video = GObject.registerClass(
   class extends Gtk.Box {
     _setAttr() {
       this.orientation = Gtk.Orientation.VERTICAL;
-      this.valign = Gtk.Align.BASELINE;
+      this.valign = Gtk.Align.CENTER;
       this.vexpand = true;
       this.homogeneous = true;
-      this.margin_start = 18;
       this.spacing = 10;
     }
     _init() {
       super._init();
       this._setAttr();
+      let button;
       try {
+        button = new Gtk.Button({ label: "Push for Video" });
         let lonelyShades = Gio.File.new_for_path(
-            __dirname + "/assets/video/lonelyshade.mp4"
-          ),
-          stream = Gtk.MediaFile.new_for_file(lonelyShades);
-        let video = Gtk.Video.new_for_media_stream(stream);
+          __dirname + "/assets/video/shades.webm"
+        );
+        let video = Gtk.Video.new_for_file(lonelyShades);
         video.set_autoplay(true);
         video.set_hexpand(true);
-        video.set_vexpand(true);
-        video.show();
+        video.set_visible(false);
         this.append(video);
+        button.connect("clicked", (self) => {
+          video.set_visible(true);
+        });
+        this.append(button);
       } catch (e) {
         logError(e);
       }

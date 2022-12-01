@@ -1,17 +1,20 @@
 import Gtk from "gi://Gtk?version=4.0";
-const Fragment = Symbol("Fragment") || Symbol("");
+const Fragment = Symbol("Fragment");
+let uiregex =
+  /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
   const children = args ? args.map((args2) => args2) : [];
   return { Widget, attributes, children };
 };
 const render = ({ Widget, attributes, children }) => {
-  if (!isConstructor(Widget) && typeof Widget === "function") {
+  if (!isConstructor(Widget)) {
+    if (typeof Widget === "string" && uiregex.test(Widget)) {
+      return templateRender({ Widget, attributes, children });
+    }
     return render(Widget(attributes));
   }
-  if (Widget === Fragment) {
-    return children;
-  }
   const signals = {};
+  const connectSig = {};
   const styleClass = {};
   const constructParams = {};
   for (const attr in attributes) {
@@ -19,6 +22,9 @@ const render = ({ Widget, attributes, children }) => {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
+        const signal = attributName.replace("on-", "");
+        signals[signal] = element;
+      } else if (attr === "connect") {
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
       } else if (attr === "style") {
@@ -33,6 +39,12 @@ const render = ({ Widget, attributes, children }) => {
     if (signals.hasOwnProperty(signal)) {
       const handler = signals[signal];
       widget.connect(signal, handler);
+    }
+  }
+  for (const signal in connectSig) {
+    if (connectSig.hasOwnProperty(signal)) {
+      const handler = connectSig[signal];
+      widget.connect(handler);
     }
   }
   for (const style in styleClass) {
@@ -71,6 +83,25 @@ const render = ({ Widget, attributes, children }) => {
   }
   return widget;
 };
+let encode = new TextEncoder().encode;
+function templateRender({ Widget, attributes, children }) {
+  let props = Object.entries(attributes).reduce((acc, curr) => {
+    let [key, value] = curr;
+    let result = acc + ` ${key}="${value}"`;
+    return result;
+  }, "");
+  let front_tag = `<${Widget}${props}>`,
+    back_tag = `</${Widget}>`;
+  let _children = children.map((child) => {
+    if (child && uiregex.test(child)) {
+      return templateRender(child);
+    }
+    return child;
+  });
+  return encode(
+    '<?xml version="1.0" encoding="UTF-8"?>' + front_tag + _children + back_tag
+  );
+}
 function camelToKebab(string) {
   return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();
 }

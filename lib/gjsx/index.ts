@@ -1,5 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
-const Fragment = Symbol("Fragment") || Symbol("");
+const Fragment = Symbol("Fragment");
+let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 
 const createWidget = (
   Widget: any,
@@ -12,16 +13,18 @@ const createWidget = (
 
 
 
-const render = ({ Widget, attributes, children }: { Widget: any; attributes: Record<string, any>; children: any[] }) => {
+const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; attributes: Record<string, any>; children: any[] }) => {
 
-  if (!isConstructor(Widget) && typeof Widget === "function") {
+  if (!isConstructor(Widget)) {
+    if (typeof Widget === "string" && uiregex.test(Widget)) {
+      return templateRender({ Widget, attributes, children })
+    }
     // component functions that aren't widgets.
     return render(Widget(attributes));
   }
-  if (Widget === Fragment) {
-    return children;
-  }
+
   const signals: any = {};
+  const connectSig: Record<string, (...arg: any[]) => void> = {};
   const styleClass: any = {};
   const constructParams: any = {};
   // Separate attributes 
@@ -30,6 +33,9 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
+        const signal = attributName.replace("on-", "");
+        signals[signal] = element;
+      } else if (attr === 'connect') {
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
       } else if (attr === "style") {
@@ -42,11 +48,17 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
   // call the widget constructor
   const widget = new Widget({ visible: true, ...constructParams });
 
-  // connect signals TODO: Signal handlers to run as attributes
+  // connect signals
   for (const signal in signals) {
     if (signals.hasOwnProperty(signal)) {
       const handler = signals[signal];
       widget.connect(signal, handler);
+    }
+  }
+  for (const signal in connectSig) {
+    if (connectSig.hasOwnProperty(signal)) {
+      const handler = connectSig[signal];
+      widget.connect(handler);
     }
   }
   // Css attributes to add to the widget style context
@@ -96,6 +108,24 @@ const render = ({ Widget, attributes, children }: { Widget: any; attributes: Rec
 };
 
 /* UTILS */
+let encode = new TextEncoder().encode
+function templateRender({ Widget, attributes, children }: { Widget: string; attributes: Record<string, string>; children: any[] }) {
+  let props = Object.entries(attributes).reduce((acc, curr) => {
+    let [key, value] = curr;
+    let result = acc + ` ${key}="${value}"`
+    return result
+  }, "");
+  let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`
+  let _children = children.map(child => {
+    if (child && uiregex.test(child)) {
+      return templateRender(child)
+    }
+    return child
+  })
+
+  return encode('<?xml version="1.0" encoding="UTF-8"?>' + front_tag + _children + back_tag)
+
+}
 
 function camelToKebab(string: string) {
   return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();

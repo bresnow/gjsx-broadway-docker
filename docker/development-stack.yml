@@ -28,8 +28,10 @@ services:
         - traefik.http.services.filebrowser-fm-gjsx.loadbalancer.server.port=8021
     networks:
       - public
+      - socket-proxy
     volumes:
       - data:/home/main
+      - /var/run/docker.sock:/var/run/docker.sock
       - ${HOME}/fltngmmth/config:/home/fltngmmth/config
       - ${HOME}/com.fltngmmth.fileshare:/home/fltngmmth/broadway-dev
       - code_extensions:/opt/vscode
@@ -56,5 +58,7 @@ volumes:
       mountpoint: ${HOME}/com.fltngmmth.fileshare
 
 networks:
+  socket-proxy:
+    external: true
   public:
     external: true
