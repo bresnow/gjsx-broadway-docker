@@ -50,8 +50,15 @@ function compile(_path) {
 
 
   readable.on("data", async (chunk) => {
-    let ts_chunk = chunk, transformedJs;
-
+    let ts_chunk = chunk, transformedJs, jsxFactory;
+    jsxFactory = ts_chunk.split("\n").reduce((line) => {
+      if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
+        return "Gjsx.createWidget"
+      };
+      if (/(import)(.*)(from)(\s+)(("|')gjsx-ui("|'))/g.test(line)) {
+        return "Gjsx.templateRender"
+      }
+    }, "")
 
     let { code } = await transform(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",
@@ -66,6 +73,9 @@ function compile(_path) {
       if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
       };
+      if (/(import)(.*)(from)(\s+)(("|')gjsx-ui("|'))/g.test(line)) {
+        line = line.replace(/(gjsx-ui)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
+      }
       return line
     });
 

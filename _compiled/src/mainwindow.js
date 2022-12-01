@@ -7,7 +7,7 @@ import { __dirname } from "./main.js";
 import { Video } from "./widgets/video.js";
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
-import { Demo } from "./demo.js";
+import { giState } from "../lib/gjsx/gistate.js";
 const Stack = GObject.registerClass(
   {},
   class extends Gtk.Grid {
@@ -52,6 +52,10 @@ export function MainWindow({ app, reference }) {
       executable: ["gjs", "-m", "assets/apps/demo.js"],
     },
   ];
+  const [orientationMech, setter] = giState(Gtk.Orientation.HORIZONTAL);
+  setTimeout(() => {
+    setter(Gtk.Orientation.VERTICAL);
+  }, 1300);
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -65,11 +69,12 @@ export function MainWindow({ app, reference }) {
       /* @__PURE__ */ Gjsx.createWidget(HeadLayout, {
         services: panel,
       }),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, null),
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+        orientation: orientationMech,
+      }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
         label: reference,
-      }),
-      /* @__PURE__ */ Gjsx.createWidget(Demo, null)
+      })
     )
   );
 }

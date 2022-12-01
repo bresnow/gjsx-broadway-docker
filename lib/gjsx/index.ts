@@ -16,9 +16,6 @@ const createWidget = (
 const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; attributes: Record<string, any>; children: any[] }) => {
 
   if (!isConstructor(Widget)) {
-    if (typeof Widget === "string" && uiregex.test(Widget)) {
-      return templateRender({ Widget, attributes, children })
-    }
     // component functions that aren't widgets.
     return render(Widget(attributes));
   }
@@ -109,6 +106,9 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 
 /* UTILS */
 let encode = new TextEncoder().encode
+const renderUi = (jsx: JSX.IntrinsicElements) => {
+  return encode(jsx.toString()) as any
+}
 function templateRender({ Widget, attributes, children }: { Widget: string; attributes: Record<string, string>; children: any[] }) {
   let props = Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
@@ -160,4 +160,4 @@ type WidgetConstructed = {
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { render, createWidget, isConstructor };
+export default { render, createWidget, isConstructor, templateRender, renderUi };

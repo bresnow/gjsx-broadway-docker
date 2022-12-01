@@ -232,6 +232,10 @@ export function writeTextFileSync(file: Gio.File, contents: Uint8Array) {
   );
 }
 
+export function encode(data: any) {
+  return new TextEncoder().encode(data);
+}
+
 export function decode(data: any) {
   return new TextDecoder().decode(data);
 }

@@ -5,13 +5,15 @@
     "target": "ES2022",
     "jsx": "react",
     "jsxFactory": "Gjsx.createWidget",
-    "jsxImportSource": "",
     "allowJs": true,
     "paths": {
       "gjsx/utils": [
         "lib/gjsx/utils/index.ts"
       ],
       "gjsx": [
+        "lib/gjsx/index.ts"
+      ],
+      "gjsx-ui": [
         "lib/gjsx/index.ts"
       ],
       "byteArray": [

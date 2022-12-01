@@ -8,10 +8,9 @@
         <script src=" https://cdnjs.cloudflare.com/ajax/libs/gun/0.2020.1238/gun.min.js"></script>
         <script type="text/javascript" src="broadway.js"></script>
         <script type="application/javascript">
-            document.body.onload = cnxt()
-            var gun = GUN({ peers: ["http://0.0.0.0:8087/gun"], localStorage: false, file: "proxyserver/db" });
 
-            function test(num) {
+            let gun = GUN({ peers: ["http://0.0.0.0:8087/gun"], localStorage: false, file: "datastore_gundb" });
+            const test = (num) => {
                 gun.get(Date.now()).get(num).put({ connected: true })
             };
             function clickmsg(name) {
@@ -20,16 +19,19 @@
             gun.get('testing_events/connection').on((data) => {
                 console.log(data.event)
             })
+            cnxt()
 
-            setTimeout(() => {
-                test(002 + "timeout");
-            }, 10000)
+            // setTimeout(() => {
+            //     test(002 + "timeout");
+            // }, 10000)
         </script>
     </head>
 
     <body>
         <img src="White_FullStack.png"
             style="position: fixed;width: 64px;z-index: 1000000;display: block;bottom: 30px;right: 30px;opacity: 100%"></img>
+        <script>
+        </script>
     </body>
 
 </html>

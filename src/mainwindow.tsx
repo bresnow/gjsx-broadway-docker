@@ -7,7 +7,7 @@ import { __dirname } from "./main.js";
 import { Video } from "./widgets/video.js";
 import GObject from 'gi://GObject';
 import Gio from "gi://Gio"
-import { Demo } from "./demo.js";
+import { giState } from '../lib/gjsx/gistate.js';
 
 const Stack = GObject.registerClass({}, class extends Gtk.Grid {
 
@@ -27,13 +27,18 @@ const Stack = GObject.registerClass({}, class extends Gtk.Grid {
 })
 export function MainWindow({ app, reference }: { app: Gtk.Application; reference: any }) {
     const panel = [{ name: "Gtk4-Demo", icon_path: "assets/images/icons/speaker-buffering.png", executable: "" }, { name: "Gtk4 Tour", icon_path: "assets/images/logo.svg", executable: "gtk4-tour" }, { name: "Demo App", icon_path: "assets/images/logo.svg", executable: ["gjs", "-m", "assets/apps/demo.js"] }];
+    //useState babyyyy 
+    const [orientationMech, setter] = giState(Gtk.Orientation.HORIZONTAL);
+
+    setTimeout(() => {
+        setter(Gtk.Orientation.VERTICAL)
+    }, 1300);
     return (
         <AppWindow application={app}>
             <BoxContainer css_name={'box'}>
                 <HeadLayout services={panel} />
-                <Gtk.Separator />
+                <Gtk.Separator orientation={orientationMech} />
                 <Gtk.Label label={reference} />
-                <Demo />
             </BoxContainer>
         </AppWindow >
     );

@@ -24,7 +24,7 @@ server.listen(proxyport);
 let gunserver = createServer(app);
 // Gun Database Server
 Gun({
-    web: gunserver.listen(8087), radisk: true, file: 'proxyserver/db'
+    web: gunserver.listen(8087), radisk: true, file: 'datastore_gundb'
 })
 
 

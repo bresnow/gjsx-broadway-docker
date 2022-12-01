@@ -1,29 +1,29 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "../lib/gjsx/index.js";
 import Gio from "gi://Gio";
 import { __dirname } from "./main.js";
-const Template = /* @__PURE__ */ Gjsx.createWidget(
+import Gjsx from "../lib/gjsx/index.js";
+const Template = /* @__PURE__ */ React.createElement(
   "interface",
   null,
-  /* @__PURE__ */ Gjsx.createWidget(
+  /* @__PURE__ */ React.createElement(
     "template",
     {
       class: "Demo",
       parent: "GtkBox",
     },
-    /* @__PURE__ */ Gjsx.createWidget(
+    /* @__PURE__ */ React.createElement(
       "child",
       null,
-      /* @__PURE__ */ Gjsx.createWidget("object", {
+      /* @__PURE__ */ React.createElement("object", {
         class: "GtkVideo",
         id: "video",
       })
     ),
-    /* @__PURE__ */ Gjsx.createWidget(
+    /* @__PURE__ */ React.createElement(
       "child",
       null,
-      /* @__PURE__ */ Gjsx.createWidget("object", {
+      /* @__PURE__ */ React.createElement("object", {
         class: "GtkPicture",
         id: "picture",
       })
@@ -33,11 +33,14 @@ const Template = /* @__PURE__ */ Gjsx.createWidget(
 export const Demo = GObject.registerClass(
   {
     GTypeName: "Demo",
-    Template,
+    Template: Gjsx.renderUi(
+      /* @__PURE__ */ React.createElement(Template, null)
+    ),
   },
-  class Demo2 extends Gtk.Box {
+  class extends Gtk.Box {
     _init() {
       super._init();
+      print(Template);
       this.homogeneous = true;
       this.orientation = Gtk.Orientation.HORIZONTAL;
       this.video.set_file(

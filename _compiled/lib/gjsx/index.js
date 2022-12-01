@@ -8,9 +8,6 @@ const createWidget = (Widget, attributes, ...args) => {
 };
 const render = ({ Widget, attributes, children }) => {
   if (!isConstructor(Widget)) {
-    if (typeof Widget === "string" && uiregex.test(Widget)) {
-      return templateRender({ Widget, attributes, children });
-    }
     return render(Widget(attributes));
   }
   const signals = {};
@@ -84,6 +81,9 @@ const render = ({ Widget, attributes, children }) => {
   return widget;
 };
 let encode = new TextEncoder().encode;
+const renderUi = (jsx) => {
+  return encode(jsx.toString());
+};
 function templateRender({ Widget, attributes, children }) {
   let props = Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
@@ -125,4 +125,10 @@ function styleObjectToCssData(styleAttr) {
     throw new Error("Style attributes must be an object");
   }
 }
-export default { render, createWidget, isConstructor };
+export default {
+  render,
+  createWidget,
+  isConstructor,
+  templateRender,
+  renderUi,
+};
