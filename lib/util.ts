@@ -28,7 +28,7 @@ export function promiseTask<ResolveType>(
   });
 }
 
-function normalizeEmitter(emitter: { on: any; addListener: any; addEventListener: any; off: any; removeListener: any; removeEventListener: any; }) {
+function normalizeEmitter(emitter:any) {
   const addListener =
     emitter.on || emitter.addListener || emitter.addEventListener;
   const removeListener =

@@ -38,6 +38,7 @@ declare module "@gi-types/gmodule" {
 }
 
 declare interface GjsImports {
+    cairo: any;
     gi: GjsGiImports;
 }
 

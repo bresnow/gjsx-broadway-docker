@@ -3,7 +3,7 @@ import Soup from "gi://Soup?version=3.0";
 import GLib from "gi://GLib";
 const text_decoder = new TextDecoder();
 const text_encoder = new TextEncoder();
-class WebSocket {
+export default class WebSocket {
   constructor(url, protocols = []) {
     this.eventListeners = /* @__PURE__ */ new WeakMap();
     this._connection = null;
@@ -23,18 +23,23 @@ class WebSocket {
       method: "GET",
       uri: this._uri,
     });
-    await promiseTask(
-      session,
-      "websocket_connect_async",
-      "websocket_connect_finish",
-      message,
-      "origin",
-      protocols,
-      null,
-      null
-    )
-      .then((conn) => this._onconnection(conn))
-      .catch((err) => logError(err));
+    let connection;
+    try {
+      connection = await promiseTask(
+        session,
+        "websocket_connect_async",
+        "websocket_connect_finish",
+        message,
+        "origin",
+        protocols,
+        null,
+        null
+      );
+    } catch (err) {
+      this._onerror(err);
+      return;
+    }
+    this._onconnection(connection);
   }
   _onconnection(connection) {
     this._connection = connection;
@@ -71,25 +76,32 @@ class WebSocket {
   _onopen() {
     this.readyState = 1;
     if (typeof this.onopen === "function") this.onopen();
+    this.emit("open");
   }
   emit(arg0) {
-    throw new Error("Method not implemented");
+    throw new Error("Method not implemented.");
   }
   _onmessage(message) {
-    if (typeof this.onmessage === "function") {
-      this.onmessage(message);
-    } else;
-    {
-      this.emit(message.data);
-    }
+    if (typeof this.onmessage === "function") this.onmessage(message);
+    this.emit("message");
   }
   _onclose() {
     this.readyState = 3;
     if (typeof this.onclose === "function") this.onclose();
-    else this.emit("close");
+    this.emit("close");
   }
   _onerror(error) {
     if (typeof this.onerror === "function") this.onerror(error);
+    this.emit("error");
+  }
+  addEventListener(name, fn) {
+    const id = this.connect(name, (self, ...args) => {
+      fn(...args);
+    });
+    this.eventListeners.set(fn, id);
+  }
+  connect(name, arg1) {
+    throw new Error("Method not implemented.");
   }
   removeEventListener(name, fn) {
     const id = this.eventListeners.get(fn);
@@ -100,4 +112,3 @@ class WebSocket {
     throw new Error("Method not implemented.");
   }
 }
-export default WebSocket;

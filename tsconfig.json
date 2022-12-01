@@ -19,6 +19,9 @@
       "byteArray": [
         "./types/Gjs/ByteArray.d.ts"
       ],
+      "gi://Adw": [
+        "./types/Gjs/Adw-1.d.ts"
+      ],
       "gi://Atk": [
         "./types/Gjs/Atk-1.0.d.ts"
       ],

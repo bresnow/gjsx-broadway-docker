@@ -2,7 +2,10 @@ import { transform } from "esbuild";
 import { argv, chalk, fs, glob } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
+import Docker from "dockerode"
 let { red, green, blue, yellow } = chalk;
+const docker = new Docker({ socketPath: "/var/run/docker.sock" })
+
 // --watch option
 let watch = argv.watch !== undefined;
 let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
@@ -22,7 +25,9 @@ if (watch) {
         console.log(
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
-        compile(path);
+        (await docker.listServices()).forEach(ser => {
+          console.log(ser)
+        })
       } catch (error) {
         console.error(red(error.message))
 

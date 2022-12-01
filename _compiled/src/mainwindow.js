@@ -8,6 +8,7 @@ import { Video } from "./widgets/video.js";
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
 import { giState } from "../lib/gjsx/gistate.js";
+import WaveForm from "./widgets/waveform.js";
 const Stack = GObject.registerClass(
   {},
   class extends Gtk.Grid {
@@ -19,12 +20,10 @@ const Stack = GObject.registerClass(
       stack.set_vexpand(true);
       stack.set_hexpand(true);
       this.attach(stack, 1, 0, 1, 1);
-      stack.add_titled(new Video(), "page_one", "Page One");
+      let wave = new WaveForm({ content_height: 150 }, null);
       stack.add_titled(
-        new Gtk.Picture({
-          file: Gio.File.new_for_path(
-            __dirname + "/assets/images/icons/fullscreen.png"
-          ),
+        new Gtk.Video({
+          file: Gio.File.new_for_path(__dirname + "/assets/video/shades.webm"),
         }),
         "page_two",
         "Page Two"
@@ -52,10 +51,10 @@ export function MainWindow({ app, reference }) {
       executable: ["gjs", "-m", "assets/apps/demo.js"],
     },
   ];
-  const [orientationMech, setter] = giState(Gtk.Orientation.HORIZONTAL);
+  const [state, setter] = giState("Wallalalalalalala");
   setTimeout(() => {
-    setter(Gtk.Orientation.VERTICAL);
-  }, 1300);
+    setter("ShimmyShimmyYahhh");
+  }, 1700);
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -70,10 +69,11 @@ export function MainWindow({ app, reference }) {
         services: panel,
       }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
-        orientation: orientationMech,
+        orientation: Gtk.Orientation.HORIZONTAL,
       }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
-        label: reference,
+        label: state,
+        style: { color: "#fff" },
       })
     )
   );
