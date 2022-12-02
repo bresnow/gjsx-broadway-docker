@@ -7,6 +7,7 @@
     "deploy": "docker stack deploy -c docker-stack.yml",
     "ide": "docker stack deploy -c docker/development-stack.yml dev_workspace",
     "image": "docker-compose -f docker-compose.yml",
+    "deploy-fresh": "yarn image build; yearn image push; yarn deploy",
     "watch": "yarn compile --watch"
   },
   "keywords": [

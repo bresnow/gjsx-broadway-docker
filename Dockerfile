@@ -100,7 +100,9 @@ RUN \
     npm i -g yarn \
     && yarn
 
-RUN export $(dbus-launch) 
+RUN \
+    mkdir -p /var/log/gjsx &&\
+    export $(dbus-launch) 
 
 ENV HOME=/home/app \
     XDG_RUNTIME_DIR=$HOME \

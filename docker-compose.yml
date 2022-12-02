@@ -7,15 +7,15 @@ services:
       context: .
       dockerfile: Dockerfile
       target: broadway-app
-    ports:
-      - 8088:8088 # Service
-      - 8087:8087 # Relay Server
-      - 8086:8086 # Broadway
-    volumes:
-      - ${PWD}/_compiled:/home/app/_compiled
-      - ${PWD}/lib:/home/app/lib
-      - ${PWD}/assets:/home/app/assets
-      - ${PWD}/proxyserver:/home/app/proxyserver
-      - ${PWD}/datastore_gundb:/home/app/datastore_gundb
-      - ${PWD}/node_modules:/home/app/node_modules
-      - ${PWD}/log:/var/log
+    # ports:
+    #   - 8088:8088 # Service
+    #   - 8087:8087 # Relay Server
+    #   - 8086:8086 # Broadway
+    # volumes:
+    #   - ${PWD}/_compiled:/home/app/_compiled
+    #   - ${PWD}/lib:/home/app/lib
+    #   - ${PWD}/assets:/home/app/assets
+    #   - ${PWD}/proxyserver:/home/app/proxyserver
+    #   - ${PWD}/datastore_gundb:/home/app/datastore_gundb
+    #   - ${PWD}/node_modules:/home/app/node_modules
+    #   - ${PWD}/log:/var/log

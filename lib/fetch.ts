@@ -3,7 +3,7 @@ import Soup from "gi://Soup?version=3.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 
-export default async function fetch(url: string, options: { url: string; method: string; headers: any; body: Uint8Array; } ) {
+export default async function fetch(url: string, options: { url: string; method: string; headers: any; body: Uint8Array; }) {
   if (typeof url === "object") {
     options = url;
     url = options.url;
@@ -60,13 +60,14 @@ export default async function fetch(url: string, options: { url: string; method:
     async gBytes() {
       const outputStream = Gio.MemoryOutputStream.new_resizable();
 
+
       await promiseTask(
         outputStream,
         "splice_async",
         "splice_finish",
         inputStream,
         Gio.OutputStreamSpliceFlags.CLOSE_TARGET |
-          Gio.OutputStreamSpliceFlags.CLOSE_SOURCE,
+        Gio.OutputStreamSpliceFlags.CLOSE_SOURCE,
         GLib.PRIORITY_DEFAULT,
         null,
       );

@@ -19,6 +19,7 @@ server.on('upgrade', function (req, socket, head) {
 
 // serve static content
 app.use('/', express.static("/home/app/assets/public"));
+app.use('/out', express.static("/home/app/assets/public/checkout.html"));
 server.listen(proxyport);
 
 // Database server listen 

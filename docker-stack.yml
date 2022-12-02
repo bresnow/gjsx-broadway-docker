@@ -34,7 +34,7 @@ services:
       - assets:/home/app/assets
       - proxyserver:/home/app/proxyserver
       - datastore_gundb:/home/app/datastore_gundb
-      - logs:/var/log
+      - logs:/var/log/gjsx
 volumes:
   datastore_gundb:
     driver: local-persist
