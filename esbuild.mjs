@@ -2,15 +2,30 @@ import { transform } from "esbuild";
 import { argv, chalk, fs, glob } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
-import Docker from "dockerode"
+import Docker from "dockerode";
+import process from "process";
 let { red, green, blue, yellow } = chalk;
-// const docker = new Docker({ socketPath: "/var/run/docker.sock" })
-// async function updateService() {
-//   (await docker.listServices()).forEach(ser => {
-//     console.log(ser.ID)
-//     console.log(ser.inspect())
-//   })
-// }
+let containerId = "8a491fe689c659a17c77bd0aa8b45a691761370051254d8dcb1b26d02fdee012"
+const docker = new Docker({ socketPath: "/var/run/docker.sock" })
+const updateService = () => {
+  docker.listServices({}
+    , (err, services) => {
+      services.forEach(service => {
+        if (service.Spec.Name.includes("gijsx")) {
+          const { Spec, Version } = service;
+          docker.getService(service.ID).update({ version: Version.Index, ...Spec }, (err, service) => {
+            console.log(JSON.stringify({ err, service }))
+          })
+
+        }
+      })
+
+    })
+  // service.update({ id }, (err, service) => {
+  //   // err.pipe(process.stdout)
+  //   console.log(JSON.stringify({ service, err }, null, 2))
+  // })
+}
 // --watch option
 let watch = argv.watch !== undefined;
 let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
@@ -37,7 +52,7 @@ if (watch) {
       }
     });
   });
-  // await updateService()
+  console.log(updateService())
 } else {
   entryPoints.forEach((path) => {
     compile(path);

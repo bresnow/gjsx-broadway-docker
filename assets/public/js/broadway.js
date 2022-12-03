@@ -3213,7 +3213,7 @@ function cnxt() {
         if (inputSocket != null)
             // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
             inputSocket = null;
-        window.location.assign("/login")
+        window.location.assign("/out")
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

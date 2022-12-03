@@ -1,6 +1,6 @@
 # Custom Widget Classes
 
-    Here are some examples of how you can customize GtkWidget classes in ways you can't typically in the jsx compiler. 
+    Here are some examples of how you can customize GtkWidget classes in ways you can't typically in the jsx compiler.
 
 ### TODO
 

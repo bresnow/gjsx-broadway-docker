@@ -9,7 +9,7 @@ radata*
 .pnp.js
 troll
 log
-datastore_gundb/{!,%*}
+datastore_gundb*
 _compiled
 
 # testing

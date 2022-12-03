@@ -1,4 +1,4 @@
-export const giState = (initialValue) => {
+export function giState(initialValue) {
   let useValue = initialValue;
   let listenersValue = [];
   let returning = useValue;
@@ -24,4 +24,5 @@ export const giState = (initialValue) => {
   useValue = trick(useValue);
   returning = useValue;
   return [returning, setter];
-};
+}
+function dispatch() {}

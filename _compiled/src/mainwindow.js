@@ -3,33 +3,35 @@ import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
-import { __dirname } from "./main.js";
-import { Video } from "./widgets/video.js";
 import GObject from "gi://GObject";
-import Gio from "gi://Gio";
-import { giState } from "../lib/gjsx/gistate.js";
-import WaveForm from "./widgets/waveform.js";
-const Stack = GObject.registerClass(
+function widgetArray(arr) {
+  return arr.map((Widget) => {
+    return new Widget();
+  });
+}
+const GridStack = GObject.registerClass(
   {},
   class extends Gtk.Grid {
-    _init() {
-      super._init();
-      let pageOne = new Gtk.StackPage({ child: new Video() }),
-        stack = new Gtk.Stack(),
-        sidebar = new Gtk.StackSidebar();
-      stack.set_vexpand(true);
-      stack.set_hexpand(true);
-      this.attach(stack, 1, 0, 1, 1);
-      let wave = new WaveForm({ content_height: 150 }, null);
-      stack.add_titled(
-        new Gtk.Video({
-          file: Gio.File.new_for_path(__dirname + "/assets/video/shades.webm"),
-        }),
-        "page_two",
-        "Page Two"
-      );
-      sidebar.set_stack(stack);
-      this.attach(sidebar, 0, 0, 1, 1);
+    constructor(params) {
+      super(params);
+    }
+  }
+);
+const BgOverlay = GObject.registerClass(
+  {},
+  class extends Gtk.Overlay {
+    constructor(arg) {
+      super(arg);
+      this.build();
+    }
+    build() {
+      let [label, button, picture] = [
+        new Gtk.Label({ label: "dahsfshkfkdhafklhj" }),
+        new Gtk.Button({ label: "button" }),
+        new Gtk.Picture({ file: "assets/images/images/mrs_arnold.jpeg" }),
+      ];
+      this.set_clip_overlay(picture, true);
+      this.set_child(label);
     }
   }
 );
@@ -37,7 +39,7 @@ export function MainWindow({ app, reference }) {
   const panel = [
     {
       name: "Gtk4-Demo",
-      icon_path: "assets/images/icons/speaker-buffering.png",
+      icon_path: "assets/images/fltngmmth/Black_fullStack.png",
       executable: "",
     },
     {
@@ -51,10 +53,6 @@ export function MainWindow({ app, reference }) {
       executable: ["gjs", "-m", "assets/apps/demo.js"],
     },
   ];
-  const [state, setter] = giState("Wallalalalalalala");
-  setTimeout(() => {
-    setter("ShimmyShimmyYahhh");
-  }, 1700);
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -71,10 +69,25 @@ export function MainWindow({ app, reference }) {
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
         orientation: Gtk.Orientation.HORIZONTAL,
       }),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
-        label: state,
-        style: { color: "#fff" },
-      })
+      /* @__PURE__ */ Gjsx.createWidget(
+        BgOverlay,
+        null,
+        /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
+          label: "try Meeeee",
+          onClicked: (butt) => {},
+        }),
+        /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
+          label: reference,
+          style: { color: "#fff" },
+        })
+      ),
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
+      /* @__PURE__ */ Gjsx.createWidget(GridStack, null)
     )
   );
+}
+function PeerEntry() {
+  return /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, {
+    label: "Peer Cnxt",
+  });
 }

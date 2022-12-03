@@ -224,12 +224,10 @@ declare module "gjsx-ui" {
             child: {
                 type?: string;
                 "internal-child"?: string;
-                // children: (object | ANY)*
             };
             menu: {
                 id: string; // { xsd:ID },
                 domain?: string;
-                // children: (item | submenu | section) *
             };
             item: {
                 id?: string; // { xsd:ID } ?,
@@ -248,6 +246,9 @@ declare module "gjsx-ui" {
                 name: string; // { text },
                 // children: item *
             };
+            script: {
+                source?: string
+            },
             submenu: {
                 id?: string; //  { xsd:ID } ?,
                 // children: (attribute_ | item | submenu | section) *

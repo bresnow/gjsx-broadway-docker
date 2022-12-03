@@ -111,3 +111,5 @@ ENV HOME=/home/app \
     DEBUG=true
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+FROM base-dependencies as wayland-app

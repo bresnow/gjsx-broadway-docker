@@ -25,11 +25,12 @@ export function HeadLayout({ services }) {
     Gtk.Box,
     {
       spacing: 18,
+      style: { padding: "5px" },
       orientation: horizontal,
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
       file: logo,
-      style: { marginLeft: 5 },
+      style: { marginLeft: "5px" },
       pixel_size: 100,
     }),
     services.map(({ name, executable: execCmd, icon_path, icon_name }, i) => {

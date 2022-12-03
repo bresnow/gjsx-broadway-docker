@@ -4,38 +4,88 @@ import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { __dirname } from "./main.js";
-import GObject from 'gi://GObject';
-import Gio from "gi://Gio"
-import { giState } from '../lib/gjsx/gistate.js';
-interface Props extends Gtk.Grid_ConstructProps {
-  argument?: string
+import GObject from "gi://GObject";
+
+interface Props extends Gtk.Overlay_ConstructProps {
+  argument?: string;
 }
-const [state, setter] = giState({ try: "Listen Up LibTard... I masturbate with soap." });
 
+function widgetArray(arr: typeof Gtk.Widget[]) {
+  return arr.map((Widget) => {
+    return new Widget();
+  });
+}
 
-const GridStack = GObject.registerClass({}, class extends Gtk.Grid {
-  constructor(params: Props) {
-    super(params);
+const GridStack = GObject.registerClass(
+  {},
+  class extends Gtk.Grid {
+    constructor(params: Props) {
+      super(params);
+    }
   }
+);
 
+const BgOverlay = GObject.registerClass(
+  {},
+  class extends Gtk.Overlay {
+    constructor(arg: Gtk.Overlay_ConstructProps) {
+      super(arg);
+      this.build();
+    }
 
-})
-export function MainWindow({ app, reference }: { app: Gtk.Application; reference: any }) {
-  const panel = [{ name: "Gtk4-Demo", icon_path: "assets/images/fltngmmth/Black_fullStack.png", executable: "" }, { name: "Gtk4 Tour", icon_path: "assets/images/logo.svg", executable: "gtk4-tour" }, { name: "Demo App", icon_path: "assets/images/logo.svg", executable: ["gjs", "-m", "assets/apps/demo.js"] }];
-  //useState babyyyy 
+    build() {
+      let [label, button, picture] = [
+        new Gtk.Label({ label: "dahsfshkfkdhafklhj" }),
+        new Gtk.Button({ label: "button" }),
+        new Gtk.Picture({ file: "assets/images/images/mrs_arnold.jpeg" }),
+      ];
+      this.set_clip_overlay(picture, true);
+      this.set_child(label);
+    }
+  }
+);
 
+export function MainWindow({
+  app,
+  reference,
+}: {
+  app: Gtk.Application;
+  reference: any;
+}) {
+  const panel = [
+    {
+      name: "Gtk4-Demo",
+      icon_path: "assets/images/fltngmmth/Black_fullStack.png",
+      executable: "",
+    },
+    {
+      name: "Gtk4 Tour",
+      icon_path: "assets/images/logo.svg",
+      executable: "gtk4-tour",
+    },
+    {
+      name: "Demo App",
+      icon_path: "assets/images/logo.svg",
+      executable: ["gjs", "-m", "assets/apps/demo.js"],
+    },
+  ];
 
   return (
     <AppWindow application={app}>
-      <BoxContainer css_name={'box'}>
+      <BoxContainer css_name={"box"}>
         <HeadLayout services={panel} />
         <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-        <Gtk.Button label={"try Meeeee"} onClicked={(butt) => {
-          setter({ try: "Yelllllerrrrrrr" })
-        }} style={{ backgroundColor: "#000" }} />
+        <BgOverlay>
+          <Gtk.Button label={"try Meeeee"} onClicked={(butt) => {}} />
+          <Gtk.Label label={reference} style={{ color: "#fff" }} />
+        </BgOverlay>
+        <Gtk.Entry />
         <GridStack />
-        <Gtk.Label label={state.try} style={{ color: "#fff" }} />
       </BoxContainer>
-    </AppWindow >
+    </AppWindow>
   );
-};
+}
+
+function PeerEntry() {
+  return <Gtk.Entry label="Peer Cnxt" />;
+}
