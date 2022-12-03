@@ -5,6 +5,8 @@ import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import { __dirname } from "./main.js";
 import GObject from "gi://GObject";
+import { Demo } from "./widgets/demo.js";
+import { Video } from './widgets/video.js';
 
 interface Props extends Gtk.Overlay_ConstructProps {
   argument?: string;
@@ -16,31 +18,15 @@ function widgetArray(arr: typeof Gtk.Widget[]) {
   });
 }
 
-const GridStack = GObject.registerClass(
-  {},
-  class extends Gtk.Grid {
-    constructor(params: Props) {
-      super(params);
-    }
-  }
-);
 
 const BgOverlay = GObject.registerClass(
-  {},
-  class extends Gtk.Overlay {
-    constructor(arg: Gtk.Overlay_ConstructProps) {
-      super(arg);
-      this.build();
-    }
-
-    build() {
-      let [label, button, picture] = [
-        new Gtk.Label({ label: "dahsfshkfkdhafklhj" }),
-        new Gtk.Button({ label: "button" }),
-        new Gtk.Picture({ file: "assets/images/images/mrs_arnold.jpeg" }),
-      ];
-      this.set_clip_overlay(picture, true);
-      this.set_child(label);
+  { GTypeName: "BgOverlay" },
+  class BgOverlay extends Gtk.Box {
+    _init() {
+      super._init();
+      let picture = new Gtk.Picture({ file: "assets/images/mrs_arnold.jpeg" }), overlay, grid = new Gtk.Grid();
+      grid.attach(picture, 0, 0, 1, 1);
+      this.append(grid)
     }
   }
 );
@@ -69,18 +55,20 @@ export function MainWindow({
       executable: ["gjs", "-m", "assets/apps/demo.js"],
     },
   ];
-
+  //@ts-ignore
+  log(app.get_dbus_connection())
+  //@ts-ignore
+  log(app.get_dbus_object_path())
   return (
     <AppWindow application={app}>
       <BoxContainer css_name={"box"}>
         <HeadLayout services={panel} />
         <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-        <BgOverlay>
-          <Gtk.Button label={"try Meeeee"} onClicked={(butt) => {}} />
-          <Gtk.Label label={reference} style={{ color: "#fff" }} />
-        </BgOverlay>
-        <Gtk.Entry />
-        <GridStack />
+        <Gtk.ScrolledWindow has_frame={true} overlay_scrolling={true}>
+          <Gtk.Box orientation={Gtk.Orientation.HORIZONTAL} spacing={10}  >
+            <Gtk.Image file={"assets/images/mrs_arnold.jpeg"} />
+          </Gtk.Box>
+        </Gtk.ScrolledWindow>
       </BoxContainer>
     </AppWindow>
   );

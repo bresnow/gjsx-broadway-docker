@@ -4,6 +4,7 @@ import GLib from "gi://GLib";
 import Gjsx from "../lib/gjsx/index.js";
 import Util from "../lib/gjsx/utils/index.js";
 import { MainWindow } from "./mainwindow.js";
+/* @__PURE__ */ Gjsx.createWidget("script", null, "let mainWindow = 4444;");
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
 export const __dirname = GLib.get_current_dir();
 Gtk.init();

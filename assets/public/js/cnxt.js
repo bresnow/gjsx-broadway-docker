@@ -7,6 +7,7 @@
 // gun.get('testing_events/connection').on((data) => {
 //     console.log(data.event)
 // })
+cnxt()
 
 function gi_sideEffect(exec, ...args) {
     new Function(exec.join(args.toString())).call()

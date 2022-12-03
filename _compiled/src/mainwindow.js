@@ -9,29 +9,16 @@ function widgetArray(arr) {
     return new Widget();
   });
 }
-const GridStack = GObject.registerClass(
-  {},
-  class extends Gtk.Grid {
-    constructor(params) {
-      super(params);
-    }
-  }
-);
 const BgOverlay = GObject.registerClass(
-  {},
-  class extends Gtk.Overlay {
-    constructor(arg) {
-      super(arg);
-      this.build();
-    }
-    build() {
-      let [label, button, picture] = [
-        new Gtk.Label({ label: "dahsfshkfkdhafklhj" }),
-        new Gtk.Button({ label: "button" }),
-        new Gtk.Picture({ file: "assets/images/images/mrs_arnold.jpeg" }),
-      ];
-      this.set_clip_overlay(picture, true);
-      this.set_child(label);
+  { GTypeName: "BgOverlay" },
+  class BgOverlay2 extends Gtk.Box {
+    _init() {
+      super._init();
+      let picture = new Gtk.Picture({ file: "assets/images/mrs_arnold.jpeg" }),
+        overlay,
+        grid = new Gtk.Grid();
+      grid.attach(picture, 0, 0, 1, 1);
+      this.append(grid);
     }
   }
 );
@@ -53,6 +40,8 @@ export function MainWindow({ app, reference }) {
       executable: ["gjs", "-m", "assets/apps/demo.js"],
     },
   ];
+  log(app.get_dbus_connection());
+  log(app.get_dbus_object_path());
   return /* @__PURE__ */ Gjsx.createWidget(
     AppWindow,
     {
@@ -70,19 +59,22 @@ export function MainWindow({ app, reference }) {
         orientation: Gtk.Orientation.HORIZONTAL,
       }),
       /* @__PURE__ */ Gjsx.createWidget(
-        BgOverlay,
-        null,
-        /* @__PURE__ */ Gjsx.createWidget(Gtk.Button, {
-          label: "try Meeeee",
-          onClicked: (butt) => {},
-        }),
-        /* @__PURE__ */ Gjsx.createWidget(Gtk.Label, {
-          label: reference,
-          style: { color: "#fff" },
-        })
-      ),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
-      /* @__PURE__ */ Gjsx.createWidget(GridStack, null)
+        Gtk.ScrolledWindow,
+        {
+          has_frame: true,
+          overlay_scrolling: true,
+        },
+        /* @__PURE__ */ Gjsx.createWidget(
+          Gtk.Box,
+          {
+            orientation: Gtk.Orientation.HORIZONTAL,
+            spacing: 10,
+          },
+          /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
+            file: "assets/images/mrs_arnold.jpeg",
+          })
+        )
+      )
     )
   );
 }

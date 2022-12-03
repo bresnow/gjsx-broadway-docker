@@ -23,11 +23,15 @@ export const Video = GObject.registerClass(
         );
         let video = Gtk.Video.new_for_file(lonelyShades);
         video.set_autoplay(true);
-        video.set_hexpand(true);
+        video.set_vexpand(true);
         video.set_visible(false);
         this.append(video);
         button.connect("clicked", (self) => {
-          video.set_visible(true);
+          if (video.get_visible()) {
+            video.set_visible(false);
+          } else {
+            video.set_visible(true);
+          }
         });
         this.append(button);
       } catch (e) {

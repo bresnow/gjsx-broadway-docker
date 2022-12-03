@@ -1,29 +1,32 @@
 import { transform } from "esbuild";
-import { argv, chalk, fs, glob } from "zx";
+import { argv, chalk, fs, glob, $ } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
 import Docker from "dockerode";
 import process from "process";
+import { info, log } from "console";
 let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ socketPath: "/var/run/docker.sock" })
 const updateService = (optionalServiceName) => {
   docker.listServices({}
     , (err, services) => {
-      services.forEach(service => {
+      services.forEach(async service => {
         if (service.Spec.Name === ("gijsx_gjsx_dev" || optionalServiceName)) {
-          const { Spec, Version } = service;
-          docker.getService(service.ID).update({ version: Version.Index, ...Spec }, (err, service) => {
-            console.log(JSON.stringify({ err, service }))
-          })
+          let initSvc = service
+          const { Spec, Version } = initSvc;
+          const _service = docker.getService(service.ID);
+          try {
+            await _service.remove(service.ID)
+            let success = await docker.createService({ ...Spec })
+            console.log(success)
+          } catch (e) {
+            console.log(e)
+          }
 
         }
       })
 
     })
-  // service.update({ id }, (err, service) => {
-  //   // err.pipe(process.stdout)
-  //   console.log(JSON.stringify({ service, err }, null, 2))
-  // })
 }
 // --watch option
 let watch = argv.watch !== undefined;
@@ -37,7 +40,7 @@ if (watch) {
     ignored: /(^|[\/\\])\../,
     persistent: true,
   });
-  ["add", "change", "unlink"].forEach((e) => {
+  ["add", "change", "unlink"].forEach(async (e) => {
     scope.on(e, async (path) => {
       if (path === "esbuild.mjs") return;
       try {
@@ -47,16 +50,25 @@ if (watch) {
         compile(path)
       } catch (error) {
         console.error(red(error.message))
+        process.exit(1)
 
       }
+      // info(e === "change" && )
     });
   });
-  console.log(updateService())
+  scope.on("change", async () => {
+    // await $`docker service update gijsx_gjsx_dev`
+    updateService()
+
+  })
+  // updateService()
 } else {
   entryPoints.forEach((path) => {
     compile(path);
   });
-  updateService("gijsx_gjsx_dev1")
+  // updateService("gijsx_gjsx_dev1")
+  await $`docker service update gijsx_gjsx_dev`
+  await $`docker service update gijsx_gjsx_dev1`
 }
 
 function compile(_path) {
