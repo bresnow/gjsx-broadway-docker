@@ -56,7 +56,7 @@ if (watch) {
   entryPoints.forEach((path) => {
     compile(path);
   });
-  // await updateService()
+  updateService("gijsx_gjsx_dev1")
 }
 
 function compile(_path) {
