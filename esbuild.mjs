@@ -5,13 +5,12 @@ import { format } from "prettier"
 import Docker from "dockerode";
 import process from "process";
 let { red, green, blue, yellow } = chalk;
-let containerId = "8a491fe689c659a17c77bd0aa8b45a691761370051254d8dcb1b26d02fdee012"
 const docker = new Docker({ socketPath: "/var/run/docker.sock" })
-const updateService = () => {
+const updateService = (optionalServiceName) => {
   docker.listServices({}
     , (err, services) => {
       services.forEach(service => {
-        if (service.Spec.Name.includes("gijsx")) {
+        if (service.Spec.Name === ("gijsx_gjsx_dev" || optionalServiceName)) {
           const { Spec, Version } = service;
           docker.getService(service.ID).update({ version: Version.Index, ...Spec }, (err, service) => {
             console.log(JSON.stringify({ err, service }))
