@@ -1,5 +1,0 @@
-#!/bin/bash
-set -e
-
-  export TERM_COLOR="filter: invert(14%) sepia(7%) saturate(14%) hue-rotate(16deg) brightness(102%) contrast(90%);"
-ttyd tmux a -t ttyd 

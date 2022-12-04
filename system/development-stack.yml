@@ -1,0 +1,64 @@
+version: "3.3"
+
+services:
+  dev_wrkspce:
+    image: bresnow/alpnode_code_workspace:${VERSION:-latest}
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=public
+        - traefik.constraint-label=public
+        - traefik.http.routers.codeserver-fm-gjsx.rule=Host(`${CODESERVER_SUBDOMAIN}.fltngmmth.com`)
+        - traefik.http.routers.codeserver-fm-gjsx.entrypoints=http,https
+        - traefik.http.routers.codeserver-fm-gjsx.middlewares=https-redirect
+        - traefik.http.routers.codeserver-fm-gjsx.service=codeserver-fm-gjsx
+        - traefik.http.routers.codeserver-fm-gjsx.tls=true
+        - traefik.http.routers.codeserver-fm-gjsx.tls.certresolver=namecheap
+        - traefik.http.services.codeserver-fm-gjsx.loadbalancer.server.port=8025
+        #   #-------------------FILE SHARE
+        - traefik.http.routers.filebrowser-fm-gjsx.rule=Host(`${FILEBROWSER_SUBDOMAIN}.fltngmmth.com`)
+        - traefik.http.routers.filebrowser-fm-gjsx.entrypoints=http,https
+        - traefik.http.routers.filebrowser-fm-gjsx.middlewares=https-redirect
+        - traefik.http.routers.filebrowser-fm-gjsx.service=filebrowser-fm-gjsx
+        - traefik.http.routers.filebrowser-fm-gjsx.tls=true
+        - traefik.http.routers.filebrowser-fm-gjsx.tls.certresolver=namecheap
+        - traefik.http.services.filebrowser-fm-gjsx.loadbalancer.server.port=8021
+    networks:
+      - public
+      - socket-proxy
+    volumes:
+      - data:/home/main
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOME}/fltngmmth/config:/home/fltngmmth/config
+      - ${HOME}/com.fltngmmth.fileshare:/home/fltngmmth/broadway-dev
+      - code_extensions:/opt/vscode
+      - filebrowser_db:/opt/filebrowser
+      - filebrowser_branding:/branding
+    environment:
+      - PROXY_DOMAIN=${CODESERVER_SUBDOMAIN}.fltngmmth.com
+volumes:
+  filebrowser_branding:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/broadway-dev/filebrowser_branding
+  filebrowser_db:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/broadway-dev/filebrowser_db
+  code_extensions:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/.vscode-server
+  data:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fltngmmth.fileshare
+
+networks:
+  socket-proxy:
+    external: true
+  public:
+    external: true

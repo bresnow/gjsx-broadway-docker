@@ -4,39 +4,36 @@
   "type": "module",
   "scripts": {
     "compile": "node esbuild.mjs",
-    "deploy": "docker stack deploy -c docker-stack.yml gjsx",
-    "dev_ws": "docker stack deploy -c docker/development-stack.yml dev_workspace",
-    "format": "yarn prettier src/**/*.{ts,js} --write",
+    "deploy": "docker stack deploy -c docker-stack.yml",
+    "ide": "docker stack deploy -c docker/development-stack.yml dev_workspace",
     "image": "docker-compose -f docker-compose.yml",
-    "start": "gjs -m _compiled/src/main.js",
+    "deploy-fresh": "yarn image build; yearn image push; yarn deploy",
     "watch": "yarn compile --watch"
   },
   "keywords": [
     "typescript",
-    "gtk",
+    "gtk4",
     "gnome",
-    "broadway"
+    "broadway",
+    "jsx",
+    "docker"
   ],
   "version": "1.0.0",
   "repository": "git@github.com:bresnow/gjsx-broadway-docker.git",
   "author": "bresnow <bresnow@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "@gi-types/cairo1": "^1.0.1",
-    "@gi-types/gtk": "^3.24.9",
-    "@gi-types/webkit2": "^2.30.8",
     "@types/prettier": "^2.7.1",
-    "chokidar": "^3.5.3"
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.15.11",
+    "prettier": "^2.7.1",
+    "zx": "^7.1.1"
   },
   "dependencies": {
     "dockerode": "^3.3.4",
-    "esbuild": "^0.15.11",
     "express": "^4.18.2",
     "gun": "^0.2020.1238",
     "http-proxy": "^1.18.1",
-    "prettier": "^2.7.1",
-    "socket.io": "^4.5.4",
-    "transparent-proxy": "^1.9.1",
-    "zx": "^7.1.1"
+    "transparent-proxy": "^1.9.1"
   }
 }

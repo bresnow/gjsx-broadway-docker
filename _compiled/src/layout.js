@@ -20,7 +20,7 @@ export function exec(cmd, opt) {
 export function HeadLayout({ services }) {
   let webview = new Webkit.WebView();
   webview.load_uri("http://0.0.0.0:8086");
-  let logo = __dirname + "/assets/images/fltngmmth/White_FullStack.png";
+  let logo = __dirname + "/assets/images/cnxt.png";
   return /* @__PURE__ */ Gjsx.createWidget(
     Gtk.Box,
     {

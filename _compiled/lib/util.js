@@ -183,6 +183,9 @@ export function readTextFileSync(file) {
 export function writeTextFileSync(file, contents) {
   file.replace_contents(contents, null, false, Gio.FileCreateFlags.NONE, null);
 }
+export function encode(data) {
+  return new TextEncoder().encode(data);
+}
 export function decode(data) {
   return new TextDecoder().decode(data);
 }

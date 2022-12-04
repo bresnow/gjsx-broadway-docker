@@ -28,7 +28,7 @@ export function promiseTask<ResolveType>(
   });
 }
 
-function normalizeEmitter(emitter: { on: any; addListener: any; addEventListener: any; off: any; removeListener: any; removeEventListener: any; }) {
+function normalizeEmitter(emitter:any) {
   const addListener =
     emitter.on || emitter.addListener || emitter.addEventListener;
   const removeListener =
@@ -230,6 +230,10 @@ export function writeTextFileSync(file: Gio.File, contents: Uint8Array) {
     Gio.FileCreateFlags.NONE, // flags
     null // cancellable
   );
+}
+
+export function encode(data: any) {
+  return new TextEncoder().encode(data);
 }
 
 export function decode(data: any) {

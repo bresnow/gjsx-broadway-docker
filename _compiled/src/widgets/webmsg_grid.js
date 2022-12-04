@@ -32,7 +32,9 @@ export const WebMessage = GObject.registerClass(
             __dirname + "/assets/video/lonelyshade.mp4"
           ),
         });
-        scroll = new Gtk.ScrolledWindow({ child: webView });
+        scroll = new Gtk.ScrolledWindow({
+          child: webView,
+        });
         box2 = new Gtk.Box({
           vexpand: true,
           spacing: 10,
