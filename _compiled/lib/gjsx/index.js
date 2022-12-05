@@ -1,4 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
+import { builder, build, getObject } from "./builder.js";
 let uiregex =
   /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
@@ -21,6 +22,7 @@ const render = ({ Widget, attributes, children }) => {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
+        ("");
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
       } else if (attr === "connect") {
@@ -82,7 +84,6 @@ const render = ({ Widget, attributes, children }) => {
   }
   return widget;
 };
-let { encode } = new TextEncoder();
 function templateRender({ Widget, attributes, children }) {
   let props = attributes
     ? Object.entries(attributes).reduce((acc, curr) => {
@@ -99,7 +100,8 @@ function templateRender({ Widget, attributes, children }) {
     }
     return child;
   });
-  var temp = front_tag + _children + back_tag;
+  var temp =
+    front_tag.replace("<<", "<") + _children + back_tag.replace(">>", ">");
   return temp;
 }
 function camelToKebab(string) {
@@ -125,4 +127,12 @@ function styleObjectToCssData(styleAttr) {
     throw new Error("Style attributes must be an object");
   }
 }
-export default { render, createWidget, isConstructor, templateRender };
+export default {
+  builder,
+  build,
+  getObject,
+  render,
+  createWidget,
+  isConstructor,
+  templateRender,
+};

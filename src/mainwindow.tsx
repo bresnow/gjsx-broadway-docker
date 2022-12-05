@@ -7,6 +7,7 @@ import { __dirname } from "./main.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { Video } from './widgets/video.js';
+import { StackSwitch } from './widgets/stackswitch.js';
 
 interface Props extends Gtk.Overlay_ConstructProps {
   argument?: string;
@@ -58,14 +59,10 @@ export function MainWindow({
   return (
     <AppWindow application={app}>
       <BoxContainer css_name={"box"}>
-        <HeadLayout services={panel} />
+        <Demo />
         <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-        <Gtk.ScrolledWindow has_frame={true} overlay_scrolling={true}>
-          <Gtk.Box orientation={Gtk.Orientation.HORIZONTAL} spacing={10}  >
-            <Demo />
-            <Gtk.Image file={"assets/images/mrs_arnold.jpeg"} />
-          </Gtk.Box>
-        </Gtk.ScrolledWindow>
+        <StackSwitch orientation={Gtk.Orientation.VERTICAL} spacing={10}>
+          <HeadLayout services={panel} /></StackSwitch>
       </BoxContainer>
     </AppWindow>
   );

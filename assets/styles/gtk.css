@@ -7,14 +7,14 @@ label {
     font-size: small;
 }
 
-button {
+box.button {
     font-size: medium;
     background-color: rgba(0, 100, 150, 0.8);
     margin-bottom: 5px;
     margin-top: 5px;
 }
 
-button>hover {
+box.button>hover {
     margin-top: 10px;
 
 }

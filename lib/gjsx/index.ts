@@ -1,5 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
-import { ResourceJsx } from "gjsx-ui";
+import { JSX } from "gjsx-ui";
+import { builder, build, getObject } from './builder.js';
 let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 
 const createWidget = (
@@ -33,6 +34,7 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
+        ""
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
       } else if (attr === 'connect') {
@@ -107,9 +109,7 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
   return widget;
 };
 
-/* UTILS */
-let { encode } = new TextEncoder();
-function templateRender({ Widget, attributes, children }: { Widget: string | ResourceJsx.IntrinsicElement | any; attributes: Record<string, string>; children: any[] }) {
+function templateRender({ Widget, attributes, children }: { Widget: string | keyof JSX.ResourceUi | any; attributes: Record<string, string>; children: any[] }) {
   let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
     let result = acc + ` ${key}="${value}"`
@@ -122,7 +122,7 @@ function templateRender({ Widget, attributes, children }: { Widget: string | Res
     }
     return child
   })
-  var temp = front_tag + _children + back_tag;
+  var temp = front_tag.replace("<<", "<") + _children + back_tag.replace(">>", ">");
   return temp
 
 }
@@ -160,4 +160,4 @@ type WidgetConstructed = {
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { render, createWidget, isConstructor, templateRender };
+export default { builder, build, getObject, render, createWidget, isConstructor, templateRender };

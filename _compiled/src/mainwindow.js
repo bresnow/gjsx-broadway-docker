@@ -5,6 +5,7 @@ import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
+import { StackSwitch } from "./widgets/stackswitch.js";
 function widgetArray(arr) {
   return arr.map((Widget) => {
     return new Widget();
@@ -51,29 +52,19 @@ export function MainWindow({ app, reference }) {
       {
         css_name: "box",
       },
-      /* @__PURE__ */ Gjsx.createWidget(HeadLayout, {
-        services: panel,
-      }),
+      /* @__PURE__ */ Gjsx.createWidget(Demo, null),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
         orientation: Gtk.Orientation.HORIZONTAL,
       }),
       /* @__PURE__ */ Gjsx.createWidget(
-        Gtk.ScrolledWindow,
+        StackSwitch,
         {
-          has_frame: true,
-          overlay_scrolling: true,
+          orientation: Gtk.Orientation.VERTICAL,
+          spacing: 10,
         },
-        /* @__PURE__ */ Gjsx.createWidget(
-          Gtk.Box,
-          {
-            orientation: Gtk.Orientation.HORIZONTAL,
-            spacing: 10,
-          },
-          /* @__PURE__ */ Gjsx.createWidget(Demo, null),
-          /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
-            file: "assets/images/mrs_arnold.jpeg",
-          })
-        )
+        /* @__PURE__ */ Gjsx.createWidget(HeadLayout, {
+          services: panel,
+        })
       )
     )
   );

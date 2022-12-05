@@ -3,8 +3,6 @@ import { argv, chalk, fs, glob, $ } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
 import Docker from "dockerode";
-import process from "process";
-import { info, log } from "console";
 
 let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ socketPath: "/var/run/docker.sock" })
@@ -12,16 +10,16 @@ const updateService = (optionalServiceName) => {
   docker.listServices({}
     , (err, services) => {
       services.forEach(async service => {
-        if (service.Spec.Name === ("gijsx_gjsx_dev" || optionalServiceName)) {
+        if (service.Spec.Name.includes("gijsx_gjsx_dev") || service.Spec.Name.includes(optionalServiceName)) {
           let initSvc = service
-          const { Spec, Version } = initSvc;
-          const _service = docker.getService(service.ID);
+          const { Spec, ID } = initSvc;
+          const _service = docker.getService(ID);
           try {
-            await _service.remove(service.ID)
+            await _service.remove(ID)
             let success = await docker.createService({ ...Spec })
-            console.log(success.id)
+            console.log(green('successful redeployment of ' + Spec.Name), yellow(success.id))
           } catch (e) {
-            console.log(e)
+            console.log(red(e))
           }
 
         }
@@ -52,15 +50,10 @@ if (watch) {
         e === "change" && updateService("gijsx_gjsx_dev1")
 
       } catch (error) {
-        console.error(red(error.message))
-        throw new Error(error);
+        console.error(red(error))
       }
-      // info(e === "change" && )
     });
   });
-  scope.on("change", async () => {
-  })
-  // updateService()
 } else {
   entryPoints.forEach((path) => {
     compile(path);

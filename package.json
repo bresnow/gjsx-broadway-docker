@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "node esbuild.mjs",
     "deploy": "docker stack deploy -c docker-stack.yml gijsx",
-    "remove": "docker stack remove gijsx",
+    "rm": "docker stack remove gijsx",
     "ide": "docker stack deploy -c system/development-stack.yml dev_workspace",
     "image": "docker-compose -f docker-compose.yml",
     "deploy-fresh": "yarn image build; yearn image push; yarn deploy",

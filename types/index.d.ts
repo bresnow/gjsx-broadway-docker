@@ -1,13 +1,15 @@
+import system from 'system';
 
 declare const ARGV: string[]
 /**
  * GJS Environment Type Definitions
  */
 
-declare function log(msg: string): void;
+declare function log(msg: string | any): void;
 declare function print(msg: string): void;
 declare function logError(error: Error, msg?: string): void;
 declare function printerr(msg: string): void;
+
 declare class TextEncoder {
     static new(): TextEncoder;
     encode(str: string): Uint8Array;
@@ -29,9 +31,10 @@ declare interface GjsGiImports {
     Gdk: typeof import("gi://Gdk");
     WebKit2: typeof import("gi://WebKit2?version=5.0");
     Soup: typeof import("gi://Soup?version=3.0");
+    system: typeof import("system");
 }
 
-declare module "@gi-types/gmodule" {
+declare module "gmodule" {
     var _: any;
 
     export default _;
@@ -175,14 +178,11 @@ type GtkClass =
     | "GtkVolumeButton"
     | "GtkPicture"
     | "GtkWindow";
-
-
 declare module "gjsx-ui" {
-    namespace ResourceJsx {
-        interface IntrinsicElement {
+    namespace JSX {
+        interface ResourceUi {
             interface: {
                 domain?: string;
-                // children: ( requires | object | template | menu )
             };
             requires: {
                 lib: "gtk+";
@@ -193,13 +193,10 @@ declare module "gjsx-ui" {
                 class: GtkClass;
                 id?: string; //xsd:ID
                 "type-func"?: string;
-                // "constructor"?: string;
-                // children: (property | signal | child | ANY)
             };
             template: {
                 class: string;
                 parent: string;
-                // children: property | signal | child | ANY
             };
             property: {
                 name: string;
@@ -209,7 +206,6 @@ declare module "gjsx-ui" {
                 "bind-source"?: string;
                 "bind-property"?: string;
                 "bind-flags"?: string;
-                // children: text ?
             };
             signal: {
                 name: string;
@@ -218,7 +214,6 @@ declare module "gjsx-ui" {
                 swapped?: string;
                 object?: string;
                 last_modification_time?: string;
-                // children empty
             };
             packing: {};
             child: {
@@ -231,7 +226,6 @@ declare module "gjsx-ui" {
             };
             item: {
                 id?: string; // { xsd:ID } ?,
-                // children: (attribute_ | link) *
             };
             attribute: {
                 name: string;
@@ -239,30 +233,64 @@ declare module "gjsx-ui" {
                 translatable?: "yes" | "no";
                 context?: string;
                 comments?: string;
-                // children:text ?
+            };
+            lookup: {
+                name: string;
+                type?: string;
+                id: string;
             };
             ink: {
                 id?: string; //{ xsd:ID } ?,
                 name: string; // { text },
-                // children: item *
             };
             script: {
                 source?: string
             },
             submenu: {
                 id?: string; //  { xsd:ID } ?,
-                // children: (attribute_ | item | submenu | section) *
             };
             section: {
                 id?: string; // { xsd:ID } ?,
-                // children: (attribute_ | item | submenu | section) *
             };
-            /**
-             * glade?
-             */
-            placeholder: {
-                // ??
-            };
+            placeholder: Partial<{
+                [key: string]: string;
+            }>;
         }
+        interface GnomeResource {
+            gresources: {
+                domain?: string;
+            }
+            gresource: {
+                prefix?: string;
+            }
+            file: Partial<{
+                compressed: string;
+                preprocess: string;
+                alias: string;
+            }>
+
+        }
+        interface DBus {
+            node: {};
+            method: {
+                name: string;
+            };
+            property: {
+                readonly?: string | boolean;
+            };
+            arg: {
+                name: string;
+                type: string;
+            };
+            signal: {};
+            annotation: {};
+            interface: {
+                domain?: string;
+            }
+        }
+        interface GnomeSchema {
+
+        }
+
     }
 }

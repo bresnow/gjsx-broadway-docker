@@ -1,18 +1,18 @@
-import Gtk from "gi://Gtk?version=3.0";
+import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 
-export function builder(xml: string) {
+export function builder(resource: string) {
     // log(xml);
-    return Gtk.Builder.new_from_string(xml, xml.length);
+    return Gtk.Builder.new_from_string(resource, resource.length);
 }
 /**
  *
  */
-export type GetObject = <Object extends GObject.Object>(
+export type GetObject = <Object >(
     id: string
 ) => Object | null;
 
-export function build<GtkClass extends GObject.Object = GObject.Object>(
+export function build<GtkClass>(
     id: string,
     builder: Gtk.Builder
 ): [Gtk.Builder, GtkClass | null, GetObject] {
@@ -23,9 +23,10 @@ export function build<GtkClass extends GObject.Object = GObject.Object>(
     ];
 }
 
-export function getObject<Object extends GObject.Object = GObject.Object>(
+export function getObject<Object>(
     builder: Gtk.Builder,
     id: string
 ): Object | null {
     return builder.get_object(id) as Object;
 }
+

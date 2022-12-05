@@ -1,29 +1,106 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "gjsx";
+import Gjsx, { JSX } from "gjsx";
 import { encode } from '../../lib/util.js';
 /**
- * 
+ * Use JSX as a Builder Resource to build Gtk Widgets as if it were .ui files. 
+ * Gtk.Builder.new_from_string would also work as the Gjsx.render() function returns
+ *  these intrinsic jsx/xml properties as a string.
  */
-const ResourceTemplateDemo =
+const Button: JSX.ResourceUi =
+  <object class="GtkButton" id="button">
+    <property name="label">Let's go!</property>
+    <property name="halign">center</property>
+    <signal name="clicked" handler="onButtonClicked"></signal>
+    <style>
+      <class name="suggested-action" />
+    </style>
+  </object>
+const ResourceTemplateDemo: JSX.ResourceUi =
   <interface>
-    <template class="MyWidget">
+    <template class="MyWidget" >
       <property name="layout-manager">
-        <object class="GtkBinLayout" ></object>
+        <object class="GtkBoxLayout">
+          <property name="orientation">vertical</property>
+        </object>
       </property>
       <child>
-        <object class="GtkLabel" id="label">
-          <property name="label">Hello World</property>
+        <object class="GtkImage" id="picture">
+          <property name="file">/home/app/assets/images/cnxt.png</property>
+          <property name="icon-size">large</property>
+          <property name="pixel-size">300</property>
         </object>
       </child>
+      <child>
+        <object class="GtkLabel" id="welcomeLabel">
+          <property name="visible">false</property>
+          <property name="wrap">true</property>
+          <property name="justify">center</property>
+        </object>
+      </child>
+      <child>
+        {Button}
+      </child>
     </template>
-  </interface>;
+  </interface>
+const buildaBitch =
+  <interface>
+    <object class="GtkBox" id="root">
+      <property name="orientation">vertical</property>
+      <child>
+        <object class="GtkLabel" id="helloLabel">
+          <property name="vexpand">1</property>
+          <property name="label">Hello World!</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkButton" id="actionButton">
+          <property name="label" translatable="yes">Action</property>
+          <property name="receives_default">1</property>
+        </object>
+      </child>
+      <child>
+        <object class="GtkButton" id="closeButton">
+          <property name="label" translatable="yes">Close</property>
+          <property name="receives_default">1</property>
+        </object>
+      </child>
+    </object>
+  </interface>
+
 
 export const Demo = GObject.registerClass(
   {
     GTypeName: "MyWidget",
     Template: encode(ResourceTemplateDemo)
   },
-  class Demo2 extends Gtk.Box { }
+  class extends Gtk.Box {
+    _init() {
+      super._init();
+    };
+    onButtonClicked(_button: Gtk.Button) {
+      let window: Gtk.Window, builder: Gtk.Builder, app = new Gtk.Application();
+      try {
+        window = new Gtk.Window({ application: app }), builder = Gtk.Builder.new_from_string(buildaBitch, buildaBitch.length)
+        let root: Gtk.Box = builder.get_object('root');
+
+        var actionButton: Gtk.Button = builder.get_object('actionButton');
+        actionButton.connect('clicked', () => {
+          print('actionButton clicked')
+        })
+
+        var closeButton: Gtk.Button = builder.get_object('closeButton')
+        closeButton.connect('clicked', () => {
+          print('closeButton clicked')
+        });
+        window.set_child(root)
+        window.show()
+        window.present()
+        app.run([])
+      } catch (error) {
+        _button.label = error.message
+      }
+    }
+  }
 );
 
