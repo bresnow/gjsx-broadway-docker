@@ -108,11 +108,8 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 };
 
 /* UTILS */
-let encode = new TextEncoder().encode
-const renderUi = (jsx: ResourceJsx.IntrinsicElement) => {
-  return templateRender(jsx as any)
-}
-function templateRender({ Widget, attributes, children }: { Widget: string | ResourceJsx.IntrinsicElement; attributes: Record<string, string>; children: any[] }) {
+let { encode } = new TextEncoder();
+function templateRender({ Widget, attributes, children }: { Widget: string | ResourceJsx.IntrinsicElement | any; attributes: Record<string, string>; children: any[] }) {
   let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
     let result = acc + ` ${key}="${value}"`
@@ -163,4 +160,4 @@ type WidgetConstructed = {
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { render, createWidget, isConstructor, templateRender, renderUi };
+export default { render, createWidget, isConstructor, templateRender };

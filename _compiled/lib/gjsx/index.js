@@ -82,10 +82,7 @@ const render = ({ Widget, attributes, children }) => {
   }
   return widget;
 };
-let encode = new TextEncoder().encode;
-const renderUi = (jsx) => {
-  return templateRender(jsx);
-};
+let { encode } = new TextEncoder();
 function templateRender({ Widget, attributes, children }) {
   let props = attributes
     ? Object.entries(attributes).reduce((acc, curr) => {
@@ -128,10 +125,4 @@ function styleObjectToCssData(styleAttr) {
     throw new Error("Style attributes must be an object");
   }
 }
-export default {
-  render,
-  createWidget,
-  isConstructor,
-  templateRender,
-  renderUi,
-};
+export default { render, createWidget, isConstructor, templateRender };

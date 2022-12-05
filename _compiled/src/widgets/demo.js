@@ -2,7 +2,7 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../../lib/gjsx/index.js";
 import { encode } from "../../lib/util.js";
-const Template = /* @__PURE__ */ Gjsx.createWidget(
+const ResourceTemplateDemo = /* @__PURE__ */ Gjsx.createWidget(
   "interface",
   null,
   /* @__PURE__ */ Gjsx.createWidget(
@@ -42,7 +42,7 @@ const Template = /* @__PURE__ */ Gjsx.createWidget(
 export const Demo = GObject.registerClass(
   {
     GTypeName: "MyWidget",
-    Template: encode(Template),
+    Template: encode(ResourceTemplateDemo),
   },
   class Demo2 extends Gtk.Box {}
 );

@@ -2430,7 +2430,7 @@ export interface MetaInfo<Props, Interfaces, Sigs> {
     Signals?: Sigs
     Implements?: Interfaces
     CssName?: string
-    Template?: string
+    Template?: string | Uint8Array;
     Children?: string[]
     InternalChildren?: string[]
 }

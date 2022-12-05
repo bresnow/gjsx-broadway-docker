@@ -2,8 +2,10 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gjsx";
 import { encode } from '../../lib/util.js';
-
-const Template =
+/**
+ * 
+ */
+const ResourceTemplateDemo =
   <interface>
     <template class="MyWidget">
       <property name="layout-manager">
@@ -20,7 +22,7 @@ const Template =
 export const Demo = GObject.registerClass(
   {
     GTypeName: "MyWidget",
-    Template: encode(Template) as any
+    Template: encode(ResourceTemplateDemo)
   },
   class Demo2 extends Gtk.Box { }
 );
