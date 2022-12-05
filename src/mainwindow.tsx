@@ -42,23 +42,19 @@ export function MainWindow({
     {
       name: "Gtk4-Demo",
       icon_path: "assets/images/fltngmmth/Black_fullStack.png",
-      executable: "",
+      executable: "gnome-tour",
     },
     {
       name: "Gtk4 Tour",
       icon_path: "assets/images/logo.svg",
-      executable: "gtk4-tour",
+      executable: "gnome-calculator",
     },
     {
       name: "Demo App",
       icon_path: "assets/images/logo.svg",
-      executable: ["gjs", "-m", "assets/apps/demo.js"],
+      executable: "gnome-calendar"
     },
   ];
-  //@ts-ignore
-  log(app.get_dbus_connection())
-  //@ts-ignore
-  log(app.get_dbus_object_path())
   return (
     <AppWindow application={app}>
       <BoxContainer css_name={"box"}>
