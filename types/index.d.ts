@@ -179,7 +179,7 @@ type GtkClass =
 
 declare module "gjsx-ui" {
     namespace ResourceJsx {
-        interface IntrinsicElements {
+        interface IntrinsicElement {
             interface: {
                 domain?: string;
                 // children: ( requires | object | template | menu )

@@ -6,16 +6,19 @@ import GObject from "gi://GObject";
  * Use GObject.registerClass() to create custom widgets
  */
 
+
+class Window extends Gtk.ApplicationWindow {
+  constructor(config: Gtk.ApplicationWindow_ConstructProps) {
+    super(config);
+    this.fillscreen()
+  }
+  fillscreen() {
+    this.set_decorated(false);
+    this.maximize();
+  }
+};
+
 export const AppWindow = GObject.registerClass(
   { GTypeName: "AppWindow" },
-  class AppWindow extends Gtk.ApplicationWindow {
-    constructor(config: Gtk.ApplicationWindow_ConstructProps) {
-      super(config);
-      this.init();
-    }
-    init() {
-      this.set_decorated(false);
-      this.maximize();
-    }
-  }
+  Window
 );

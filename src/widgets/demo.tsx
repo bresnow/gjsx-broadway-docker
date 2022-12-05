@@ -1,34 +1,27 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gjsx";
-const Template = `<?xml version="1.0" encoding="UTF-8"?>
-  <interface>
-  <template class="Demo" parent="GtkBox">
-    <child>
-      <object class="GtkVideo" id="video"></object>
-    </child>
-    <child>
-      <object class="GtkPicture" id="picture"></object>
-    </child>
-  </template>
-</interface>`;
-export const Demo = GObject.registerClass(
-  {
-    GTypeName: "Demo",
-    Template: new TextEncoder().encode(Template) as any,
-  },
-  class Demo2 extends Gtk.Box {}
-);
+import { encode } from '../../lib/util.js';
 
-const Template1 = (
+const Template =
   <interface>
-    <template class="Demo" parent="GtkBox">
+    <template class="MyWidget">
+      <property name="layout-manager">
+        <object class="GtkBinLayout" ></object>
+      </property>
       <child>
-        <object class="GtkVideo" id="video"></object>
-      </child>
-      <child>
-        <object class="GtkPicture" id="picture"></object>
+        <object class="GtkLabel" id="label">
+          <property name="label">Hello World</property>
+        </object>
       </child>
     </template>
-  </interface>
+  </interface>;
+
+export const Demo = GObject.registerClass(
+  {
+    GTypeName: "MyWidget",
+    Template: encode(Template) as any
+  },
+  class Demo2 extends Gtk.Box { }
 );
+

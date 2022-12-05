@@ -62,6 +62,7 @@ export function MainWindow({
         <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
         <Gtk.ScrolledWindow has_frame={true} overlay_scrolling={true}>
           <Gtk.Box orientation={Gtk.Orientation.HORIZONTAL} spacing={10}  >
+            <Demo />
             <Gtk.Image file={"assets/images/mrs_arnold.jpeg"} />
           </Gtk.Box>
         </Gtk.ScrolledWindow>

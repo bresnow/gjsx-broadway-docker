@@ -4,6 +4,7 @@ import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
 import { BoxContainer } from "./widgets/box_container.js";
 import GObject from "gi://GObject";
+import { Demo } from "./widgets/demo.js";
 function widgetArray(arr) {
   return arr.map((Widget) => {
     return new Widget();
@@ -68,6 +69,7 @@ export function MainWindow({ app, reference }) {
             orientation: Gtk.Orientation.HORIZONTAL,
             spacing: 10,
           },
+          /* @__PURE__ */ Gjsx.createWidget(Demo, null),
           /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
             file: "assets/images/mrs_arnold.jpeg",
           })

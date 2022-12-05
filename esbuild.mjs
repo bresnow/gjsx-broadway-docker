@@ -49,7 +49,8 @@ if (watch) {
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
         compile(path)
-        e === "change" && updateService()
+        e === "change" && updateService("gijsx_gjsx_dev1")
+
       } catch (error) {
         console.error(red(error.message))
         throw new Error(error);

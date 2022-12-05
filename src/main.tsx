@@ -5,12 +5,6 @@ import Gjsx from "gjsx";
 import Util from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
 
-<script>
-
-  let mainWindow = 4444;
-
-
-</script>
 
 
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;

@@ -3,6 +3,9 @@ let uiregex =
   /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
   const children = args ? args.map((args2) => args2) : [];
+  if (typeof Widget === "string") {
+    return templateRender({ Widget, attributes, children });
+  }
   return { Widget, attributes, children };
 };
 const render = ({ Widget, attributes, children }) => {
@@ -84,22 +87,23 @@ const renderUi = (jsx) => {
   return templateRender(jsx);
 };
 function templateRender({ Widget, attributes, children }) {
-  let props = Object.entries(attributes).reduce((acc, curr) => {
-    let [key, value] = curr;
-    let result = acc + ` ${key}="${value}"`;
-    return result;
-  }, "");
+  let props = attributes
+    ? Object.entries(attributes).reduce((acc, curr) => {
+        let [key, value] = curr;
+        let result = acc + ` ${key}="${value}"`;
+        return result;
+      }, "")
+    : "";
   let front_tag = `<${Widget}${props}>`,
     back_tag = `</${Widget}>`;
   let _children = children.map((child) => {
-    if (child && uiregex.test(child)) {
+    if (child && uiregex.test(child.Widget)) {
       return templateRender(child);
     }
     return child;
   });
-  return encode(
-    '<?xml version="1.0" encoding="UTF-8"?>' + front_tag + _children + back_tag
-  );
+  var temp = front_tag + _children + back_tag;
+  return temp;
 }
 function camelToKebab(string) {
   return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase();

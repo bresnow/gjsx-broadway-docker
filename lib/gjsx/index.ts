@@ -8,6 +8,9 @@ const createWidget = (
   ...args: any[]
 ): WidgetConstructed => {
   const children = args ? args.map((args) => args) : [];
+  if (typeof Widget === "string") {
+    return templateRender({ Widget, attributes, children })
+  }
   return { Widget, attributes, children };
 };
 
@@ -106,24 +109,24 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 
 /* UTILS */
 let encode = new TextEncoder().encode
-const renderUi = (jsx: ResourceJsx.IntrinsicElements) => {
+const renderUi = (jsx: ResourceJsx.IntrinsicElement) => {
   return templateRender(jsx as any)
 }
-function templateRender({ Widget, attributes, children }: { Widget: string; attributes: Record<string, string>; children: any[] }) {
-  let props = Object.entries(attributes).reduce((acc, curr) => {
+function templateRender({ Widget, attributes, children }: { Widget: string | ResourceJsx.IntrinsicElement; attributes: Record<string, string>; children: any[] }) {
+  let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
     let result = acc + ` ${key}="${value}"`
     return result
-  }, "");
-  let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`
+  }, "") : "";
+  let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`;
   let _children = children.map(child => {
-    if (child && uiregex.test(child)) {
+    if (child && uiregex.test(child.Widget)) {
       return templateRender(child)
     }
     return child
   })
-
-  return encode('<?xml version="1.0" encoding="UTF-8"?>' + front_tag + _children + back_tag)
+  var temp = front_tag + _children + back_tag;
+  return temp
 
 }
 
