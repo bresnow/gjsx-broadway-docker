@@ -5,6 +5,7 @@ import { format } from "prettier"
 import Docker from "dockerode";
 import process from "process";
 import { info, log } from "console";
+
 let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ socketPath: "/var/run/docker.sock" })
 const updateService = (optionalServiceName) => {
@@ -18,7 +19,7 @@ const updateService = (optionalServiceName) => {
           try {
             await _service.remove(service.ID)
             let success = await docker.createService({ ...Spec })
-            console.log(success)
+            console.log(success.id)
           } catch (e) {
             console.log(e)
           }
@@ -48,27 +49,22 @@ if (watch) {
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
         compile(path)
+        e === "change" && updateService()
       } catch (error) {
         console.error(red(error.message))
-        process.exit(1)
-
+        throw new Error(error);
       }
       // info(e === "change" && )
     });
   });
   scope.on("change", async () => {
-    // await $`docker service update gijsx_gjsx_dev`
-    updateService()
-
   })
   // updateService()
 } else {
   entryPoints.forEach((path) => {
     compile(path);
   });
-  // updateService("gijsx_gjsx_dev1")
-  await $`docker service update gijsx_gjsx_dev`
-  await $`docker service update gijsx_gjsx_dev1`
+  updateService("gijsx_gjsx_dev1")
 }
 
 function compile(_path) {
