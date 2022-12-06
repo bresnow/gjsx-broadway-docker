@@ -10,6 +10,7 @@ const horizontal = Gtk.Orientation.HORIZONTAL;
 const spawn = Util.execCmd;
 export function exec(cmd: string, opt?: { logfile: string }) {
   let [done, stdout, stderr] = spawn(`${cmd}`);
+  //@ts-ignore
   let decoded = new TextDecoder().decode(stdout);
   log(decoded);
   if (opt?.logfile)
@@ -33,7 +34,7 @@ export function HeadLayout({
   let logo = __dirname + "/assets/images/cnxt.png";
 
   return (
-    <Gtk.Box spacing={18} style={{ padding: "5px" }} orientation={horizontal}>
+    <Gtk.Box spacing={18} orientation={horizontal}>
       <Gtk.Image file={logo} style={{ marginLeft: "5px" }} pixel_size={100} />
 
       {services.map(
@@ -59,6 +60,7 @@ export function HeadLayout({
               onClicked={clickHandler}
               halign={Gtk.Align.CENTER}
               label={name}
+              css_name="buttonbottom"
             >
               <Gtk.Image file={__dirname + "/" + icon_path} pixel_size={50} />
             </Gtk.Button>

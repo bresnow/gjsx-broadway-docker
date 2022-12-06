@@ -7,7 +7,7 @@ import { __dirname } from "./main.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { Video } from './widgets/video.js';
-import { StackSwitch } from './widgets/stackswitch.js';
+import { StackSwitch, TopOverlay } from './widgets/stackswitch.js';
 
 interface Props extends Gtk.Overlay_ConstructProps {
   argument?: string;
@@ -42,28 +42,29 @@ export function MainWindow({
   const panel = [
     {
       name: "Gtk4-Demo",
-      icon_path: "assets/images/fltngmmth/Black_fullStack.png",
+      icon_path: "assets/images/icons/blue/settings.svg",
       executable: "gnome-tour",
     },
     {
       name: "Gtk4 Tour",
-      icon_path: "assets/images/logo.svg",
+      icon_path: "assets/images/icons/blue/list_add.svg",
       executable: "gnome-calculator",
     },
     {
       name: "Demo App",
-      icon_path: "assets/images/logo.svg",
+      icon_path: "assets/images/icons/blue/mic.svg",
       executable: "gnome-calendar"
     },
   ];
   return (
     <AppWindow application={app}>
-      <BoxContainer css_name={"box"}>
-        <Demo />
-        <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
+      <Gtk.ScrolledWindow>
         <StackSwitch orientation={Gtk.Orientation.VERTICAL} spacing={10}>
-          <HeadLayout services={panel} /></StackSwitch>
-      </BoxContainer>
+          <Demo />
+          <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
+          <HeadLayout services={panel} />
+        </StackSwitch>
+      </Gtk.ScrolledWindow>
     </AppWindow>
   );
 }

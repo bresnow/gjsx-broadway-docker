@@ -2,7 +2,6 @@ import Gjsx from "../lib/gjsx/index.js";
 import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
-import { BoxContainer } from "./widgets/box_container.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { StackSwitch } from "./widgets/stackswitch.js";
@@ -28,17 +27,17 @@ export function MainWindow({ app, reference }) {
   const panel = [
     {
       name: "Gtk4-Demo",
-      icon_path: "assets/images/fltngmmth/Black_fullStack.png",
+      icon_path: "assets/images/icons/blue/settings.svg",
       executable: "gnome-tour",
     },
     {
       name: "Gtk4 Tour",
-      icon_path: "assets/images/logo.svg",
+      icon_path: "assets/images/icons/blue/list_add.svg",
       executable: "gnome-calculator",
     },
     {
       name: "Demo App",
-      icon_path: "assets/images/logo.svg",
+      icon_path: "assets/images/icons/blue/mic.svg",
       executable: "gnome-calendar",
     },
   ];
@@ -48,20 +47,18 @@ export function MainWindow({ app, reference }) {
       application: app,
     },
     /* @__PURE__ */ Gjsx.createWidget(
-      BoxContainer,
-      {
-        css_name: "box",
-      },
-      /* @__PURE__ */ Gjsx.createWidget(Demo, null),
-      /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
-        orientation: Gtk.Orientation.HORIZONTAL,
-      }),
+      Gtk.ScrolledWindow,
+      null,
       /* @__PURE__ */ Gjsx.createWidget(
         StackSwitch,
         {
           orientation: Gtk.Orientation.VERTICAL,
           spacing: 10,
         },
+        /* @__PURE__ */ Gjsx.createWidget(Demo, null),
+        /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+          orientation: Gtk.Orientation.HORIZONTAL,
+        }),
         /* @__PURE__ */ Gjsx.createWidget(HeadLayout, {
           services: panel,
         })

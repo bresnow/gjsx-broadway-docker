@@ -67,7 +67,7 @@ const grid_resource = /* @__PURE__ */ Gjsx.createWidget(
       /* @__PURE__ */ Gjsx.createWidget(
         "object",
         {
-          class: "GtkEntry",
+          class: "GtkSearchEntry",
           id: "tag_search",
         },
         /* @__PURE__ */ Gjsx.createWidget(
@@ -109,6 +109,20 @@ const grid_resource = /* @__PURE__ */ Gjsx.createWidget(
 const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
   "interface",
   null,
+  /* @__PURE__ */ Gjsx.createWidget(
+    "object",
+    {
+      class: "GtkStackSwitcher",
+      id: "stack_switch",
+    },
+    /* @__PURE__ */ Gjsx.createWidget(
+      "property",
+      {
+        name: "stack",
+      },
+      "viewStack"
+    )
+  ),
   /* @__PURE__ */ Gjsx.createWidget(
     "object",
     {
@@ -243,6 +257,51 @@ const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
     )
   )
 );
+const overlay_resource = {
+  widget: /* @__PURE__ */ Gjsx.createWidget(
+    "interface",
+    null,
+    /* @__PURE__ */ Gjsx.createWidget("object", {
+      class: "GtkOverlay",
+      id: "overlay",
+    })
+  ),
+  overlay: /* @__PURE__ */ Gjsx.createWidget(
+    "interface",
+    null,
+    /* @__PURE__ */ Gjsx.createWidget(
+      "object",
+      {
+        class: "GtkImage",
+        id: "picture",
+      },
+      /* @__PURE__ */ Gjsx.createWidget(
+        "property",
+        {
+          name: "file",
+        },
+        "/home/app/assets/images/carbone-fiber-background.jpg"
+      )
+    )
+  ),
+};
+export const TopOverlay = GObject.registerClass(
+  {},
+  class extends Gtk.Overlay {
+    _init() {
+      super._init();
+      let [builderOvelayPic, picture, getPictureObject] = build(
+        "picture",
+        builder(overlay_resource.overlay)
+      );
+      picture.set_pixel_size(1e3);
+      this.set_child(picture);
+    }
+    append(widget) {
+      this.add_overlay(widget);
+    }
+  }
+);
 export const StackSwitch = GObject.registerClass(
   {},
   class extends Gtk.Box {
@@ -261,7 +320,6 @@ export const StackSwitch = GObject.registerClass(
       );
       this.gridSettings(grid);
       let entry = getGridObject("tag_search");
-      entry.set_icon_from_icon_name(EntryIconPosition.PRIMARY, "fullscreen");
       grid.attach(stack, 1, 1, 1, 1);
       this.append(grid);
     }

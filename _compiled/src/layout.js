@@ -25,7 +25,6 @@ export function HeadLayout({ services }) {
     Gtk.Box,
     {
       spacing: 18,
-      style: { padding: "5px" },
       orientation: horizontal,
     },
     /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
@@ -56,6 +55,7 @@ export function HeadLayout({ services }) {
           onClicked: clickHandler,
           halign: Gtk.Align.CENTER,
           label: name,
+          css_name: "buttonbottom",
         },
         /* @__PURE__ */ Gjsx.createWidget(Gtk.Image, {
           file: __dirname + "/" + icon_path,

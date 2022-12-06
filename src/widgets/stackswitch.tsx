@@ -3,6 +3,8 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gjsx";
 import { encode } from '../../lib/util.js';
+import { getGtkVersion } from '../../lib/util.js';
+import { BoxContainer } from './box_container.js';
 const { build, builder } = Gjsx
 const grid_resource =
     <interface>
@@ -19,7 +21,7 @@ const grid_resource =
                 </object>
             </child>
             <child>
-                <object class="GtkEntry" id="tag_search">
+                <object class="GtkSearchEntry" id="tag_search">
                     <layout>
                         <property name="column">1</property>
                         <property name="row">0</property>
@@ -33,6 +35,9 @@ const grid_resource =
     </interface>
 const stack_resource =
     <interface>
+        <object class="GtkStackSwitcher" id="stack_switch">
+            <property name="stack" >viewStack</property>
+        </object>
         <object class="GtkStack" id="viewStack">
             <child>
                 <object class="GtkStackPage" id="page1">
@@ -72,6 +77,28 @@ const stack_resource =
         </object>
     </interface>
 
+const overlay_resource = {
+    widget: <interface>
+        <object class="GtkOverlay" id="overlay">
+        </object>
+    </interface>,
+    overlay: <interface><object class="GtkImage" id="picture">
+        <property name="file">/home/app/assets/images/carbone-fiber-background.jpg</property>
+    </object></interface>
+}
+export const TopOverlay = GObject.registerClass({}, class extends Gtk.Overlay {
+    _init() {
+        super._init();
+        let [builderOvelayPic, picture, getPictureObject] = build<Gtk.Image>("picture", builder(overlay_resource.overlay));
+        picture.set_pixel_size(1000)
+        this.set_child(picture)
+        // this.set_clip_overlay(picture, true)
+    }
+    append(widget: Gtk.Widget) {
+        this.add_overlay(widget)
+
+    }
+})
 export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
     _init(): void {
         super._init();
@@ -82,7 +109,6 @@ export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
         let [builderGrid, grid, getGridObject] = build<Gtk.Grid>("grid_root", builder(grid_resource));
         this.gridSettings(grid);
         let entry = getGridObject<Gtk.Entry>("tag_search");
-        entry.set_icon_from_icon_name(EntryIconPosition.PRIMARY, "fullscreen")
         grid.attach(stack, 1, 1, 1, 1);
         this.append(grid);
     }

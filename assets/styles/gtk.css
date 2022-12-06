@@ -7,11 +7,13 @@ label {
     font-size: small;
 }
 
-box.button {
-    font-size: medium;
-    background-color: rgba(0, 100, 150, 0.8);
-    margin-bottom: 5px;
-    margin-top: 5px;
+overlay {
+
+    background-color: #fff;
+}
+
+buttonbottom {
+    border-radius: 100%;
 }
 
 box.button>hover {
