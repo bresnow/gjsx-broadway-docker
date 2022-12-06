@@ -1,0 +1,8 @@
+version: "1.0.0"
+  id: "1.1.norebuild"
+  directory: "com.fileshare.gpu.cnxt"
+  node_label_value: "gpu.cnxt"
+  domain: "cnxt.gpu.fltngmmth.com"
+  peer_domain: "cnxt.gpu-peer.fltngmmth.com"
+
+

@@ -13,7 +13,7 @@ export const __dirname = GLib.get_current_dir();
 
 Gtk.init();
 const css = Util.CssProvider();
-gtkSystemTheme()
+// gtkSystemTheme()
 // Global stylesheet
 css.load("assets/styles/gtk.css").display(true);
 

@@ -4,7 +4,8 @@ import chokidar from "chokidar";
 import { format } from "prettier"
 import Docker from "dockerode";
 let { red, green, blue, yellow } = chalk;
-const docker = new Docker({ socketPath: "/var/run/docker.sock" })
+const docker = new Docker({ port: 8000 })
+
 const updateService = (optionalServiceName) => {
   docker.listServices({}
     , (err, services) => {
@@ -23,7 +24,6 @@ const updateService = (optionalServiceName) => {
 
         }
       })
-
     })
 }
 // --watch option

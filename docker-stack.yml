@@ -7,18 +7,20 @@ services:
       placement:
         constraints:
           - node.role == manager
+          - node.labels.swarm.node.subdomain == ${NODELABEL_VALUE:-sys.sudo}
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.fm-gsx-${NUM-0}.rule=Host(`cnxt.fltngmmth.com`)
+        - traefik.http.routers.fm-gsx-${NUM-0}.rule=Host(`${DOMAIN}`)
         - traefik.http.routers.fm-gsx-${NUM-0}.entrypoints=http,https
         - traefik.http.routers.fm-gsx-${NUM-0}.middlewares=https-redirect
         - traefik.http.routers.fm-gsx-${NUM-0}.service=fm-gsx-${NUM-0}
         - traefik.http.routers.fm-gsx-${NUM-0}.tls=true
         - traefik.http.routers.fm-gsx-${NUM-0}.tls.certresolver=namecheap
         - traefik.http.services.fm-gsx-${NUM-0}.loadbalancer.server.port=8086
-        - traefik.http.routers.gun-relay.rule=Host(`peer-relay-333111.fltngmmth.com`)
+#---#---#0---#---# ---#---#
+        - traefik.http.routers.gun-relay.rule=Host(`{PEERDOMAIN}`)
         - traefik.http.routers.gun-relay-${NUM-0}.entrypoints=http,https
         - traefik.http.routers.gun-relay-${NUM-0}.middlewares=https-redirect
         - traefik.http.routers.gun-relay-${NUM-0}.service=gun-relay-${NUM-0}
@@ -34,65 +36,32 @@ services:
       - assets:/home/app/assets
       - proxyserver:/home/app/proxyserver
       - datastore_gundb1:/home/app/datastore_gundb
-  gjsx_dev:
-    image: bresnow/gjsx-dev:${VERSION:-1.0.0}
-    deploy:
-      placement:
-        constraints:
-          - node.role == manager
-      labels:
-        - traefik.enable=true
-        - traefik.docker.network=public
-        - traefik.constraint-label=public
-        - traefik.http.routers.fm-gjsx.rule=Host(`gjsx.fltngmmth.com`)
-        - traefik.http.routers.fm-gjsx.entrypoints=http,https
-        - traefik.http.routers.fm-gjsx.middlewares=https-redirect
-        - traefik.http.routers.fm-gjsx.service=fm-gjsx
-        - traefik.http.routers.fm-gjsx.tls=true
-        - traefik.http.routers.fm-gjsx.tls.certresolver=namecheap
-        - traefik.http.services.fm-gjsx.loadbalancer.server.port=8086
-        - traefik.http.routers.gun-relay.rule=Host(`peer-relay-3369111.fltngmmth.com`)
-        - traefik.http.routers.gun-relay.entrypoints=http,https
-        - traefik.http.routers.gun-relay.middlewares=https-redirect
-        - traefik.http.routers.gun-relay.service=gun-relay
-        - traefik.http.routers.gun-relay.tls=true
-        - traefik.http.routers.gun-relay.tls.certresolver=namecheap
-        - traefik.http.services.gun-relay.loadbalancer.server.port=8087
-    networks:
-      - public
-      - edge 
-      - socket-proxy
-    volumes:
-      - compiled:/home/app/_compiled    
-      - assets:/home/app/assets
-      - proxyserver:/home/app/proxyserver
-      - datastore_gundb:/home/app/datastore_gundb
       - logs:/var/log/gjsx
 volumes:
   datastore_gundb1:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/datastore_gundb1
+      mountpoint: ${DIRECTORY}/datastore_gundb1
   datastore_gundb:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/datastore_gundb
+      mountpoint: ${DIRECTORY}/datastore_gundb
   proxyserver:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/proxyserver
+      mountpoint: ${DIRECTORY}/proxyserver
   logs:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/log
+      mountpoint: ${DIRECTORY}/log
   compiled:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/_compiled
+      mountpoint: ${DIRECTORY}/_compiled
   assets:
     driver: local-persist
     driver_opts:
-      mountpoint: $PROJECT_DIR/assets
+      mountpoint: ${DIRECTORY}/assets
 
 networks:
   edge:

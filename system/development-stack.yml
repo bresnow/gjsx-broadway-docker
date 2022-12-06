@@ -7,6 +7,7 @@ services:
       placement:
         constraints:
           - node.role == manager
+          - node.labels.swarm.node.subdomain == sys.sudo
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
@@ -32,30 +33,30 @@ services:
     volumes:
       - data:/home/main
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${HOME}/fltngmmth/config:/home/fltngmmth/config
-      - ${HOME}/com.fltngmmth.fileshare:/home/fltngmmth/broadway-dev
+      - /home/bresnow/fltngmmth/config:/home/fltngmmth/config
+      - /home/bresnow/com.fltngmmth.fileshare:/home/fltngmmth/broadway-dev
       - code_extensions:/opt/vscode
       - filebrowser_db:/opt/filebrowser
       - filebrowser_branding:/branding
     environment:
-      - PROXY_DOMAIN=${CODESERVER_SUBDOMAIN}.fltngmmth.com
+      - PROXY_DOMAIN={CODESERVER_SUBDOMAIN}.fltngmmth.com
 volumes:
   filebrowser_branding:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/broadway-dev/filebrowser_branding
+      mountpoint: /home/bresnow/broadway-dev/filebrowser_branding
   filebrowser_db:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/broadway-dev/filebrowser_db
+      mountpoint: /home/bresnow/broadway-dev/filebrowser_db
   code_extensions:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/.vscode-server
+      mountpoint: /home/bresnow/.vscode-server
   data:
     driver: local-persist
     driver_opts:
-      mountpoint: ${HOME}/com.fltngmmth.fileshare
+      mountpoint: /home/bresnow/com.fltngmmth.fileshare
 
 networks:
   socket-proxy:

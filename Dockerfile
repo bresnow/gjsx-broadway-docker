@@ -15,10 +15,6 @@ COPY ./assets assets
 COPY ./proxyserver proxyserver
 COPY ./package.json package.json 
 
-RUN \
-    npm i -g yarn \
-    && yarn
-
 RUN add-pkg  \
     bash \
     cmake \
@@ -79,6 +75,9 @@ RUN add-pkg  \
     xorg-server \
     xf86-input-libinput \
     xinit udev
+RUN \
+    npm i -g yarn \
+    && yarn
 
 RUN \
     add-pkg \
@@ -86,13 +85,17 @@ RUN \
     desktop-file-utils  \
     gtk4.0-demo \
     gnome-apps-extra 
+
+
 # Install themes
-ENV HOME=/home/app \
+ENV HOME="/home/app" \
     XDG_RUNTIME_DIR=$HOME \
-    XDG_CURRENT_DESKTOP=GNOME \
+    XDG_CURRENT_DESKTOP="GNOME" \
     XDG_MENU_PREFIX="gnome-" \
-    MC_OS_THEME=McOS-MJV-Dark-v2.0 \
+    MC_OS_THEME="McOS-MJV-Dark-v2.0" \
     DEBUG=true
+
+
 RUN \
     git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
     && mkdir -p /usr/share/themes/ \
