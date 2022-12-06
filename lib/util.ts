@@ -28,7 +28,7 @@ export function promiseTask<ResolveType>(
   });
 }
 
-function normalizeEmitter(emitter:any) {
+function normalizeEmitter(emitter: any) {
   const addListener =
     emitter.on || emitter.addListener || emitter.addEventListener;
   const removeListener =
@@ -250,15 +250,11 @@ export function basename(filename: string) {
   return [name, basename, extension];
 }
 
-export function gtkSystemTheme(argv: typeof ARGV, themeName?: string) {
+export function gtkSystemTheme() {
   let gtkSettings: Gtk.Settings;
-  if (argv.some((info) => info === "--dark")) {
-    gtkSettings = Gtk.Settings.get_default();
-    gtkSettings.gtk_application_prefer_dark_theme = true;
-    gtkSettings.gtk_theme_name = themeName ?? "PRO-dark-XFCE-edition II";
-  } else {
-    gtkSettings = Gtk.Settings.get_default();
-    gtkSettings.gtk_application_prefer_dark_theme = false;
-    gtkSettings.gtk_theme_name = themeName ?? "Mc-OS-Transparent";
-  }
+  const theme = GLib.getenv("MC_OS_THEME")
+  gtkSettings = Gtk.Settings.get_default();
+  gtkSettings.gtk_application_prefer_dark_theme = false;
+  gtkSettings.gtk_theme_name = theme;
+
 }

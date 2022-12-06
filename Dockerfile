@@ -10,6 +10,15 @@ RUN  \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories &&\
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories 
 
+COPY ./_compiled _compiled
+COPY ./assets assets
+COPY ./proxyserver proxyserver
+COPY ./package.json package.json 
+
+RUN \
+    npm i -g yarn \
+    && yarn
+
 RUN add-pkg  \
     bash \
     cmake \
@@ -56,6 +65,7 @@ RUN add-pkg  \
     python3 \
     py3-opengl \
     py3-pip \
+    qemu-ui-opengl \
     rsync \
     socat \
     sudo \
@@ -65,6 +75,7 @@ RUN add-pkg  \
     wxgtk \
     vim \
     vlc \
+    vte3 \
     xorg-server \
     xf86-input-libinput \
     xinit udev
@@ -76,13 +87,16 @@ RUN \
     gtk4.0-demo \
     gnome-apps-extra 
 # Install themes
+ENV HOME=/home/app \
+    XDG_RUNTIME_DIR=$HOME \
+    XDG_CURRENT_DESKTOP=GNOME \
+    XDG_MENU_PREFIX="gnome-" \
+    MC_OS_THEME=McOS-MJV-Dark-v2.0 \
+    DEBUG=true
 RUN \
-    git clone https://github.com/paullinuxthemer/PRO-Dark-XFCE-Edition.git  \
+    git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
     && mkdir -p /usr/share/themes/ \
-    && rsync -av --progress 'PRO-Dark-XFCE-Edition/PRO-dark-XFCE-edition II' /usr/share/themes/ \
-    && git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
-    && mkdir -p /usr/share/themes/ \
-    && rsync -av --progress 'Mc-OS-themes/Mc-OS-Transparent' /usr/share/themes/ \
+    && rsync -av --progress 'Mc-OS-themes/${MC_OS_THEME}' /usr/share/themes/ \
     && rm -rf /tmp/* /tmp/.[!.]* \
     && del-pkg rsync
 
@@ -90,26 +104,16 @@ FROM base-dependencies as broadway-app
 
 WORKDIR /home/app
 
-COPY ./_compiled _compiled
-COPY ./assets assets
-COPY ./proxyserver proxyserver
-COPY ./package.json package.json 
+COPY --from=base-dependencies /tmp/_compiled _compiled
+COPY --from=base-dependencies /tmp/assets assets
+COPY --from=base-dependencies /tmp/proxyserver proxyserver
+COPY --from=base-dependencies /tmp/node_modules proxyserver
+COPY --from=base-dependencies /tmp/package.json package.json 
 COPY ./system/supervisord.conf /etc/
-
-RUN \
-    npm i -g yarn \
-    && yarn
-
 RUN \
     mkdir -p /var/log/gjsx &&\
     export $(dbus-launch) 
 
-ENV HOME=/home/app \
-    XDG_RUNTIME_DIR=$HOME \
-    XDG_CURRENT_DESKTOP=GNOME \
-    XDG_MENU_PREFIX="gnome-" \
-    DEBUG=true
+
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-
-FROM base-dependencies as wayland-app

@@ -28,6 +28,7 @@
     "chokidar": "^3.5.3",
     "esbuild": "^0.15.11",
     "prettier": "^2.7.1",
+    "semver": "^7.3.8",
     "zx": "^7.1.1"
   },
   "dependencies": {
@@ -35,6 +36,7 @@
     "express": "^4.18.2",
     "gun": "^0.2020.1238",
     "http-proxy": "^1.18.1",
+    "tar-fs": "^2.1.1",
     "transparent-proxy": "^1.9.1"
   }
 }

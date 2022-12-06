@@ -3,7 +3,6 @@ import { argv, chalk, fs, glob, $ } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
 import Docker from "dockerode";
-
 let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ socketPath: "/var/run/docker.sock" })
 const updateService = (optionalServiceName) => {
@@ -46,7 +45,7 @@ if (watch) {
         console.log(
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
-        compile(path)
+        compileGJSX(path)
         e === "change" && updateService("gijsx_gjsx_dev1")
 
       } catch (error) {
@@ -56,12 +55,12 @@ if (watch) {
   });
 } else {
   entryPoints.forEach((path) => {
-    compile(path);
+    compileGJSX(path);
   });
   updateService("gijsx_gjsx_dev1")
 }
 
-function compile(_path) {
+function compileGJSX(_path) {
   let [dirRoute, ext] = _path.split(".");
   let readable = fs.createReadStream(_path, "utf8");
   let pathto = dirRoute.split("/"), basename = pathto[pathto.length - 1];
@@ -76,14 +75,6 @@ function compile(_path) {
 
   readable.on("data", async (chunk) => {
     let ts_chunk = chunk, transformedJs, jsxFactory;
-    jsxFactory = ts_chunk.split("\n").reduce((line) => {
-      if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
-        return "Gjsx.createWidget"
-      };
-      if (/(import)(.*)(from)(\s+)(("|')gjsx-ui("|'))/g.test(line)) {
-        return "Gjsx.templateRender"
-      }
-    }, "")
 
     let { code } = await transform(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",

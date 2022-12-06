@@ -10,14 +10,17 @@ declare function print(msg: string): void;
 declare function logError(error: Error, msg?: string): void;
 declare function printerr(msg: string): void;
 
-declare class TextEncoder {
-    static new(): TextEncoder;
-    encode(str: string): Uint8Array;
+declare global {
+    class TextEncoder {
+        static new(): TextEncoder;
+        encode(str: string): Uint8Array;
+    }
+    class TextDecoder {
+        static new(): TextDecoder;
+        decode(bytes: Uint8Array): string;
+    }
 }
-declare class TextDecoder {
-    static new(): TextDecoder;
-    decode(bytes: Uint8Array): string;
-}
+
 declare function setTimeout(fn: () => void, timeout: number): void;
 declare interface GjsGiImports {
     versions: {

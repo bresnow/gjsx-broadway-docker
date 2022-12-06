@@ -197,15 +197,10 @@ export function basename(filename) {
     GLib.path_get_basename(filename).match(/(.+?)(\.[^.]*$|$)/);
   return [name, basename2, extension];
 }
-export function gtkSystemTheme(argv, themeName) {
+export function gtkSystemTheme() {
   let gtkSettings;
-  if (argv.some((info) => info === "--dark")) {
-    gtkSettings = Gtk.Settings.get_default();
-    gtkSettings.gtk_application_prefer_dark_theme = true;
-    gtkSettings.gtk_theme_name = themeName ?? "PRO-dark-XFCE-edition II";
-  } else {
-    gtkSettings = Gtk.Settings.get_default();
-    gtkSettings.gtk_application_prefer_dark_theme = false;
-    gtkSettings.gtk_theme_name = themeName ?? "Mc-OS-Transparent";
-  }
+  const theme = GLib.getenv("MC_OS_THEME");
+  gtkSettings = Gtk.Settings.get_default();
+  gtkSettings.gtk_application_prefer_dark_theme = false;
+  gtkSettings.gtk_theme_name = theme;
 }

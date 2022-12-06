@@ -4,6 +4,7 @@ import GLib from "gi://GLib";
 import Gjsx from "gjsx";
 import Util from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
+import { gtkSystemTheme } from '../lib/util.js';
 
 
 
@@ -12,6 +13,7 @@ export const __dirname = GLib.get_current_dir();
 
 Gtk.init();
 const css = Util.CssProvider();
+gtkSystemTheme()
 // Global stylesheet
 css.load("assets/styles/gtk.css").display(true);
 
