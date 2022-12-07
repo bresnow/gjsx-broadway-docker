@@ -4,6 +4,10 @@ FROM alpine:${ALPINE_VERSION} as base-dependencies
 WORKDIR /tmp
 # Copy helpers.
 COPY ./system/bin /usr/bin/
+COPY ./_compiled /stash/_compiled
+COPY ./assets /stash/assets
+COPY ./proxyserver /stash/proxyserver
+COPY ./package.json /stash/package.json 
 ENV GDK_BACKEND=broadway \  
     BROADWAY_DISPLAY=:5 
 RUN  \
@@ -72,8 +76,7 @@ RUN add-pkg  \
     xf86-input-libinput \
     xinit udev
 RUN \
-    npm i -g yarn \
-    && yarn
+    cd /stash; npm i -g yarn; yarn;
 
 RUN \
     add-pkg \
@@ -103,15 +106,14 @@ FROM base-dependencies as broadway-app
 
 WORKDIR /home/app
 
-
-COPY ./_compiled _compiled
-COPY ./assets assets
-COPY ./proxyserver proxyserver
-COPY ./package.json package.json 
+COPY ./system/supervisord.conf /etc/
+COPY --from=base-dependencies /stash/_compiled _compiled
+COPY --from=base-dependencies /stash/assets assets
+COPY --from=base-dependencies /stash/proxyserver proxyserver
+COPY --from=base-dependencies /stash/node_modules node_modules
+COPY --from=base-dependencies /stash/package.json package.json 
 COPY ./system/supervisord.conf /etc/
 RUN \
     mkdir -p /var/log/gjsx
-
-
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
