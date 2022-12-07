@@ -2,17 +2,17 @@ version: "3.9"
 
 services:
   gjsx_dev1:
-    image: bresnow/gjsx-dev:${VERSION:-1.0.0}
+    image: bresnow/gjsx-dev:${VERSION:-1.2.2}
     deploy:
       placement:
         constraints:
           - node.role == manager
-          - node.labels.swarm.node.subdomain == ${NODELABEL_VALUE:-sys.sudo}
+          - node.labels.swarm.node.subdomain == ${NODELABEL_VALUE:-gpu.cnxt369}
       labels:
         - traefik.enable=true
         - traefik.docker.network=public
         - traefik.constraint-label=public
-        - traefik.http.routers.fm-gsx-${NUM-0}.rule=Host(`${DOMAIN}`)
+        - traefik.http.routers.fm-gsx-${NUM-0}.rule=Host(`${DOMAIN:-cnxt.gpu.fltngmmth.com}`)
         - traefik.http.routers.fm-gsx-${NUM-0}.entrypoints=http,https
         - traefik.http.routers.fm-gsx-${NUM-0}.middlewares=https-redirect
         - traefik.http.routers.fm-gsx-${NUM-0}.service=fm-gsx-${NUM-0}
@@ -20,7 +20,7 @@ services:
         - traefik.http.routers.fm-gsx-${NUM-0}.tls.certresolver=namecheap
         - traefik.http.services.fm-gsx-${NUM-0}.loadbalancer.server.port=8086
 #---#---#0---#---# ---#---#
-        - traefik.http.routers.gun-relay.rule=Host(`{PEERDOMAIN}`)
+        - traefik.http.routers.gun-relay.rule=Host(`{PEERDOMAIN:-peer.gpu.fltngmmth.com}`)
         - traefik.http.routers.gun-relay-${NUM-0}.entrypoints=http,https
         - traefik.http.routers.gun-relay-${NUM-0}.middlewares=https-redirect
         - traefik.http.routers.gun-relay-${NUM-0}.service=gun-relay-${NUM-0}
@@ -41,27 +41,27 @@ volumes:
   datastore_gundb1:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/datastore_gundb1
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/datastore_gundb1
   datastore_gundb:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/datastore_gundb
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/datastore_gundb
   proxyserver:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/proxyserver
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/proxyserver
   logs:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/log
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/log
   compiled:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/_compiled
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/_compiled
   assets:
     driver: local-persist
     driver_opts:
-      mountpoint: ${DIRECTORY}/assets
+      mountpoint: ${DIRECTORY:-/home/administrator/com.fileshare.gpu.cnxt}/assets
 
 networks:
   edge:
