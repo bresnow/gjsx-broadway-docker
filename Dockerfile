@@ -8,14 +8,13 @@ COPY ./_compiled /stash/_compiled
 COPY ./assets /stash/assets
 COPY ./proxyserver /stash/proxyserver
 COPY ./package.json /stash/package.json 
-ENV GDK_BACKEND=broadway \  
-    BROADWAY_DISPLAY=:5 
 RUN  \
-    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories &&\
-    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories 
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories; \
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories; \
+    chmod +x -R /usr/bin/ ;
 
 
-RUN add-pkg  \
+RUN addpkg  \
     bash \
     cmake \
     cairo \
@@ -27,6 +26,7 @@ RUN add-pkg  \
     dbus-x11 \
     fluxbox \
     g++ \
+    gcompat \
     git \
     gjs \
     glib \
@@ -49,6 +49,7 @@ RUN add-pkg  \
     libstdc++ \
     libsoup \
     libx11 \
+    linux-headers \
     pango \
     make \
     mc \
@@ -56,8 +57,6 @@ RUN add-pkg  \
     mesa-demos \
     meson \
     ninja \
-    nodejs \
-    npm \
     python3 \
     py3-opengl \
     py3-pip \
@@ -69,17 +68,22 @@ RUN add-pkg  \
     webkit2gtk-5.0 \
     wget \
     wxgtk \
+    udev \
     vim \
     vlc \
     vte3 \
     xorg-server \
     xf86-input-libinput \
-    xinit udev
+    xinit \
+    xz
+# nodejs environment
 RUN \
-    cd /stash; npm i -g yarn; yarn;
+    cd /stash; addpkg nodejs npm;\
+    npm i -g yarn zx; \
+    yarn; 
 
 RUN \
-    add-pkg \
+    addpkg \
     supervisor \
     desktop-file-utils  \
     gtk4.0-demo \
@@ -88,32 +92,40 @@ RUN \
 
 # Install themes
 ENV HOME=/home/app \
-    XDG_RUNTIME_DIR=$HOME \
-    XDG_CURRENT_DESKTOP=GNOME \
-    XDG_MENU_PREFIX=gnome- \
-    MC_OS_THEME=McOS-CTLina-Mint-Dark\
-    DEBUG=true
-
-
+    GDK_BACKEND=broadway \  
+    BROADWAY_DISPLAY=:5 \
+    XDG_RUNTIME_DIR=/home \
+    NVIDIA_VERSION=390.77 \
+    GLIBC_VERSION=3.5
+# https://us.download.nvidia.com/XFree86/Linux-x86_64/390.157/NVIDIA-Linux-x86_64-390.157.run
+# NEWEST PRODUCTION https://us.download.nvidia.com/XFree86/Linux-x86_64/525.60.11/NVIDIA-Linux-x86_64-525.60.11.run
 RUN \
-    git clone https://github.com/paullinuxthemer/Mc-OS-themes.git \
-    && mkdir -p /usr/share/themes/ \
-    && rsync -av --progress 'Mc-OS-themes/McOS-CTLina-Mint-Dark' /usr/share/themes/ \
-    && rm -rf /tmp/* /tmp/.[!.]* \
-    && del-pkg rsync
+    install-glibc; \
+    wget https://us.download.nvidia.com/XFree86/Linux-x86_64/${NVIDIA_VERSION}/NVIDIA-Linux-x86_64-${NVIDIA_VERSION}.run; \
+    bash NVIDIA-Linux-x86_64-${NVIDIA_VERSION}.run --extract-only; \
+    mv NVIDIA-Linux-x86_64-${NVIDIA_VERSION}/nvidia-installer /stash/; 
+RUN \
+    git clone https://github.com/paullinuxthemer/Mc-OS-themes.git; \
+    mkdir -p /usr/share/themes/; \
+    rsync -av --progress 'Mc-OS-themes/McOS-CTLina-Mint-Dark' /usr/share/themes/; \
+    rm -rf /tmp/* /tmp/.[!.]* ; \
+    delpkg rsync
 
 FROM base-dependencies as broadway-app
 
 WORKDIR /home/app
 
-COPY ./system/supervisord.conf /etc/
+
 COPY --from=base-dependencies /stash/_compiled _compiled
 COPY --from=base-dependencies /stash/assets assets
 COPY --from=base-dependencies /stash/proxyserver proxyserver
 COPY --from=base-dependencies /stash/node_modules node_modules
 COPY --from=base-dependencies /stash/package.json package.json 
+COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 COPY ./system/supervisord.conf /etc/
 RUN \
-    mkdir -p /var/log/gjsx
+    mkdir -p /var/log/gjsx;\
+    export $(dbus-launch); \
+    chmod +x nvidia-installer; 
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]

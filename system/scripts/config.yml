@@ -1,0 +1,6 @@
+
+scripts:
+  traefik-proxy:
+    description: "Deploy Traefik reverse proxy"
+    name: traefik
+    compose_file: "system/proxy/docker-compose.yml"
