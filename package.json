@@ -8,8 +8,10 @@
     "rm": "docker stack remove gijsx",
     "ide": "docker stack deploy -c system/development-stack.yml dev_workspace",
     "image": "docker-compose -f docker-compose.yml",
+    "traefik": "docker stack deploy -c system/traefik/swarm-config.yml traefik",
     "deploy-fresh": "yarn image build; yarn image push; yarn deploy",
-    "watch": "node esbuild.mjs --watch"
+    "watch": "node esbuild.mjs --watch",
+    "log": "docker service log"
   },
   "keywords": [
     "typescript",

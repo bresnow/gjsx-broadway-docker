@@ -67,39 +67,51 @@ const grid_resource = /* @__PURE__ */ Gjsx.createWidget(
       /* @__PURE__ */ Gjsx.createWidget(
         "object",
         {
-          class: "GtkSearchEntry",
-          id: "tag_search",
+          class: "GtkBox",
+          id: "entry_box",
         },
         /* @__PURE__ */ Gjsx.createWidget(
-          "layout",
+          "property",
+          {
+            name: "layout-manager",
+          },
+          /* @__PURE__ */ Gjsx.createWidget(
+            "object",
+            {
+              class: "GtkBoxLayout",
+            },
+            /* @__PURE__ */ Gjsx.createWidget(
+              "property",
+              {
+                name: "orientation",
+              },
+              "vertical"
+            )
+          )
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(
+          "child",
           null,
           /* @__PURE__ */ Gjsx.createWidget(
-            "property",
+            "object",
             {
-              name: "column",
+              class: "GtkEntry",
+              id: "vs_entry",
             },
-            "1"
-          ),
-          /* @__PURE__ */ Gjsx.createWidget(
-            "property",
-            {
-              name: "row",
-            },
-            "0"
-          ),
-          /* @__PURE__ */ Gjsx.createWidget(
-            "property",
-            {
-              name: "row-span",
-            },
-            "1"
-          ),
-          /* @__PURE__ */ Gjsx.createWidget(
-            "property",
-            {
-              name: "column-span",
-            },
-            "1"
+            /* @__PURE__ */ Gjsx.createWidget(
+              "property",
+              {
+                name: "valign",
+              },
+              "center"
+            ),
+            /* @__PURE__ */ Gjsx.createWidget(
+              "style",
+              null,
+              /* @__PURE__ */ Gjsx.createWidget("class", {
+                name: "big",
+              })
+            )
           )
         )
       )
@@ -152,63 +164,9 @@ const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
           },
           "Welcome"
         ),
-        /* @__PURE__ */ Gjsx.createWidget(
-          "property",
-          {
-            name: "child",
-          },
-          /* @__PURE__ */ Gjsx.createWidget(
-            "object",
-            {
-              class: "GtkBox",
-              id: "entry_box",
-            },
-            /* @__PURE__ */ Gjsx.createWidget(
-              "property",
-              {
-                name: "layout-manager",
-              },
-              /* @__PURE__ */ Gjsx.createWidget(
-                "object",
-                {
-                  class: "GtkBoxLayout",
-                },
-                /* @__PURE__ */ Gjsx.createWidget(
-                  "property",
-                  {
-                    name: "orientation",
-                  },
-                  "vertical"
-                )
-              )
-            ),
-            /* @__PURE__ */ Gjsx.createWidget(
-              "child",
-              null,
-              /* @__PURE__ */ Gjsx.createWidget(
-                "object",
-                {
-                  class: "GtkEntry",
-                  id: "vs_entry",
-                },
-                /* @__PURE__ */ Gjsx.createWidget(
-                  "property",
-                  {
-                    name: "valign",
-                  },
-                  "center"
-                ),
-                /* @__PURE__ */ Gjsx.createWidget(
-                  "style",
-                  null,
-                  /* @__PURE__ */ Gjsx.createWidget("class", {
-                    name: "big",
-                  })
-                )
-              )
-            )
-          )
-        )
+        /* @__PURE__ */ Gjsx.createWidget("property", {
+          name: "child",
+        })
       )
     ),
     /* @__PURE__ */ Gjsx.createWidget(

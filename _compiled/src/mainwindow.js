@@ -5,6 +5,7 @@ import { AppWindow } from "./widgets/appwindow.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { StackSwitch } from "./widgets/stackswitch.js";
+import { WebMessage } from "./widgets/webmsg_grid.js";
 function widgetArray(arr) {
   return arr.map((Widget) => {
     return new Widget();
@@ -56,6 +57,7 @@ export function MainWindow({ app, reference }) {
           spacing: 10,
         },
         /* @__PURE__ */ Gjsx.createWidget(Demo, null),
+        /* @__PURE__ */ Gjsx.createWidget(WebMessage, null),
         /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
           orientation: Gtk.Orientation.HORIZONTAL,
         }),

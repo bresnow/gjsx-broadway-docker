@@ -8,6 +8,7 @@ import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { Video } from './widgets/video.js';
 import { StackSwitch, TopOverlay } from './widgets/stackswitch.js';
+import { WebMessage } from "./widgets/webmsg_grid.js";
 
 interface Props extends Gtk.Overlay_ConstructProps {
   argument?: string;
@@ -61,6 +62,7 @@ export function MainWindow({
       <Gtk.ScrolledWindow>
         <StackSwitch orientation={Gtk.Orientation.VERTICAL} spacing={10}>
           <Demo />
+          <WebMessage/>
           <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
           <HeadLayout services={panel} />
         </StackSwitch>

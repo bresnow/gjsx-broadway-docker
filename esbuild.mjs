@@ -5,12 +5,15 @@ import { format } from "prettier"
 import Docker from "dockerode";
 let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ port: 8000 })
+// --watch option
+let watch = argv.watch !== undefined, deploy = !!argv.deploy;
 
 const updateService = (optionalServiceName) => {
+  if (deploy)
   docker.listServices({}
     , (err, services) => {
       services.forEach(async service => {
-        if (service.Spec.Name.includes("gijsx_gjsx_dev") || service.Spec.Name.includes(optionalServiceName)) {
+        if (service.Spec.Name.includes("gjsx")) {
           let initSvc = service
           const { Spec, ID } = initSvc;
           const _service = docker.getService(ID);
@@ -26,8 +29,6 @@ const updateService = (optionalServiceName) => {
       })
     })
 }
-// --watch option
-let watch = argv.watch !== undefined;
 let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
 if (watch) {
   /**
@@ -46,7 +47,7 @@ if (watch) {
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
         compileGJSX(path)
-        e === "change" && updateService("gijsx_gjsx_dev1")
+        e === "change" && updateService("broadway")
 
       } catch (error) {
         console.error(red(error))
@@ -57,7 +58,7 @@ if (watch) {
   entryPoints.forEach((path) => {
     compileGJSX(path);
   });
-  updateService("gijsx_gjsx_dev1")
+  updateService("broadway")
 }
 
 function compileGJSX(_path) {

@@ -13,9 +13,14 @@ RUN apt-get update && apt-get install -y \
     libegl1-mesa \
     libnvidia-egl-wayland1 \
     gtk-4-examples \
+    software-properties-common \
+    build-essential \
+    libgtk-4-bin libgtk-4-common libgtk-4-dev libgtk-4-doc \
+    meson ninja-build cmake gettext desktop-file-utils appstream-util \
+    flatpak flatpak-builder \
     && rm -rf /var/lib/apt/lists/*
 
-COPY 10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+COPY system/10_nvidia-debian.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 ENV USER=user
 RUN useradd --create-home --uid 1000 "$USER"

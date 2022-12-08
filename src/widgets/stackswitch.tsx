@@ -21,13 +21,21 @@ const grid_resource =
                 </object>
             </child>
             <child>
-                <object class="GtkSearchEntry" id="tag_search">
-                    <layout>
-                        <property name="column">1</property>
-                        <property name="row">0</property>
-                        <property name="row-span">1</property>
-                        <property name="column-span">1</property>
-                    </layout>
+                <object class="GtkBox" id="entry_box">
+                    <property name="layout-manager">
+                        <object class="GtkBoxLayout">
+                            <property name="orientation">vertical</property>
+                            
+                        </object>
+                    </property>
+                    <child>
+                        <object class="GtkEntry" id="vs_entry">
+                            <property name="valign">center</property>
+                            <style>
+                                <class name="big" />
+                            </style>
+                        </object>
+                    </child>
                 </object>
             </child>
         </object>
@@ -44,21 +52,7 @@ const stack_resource =
                     <property name="name">welcome</property>
                     <property name="title">Welcome</property>
                     <property name="child">
-                        <object class="GtkBox" id="entry_box">
-                            <property name="layout-manager">
-                                <object class="GtkBoxLayout">
-                                    <property name="orientation">vertical</property>
-                                </object>
-                            </property>
-                            <child>
-                                <object class="GtkEntry" id="vs_entry">
-                                    <property name="valign">center</property>
-                                    <style>
-                                        <class name="big" />
-                                    </style>
-                                </object>
-                            </child>
-                        </object>
+                 
 
                     </property>
                 </object>

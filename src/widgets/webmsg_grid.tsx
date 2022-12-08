@@ -35,7 +35,7 @@ export const WebMessage = GObject.registerClass(
           wrap: true,
         });
         // Load the html asset
-        webView.load_uri("https://fileshare.fltngmmth.com");
+        webView.load_uri("https://google.com");
         // webView.load_uri(GLib.filename_to_uri(`${__dirname}/assets/webMsg.html`, null));
 
         let vid = new Gtk.Video({

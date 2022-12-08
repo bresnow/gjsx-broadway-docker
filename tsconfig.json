@@ -74,5 +74,5 @@
     "src/**/*.tsx",
     "types/**/*.d.ts",
     "lib/**/*"
-  ]
+, "src/widgets/dbus.ts"  ]
 }

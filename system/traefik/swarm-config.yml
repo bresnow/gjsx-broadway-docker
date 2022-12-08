@@ -24,8 +24,8 @@ services:
       - --certificatesresolvers.namecheap-dns.acme.dnschallenge=true
       - --certificatesresolvers.namecheap-dns.acme.dnschallenge.provider=namecheap
       - --certificatesresolvers.namecheap-dns.acme.dnschallenge.delaybeforecheck=120
-      - --certificatesresolvers.namecheap-dns.acme.email=${EMAIL:-bresnow@fltngmmth.com}
-      - --certificatesresolvers.namecheap-dns.acme.storage=/certificates/acme.json
+      - --certificatesresolvers.namecheap-dns.acme.email=${EMAIL:-bresnow@me.com}
+      - --certificatesresolvers.namecheap-dns.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-bresnow@me.com}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
