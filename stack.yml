@@ -2,64 +2,62 @@ version: "3.9"
 
 services:
   gjsx_dev:
-    image: bresnow/gjsx-broadway:${VERSION:-1.3.1}
+    image: bresnow/gjsx-broadway:${VERSION:-1.3.3}
     deploy:
       placement:
         constraints:
           - node.role == manager
-          # - node.labels.swarm.node.subdomain == gpu.cnxt369
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-net
         - traefik.constraint-label=traefik-net
-        - traefik.http.routers.fm-gjsx-${ID:-001}.rule=Host(`${DOMAIN:-cnxt.gpu.fltngmmth.com}`)
-        - traefik.http.routers.fm-gjsx-${ID:-001}.entrypoints=http,https
-        - traefik.http.routers.fm-gjsx-${ID:-001}.service=fm-gjsx-${ID:-001}
-        - traefik.http.routers.fm-gjsx-${ID:-001}.tls=true
-        - traefik.http.routers.fm-gjsx-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
-        - traefik.http.services.fm-gjsx-${ID:-001}.loadbalancer.server.port=8086
-        - traefik.http.routers.gun-relay-${ID:-001}.rule=Host(`${PEER:-peer-relay.fltngmmth.com}`)
-        - traefik.http.routers.gun-relay-${ID:-001}.entrypoints=http,https
-        - traefik.http.routers.gun-relay-${ID:-001}.service=gun-relay-${ID:-001}
-        - traefik.http.routers.gun-relay-${ID:-001}.tls=true
-        - traefik.http.routers.gun-relay-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
-        - traefik.http.services.gun-relay-${ID:-001}.loadbalancer.server.port=8087
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}.rule=Host(`${DOMAIN?Missing Domain}`)
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}.entrypoints=http,https
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}.service=gjsx_${SERVICE?--Service ENV}
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}.tls=true
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}.tls.certresolver=${TLS:-letsencrypt}
+        - traefik.http.services.gjsx_${SERVICE?--Service ENV}.loadbalancer.server.port=8086
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}-peer.rule=Host(`${PEER:-peer-relay.fltngmmth.com}`)
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}-peer.entrypoints=http,https
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}-peer.service=gjsx_${SERVICE?--Service ENV}-peer
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}-peer.tls=true
+        - traefik.http.routers.gjsx_${SERVICE?--Service ENV}-peer.tls.certresolver=${TLS:-letsencrypt}
+        - traefik.http.services.gjsx_${SERVICE?--Service ENV}-peer.loadbalancer.server.port=8087
     networks:
       - traefik-net
     volumes:
-      - $PWD/_compiled:/home/app/_compiled    
-      - $PWD/assets:/home/app/assets
-      - $PWD/proxyserver:/home/app/proxyserver
-      - $HOME/datastore_gundb-${ID:-001}:/home/app/datastore_gundb
-      - $PWD/logs/id-${ID:-001}:/var/log/gjsx
+      - compiled:/home/app/_compiled    
+      - assets:/home/app/assets
+      - proxyserver:/home/app/proxyserver
+      - datastore_gundb:/home/app/datastore_gundb
+      - logs:/var/log/gjsx
       - /dev/dri/card0:/dev/dri/card0:rw
       - /dev/dri/renderD128:/dev/dri/renderD128:rw
 
-# volumes:
-#   datastore_gundb:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/datastore_gundb
-#   proxyserver:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/proxyserver
-#   logs:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/log
-#   compiled:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: 
-#   assets:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/assets
+volumes:
+  datastore_gundb:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fileshare.gpu.cnxt/datastore_gundb/${SERVICE?--Service ENV}
+  proxyserver:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fileshare.gpu.cnxt/proxyserver
+  logs:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fileshare.gpu.cnxt/log/gjsx_${SERVICE?--Service ENV}
+  compiled:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fileshare.gpu.cnxt/_compiled
+  assets:
+    driver: local-persist
+    driver_opts:
+      mountpoint: ${HOME}/com.fileshare.gpu.cnxt/assets
 
 networks:
   traefik-net:
     external: true
   # socket-proxy:
   #   external: true
-

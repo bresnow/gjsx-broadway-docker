@@ -2,17 +2,20 @@ FROM debian:bookworm-slim
 WORKDIR /tmp
 # Copy helpers.
 COPY ./system/bin /usr/bin/
-COPY ./_compiled /stash/_compiled
-COPY ./assets /stash/assets
-COPY ./proxyserver /stash/proxyserver
-COPY ./package.json /stash/package.json 
-
+COPY ./_compiled /home/app/_compiled
+COPY ./assets /home/app/assets
+COPY ./proxyserver /home/app/proxyserver
+COPY ./package.json /home/app/package.json 
+COPY ./system/supervisord.conf /etc/
 RUN apt-get update && apt-get install -y \
     libopengl0 \
     libglvnd0 \
     libegl1-mesa \
     libnvidia-egl-wayland1 \
     gtk-4-examples \
+    supervisor \
+    libgjs-dev \
+    nodejs \
     software-properties-common \
     build-essential \
     libgtk-4-bin libgtk-4-common libgtk-4-dev libgtk-4-doc \
@@ -28,6 +31,11 @@ RUN useradd --create-home --uid 1000 "$USER"
 USER "$USER"
 ENV HOME="/home/$USER"
 WORKDIR "$HOME"
-
+ENV HOME=/home/app \
+    GDK_BACKEND=broadway \  
+    BROADWAY_DISPLAY=:5 \
+    XDG_RUNTIME_DIR=/home \
+    NVIDIA_VERSION=390.77 \
+    GLIBC_VERSION=3.5 
 ENV WAYLAND_DISPLAY="wayland-0"
-ENTRYPOINT ["gtk4-demo"]
+ENTRYPOINT ["/entrypoint.sh"]

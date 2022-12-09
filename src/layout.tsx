@@ -29,8 +29,6 @@ export function HeadLayout({
     icon_name?: string;
   }[];
 }) {
-  let webview = new Webkit.WebView();
-  webview.load_uri("http://0.0.0.0:8086");
   let logo = __dirname + "/assets/images/cnxt.png";
 
   return (
@@ -43,17 +41,7 @@ export function HeadLayout({
             typeof execCmd === "string"
               ? exec(execCmd, { logfile: "clickhandle.log" })
               : exec(execCmd.join(" "), { logfile: "clickhandle.log" });
-            try {
-              webview.run_javascript(
-                'clickmsg("willy lumpppp lump");',
-                null,
-                function (self: Webkit.WebView, res: Gio.AsyncResult) {
-                  self.run_javascript_finish(res);
-                }
-              );
-            } catch (error) {
-              logError(error);
-            }
+
           }
           return (
             <Gtk.Button
@@ -69,4 +57,11 @@ export function HeadLayout({
       )}
     </Gtk.Box>
   );
+}
+
+function AppChooserButton({app,name, icon}:{app: Gtk.Application; name:string, icon:string}) {
+  const clickhandle = (_self: Gtk.Button)=>{
+
+  }
+return <Gtk.Button onClicked/>
 }

@@ -5,6 +5,7 @@ import Gjsx from "gjsx";
 import { encode } from '../../lib/util.js';
 import { getGtkVersion } from '../../lib/util.js';
 import { BoxContainer } from './box_container.js';
+import { ProxiedBroadwayWebView } from "./displayproxy.js";
 const { build, builder } = Gjsx
 const grid_resource =
     <interface>
@@ -52,8 +53,9 @@ const stack_resource =
                     <property name="name">welcome</property>
                     <property name="title">Welcome</property>
                     <property name="child">
-                 
-
+                        <object class="GtkLabel">
+                            <property name="label">We will display files here</property>
+                        </object>
                     </property>
                 </object>
             </child>
@@ -86,10 +88,7 @@ export const TopOverlay = GObject.registerClass({}, class extends Gtk.Overlay {
         let [builderOvelayPic, picture, getPictureObject] = build<Gtk.Image>("picture", builder(overlay_resource.overlay));
         picture.set_pixel_size(1000)
         this.set_child(picture)
-        // this.set_clip_overlay(picture, true)
-    }
-    append(widget: Gtk.Widget) {
-        this.add_overlay(widget)
+        this.add_overlay(new ProxiedBroadwayWebView())
 
     }
 })

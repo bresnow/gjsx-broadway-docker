@@ -1,6 +1,5 @@
 import Gio from "gi://Gio";
 import Gjsx from "../../lib/gjsx/index.js";
-let proxy = null;
 const SETTINGS_PORTAL_INTERFACE = /* @__PURE__ */ Gjsx.createWidget(
   "node",
   null,
@@ -56,15 +55,16 @@ const SETTINGS_PORTAL_INTERFACE = /* @__PURE__ */ Gjsx.createWidget(
   )
 );
 export default function DbusProxyWrap() {
+  let proxy;
   const TestProxy = Gio.DBusProxy.makeProxyWrapper(SETTINGS_PORTAL_INTERFACE);
   try {
     proxy = new TestProxy(
-      Gio.BusType.SESSION,
+      Gio.DBus.SESSION,
       "guide.gjs.Test",
       "/guide/gjs/Test"
     );
   } catch (e) {
-    logError(e, "Constructing proxy");
+    log(e + "Constructing proxy");
   }
   log(`ReadOnlyProperty: ${proxy.ReadOnlyProperty}`);
   log(`ReadWriteProperty: ${proxy.ReadWriteProperty}`);

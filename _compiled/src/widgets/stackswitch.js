@@ -1,6 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../../lib/gjsx/index.js";
+import { ProxiedBroadwayWebView } from "./displayproxy.js";
 const { build, builder } = Gjsx;
 const grid_resource = /* @__PURE__ */ Gjsx.createWidget(
   "interface",
@@ -164,9 +165,25 @@ const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
           },
           "Welcome"
         ),
-        /* @__PURE__ */ Gjsx.createWidget("property", {
-          name: "child",
-        })
+        /* @__PURE__ */ Gjsx.createWidget(
+          "property",
+          {
+            name: "child",
+          },
+          /* @__PURE__ */ Gjsx.createWidget(
+            "object",
+            {
+              class: "GtkLabel",
+            },
+            /* @__PURE__ */ Gjsx.createWidget(
+              "property",
+              {
+                name: "label",
+              },
+              "We will display files here"
+            )
+          )
+        )
       )
     ),
     /* @__PURE__ */ Gjsx.createWidget(
@@ -254,9 +271,7 @@ export const TopOverlay = GObject.registerClass(
       );
       picture.set_pixel_size(1e3);
       this.set_child(picture);
-    }
-    append(widget) {
-      this.add_overlay(widget);
+      this.add_overlay(new ProxiedBroadwayWebView());
     }
   }
 );

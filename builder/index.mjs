@@ -29,12 +29,12 @@ const updateService = (optionalServiceName) => {
       })
     })
 }
-let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
+let gjsEntry = await glob("../{src,lib}/**/*.{ts,tsx}");
 if (watch) {
   /**
    * File watcher rebuilds after changes are made to the src directory.
    */
-  let watched = ["esbuild.mjs", ...entryPoints];
+  let watched = ["esbuild.mjs", ...gjsEntry];
   let scope = chokidar.watch(watched, {
     ignored: /(^|[\/\\])\../,
     persistent: true,
@@ -55,7 +55,7 @@ if (watch) {
     });
   });
 } else {
-  entryPoints.forEach((path) => {
+  gjsEntry.forEach((path) => {
     compileGJSX(path);
   });
   updateService("broadway")

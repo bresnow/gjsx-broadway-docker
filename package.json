@@ -11,7 +11,8 @@
     "traefik": "docker stack deploy -c system/traefik/swarm-config.yml traefik",
     "deploy-fresh": "yarn image build; yarn image push; yarn deploy",
     "watch": "node esbuild.mjs --watch",
-    "log": "docker service log"
+    "log": "docker service log",
+    "log-rm": "sudo rm -rf log/*"
   },
   "keywords": [
     "typescript",
@@ -23,7 +24,7 @@
   ],
   "version": "1.2.2",
   "repository": "git@github.com:bresnow/gjsx-broadway-docker.git",
-  "author": "bresnow <bresnow@me.com>",
+  "author": "bresnow <bresnow@fltngmmth.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/prettier": "^2.7.1",

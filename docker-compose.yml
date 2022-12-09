@@ -3,6 +3,7 @@ version: "3.8"
 services:
   broadway:
     image: bresnow/gjsx-broadway:${VERSION?-SET VERSION NUMBER}
+    privileged: true
     build:
       context: .
       dockerfile: Dockerfile

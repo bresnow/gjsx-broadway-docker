@@ -1,7 +1,7 @@
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
 import Gjsx from 'gjsx';
-let proxy = null;
+
 
 const SETTINGS_PORTAL_INTERFACE =
     <node>
@@ -20,12 +20,13 @@ const SETTINGS_PORTAL_INTERFACE =
         </interface>
     </node>
 export default function DbusProxyWrap() {
+    let proxy ;
     const TestProxy = Gio.DBusProxy.makeProxyWrapper(SETTINGS_PORTAL_INTERFACE)
     try {
-
-        proxy = new TestProxy(Gio.BusType.SESSION, 'guide.gjs.Test', '/guide/gjs/Test');
+//@ts-ignore
+        proxy = new TestProxy(Gio.DBus.SESSION, 'guide.gjs.Test', '/guide/gjs/Test');
     } catch (e) {
-        logError(e, 'Constructing proxy');
+        log(e+'Constructing proxy');
     }
     // Gio.DBusProxy.makeProxyWrapper() function. It will create for us a Gio.DBusProxy class with convenience methods and properties to the interface’s ones.
 

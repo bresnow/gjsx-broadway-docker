@@ -1,5 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
+import { WebMessage } from "./webmsg_grid.js";
 export const ProxiedBroadwayWebView = GObject.registerClass(
   { GTypeName: "ProxiedBroadwayWebView" },
   class extends Gtk.Box {
@@ -14,6 +15,7 @@ export const ProxiedBroadwayWebView = GObject.registerClass(
     _init() {
       super._init();
       this._setAttr();
+      this.append(new WebMessage());
     }
   }
 );

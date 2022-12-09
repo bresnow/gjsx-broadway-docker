@@ -6,6 +6,7 @@ import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { StackSwitch } from "./widgets/stackswitch.js";
 import { WebMessage } from "./widgets/webmsg_grid.js";
+const { BaselinePosition } = Gtk;
 function widgetArray(arr) {
   return arr.map((Widget) => {
     return new Widget();
@@ -16,11 +17,19 @@ const BgOverlay = GObject.registerClass(
   class BgOverlay2 extends Gtk.Box {
     _init() {
       super._init();
-      let picture = new Gtk.Picture({ file: "assets/images/mrs_arnold.jpeg" }),
-        overlay,
-        grid = new Gtk.Grid();
-      grid.attach(picture, 0, 0, 1, 1);
-      this.append(grid);
+      this.set_baseline_position(BaselinePosition.CENTER);
+      let picture = new Gtk.Picture({
+          file: "assets/images/5g2-18.jpg",
+          width_request: this.get_allocated_width(),
+          height_request: this.get_allocated_height(),
+          hexpand_set: true,
+        }),
+        overlay = Gtk.Overlay.new(),
+        grid = Gtk.Grid.new();
+      overlay.child = picture;
+      grid.attach(overlay, 0, 0, 1, 1);
+      overlay.add_overlay(new Gtk.Dialog());
+      this.append(overlay);
     }
   }
 );
@@ -32,13 +41,23 @@ export function MainWindow({ app, reference }) {
       executable: "gnome-tour",
     },
     {
+      name: "Gtk4-Demo",
+      icon_path: "assets/images/icons/blue/settings.svg",
+      executable: "gnome-tour",
+    },
+    {
       name: "Gtk4 Tour",
-      icon_path: "assets/images/icons/blue/list_add.svg",
+      icon_path: "assets/images/icons/blue/new_window.svg",
       executable: "gnome-calculator",
     },
     {
       name: "Demo App",
       icon_path: "assets/images/icons/blue/mic.svg",
+      executable: "gnome-calendar",
+    },
+    {
+      name: "Demo App",
+      icon_path: "assets/images/icons/blue/power.svg",
       executable: "gnome-calendar",
     },
   ];
@@ -56,8 +75,8 @@ export function MainWindow({ app, reference }) {
           orientation: Gtk.Orientation.VERTICAL,
           spacing: 10,
         },
-        /* @__PURE__ */ Gjsx.createWidget(Demo, null),
         /* @__PURE__ */ Gjsx.createWidget(WebMessage, null),
+        /* @__PURE__ */ Gjsx.createWidget(Demo, null),
         /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
           orientation: Gtk.Orientation.HORIZONTAL,
         }),

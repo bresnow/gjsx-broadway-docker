@@ -1,10 +1,10 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
-import Gio from "gi://Gio";
-import { __dirname } from "../main.js";
 export const WebMessage = GObject.registerClass(
-  { GTypeName: "WebMessageWidget" },
+  {
+    GTypeName: "WebMessageWidget",
+  },
   class WebMessageWidget extends Gtk.Box {
     _setAttr() {
       this.orientation = Gtk.Orientation.VERTICAL;
@@ -26,12 +26,7 @@ export const WebMessage = GObject.registerClass(
           use_markup: true,
           wrap: true,
         });
-        webView.load_uri("https://google.com");
-        let vid = new Gtk.Video({
-          file: Gio.File.new_for_path(
-            __dirname + "/assets/video/lonelyshade.mp4"
-          ),
-        });
+        webView.load_uri("https://gnome.org");
         scroll = new Gtk.ScrolledWindow({
           child: webView,
         });
