@@ -76,11 +76,6 @@ RUN addpkg  \
     xf86-input-libinput \
     xinit \
     xz
-# nodejs environment
-RUN \
-    cd /stash; addpkg nodejs npm;\
-    npm i -g yarn zx; \
-    yarn; 
 
 RUN \
     addpkg \
@@ -114,18 +109,20 @@ RUN \
 FROM base-dependencies as broadway-app
 
 WORKDIR /home/app
-
-
 COPY --from=base-dependencies /stash/_compiled _compiled
 COPY --from=base-dependencies /stash/assets assets
-COPY --from=base-dependencies /stash/proxyserver proxyserver
-COPY --from=base-dependencies /stash/node_modules node_modules
-COPY --from=base-dependencies /stash/package.json package.json 
-COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 COPY ./system/supervisord.conf /etc/
 RUN \
     mkdir -p /var/log/gjsx;\
-    export $(dbus-launch); \
-    chmod +x nvidia-installer; 
+    export $(dbus-launch); 
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+FROM base-dependencies as node-proxyserver
+COPY --from=base-dependencies /stash/proxyserver proxyserver
+COPY --from=base-dependencies /stash/node_modules node_modules
+COPY --from=base-dependencies /stash/package.json package.json 
+RUN \
+    cd /stash; addpkg nodejs npm;\
+    npm i -g yarn zx; \
+    yarn; 

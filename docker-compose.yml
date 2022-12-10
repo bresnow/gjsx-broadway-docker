@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+  
   broadway:
     image: bresnow/gjsx-broadway:${VERSION?-SET VERSION NUMBER}
     privileged: true
@@ -16,7 +17,25 @@ services:
       - ${PWD}/lib:/home/app/lib
       - ${PWD}/assets:/home/app/assets
       - ${PWD}/proxyserver:/home/app/proxyserver
-      - ${PWD}/datastore_gundb:/home/app/datastore_gundb
+      - ${PWD}/datastore_gundb/alpine:/home/app/datastore_gundb
+      - ${PWD}/node_modules:/home/app/node_modules
+      - ${PWD}/log:/var/log/gjsx
+  debian:
+    image: bresnow/gjsx-broadway:${VERSION?-SET VERSION NUMBER}
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target:  node-proxyserver
+    ports:
+      - 8089:8087 # Relay Server
+      - 8088:8086 # Broadway
+    volumes:
+      - ${PWD}/_compiled:/home/app/_compiled
+      - ${PWD}/lib:/home/app/lib
+      - ${PWD}/assets:/home/app/assets
+      - ${PWD}/proxyserver:/home/app/proxyserver
+      - ${PWD}/datastore_gundb/debian:/home/app/datastore_gundb
       - ${PWD}/node_modules:/home/app/node_modules
       - ${PWD}/log:/var/log/gjsx
       - /dev/dri/card0:/dev/dri/card0:rw

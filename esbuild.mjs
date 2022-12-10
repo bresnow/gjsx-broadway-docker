@@ -2,34 +2,14 @@ import { transform } from "esbuild";
 import { argv, chalk, fs, glob, $ } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
-import Docker from "dockerode";
+import { updateService } from "./gjsx@builder/dockerode.mjs";
 let { red, green, blue, yellow } = chalk;
-const docker = new Docker({ port: 8000 })
+
 // --watch option
 let watch = argv.watch !== undefined, deploy = !!argv.deploy;
 
-const updateService = (optionalServiceName) => {
-  if (deploy)
-  docker.listServices({}
-    , (err, services) => {
-      services.forEach(async service => {
-        if (service.Spec.Name.includes("gjsx")) {
-          let initSvc = service
-          const { Spec, ID } = initSvc;
-          const _service = docker.getService(ID);
-          try {
-            await _service.remove(ID)
-            let success = await docker.createService({ ...Spec })
-            console.log(green('successful redeployment of ' + Spec.Name), yellow(success.id))
-          } catch (e) {
-            console.log(red(e))
-          }
 
-        }
-      })
-    })
-}
-let gjsEntry = await glob("../{src,lib}/**/*.{ts,tsx}");
+let gjsEntry = await glob("{src,lib}/**/*.{ts,tsx}");
 if (watch) {
   /**
    * File watcher rebuilds after changes are made to the src directory.
@@ -47,7 +27,7 @@ if (watch) {
           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
         );
         compileGJSX(path)
-        e === "change" && updateService("broadway")
+        e === "change" && deploy ? updateService("broadway") : null
 
       } catch (error) {
         console.error(red(error))
@@ -58,7 +38,7 @@ if (watch) {
   gjsEntry.forEach((path) => {
     compileGJSX(path);
   });
-  updateService("broadway")
+  deploy ? updateService("broadway") : null;
 }
 
 function compileGJSX(_path) {
