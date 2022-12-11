@@ -1,5 +1,5 @@
 import system from 'system';
-
+declare global {
 declare const ARGV: string[]
 /**
  * GJS Environment Type Definitions
@@ -10,7 +10,7 @@ declare function print(msg: string): void;
 declare function logError(error: Error, msg?: string): void;
 declare function printerr(msg: string): void;
 
-declare global {
+
     class TextEncoder {
         static new(): TextEncoder;
         encode(str: string): Uint8Array;
@@ -19,7 +19,7 @@ declare global {
         static new(): TextDecoder;
         decode(bytes: Uint8Array): string;
     }
-}
+
 
 declare function setTimeout(fn: () => void, timeout: number): void;
 declare interface GjsGiImports {
@@ -296,3 +296,4 @@ type GtkClass =
 
     }
 
+}
