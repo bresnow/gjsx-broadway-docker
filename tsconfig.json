@@ -1,78 +1,16 @@
 {
+  "extends": "./packages/gjsx/tsconfig.json",
+  "compileOnSave": false,
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "module": "esnext",
-    "target": "ES2022",
-    "jsx": "react",
-    "jsxFactory": "Gjsx.createWidget",
-    "allowJs": true,
-    "paths": {
-      "gjsx/utils": [
-        "lib/gjsx/utils/index.ts"
-      ],
-      "gjsx": [
-        "lib/gjsx/index.ts"
-      ],
-      "gjsx-ui": [
-        "lib/gjsx/index.ts"
-      ],
-      "gettext": [
-        "./types/Gjs/gettext.d.ts"
-      ],
-      "byteArray": [
-        "./types/Gjs/ByteArray.d.ts"
-      ],
-      "gi://Adw": [
-        "./types/Gjs/Adw-1.d.ts"
-      ],
-      "gi://Atk": [
-        "./types/Gjs/Atk-1.0.d.ts"
-      ],
-      "gi://Cairo": [
-        "./types/Gjs/cairo-1.0.d.ts"
-      ],
-      "gi://Gdk": [
-        "./types/Gjs/Gdk-2.0.d.ts",
-        "./types/Gjs/Gdk-3.0.d.ts"
-      ],
-      "gi://Gtk?version=3.0": [
-        "./types/Gjs/Gtk-3.0.d.ts"
-      ],
-      "gi://Gtk?version=4.0": [
-        "./types/Gjs/Gtk-4.0.d.ts"
-      ],
-      "gi://Gst": [
-        "./types/Gjs/Gst-1.0.d.ts"
-      ],
-      "gi://GLib": [
-        "./types/Gjs/GLib-2.0.d.ts"
-      ],
-      "gi://Gio": [
-        "./types/Gjs/Gio-2.0.d.ts"
-      ],
-      "gi://Soup?version=3.0": [
-        "./types/Gjs/Soup-3.0.d.ts"
-      ],
-      "gi://WebKit2?version=5.0": [
-        "./types/Gjs/WebKit2-5.0.d.ts"
-      ],
-      "gi://GObject": [
-        "./types/Gjs/GObject-2.0.d.ts"
-      ],
-      "system": [
-        "./types/Gjs/System.d.ts"
-      ]
-    },
-    "baseUrl": ".",
-    "outDir": "_compiled/",
-    "lib": [
-      "es2018"
-    ],
+    "rootDir": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "typeRoots": []
   },
   "include": [
-    "src/**/*.tsx",
-    "types/**/*.d.ts",
-    "lib/**/*"
-, "src/widgets/dbus.ts"  ]
+    "src/**/*.tsx"
+  ]
 }

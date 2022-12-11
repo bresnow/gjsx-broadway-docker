@@ -1,0 +1,9 @@
+{
+    "name": "tsconfig-custom",
+    "version": "1.3.5",
+    "description": "Custom tsconfig",
+    "main": "index.js",
+    "author": "Bresnow",
+    "license": "MIT",
+    "private": true
+}

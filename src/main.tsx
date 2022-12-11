@@ -2,17 +2,14 @@ import Gtk from "gi://Gtk?version=4.0";
 import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
 import Gjsx from "gjsx";
-import Util from "gjsx/utils";
+import {CssProvider} from "gjsx/utils";
 import { MainWindow } from "./mainwindow.js";
-import { gtkSystemTheme } from '../lib/util.js';
-
-
 
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
 export const __dirname = GLib.get_current_dir();
 
 Gtk.init();
-const css = Util.CssProvider();
+const css = CssProvider();
 // gtkSystemTheme()
 // Global stylesheet
 css.load("assets/styles/gtk.css").display(true);

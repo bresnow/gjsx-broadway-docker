@@ -2,7 +2,7 @@ import Gjsx from "gjsx";
 import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
-import { BoxContainer } from "./widgets/box_container.js";
+import Gio from "gi://Gio"
 import { __dirname } from "./main.js";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
@@ -26,7 +26,9 @@ const BgOverlay = GObject.registerClass(
   class BgOverlay extends Gtk.Box {
     _init() {
       super._init();
-      let picture = new Gtk.Picture({ file: "assets/images/mrs_arnold.jpeg" }), overlay, grid = new Gtk.Grid();
+      const {File} = Gio
+      
+      let picture = new Gtk.Picture({ file: File.new_for_path("assets/images/mrs_arnold.jpeg") }), overlay, grid = new Gtk.Grid();
       grid.attach(picture, 0, 0, 1, 1);
       this.append(grid)
     }

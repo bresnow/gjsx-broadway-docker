@@ -1,0 +1,9 @@
+{
+    "name": "gjsx-types",
+    "version": "1.3.5",
+    "description": "Gjs Types",
+    "main": "index.js",
+    "author": "Bresnow",
+    "license": "MIT",
+    "private": true
+}

@@ -1,0 +1,76 @@
+{
+    "extends": "../tsconfig/tsconfig.gjsx.json",
+    "compilerOptions": {
+        "rootDir": ".",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "moduleResolution": "node",
+        "module": "esnext",
+        "target": "ES2022",
+        "jsx": "react",
+        "jsxFactory": "Gjsx.createWidget",
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "gjsx/utils": [
+                "./gjsx/utils/index.ts"
+            ],
+            "gjsx": [
+                "./gjsx/index.ts"
+            ],
+            "gettext": [
+                "types/Gjs/gettext.d.ts"
+            ],
+            "byteArray": [
+                "types/Gjs/ByteArray.d.ts"
+            ],
+            "gi://Adw": [
+                "types/Gjs/Adw-1.d.ts"
+            ],
+            "gi://Atk": [
+                "types/Gjs/Atk-1.0.d.ts"
+            ],
+            "gi://Cairo": [
+                "types/Gjs/cairo-1.0.d.ts"
+            ],
+            "gi://Gdk": [
+                "types/Gjs/Gdk-3.0.d.ts"
+            ],
+            "gi://Gtk?version=3.0": [
+                "types/Gjs/Gtk-3.0.d.ts"
+            ],
+            "gi://Gtk?version=4.0": [
+                "types/Gjs/Gtk-4.0.d.ts"
+            ],
+            "gi://Gst": [
+                "types/Gjs/Gst-1.0.d.ts"
+            ],
+            "gi://GLib": [
+                "types/Gjs/GLib-2.0.d.ts"
+            ],
+            "gi://Gio": [
+                "types/Gjs/Gio-2.0.d.ts"
+            ],
+            "gi://Soup?version=3.0": [
+                "types/Gjs/Soup-3.0.d.ts"
+            ],
+            "gi://WebKit2?version=5.0": [
+                "types/Gjs/WebKit2-5.0.d.ts"
+            ],
+            "gi://GObject": [
+                "types/Gjs/GObject-2.0.d.ts"
+            ],
+            "system": [
+                "types/Gjs/System.d.ts"
+            ]
+        },
+        "outDir": "../../packages/_compiled/",
+        "lib": [
+            "es2018"
+        ],
+        "typeRoots": []
+    }
+}

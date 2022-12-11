@@ -1,0 +1,12 @@
+{
+  "name": "gjsx-build",
+  "version": "1.3.5",
+  "description": "Builder and bundler for Gjsx",
+  "main": "index.js",
+  "author": "Bresnow",
+  "license": "MIT",
+  "private": true,
+  "devpendencies": {
+    "typescript": "4.8.2"
+  }
+}

@@ -1,13 +1,13 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx, { JSX } from "gjsx";
-import { encode } from '../../lib/util.js';
+import Gjsx from "gjsx";
+import { encode } from "../../packages/gjsx/util";
 /**
  * Use JSX as a Builder Resource to build Gtk Widgets as if it were .ui files. 
  * Gtk.Builder.new_from_string would also work as the Gjsx.render() function returns
  *  these intrinsic jsx/xml properties as a string.
  */
-const Button: JSX.ResourceUi =
+const Button=
   <object class="GtkButton" id="button">
     <property name="label">Let's go!</property>
     <property name="halign">center</property>
@@ -16,7 +16,7 @@ const Button: JSX.ResourceUi =
       <class name="suggested-action" />
     </style>
   </object>
-const ResourceTemplateDemo: JSX.ResourceUi =
+const ResourceTemplateDemo =
   <interface>
     <template class="MyWidget" >
       <property name="layout-manager">
@@ -82,18 +82,18 @@ export const Demo = GObject.registerClass(
       let window: Gtk.Window, builder: Gtk.Builder, app = new Gtk.Application();
       try {
         window = new Gtk.Window({ application: app }), builder = Gtk.Builder.new_from_string(buildaBitch, buildaBitch.length)
-        let root: Gtk.Box = builder.get_object('root');
+        let root = builder.get_object('root');
 
-        var actionButton: Gtk.Button = builder.get_object('actionButton');
+        var actionButton= builder.get_object('actionButton');
         actionButton.connect('clicked', () => {
           print('actionButton clicked')
         })
 
-        var closeButton: Gtk.Button = builder.get_object('closeButton')
+        var closeButton= builder.get_object('closeButton')
         closeButton.connect('clicked', () => {
           print('closeButton clicked')
         });
-        window.set_child(root)
+        window.set_child(root as Gtk.Button)
         window.show()
         window.present()
         app.run([])
