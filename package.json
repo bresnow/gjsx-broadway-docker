@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "packages/*",
-    "broadway-proxy/*"
+    "gi_modules",
+    "broadway-proxy"
   ],
   "scripts": {
     "compile": "node esbuild.mjs",
@@ -38,7 +38,6 @@
     "turbo": "^1.6.3",
     "zx": "^7.1.1"
   },
-  "dependencies": {
-   
-  }
+  "dependencies": {},
+    "typescript": "4.8.2"
 }

@@ -1,6 +1,9 @@
 {
-  "include": ["src/**/*.tsx", "packages/types/Gjs/Gjs.d.ts",
-    "packages/types/index.d.ts"],
+  "include": [
+    "src/**/*.tsx",
+    "gi_modules/types/Gjs/Gjs.d.ts",
+    "gi_modules/types/index.d.ts"
+  ],
   "compilerOptions": {
     "rootDir": ".",
     "emitDecoratorMetadata": true,
@@ -16,57 +19,59 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-
+      "gi://*": [
+        "gi_modules/*"
+      ],
       "gjsx/utils": [
-        "./packages/gjsx/utils/index.ts"
+        "./gi_modules/gjsx/utils/index.ts"
       ],
       "gjsx": [
-        "./packages/gjsx/index.ts"
+        "./gi_modules/gjsx/index.ts"
       ],
       "gettext": [
-        "packages/types/Gjs/gettext.d.ts"
+        "gi_modules/types/Gjs/gettext.d.ts"
       ],
       "byteArray": [
-        "packages/types/Gjs/ByteArray.d.ts"
+        "gi_modules/types/Gjs/ByteArray.d.ts"
       ],
       "gi://Adw": [
-        "packages/types/Gjs/Adw-1.d.ts"
+        "gi_modules/types/Gjs/Adw-1.d.ts"
       ],
       "gi://Atk": [
-        "packages/types/Gjs/Atk-1.0.d.ts"
+        "gi_modules/types/Gjs/Atk-1.0.d.ts"
       ],
       "gi://Cairo": [
-        "packages/types/Gjs/cairo-1.0.d.ts"
+        "gi_modules/types/Gjs/cairo-1.0.d.ts"
       ],
       "gi://Gdk": [
-        "packages/types/Gjs/Gdk-3.0.d.ts"
+        "gi_modules/types/Gjs/Gdk-3.0.d.ts"
       ],
       "gi://Gtk?version=3.0": [
-        "packages/types/Gjs/Gtk-3.0.d.ts"
+        "gi_modules/types/Gjs/Gtk-3.0.d.ts"
       ],
       "gi://Gtk?version=4.0": [
-        "packages/types/Gjs/Gtk-4.0.d.ts"
+        "gi_modules/types/Gjs/Gtk-4.0.d.ts"
       ],
       "gi://Gst": [
-        "packages/types/Gjs/Gst-1.0.d.ts"
+        "gi_modules/types/Gjs/Gst-1.0.d.ts"
       ],
       "gi://GLib": [
-        "packages/types/Gjs/GLib-2.0.d.ts"
+        "gi_modules/types/Gjs/GLib-2.0.d.ts"
       ],
       "gi://Gio": [
-        "packages/types/Gjs/Gio-2.0.d.ts"
+        "gi_modules/types/Gjs/Gio-2.0.d.ts"
       ],
       "gi://Soup?version=3.0": [
-        "packages/types/Gjs/Soup-3.0.d.ts"
+        "gi_modules/types/Gjs/Soup-3.0.d.ts"
       ],
       "gi://WebKit2?version=5.0": [
-        "packages/types/Gjs/WebKit2-5.0.d.ts"
+        "gi_modules/types/Gjs/WebKit2-5.0.d.ts"
       ],
       "gi://GObject": [
-        "packages/types/Gjs/GObject-2.0.d.ts"
+        "gi_modules/types/Gjs/GObject-2.0.d.ts"
       ],
       "system": [
-        "packages/types/Gjs/System.d.ts"
+        "gi_modules/types/Gjs/System.d.ts"
       ]
     },
     "outDir": "_compiled",

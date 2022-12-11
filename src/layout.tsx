@@ -1,5 +1,5 @@
 import Gtk from "gi://Gtk?version=4.0";
-import { getFileInfo, writeTextFileSync } from "../packages/gjsx/util";
+import { getFileInfo, writeTextFileSync } from "gi://gjsx/util";
 import Gjsx from "gjsx";
 import { __dirname } from "./main.js";
 import Webkit from "gi://WebKit2?version=5.0";
