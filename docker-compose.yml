@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: broadway-app
+      target: gjsx-app
     ports:
       - 8087:8087 # Relay Server
       - 8086:8086 # Broadway
@@ -18,5 +18,3 @@ services:
       - ${PWD}/datastore_gundb:/home/app/datastore_gundb
       - ${PWD}/node_modules:/home/app/node_modules
       - ${PWD}/log:/var/log/gjsx
-      - /dev/dri/card0:/dev/dri/card0:rw
-      - /dev/dri/renderD128:/dev/dri/renderD128:rw

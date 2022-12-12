@@ -7,12 +7,11 @@ import morgan from "morgan";
 import Gun from "gun"
 import hp from "http-proxy"
 import fs from "fs-extra";
-import remixConfig from "../remix.config"
 import { createRequestHandler } from "@remix-run/express";
 
 
 const require = createRequire(import.meta.url)
-const BUILD_DIR = remixConfig.serverBuildPath ?? path.join(process.cwd(), "build");
+const BUILD_DIR = path.join(process.cwd(), "_compiled/build");
 
 const PROXY_PORT = Number(process.env.PORT) ?? displayport() + 1;
 const BROADWAY_DISPLAY = process.env.BROADWAY_DISPLAY ?? ":5"
@@ -55,7 +54,7 @@ NODE_ENV === "development"
 
 
 server.listen(PROXY_PORT, () => {
-  console.log(`Express server listening on port ${PROXY_PORT}`);
+  console.log(`Broadway proxy server listening on port ${PROXY_PORT}`);
 });
 
 const purgeRequireCache = () => {
