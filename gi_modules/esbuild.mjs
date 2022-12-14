@@ -1,4 +1,4 @@
-import { transform } from "esbuild";
+import { transform, buildSync } from "esbuild";
 import { argv, chalk, fs, glob, $ } from "zx";
 import chokidar from "chokidar";
 import { format } from "prettier"
@@ -10,26 +10,27 @@ let watch = argv.watch !== undefined, deploy = !!argv.deploy;
 
 const updateService = (optionalServiceName) => {
   if (deploy)
-  docker.listServices({}
-    , (err, services) => {
-      services.forEach(async service => {
-        if (service.Spec.Name.includes("gjsx")) {
-          let initSvc = service
-          const { Spec, ID } = initSvc;
-          const _service = docker.getService(ID);
-          try {
-            await _service.remove(ID)
-            let success = await docker.createService({ ...Spec })
-            console.log(green('successful redeployment of ' + Spec.Name), yellow(success.id))
-          } catch (e) {
-            console.log(red(e))
-          }
+    docker.listServices({}
+      , (err, services) => {
+        services.forEach(async service => {
+          if (service.Spec.Name.includes("gjsx")) {
+            let initSvc = service
+            const { Spec, ID } = initSvc;
+            const _service = docker.getService(ID);
+            try {
+              await _service.remove(ID)
+              let success = await docker.createService({ ...Spec })
+              console.log(green('successful redeployment of ' + Spec.Name), yellow(success.id))
+            } catch (e) {
+              console.log(red(e))
+            }
 
-        }
+          }
+        })
       })
-    })
 }
-let entryPoints = await glob(["../src/**/*.{ts,tsx}", "./gjsx/**/*.ts"]);
+let entryPoints = await glob(["../src/**/*.{ts,tsx}"]);
+buildSync({ entryPoints, format: "esm", outdir:"testComp" })
 if (watch) {
   /**
    * File watcher rebuilds after changes are made to the src directory.
@@ -80,7 +81,6 @@ function compileGJSX(_path) {
 
     let { code } = await transform(ts_chunk, {
       jsxFactory: "Gjsx.createWidget",
-      loader: ext
     });
 
     transformedJs = code;

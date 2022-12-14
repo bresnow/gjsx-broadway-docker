@@ -3,16 +3,17 @@
   "version": "1.6.1",
   "license": "MIT",
   "scripts": {
-"build": "node esbuild.mjs"
+    "build": "node esbuild.mjs"
   },
-    "devDependencies": {
-      "@types/prettier": "^2.7.1",
-      "chokidar": "^3.5.3",
-      "esbuild": "^0.15.11",
-      "prettier": "^2.7.1",
-      "semver": "^7.3.8",
-      "turbo": "^1.6.3",
-      "zx": "^7.1.1",
-      "typescript": "4.8.2"
-    }
+  "devDependencies": {
+    "@types/prettier": "^2.7.1",
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.15.11",
+    "prettier": "^2.7.1",
+    "semver": "^7.3.8",
+    "dockerode": "^3.3.4",
+    "turbo": "^1.6.3",
+    "zx": "^7.1.1",
+    "typescript": "4.8.2"
+  }
 }

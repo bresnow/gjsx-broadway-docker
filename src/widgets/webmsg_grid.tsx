@@ -1,4 +1,3 @@
-// @gjsx-resource
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
@@ -8,17 +7,10 @@ import { __dirname } from "../main.js";
 export const WebMessage = GObject.registerClass(
   { GTypeName: "WebMessageWidget" },
   class WebMessageWidget extends Gtk.Box {
-    _setAttr() {
-      this.orientation = Gtk.Orientation.VERTICAL;
-      this.valign = Gtk.Align.BASELINE;
-      this.vexpand = true;
-      this.homogeneous = true;
-      this.margin_start = 18;
-      this.spacing = 10;
-    }
+ 
     _init() {
       super._init();
-      this._setAttr();
+      this.setAttr();
 
       let webView: Webkit.WebView,
         scroll: Gtk.ScrolledWindow,
@@ -58,6 +50,14 @@ export const WebMessage = GObject.registerClass(
       } catch (e) {
         logError(e);
       }
-    }
+    };
+    setAttr() {
+      this.orientation = Gtk.Orientation.VERTICAL;
+      this.valign = Gtk.Align.BASELINE;
+      this.vexpand = true;
+      this.homogeneous = true;
+      this.margin_start = 18;
+      this.spacing = 10;
+    };
   }
 );
