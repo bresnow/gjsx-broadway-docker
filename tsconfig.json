@@ -1,83 +1,12 @@
 {
+  "extends": "./gi_modules/tsconfig.json",
   "include": [
     "src/**/*.tsx",
-    "gi_modules/types/Gjs/Gjs.d.ts",
-    "gi_modules/types/index.d.ts"
+    "gi_modules/**/*"
   ],
   "compilerOptions": {
     "rootDir": ".",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "moduleResolution": "node",
-    "module": "esnext",
-    "target": "ES2022",
     "jsx": "react",
     "jsxFactory": "Gjsx.createWidget",
-    "allowJs": true,
-    "baseUrl": ".",
-    "paths": {
-      "gi://*": [
-        "gi_modules/*"
-      ],
-      "gjsx/utils": [
-        "./gi_modules/gjsx/utils/index.ts"
-      ],
-      "gjsx": [
-        "./gi_modules/gjsx/index.ts"
-      ],
-      "gettext": [
-        "gi_modules/types/Gjs/gettext.d.ts"
-      ],
-      "byteArray": [
-        "gi_modules/types/Gjs/ByteArray.d.ts"
-      ],
-      "gi://Adw": [
-        "gi_modules/types/Gjs/Adw-1.d.ts"
-      ],
-      "gi://Atk": [
-        "gi_modules/types/Gjs/Atk-1.0.d.ts"
-      ],
-      "gi://Cairo": [
-        "gi_modules/types/Gjs/cairo-1.0.d.ts"
-      ],
-      "gi://Gdk": [
-        "gi_modules/types/Gjs/Gdk-3.0.d.ts"
-      ],
-      "gi://Gtk?version=3.0": [
-        "gi_modules/types/Gjs/Gtk-3.0.d.ts"
-      ],
-      "gi://Gtk?version=4.0": [
-        "gi_modules/types/Gjs/Gtk-4.0.d.ts"
-      ],
-      "gi://Gst": [
-        "gi_modules/types/Gjs/Gst-1.0.d.ts"
-      ],
-      "gi://GLib": [
-        "gi_modules/types/Gjs/GLib-2.0.d.ts"
-      ],
-      "gi://Gio": [
-        "gi_modules/types/Gjs/Gio-2.0.d.ts"
-      ],
-      "gi://Soup?version=3.0": [
-        "gi_modules/types/Gjs/Soup-3.0.d.ts"
-      ],
-      "gi://WebKit2?version=5.0": [
-        "gi_modules/types/Gjs/WebKit2-5.0.d.ts"
-      ],
-      "gi://GObject": [
-        "gi_modules/types/Gjs/GObject-2.0.d.ts"
-      ],
-      "system": [
-        "gi_modules/types/Gjs/System.d.ts"
-      ]
-    },
-    "outDir": "_compiled",
-    "lib": [
-      "es2018"
-    ],
-    "typeRoots": []
   }
 }
