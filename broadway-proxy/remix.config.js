@@ -6,6 +6,8 @@ module.exports = {
     "**/.*",
     "**/*.test.*",
   ],
-  assetsBuildDirectory: "_compiled/public/build",
-  serverBuildPath: "_compiled/build/index.js",
+  // appDirectory: "app",
+  // assetsBuildDirectory: "public/build",
+  // serverBuildPath: "build/index.js",
+  // publicPath: "/build/",
 };

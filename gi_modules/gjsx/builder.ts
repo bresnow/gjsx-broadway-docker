@@ -1,8 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
-import GObject from "gi://GObject";
 
 export function builder(resource: string) {
-    // log(xml);
     return Gtk.Builder.new_from_string(resource, resource.length);
 }
 /**

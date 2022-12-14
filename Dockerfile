@@ -7,16 +7,17 @@ ENV HOME=/home/app \
     XDG_RUNTIME_DIR=/home \
     GLIBC_VERSION=3.5
 
-FROM base as gtk_deps
-WORKDIR /tmp
-# Copy helpers.
 COPY ./_docker/bin /usr/bin/
-COPY ./_compiled /stash/_compiled
-COPY ./assets /stash/assets
 RUN  \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories; \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories; \
-    chmod +x -R /usr/bin/ ;
+    chmod +x -R /usr/bin/;
+
+FROM base as gtk_deps
+WORKDIR /tmp
+# Copy helpers.
+COPY ./_compiled /stash/_compiled
+COPY ./assets /stash/assets
 
 # Gnome libs
 RUN addpkg  \
@@ -87,15 +88,15 @@ RUN \
     supervisor \
     desktop-file-utils  \
     gtk4.0-demo \
-    gnome-apps-extra; \
-    install-glibc;
+    gnome-apps-extra; 
+    # install-glibc;
 
-FROM gtk_deps as gjsx-app
+FROM gtk_deps as gjsx-gtk4
 
 WORKDIR /home/app
 
-COPY --from=base-dependencies /stash/_compiled _compiled
-COPY --from=base-dependencies /stash/assets assets
+COPY --from=gtk_deps /stash/_compiled _compiled
+COPY --from=gtk_deps /stash/assets assets
 
 # COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 # Install themes
@@ -115,34 +116,39 @@ ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
 
 
-FROM base as node_deps
-COPY broadway-proxy/_compiled /stash/_compiled
-COPY broadway-proxy/server/index.js /stash/index.js
-COPY broadway-proxy/package.json /stash/package.json
+FROM base as build
+COPY ./broadway-proxy /app
+WORKDIR /app
 # nodejs environment
 RUN \
-    cd /stash; addpkg nodejs npm;\
+    addpkg nodejs npm;\
     npm i -g yarn; \
-    yarn; 
+    yarn; yarn build;
 
-FROM node_deps as proxy-server
-COPY --from=node_deps /stash/_compiled /app/_compiled
-COPY --from=node_deps /stash/node_modules /app/node_modules
-COPY --from=node_deps /stash/package.json /app/package.json
-COPY --from=node_deps /stash/index.js /app/index.js
+FROM build as proxy-server
+COPY --from=build /app/build /app/build
+COPY --from=build /app/public /app/public
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package.json /app/
+COPY --from=build /app/server/index.js /app/index.js
 ENV NODE_ENV=production
 CMD ["node", "/app/index.js"]
 
 FROM proxy-server as dev-proxy-server
+COPY --from=build /app /app
 
-ENV PORT=8081
 ENV NODE_ENV=development
 
 RUN npm i -g nodemon
 
-CMD ["nodemon", "/app/index.js", "--watch", "/app/index.js"]
+CMD ["nodemon", "/app/server/index.js", "--watch", "/app/server/index.js"]
 
+FROM build as watch-dev
+COPY --from=build /app /app
 
+WORKDIR /app
+
+CMD ["npm", "run", "watch"]
 
 
 # https://us.download.nvidia.com/XFree86/Linux-x86_64/390.157/NVIDIA-Linux-x86_64-390.157.run
