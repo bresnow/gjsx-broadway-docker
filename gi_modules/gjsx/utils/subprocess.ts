@@ -61,7 +61,7 @@ export async function execFailCheck(argv: string[], cancellable: Gio.Cancellable
  * @param {Gio.Cancellable} [cancellable] - optional cancellable object
  * @returns {Promise<string>} - The process output
  */
-export async function execCommunicate(argv: string[], input: string = null, cancellable: Gio.Cancellable = null): Promise<string> {
+export async function execCommunicate(argv: string[], input: string | null, cancellable: Gio.Cancellable = null): Promise<string> {
     let cancelId = 0;
     let flags = (Gio.SubprocessFlags.STDOUT_PIPE |
         Gio.SubprocessFlags.STDERR_PIPE);
@@ -129,7 +129,7 @@ export const launch = (argv: string | string[], opts?: { env: Array<Record<strin
             Gio.SubprocessFlags.STDOUT_PIPE |
             Gio.SubprocessFlags.STDERR_PIPE)
     });
-    opts.env.forEach((variable) => {
+    opts?.env.forEach((variable) => {
         Object.entries(variable).forEach(([key, val]) => {
             launcher.setenv(key.toUpperCase(), val, false);
         })

@@ -4,19 +4,19 @@ networks:
     external: true
 services:
   gtk4:
-    image: bresnow/gjsx-gtk4:${VERSION:-1.6.3}
+    image: bresnow/gjsx-gtk4:${VERSION:-1.7.0}
     build:
       context: .
       dockerfile: Dockerfile
       target: gjsx-gtk4
+    depends_on:
+      - proxy-server-dev
     volumes:
       - ${PWD}/_compiled:/home/app/_compiled
       - ${PWD}/assets:/home/app/assets
       - ${PWD}/datastore_gundb:/home/app/datastore_gundb
       - ${PWD}/node_modules:/home/app/node_modules
       - ${PWD}/log:/var/log/gjsx
-    networks:
-      - edge
   remix-watch:
     container_name: remix-watch
     build:
@@ -29,15 +29,15 @@ services:
       - ./broadway-proxy/server:/app/server
       - ./broadway-proxy/build:/app/build
       - ./broadway-proxy/styles:/app/styles
+    ports:
+      - 8002:8002 #
     tty: true
   proxy-server-dev:
-    image: bresnow/gjsx-proxy:${VERSION:-1.6.3}
+    image: bresnow/gjsx-proxy:${VERSION:-1.7.0}
     build:
       context: .
       dockerfile: Dockerfile
       target: dev-proxy-server
-    networks:
-      - edge
     ports:
       - 8087:8087 # Relay Server
       - 8086:8086 # Broadway

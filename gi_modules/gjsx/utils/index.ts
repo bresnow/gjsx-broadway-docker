@@ -40,7 +40,8 @@ export function CssProvider() {
                 provider.load_from_file(file);
             }
             return {
-                display: (bool: boolean) => bool && Gtk.StyleContext.add_provider_for_display(Gdk.Display,
+              //@ts-ignore
+                display: (bool: boolean) => bool && Gtk.StyleContext.add_provider_for_display(Gdk.Display.get_default(),
                     provider,
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 

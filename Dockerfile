@@ -18,6 +18,7 @@ WORKDIR /tmp
 # Copy helpers.
 COPY ./_compiled /stash/_compiled
 COPY ./assets /stash/assets
+COPY ./proxyserver /stash/proxyserver
 
 # Gnome libs
 RUN addpkg  \
@@ -97,6 +98,7 @@ WORKDIR /home/app
 
 COPY --from=gtk_deps /stash/_compiled _compiled
 COPY --from=gtk_deps /stash/assets assets
+COPY --from=gtk_deps /stash/proxyserver proxyserver
 
 # COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 # Install themes
@@ -126,15 +128,17 @@ RUN \
     yarn; yarn build;
 
 FROM build as proxy-server
+WORKDIR /app
 COPY --from=build /app/build /app/build
 COPY --from=build /app/public /app/public
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app/
-COPY --from=build /app/server/index.js /app/index.js
+# COPY --from=build /app/server/index.js /app/index.js
 ENV NODE_ENV=production
 CMD ["node", "/app/index.js"]
 
 FROM proxy-server as dev-proxy-server
+WORKDIR /app
 COPY --from=build /app /app
 
 ENV NODE_ENV=development

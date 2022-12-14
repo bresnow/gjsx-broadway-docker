@@ -1,11 +1,15 @@
-import express from 'express';
+import express, { Router } from 'express';
 import hp from "http-proxy";
 import { createServer } from 'http';
 import process from 'process';
 import { fs } from 'zx'
 import Gun from 'gun';
 
+const routes = new Router()
+routes.get('/', function (req, res) {
+    res.send(fs.readFileSync())
 
+})
 const proxyport = process.env.PORT || 8086;
 const app = express();
 const proxy = hp.createProxyServer({ target: `http://localhost:${displayport()}`, ws: true });
@@ -19,7 +23,7 @@ server.on('upgrade', function (req, socket, head) {
 
 // serve static content
 app.use('/', express.static("/home/app/assets/public"));
-app.use('/out', express.static("/home/app/assets/public/checkout.html"));
+app.use('/disconnect', express.static("/home/app/assets/public/disconnect.html"));
 server.listen(proxyport);
 
 // Database server listen 

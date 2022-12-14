@@ -8,9 +8,9 @@ const createWidget = (
   ...args: any[]
 ): WidgetConstructed => {
   const children = args ? args.map((args) => args) : [];
-  if (typeof Widget === "string") {
-    return templateRender({ Widget, attributes, children })
-  }
+  if (typeof Widget === "string") 
+    return templateRender({ Widget, attributes, children });
+  
   return { Widget, attributes, children };
 };
 

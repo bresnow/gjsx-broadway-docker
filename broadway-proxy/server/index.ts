@@ -39,39 +39,25 @@ app.use(compression({
     if (
       noCompressContentTypes &&
       noCompressContentTypes.some((regex) => regex.test(contentType))
-      ) {
-        return false;
-      }
-      
-      return true;
-    },
-  }));
+    ) {
+      return false;
+    }
+
+    return true;
+  },
+}));
   app.use(morgan("tiny"));
   app.disable("x-powered-by");
   app.use(express.static(publicPath, { maxAge: "5m" }));
   
   
   
-const proxy = hp.createProxyServer({ target: `http://localhost:${displayport()}`, ws: true });
-const server = createServer(app)
-server.on('upgrade', function (req, socket, head) {
-  console.log("proxying upgrade request", `0.0.0.0:${PROXY_PORT}` + req.url);
-  proxy.ws(req, socket, head);
-});
 
 
 
 
-function displayport() {
-  return Number(BROADWAY_DISPLAY.replace(':', '')) + 8080
-}
-// Gun Database Server
-const gun = Gun({
-  web: createServer(app).listen(PROXY_PORT + 1), radisk: true, file: 'datastore_gundb'
-})
-
-
-
+  
+  
 
 
 const noCompressContentTypes = [
@@ -101,35 +87,31 @@ if (NODE_ENV === "development") {
   //
   app.all(
     "*",
-      createRequestHandler({
-        build: require(importPath),
+    createRequestHandler({
+      build: require(importPath),
         getLoadContext,
         mode: NODE_ENV,
 
+      }
+      ));
     }
-  ));
-}
-
-server.listen(PROXY_PORT, () => {
-  console.log(`Broadway proxy server listening on port ${PROXY_PORT}`);
-});
-
-function purgeRequireCache(path: string) {
-  delete require.cache[require.resolve(path)];
-}
-
-function getLoadContext() {
-    return {
-      authorizedDB() {
+    
+    function purgeRequireCache(path: string) {
+      delete require.cache[require.resolve(path)];
+    }
+    
+    function getLoadContext() {
+      return {
+        authorizedDB() {
         return { gun };
       }
     };
   };
-function remixEarlyHints(build: any) {
-  function getRel(resource: string) {
-    if (resource.endsWith(".js")) {
-      return "modulepreload";
-    }
+  function remixEarlyHints(build: any) {
+    function getRel(resource: string) {
+      if (resource.endsWith(".js")) {
+        return "modulepreload";
+      }
     return "preload";
   }
 
@@ -145,7 +127,7 @@ function remixEarlyHints(build: any) {
     const matches = matchServerRoutes(routes, req.path);
 
     let resources =
-      matches &&
+    matches &&
       matches.flatMap((match) => [
         build.assets.routes[match.route.id].module,
         ...(build.assets.routes[match.route.id].imports || []),
@@ -161,4 +143,32 @@ function remixEarlyHints(build: any) {
 
     if (next) next();
   };
+  
 }
+
+const proxy = hp.createProxyServer({ target: `http://localhost:${displayport()}`, ws: true });
+const server = createServer(app)
+server.on('upgrade', function (req, socket, head) {
+  console.log("proxying upgrade request", `0.0.0.0:${PROXY_PORT}` + req.url);
+  proxy.ws(req, socket, head);
+});
+
+server.listen(PROXY_PORT, () => {
+  console.log(`Broadway proxy server listening on port ${PROXY_PORT}`);
+});
+
+function displayport() {
+  return Number(BROADWAY_DISPLAY.replace(':', '')) + 8080
+}
+
+
+let app2 = express();
+let gunServer = createServer(app2)
+// Gun Database Server
+const gun = Gun({
+  web: gunServer.listen(PROXY_PORT + 1), radisk: true, file: '/home/app/datastore_gundb'
+})
+
+gun.get("database").on(function ({data}){
+console.log("TEST DAT",data)
+})

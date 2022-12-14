@@ -3,7 +3,10 @@
     "pipeline": {
         "build": {
             "outputs": [
-                ".next/**"
+                "_compiled/*",
+                "broadway-proxy/server/index.js",
+                "broadway-proxy/build/*",
+                "broadway-proxy/public/build/**/*"
             ]
         },
         "lint": {

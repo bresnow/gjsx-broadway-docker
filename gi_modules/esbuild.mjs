@@ -29,7 +29,7 @@ const updateService = (optionalServiceName) => {
       })
     })
 }
-let entryPoints = await glob("{src,lib}/**/*.{ts,tsx}");
+let entryPoints = await glob(["../src/**/*.{ts,tsx}", "./gjsx/**/*.ts"]);
 if (watch) {
   /**
    * File watcher rebuilds after changes are made to the src directory.
@@ -62,6 +62,7 @@ if (watch) {
 }
 
 function compileGJSX(_path) {
+  console.log(_path)
   let [dirRoute, ext] = _path.split(".");
   let readable = fs.createReadStream(_path, "utf8");
   let pathto = dirRoute.split("/"), basename = pathto[pathto.length - 1];
@@ -90,9 +91,6 @@ function compileGJSX(_path) {
       if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
       };
-      if (/(import)(.*)(from)(\s+)(("|')gjsx-ui("|'))/g.test(line)) {
-        line.replace(/(gjsx-ui)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
-      }
       return line
     });
 

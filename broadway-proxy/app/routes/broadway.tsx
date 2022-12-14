@@ -12,12 +12,11 @@ let _html = `
         <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>CNXT — FLTNGMMTH</title>
-        <script src=" https://cdnjs.cloudflare.com/ajax/libs/gun/0.2020.1238/gun.min.js"></script>
-<script type="application/javascript" src"/cnxt.js">
-</script>
+        <script type="text/javascript" src="js/broadway.js"></script>
+        <script type="text/javascript" src="js/cnxt.js"></script>
     </head>
 
-    <body onload="cnxt()">
+    <body>
         <img src="img/White_FullStack.png"
             style="position: fixed;width: 64px;z-index: 1000000;display: block;bottom: 30px;right: 30px;opacity: 100%"></img>
         <script>
