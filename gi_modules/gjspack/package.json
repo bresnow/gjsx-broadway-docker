@@ -4,8 +4,6 @@
     "license": "MIT",
     "scripts": {
         "build": "./bin/gjspack --appid=gjspack src/cli.js /usr/bin/"
-    },
-    "devDependencies": {
-        "@types/prettier": "^2.7.1"
     }
+
 }

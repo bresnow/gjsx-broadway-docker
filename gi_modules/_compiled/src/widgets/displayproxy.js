@@ -1,9 +1,6 @@
-// @gjsx-resource
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import { __dirname } from "../main.js";
-
-export const ProxiedBroadwayWebView = GObject.registerClass(
+const ProxiedBroadwayWebView = GObject.registerClass(
   { GTypeName: "ProxiedBroadwayWebView" },
   class extends Gtk.Box {
     _setAttr() {
@@ -20,3 +17,6 @@ export const ProxiedBroadwayWebView = GObject.registerClass(
     }
   }
 );
+export {
+  ProxiedBroadwayWebView
+};

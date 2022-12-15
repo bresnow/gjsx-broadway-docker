@@ -1,6 +1,6 @@
 import fetch from "./std/fetch.js";
 import WebSocket from "./std/websocket.js";
-import EventEmitter from './std/events';
+import EventEmitter from './std/events.js';
 
 
 export function installGlobals(){

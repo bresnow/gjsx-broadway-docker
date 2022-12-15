@@ -1,2 +1,2 @@
-export * from "./runtime"
-export * from "./builder"
+import Gjsx "./runtime.js";
+export default Gjsx;

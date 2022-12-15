@@ -4,10 +4,11 @@
   "type": "module",
   "workspaces": [
     "gi_modules/*",
+    "gi_modules",
     "broadway-proxy"
   ],
   "scripts": {
-    "compile": "node esbuild.mjs",
+    "compile": "turbo compile",
     "deploy": "docker stack deploy -c stack.yml gijsx",
     "rm": "docker stack remove gijsx",
     "ide": "docker stack deploy -c system/development-stack.yml dev_workspace",

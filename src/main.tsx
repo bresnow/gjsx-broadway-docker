@@ -1,10 +1,11 @@
 import Gtk from "gi://Gtk?version=4.0";
 import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
-import Gjsx from "../gi_modules/gjsx/index";
-import {CssProvider} from "../gi_modules/gjsx/utils/index";
+import Gjsx from "gi://Gjsx";
 import { MainWindow } from "./mainwindow.js";
-
+import "./assets/styles/gtk.css" assert {type: "css"}
+const { CssProvider, installGlobals } = Gjsx;
+installGlobals()
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
 export const __dirname = GLib.get_current_dir();
 

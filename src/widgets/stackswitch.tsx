@@ -1,7 +1,7 @@
 
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "../../gi_modules/gjsx/index";
+import Gjsx from "gi://Gjsx";
 import { BoxContainer } from './box_container.js';
 const { build, builder } = Gjsx
 const grid_resource =

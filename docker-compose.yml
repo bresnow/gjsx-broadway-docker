@@ -4,7 +4,7 @@ networks:
     external: true
 services:
   gtk4:
-    image: bresnow/gjsx-gtk4:${VERSION:-1.7.0}
+    image: bresnow/gjsx-gtk4:${VERSION:-1.7.9}
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,11 +12,12 @@ services:
     depends_on:
       - proxy-server-dev
     volumes:
-      - ${PWD}/_compiled:/home/app/_compiled
+      - ${PWD}/gi_modules/_compiled:/home/app/_compiled
+      - ${PWD}/gi_modules/gjspack:/home/app/gjspack
+      - ${PWD}/gi_modules/_built:/home/app/_compiled/bin
       - ${PWD}/assets:/home/app/assets
       - ${PWD}/datastore_gundb:/home/app/datastore_gundb
-      - ${PWD}/node_modules:/home/app/node_modules
-      - ${PWD}/log:/var/log/gjsx
+      - ${PWD}/_docker/log:/var/log/gjsx:rw
   remix-watch:
     container_name: remix-watch
     build:
@@ -33,7 +34,7 @@ services:
       - 8002:8002 #
     tty: true
   proxy-server-dev:
-    image: bresnow/gjsx-proxy:${VERSION:-1.7.0}
+    image: bresnow/gjsx-proxy:${VERSION:-1.7.9}
     build:
       context: .
       dockerfile: Dockerfile

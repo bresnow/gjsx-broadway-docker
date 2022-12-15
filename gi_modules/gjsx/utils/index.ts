@@ -3,7 +3,7 @@ import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Gdk from "gi://Gdk";
 import system from 'system';
-import { installGlobals } from './globals';
+import { installGlobals } from './globals.js';
 const File = Gio.File;
 
 export const __dirname = GLib.get_current_dir();
@@ -321,5 +321,5 @@ export function gtkSystemTheme() {
 
 }
 
-export * from "./subprocess"
+export * from "./subprocess.js"
 export {installGlobals}

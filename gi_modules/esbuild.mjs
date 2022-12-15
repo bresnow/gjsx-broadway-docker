@@ -30,16 +30,44 @@ const updateService = (optionalServiceName) => {
       })
 }
 let entryPoints = await glob(["../src/**/*.{ts,tsx}", "gjsx/**/*.{ts,tsx}"]);
+entryPoints.map(async entryPoint => {
+var {dots, route, extension, basename} = deconstruct_path(entryPoint)
+  entryPoint = fs.readFileSync(entryPoint, { encoding: "utf8" }).split("\n").map(line => {
+    line = line.trim;
+    if (/(import)(.*)(from)(\s+)(("|')gi:\/\/Gjsx("|'))/g.test(line))
+      line = line.replace(/(gi:\/\/Gjsx)/, dots + "/gi_modules/gjsx/index.js");
+  });
 
+})
 
 buildSync({
   entryPoints,
   format: "esm",
   jsxImportSource: "gjsx",
-  outdir: "_precompiled",
-  tsconfig:"../tsconfig.json"
+  outdir: "_compiled",
+  tsconfig: "../tsconfig.json"
 })
 
+function deconstruct_path(_path) {
+  let [route, extension] = _path.split(".");
+  let pathto = route.split("/"), basename = pathto[pathto.length - 1];
+  pathto.pop();
+  pathto = pathto.join("/");
+  // back path to gi_modules directory
+  let dots = pathto.split("/").map((dir) => {
+    if (typeof dir === "string" && dir !== "lib") {
+      return ".."
+    }
+  }).join("/")
+
+  return {
+    route,
+    extension,
+    basename,
+    dots
+  };
+
+}
 // if (watch) {
 //   /**
 //    * File watcher rebuilds after changes are made to the src directory.
@@ -95,10 +123,10 @@ buildSync({
 //     transformedJs = code;
 //     transformedJs = transformedJs.split("\n").map((line) => {
 //       if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
-//         line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
+//         line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js.js");
 //       };
 //       if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
-//         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
+//         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js.js");
 //       };
 //       return line
 //     });

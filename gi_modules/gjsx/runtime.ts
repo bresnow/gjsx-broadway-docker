@@ -1,16 +1,18 @@
 import Gtk from "gi://Gtk?version=4.0";
 import { builder, build, getObject } from './builder.js';
+import * as Utils from "./utils/index.js";
 let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 
 const createWidget = (
   Widget: any,
   attributes: any,
   ...args: any[]
-): WidgetConstructed => {
+): WidgetConstructed | Uint8Array => {
   const children = args ? args.map((args) => args) : [];
-  if (typeof Widget === "string") 
-    return templateRender({ Widget, attributes, children });
-  
+  if (typeof Widget === "string")
+    // Encoded XML string
+    return encode(templateRender({ Widget, attributes, children }));
+
   return { Widget, attributes, children };
 };
 
@@ -108,7 +110,7 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
   return widget;
 };
 
-function templateRender({ Widget, attributes, children }: { Widget: string |  any; attributes: Record<string, string>; children: any[] }) {
+function templateRender({ Widget, attributes, children }: { Widget: string | any; attributes: Record<string, string>; children: any[] }) {
   let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
     let result = acc + ` ${key}="${value}"`
@@ -121,7 +123,7 @@ function templateRender({ Widget, attributes, children }: { Widget: string |  an
     }
     return child
   })
-  var temp = front_tag.replace("<<", "<") + _children + back_tag.replace(">>", ">");
+  var temp = front_tag + _children + back_tag;
   return temp
 
 }
@@ -159,4 +161,7 @@ type WidgetConstructed = {
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { builder, build, getObject, render, createWidget, isConstructor, templateRender };
+export default { builder, build, getObject, render, createWidget, isConstructor, templateRender , ...Utils};
+
+
+

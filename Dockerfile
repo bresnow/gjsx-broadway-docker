@@ -17,11 +17,11 @@ RUN  \
 FROM base as gtk_deps
 WORKDIR /tmp
 # Copy helpers.
-COPY ./gi_modules/_compiled /stash/gi_modules/_compiled
-COPY ./gi_modules/gjspack ./gjspack
-
+COPY ./gi_modules/_compiled /stash/_compiled
+COPY ./gi_modules/gjspack /stash/gjspack
+COPY ./assets /stash/assets
+COPY ./proxyserver /stash/proxyserver
 # Build GJSPack and move it to the bin
-RUN cd gjspack; ./bin/gjspack --appid=gjspack src/cli.js /usr/bin/; cd ../;
 
 # Gnome libs
 RUN addpkg  \
@@ -99,8 +99,15 @@ FROM gtk_deps as gjsx-gtk4
 WORKDIR /home/app
 
 COPY --from=gtk_deps /stash/_compiled _compiled
+COPY --from=gtk_deps /stash/gjspack gjspack
 COPY --from=gtk_deps /stash/assets assets
 COPY --from=gtk_deps /stash/proxyserver proxyserver
+
+
+RUN ./gjspack/bin/gjspack --appid=gjspack ./gjspack/src/cli.js ./gjspack/bin/; \
+    #  ./gjspack/bin/gjspack --appid=gjsx-gtk4 ./_compiled/src/main.js ./_built/; \
+     ./gjspack/bin/gjspack --appid=gjsx ./_compiled/src/main.js ./_compiled/bin/; 
+
 
 # COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 # Install themes
@@ -120,7 +127,7 @@ ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
 
 
-FROM base as build
+FROM gtk_deps as build
 COPY ./broadway-proxy /app
 WORKDIR /app
 # nodejs environment
@@ -141,6 +148,7 @@ CMD ["node", "/app/index.js"]
 
 FROM proxy-server as dev-proxy-server
 WORKDIR /app
+COPY --from=build /home/app /home/app
 COPY --from=build /app /app
 
 ENV NODE_ENV=development

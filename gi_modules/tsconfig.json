@@ -20,13 +20,7 @@
         "checkJs": false,
         "baseUrl": ".",
         "paths": {
-            "gi://*": [
-                "./*"
-            ],
-            "gjsx/utils": [
-                "./gjsx/utils/index.ts"
-            ],
-            "gjsx": [
+            "gi://Gjsx": [
                 "./gjsx/index.ts"
             ],
             "gettext": [

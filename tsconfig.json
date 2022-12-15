@@ -2,7 +2,8 @@
   "extends": "./gi_modules/tsconfig.json",
   "include": [
     "src/**/*.tsx",
-    "gi_modules/**/*"
+    "gi_modules/types/**/*.d.ts",
+    "gi_modules/gjsx/**/*.ts"
   ],
     "exclude": ["**/node_modules"],
   "compilerOptions": {

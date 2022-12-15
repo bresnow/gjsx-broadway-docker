@@ -1,12 +1,8 @@
-// @gjsx-resource
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Webkit from "gi://WebKit2?version=5.0";
 import Gio from "gi://Gio";
-import GLib from "gi://GLib";
 import { __dirname } from "../main.js";
-
-export const Video = GObject.registerClass(
+const Video = GObject.registerClass(
   { GTypeName: "Video" },
   class extends Gtk.Box {
     _setAttr() {
@@ -19,7 +15,7 @@ export const Video = GObject.registerClass(
     _init() {
       super._init();
       this._setAttr();
-      let button: Gtk.Button;
+      let button;
       try {
         button = new Gtk.Button({ label: "Push for Video" });
         let lonelyShades = Gio.File.new_for_path(
@@ -44,3 +40,6 @@ export const Video = GObject.registerClass(
     }
   }
 );
+export {
+  Video
+};
