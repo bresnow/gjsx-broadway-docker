@@ -1,2 +1,5 @@
-export * from "./runtime.js";
-export * from "./builder.js";
+import Gjsx from "./runtime.js";
+var gjsx_default = Gjsx;
+export {
+gjsx_default as default
+};

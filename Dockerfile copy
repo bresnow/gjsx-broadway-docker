@@ -122,13 +122,54 @@ COPY ./_docker/supervisord.conf /etc/
 RUN \
     mkdir -p /var/log/gjsx;\
     export $(dbus-launch); 
+
+ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+
+
+FROM gtk_deps as build
 COPY ./broadway-proxy /app
 WORKDIR /app
 # nodejs environment
 RUN \
     addpkg nodejs npm;\
-    npm i -g yarn nodemon; \
+    npm i -g yarn; \
     yarn; yarn build;
-ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+FROM build as proxy-server
+WORKDIR /app
+COPY --from=build /app/build /app/build
+COPY --from=build /app/public /app/public
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package.json /app/
+# COPY --from=build /app/server/index.js /app/index.js
+ENV NODE_ENV=production
+CMD ["node", "/app/index.js"]
+
+FROM proxy-server as dev-proxy-server
+WORKDIR /app
+COPY --from=build /home/app /home/app
+COPY --from=build /app /app
+
+ENV NODE_ENV=development
+
+RUN npm i -g nodemon
+
+CMD ["nodemon", "/app/server/index.js", "--watch", "/app/server/index.js"]
+
+FROM build as watch-dev
+COPY --from=build /app /app
+
+WORKDIR /app
+
+CMD ["npm", "run", "watch"]
+
+
+# https://us.download.nvidia.com/XFree86/Linux-x86_64/390.157/NVIDIA-Linux-x86_64-390.157.run
+# NEWEST PRODUCTION https://us.download.nvidia.com/XFree86/Linux-x86_64/525.60.11/NVIDIA-Linux-x86_64-525.60.11.run
+# RUN \
+#     wget https://us.download.nvidia.com/XFree86/Linux-x86_64/${NVIDIA_VERSION}/NVIDIA-Linux-x86_64-${NVIDIA_VERSION}.run; \
+#     bash NVIDIA-Linux-x86_64-${NVIDIA_VERSION}.run --extract-only; \
+#     mv NVIDIA-Linux-x86_64-${NVIDIA_VERSION}/nvidia-installer /stash/; 
 
 

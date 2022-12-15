@@ -11,7 +11,7 @@ const createWidget = (
   const children = args ? args.map((args) => args) : [];
   if (typeof Widget === "string")
     // Encoded XML string
-    return encode(templateRender({ Widget, attributes, children }));
+    return templateRender({ Widget, attributes, children });
 
   return { Widget, attributes, children };
 };

@@ -30,15 +30,6 @@ const updateService = (optionalServiceName) => {
       })
 }
 let entryPoints = await glob(["../src/**/*.{ts,tsx}", "gjsx/**/*.{ts,tsx}"]);
-entryPoints.map(async entryPoint => {
-var {dots, route, extension, basename} = deconstruct_path(entryPoint)
-  entryPoint = fs.readFileSync(entryPoint, { encoding: "utf8" }).split("\n").map(line => {
-    line = line.trim;
-    if (/(import)(.*)(from)(\s+)(("|')gi:\/\/Gjsx("|'))/g.test(line))
-      line = line.replace(/(gi:\/\/Gjsx)/, dots + "/gi_modules/gjsx/index.js");
-  });
-
-})
 
 buildSync({
   entryPoints,
@@ -47,15 +38,30 @@ buildSync({
   outdir: "_compiled",
   tsconfig: "../tsconfig.json"
 })
+let out = await glob(["_compiled/**/*.js"])
+out.forEach( entryPoint => {
+var {dots, route, extension, basename} = deconstruct_path(entryPoint)
+  let content = fs.readFileSync(entryPoint, { encoding: "utf8" }).split("\n").map(line => {
+    line = line.trim();
+    if (/(import)(.*)(from)(\s+)(("|')gi:\/\/Gjsx("|'))/g.test(line)){
+      return line.replace(/(gi:\/\/Gjsx)/, dots + "/_compiled/gi_modules/gjsx/index.js");}
+      else{
+        return line;
+      }
+  }).join("\n") ;
+  fs.writeFileSync(entryPoint, content)
+})
+
 
 function deconstruct_path(_path) {
   let [route, extension] = _path.split(".");
-  let pathto = route.split("/"), basename = pathto[pathto.length - 1];
+  let pathto = route.split("/"), basename = pathto[pathto.length];
   pathto.pop();
-  pathto = pathto.join("/");
+ console.log(pathto.join("/"))
   // back path to gi_modules directory
-  let dots = pathto.split("/").map((dir) => {
-    if (typeof dir === "string" && dir !== "lib") {
+  let dots = pathto.map((dir) => {
+    if (dir!== "gi_modules"|| dir!== "src" ||  dir!== "_compiled"|| dir!== "gjsx") {
+
       return ".."
     }
   }).join("/")
