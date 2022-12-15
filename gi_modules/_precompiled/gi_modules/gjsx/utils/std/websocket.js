@@ -1,9 +1,18 @@
-import { promiseTask } from "./util.js";
+import { promiseTask } from "../index";
 import Soup from "gi://Soup?version=3.0";
 import GLib from "gi://GLib";
 const text_decoder = new TextDecoder();
 const text_encoder = new TextEncoder();
-export default class WebSocket {
+class WebSocket {
+  eventListeners;
+  _connection;
+  readyState;
+  url;
+  _uri;
+  onopen;
+  onmessage;
+  onclose;
+  onerror;
   constructor(url, protocols = []) {
     this.eventListeners = /* @__PURE__ */ new WeakMap();
     this._connection = null;
@@ -11,7 +20,8 @@ export default class WebSocket {
     const uri = GLib.Uri.parse(url, GLib.UriFlags.NONE);
     this.url = uri.to_string();
     this._uri = uri;
-    if (typeof protocols === "string") protocols = [protocols];
+    if (typeof protocols === "string")
+      protocols = [protocols];
     this._connect(protocols);
   }
   get protocol() {
@@ -21,7 +31,7 @@ export default class WebSocket {
     const session = new Soup.Session();
     const message = new Soup.Message({
       method: "GET",
-      uri: this._uri,
+      uri: this._uri
     });
     let connection;
     try {
@@ -75,23 +85,27 @@ export default class WebSocket {
   }
   _onopen() {
     this.readyState = 1;
-    if (typeof this.onopen === "function") this.onopen();
+    if (typeof this.onopen === "function")
+      this.onopen();
     this.emit("open");
   }
   emit(arg0) {
     throw new Error("Method not implemented.");
   }
   _onmessage(message) {
-    if (typeof this.onmessage === "function") this.onmessage(message);
+    if (typeof this.onmessage === "function")
+      this.onmessage(message);
     this.emit("message");
   }
   _onclose() {
     this.readyState = 3;
-    if (typeof this.onclose === "function") this.onclose();
+    if (typeof this.onclose === "function")
+      this.onclose();
     this.emit("close");
   }
   _onerror(error) {
-    if (typeof this.onerror === "function") this.onerror(error);
+    if (typeof this.onerror === "function")
+      this.onerror(error);
     this.emit("error");
   }
   addEventListener(name, fn) {
@@ -112,3 +126,6 @@ export default class WebSocket {
     throw new Error("Method not implemented.");
   }
 }
+export {
+  WebSocket as default
+};

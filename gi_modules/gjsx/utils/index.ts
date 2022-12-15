@@ -2,7 +2,8 @@ import Gtk from "gi://Gtk?version=4.0";
 import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Gdk from "gi://Gdk";
-import Soup from "gi://Soup?version=3.0"
+import system from 'system';
+import { installGlobals } from './globals';
 const File = Gio.File;
 
 export const __dirname = GLib.get_current_dir();
@@ -82,77 +83,243 @@ export function promiseTask<ResolveType>(
     });
   });
 }
-export default async function fetch(url: string, options: { url: string; method: string; headers: any; body: Uint8Array; }) {
-  if (typeof url === "object") {
-    options = url;
-    url = options.url;
-  }
-
-  const session = new Soup.Session();
-  const method = options.method || "GET";
-
-  const uri = GLib.Uri.parse(url, GLib.UriFlags.NONE);
-
-  const message = new Soup.Message({
-    method,
-    uri,
-  });
-  const headers = options.headers || {};
-
-  const request_headers = message.get_request_headers();
-  for (const header in headers) {
-    request_headers.append(header, headers[header]);
-  }
-
-  if (typeof options.body === "string") {
-    message.set_request_body_from_bytes(null, new GLib.Bytes(options.body));
-  }
-  const inputStream = await promiseTask(
-    session,
-    "send_async",
-    "send_finish",
-    message,
-    null,
-    null,
-  );
-
-  const { status_code, reason_phrase } = message;
-  const ok = status_code >= 200 && status_code < 300;
-
-  return {
-    status: status_code,
-    statusText: reason_phrase,
-    ok,
-    type: "basic",
-    async json() {
-      const text = await this.text();
-      return JSON.parse(text);
-    },
-    async text() {
-      const gBytes = await this.gBytes();
-      return new TextDecoder().decode(gBytes.toArray());
-    },
-    async arrayBuffer() {
-      const gBytes = await this.gBytes();
-      return gBytes.toArray().buffer;
-    },
-    async gBytes() {
-      const outputStream = Gio.MemoryOutputStream.new_resizable();
-
-
-      await promiseTask(
-        outputStream,
-        "splice_async",
-        "splice_finish",
-        inputStream,
-        Gio.OutputStreamSpliceFlags.CLOSE_TARGET |
-        Gio.OutputStreamSpliceFlags.CLOSE_SOURCE,
-        GLib.PRIORITY_DEFAULT,
-        null,
-      );
-
-      const bytes = outputStream.steal_as_bytes();
-      return bytes;
-    },
-  };
+export class TimeoutError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "TimeoutError";
+    }
 }
+
+function normalizeEmitter(emitter: any) {
+    const addListener =
+        emitter.on || emitter.addListener || emitter.addEventListener;
+    const removeListener =
+        emitter.off || emitter.removeListener || emitter.removeEventListener;
+
+    if (!addListener || !removeListener) {
+        throw new TypeError("Emitter is not compatible");
+    }
+
+    return {
+        addListener: addListener.bind(emitter),
+        removeListener: removeListener.bind(emitter),
+    };
+}
+
+function promiseSignal<Namespace,>(object: { connect: (arg0: any, arg1: { (self: any, ...params: any[]): void; (self: any, error: any): void; }) => any; disconnect: (arg0: any) => void; }, signal: any, error_signal: string) {
+    return new Promise((resolve, reject) => {
+        const handler_id = object.connect(signal, handler);
+        let error_handler_id: any;
+
+        function cleanup() {
+            object.disconnect(handler_id);
+            if (error_handler_id) object.disconnect(error_handler_id);
+        }
+
+        if (error_signal) {
+            error_handler_id = object.connect(error_signal, (self: any, error: any) => {
+                cleanup();
+                reject(error);
+            });
+        }
+
+        function handler(self: any, ...params: any[]) {
+            cleanup();
+            resolve(params);
+        }
+    });
+}
+
+function promiseEvent(object: any, signal: any, error_signal: string) {
+    const { addListener, removeListener } = normalizeEmitter(object);
+
+    return new Promise((resolve, reject) => {
+        addListener(signal, listener);
+
+        function cleanup() {
+            removeListener(signal, listener);
+            if (error_signal) removeListener(error_signal, error_listener);
+        }
+
+        if (error_signal) {
+            addListener(error_signal, error_listener);
+        }
+
+        function error_listener(err: any) {
+            cleanup();
+            reject(err);
+        }
+
+        function listener(...params: any[]) {
+            cleanup();
+            resolve(params);
+        }
+    });
+}
+
+export function delay(ms: number) {
+    let timeout_id: any;
+    const promise = new Promise<void>((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, ms);
+    });
+    return promise;
+}
+
+async function timeout(ms: number) {
+    return delay(ms).then(() => {
+        throw new TimeoutError(`Promise timed out after ${ms} milliseconds`);
+    });
+}
+
+export function once(
+    object: { connect: any; disconnect: any; },
+    signal: any,
+    options = {
+        error: "",
+        timeout: -1,
+    }
+) {
+    let promise: Promise<unknown>;
+    if (object.connect && object.disconnect) {
+        promise = promiseSignal(object, signal, options.error);
+    } else {
+        promise = promiseEvent(object, signal, options.error);
+    }
+
+    if (options.timeout < 0) {
+        return promise;
+    }
+
+    const promise_timeout = timeout(options.timeout);
+    return Promise.race([promise, promise_timeout]).finally(() => {
+        // @ts-ignore
+        clearTimeout(promise_timeout.timeout_id);
+    });
+}
+
+function noop(...args: any[]) { }
+
+export class Deferred extends Promise<any> {
+    resolve: any;
+    reject: any;
+    constructor(def: typeof noop) {
+        let res: any, rej: any;
+        super((resolve: any, reject: any) => {
+            def(resolve, reject);
+            res = resolve;
+            rej = reject;
+        });
+        this.resolve = res;
+        this.reject = rej;
+    }
+}
+
+
+export function getGtkVersion() {
+    const { get_major_version, get_minor_version, get_micro_version } = Gtk;
+    return `${get_major_version()}.${get_minor_version()}.${get_micro_version()}`;
+}
+
+export function getGLibVersion() {
+    return `${GLib.MAJOR_VERSION}.${GLib.MINOR_VERSION}.${GLib.MICRO_VERSION}`;
+}
+
+export function getGjsVersion() {
+    const v = system.version.toString();
+    return `${v[0]}.${+(v[1] + v[2])}.${+(v[3] + v[4])}`;
+}
+
+// To use with import.meta.url
+export function resolve(uri: string, path: string) {
+    return GLib.build_filenamev([
+        GLib.path_get_dirname(GLib.Uri.parse(uri, null).get_path()),
+        path,
+    ]);
+}
+
+export function getPid() {
+    const credentials = new Gio.Credentials();
+    return credentials.get_unix_pid();
+}
+export function getFileInfo(): string[] {
+    let stack = new Error().stack,
+        stackLine = stack.split("\n")[1],
+        coincidence: any[],
+        path: string,
+        file: Gio.File;
+    if (!stackLine) throw new Error("Could not find current file (1)");
+    coincidence = new RegExp("@(.+):\\d+").exec(stackLine);
+    if (!coincidence) throw new Error("Could not find current file (2)");
+    path = coincidence[1];
+    file = Gio.File.new_for_path(path);
+    let route = file.get_parent().get_path().split(":")[1];
+    let current = route + "/" + file.get_basename();
+    return [route.replace("_compiled", ""), current, file.get_basename()];
+}
+// https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/784
+export function* readDirSync(file: Gio.File) {
+    const enumerator = file.enumerate_children(
+        "standard::name",
+        Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+        null
+    );
+
+    while (true) {
+        try {
+            const info = enumerator.next_file(null);
+            if (info === null) break;
+            yield enumerator.get_child(info);
+        } catch (err) {
+            enumerator.close(null);
+            throw err;
+        }
+    }
+    enumerator.close(null);
+}
+
+export function readTextFileSync(file: Gio.File) {
+    const [, contents] = file.load_contents(null);
+    return decode(contents);
+}
+
+export function writeTextFileSync(file: Gio.File, contents: Uint8Array) {
+    file.replace_contents(
+        contents, // contents
+        null, // etag
+        false, // make_backup
+        Gio.FileCreateFlags.NONE, // flags
+        null // cancellable
+    );
+}
+
+export function encode(data: string) {
+    return new TextEncoder().encode(data);
+}
+
+export function decode(data: Uint8Array) {
+    return new TextDecoder().decode(data);
+}
+
+export function appIdToPrefix(appid: string) {
+    return `/${appid.replace(".", "/")}`;
+}
+
+export function basename(filename: string) {
+    const [name, basename, extension] =
+        GLib.path_get_basename(filename).match(/(.+?)(\.[^.]*$|$)/);
+    return [name, basename, extension];
+}
+
+export function gtkSystemTheme() {
+    let gtkSettings: Gtk.Settings;
+    const theme = GLib.getenv("GTK_THEME")
+    gtkSettings = Gtk.Settings.get_default();
+    gtkSettings.gtk_application_prefer_dark_theme = false;
+    gtkSettings.gtk_theme_name = theme;
+
+}
+
+export * from "./subprocess"
+export {installGlobals}

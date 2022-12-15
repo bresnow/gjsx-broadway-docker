@@ -1,7 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import { builder, build, getObject } from "./builder.js";
-let uiregex =
-  /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
+let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
   const children = args ? args.map((args2) => args2) : [];
   if (typeof Widget === "string")
@@ -21,7 +20,7 @@ const render = ({ Widget, attributes, children }) => {
       const element = attributes[attr];
       const attributName = camelToKebab(attr);
       if (attr.startsWith("on")) {
-        ("");
+        "";
         const signal = attributName.replace("on-", "");
         signals[signal] = element;
       } else if (attr === "connect") {
@@ -56,51 +55,45 @@ const render = ({ Widget, attributes, children }) => {
     }
   }
   if (children) {
-    children
-      .reduce((acc, val) => acc.concat(val), [])
-      .map((child) => {
+    children.reduce((acc, val) => acc.concat(val), []).map(
+      (child) => {
         if (typeof child === "string") {
           return new Gtk.Label({ label: child, use_markup: true, wrap: true });
         } else {
           return render(child);
         }
-      })
-      .forEach((child) => {
-        if (typeof widget.append === "function") {
-          widget.append(child);
-          const isWindow =
-            Widget instanceof Gtk.ApplicationWindow ||
-            Widget instanceof Gtk.Window;
-          if (isWindow && typeof widget.present === "function") {
-            widget.present();
-          }
-        } else if (typeof widget.add_child === "function") {
-          widget.add_child(child);
-        } else if (typeof widget.set_child === "function") {
-          widget.set_child(child);
+      }
+    ).forEach((child) => {
+      if (typeof widget.append === "function") {
+        widget.append(child);
+        const isWindow = Widget instanceof Gtk.ApplicationWindow || Widget instanceof Gtk.Window;
+        if (isWindow && typeof widget.present === "function") {
+          widget.present();
         }
-      });
+        ;
+      } else if (typeof widget.add_child === "function") {
+        widget.add_child(child);
+      } else if (typeof widget.set_child === "function") {
+        widget.set_child(child);
+      }
+    });
   }
   return widget;
 };
 function templateRender({ Widget, attributes, children }) {
-  let props = attributes
-    ? Object.entries(attributes).reduce((acc, curr) => {
-        let [key, value] = curr;
-        let result = acc + ` ${key}="${value}"`;
-        return result;
-      }, "")
-    : "";
-  let front_tag = `<${Widget}${props}>`,
-    back_tag = `</${Widget}>`;
+  let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
+    let [key, value] = curr;
+    let result = acc + ` ${key}="${value}"`;
+    return result;
+  }, "") : "";
+  let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`;
   let _children = children.map((child) => {
     if (child && uiregex.test(child.Widget)) {
       return templateRender(child);
     }
     return child;
   });
-  var temp =
-    front_tag.replace("<<", "<") + _children + back_tag.replace(">>", ">");
+  var temp = front_tag.replace("<<", "<") + _children + back_tag.replace(">>", ">");
   return temp;
 }
 function camelToKebab(string) {
@@ -126,12 +119,7 @@ function styleObjectToCssData(styleAttr) {
     throw new Error("Style attributes must be an object");
   }
 }
-export default {
-  builder,
-  build,
-  getObject,
-  render,
-  createWidget,
-  isConstructor,
-  templateRender,
+var runtime_default = { builder, build, getObject, render, createWidget, isConstructor, templateRender };
+export {
+  runtime_default as default
 };

@@ -1,10 +1,7 @@
+import Gjsx from 'gjsx';
+import { __dirname } from './main.js';
 import Gtk from "gi://Gtk?version=4.0";
-import { getFileInfo, writeTextFileSync } from "gi://gjsx/util";
-import Gjsx from "gjsx";
-import { __dirname } from "./main.js";
 import Webkit from "gi://WebKit2?version=5.0";
-import Util from "gjsx/utils";
-import Gio from "gi://Gio";
 type Services = {
     name: string;
     executable: string | string[];

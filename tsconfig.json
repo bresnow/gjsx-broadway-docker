@@ -4,6 +4,7 @@
     "src/**/*.tsx",
     "gi_modules/**/*"
   ],
+    "exclude": ["**/node_modules"],
   "compilerOptions": {
     "rootDir": ".",
     "jsx": "react",

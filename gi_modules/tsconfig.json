@@ -5,17 +5,19 @@
         "types/index.d.ts",
         "gjsx/**/*.ts"
     ],
+    "exclude": ["**/node_modules/*"],
     "compilerOptions": {
         "rootDir": ".",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "importHelpers": true,
-        "skipLibCheck": true,
+        "skipLibCheck": false,
         "skipDefaultLibCheck": true,
         "moduleResolution": "node",
         "module": "esnext",
         "target": "ES2022",
         "allowJs": true,
+        "checkJs": false,
         "baseUrl": ".",
         "paths": {
             "gi://*": [

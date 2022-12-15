@@ -29,84 +29,93 @@ const updateService = (optionalServiceName) => {
         })
       })
 }
-let entryPoints = await glob(["../src/**/*.{ts,tsx}"]);
-buildSync({ entryPoints, format: "esm", outdir:"testComp" })
-if (watch) {
-  /**
-   * File watcher rebuilds after changes are made to the src directory.
-   */
-  let watched = ["esbuild.mjs", ...entryPoints];
-  let scope = chokidar.watch(watched, {
-    ignored: /(^|[\/\\])\../,
-    persistent: true,
-  });
-  ["add", "change", "unlink"].forEach(async (e) => {
-    scope.on(e, async (path) => {
-      if (path === "esbuild.mjs") return;
-      try {
-        console.log(
-          green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
-        );
-        compileGJSX(path)
-        e === "change" && updateService("broadway")
-
-      } catch (error) {
-        console.error(red(error))
-      }
-    });
-  });
-} else {
-  entryPoints.forEach((path) => {
-    compileGJSX(path);
-  });
-  updateService("broadway")
-}
-
-function compileGJSX(_path) {
-  console.log(_path)
-  let [dirRoute, ext] = _path.split(".");
-  let readable = fs.createReadStream(_path, "utf8");
-  let pathto = dirRoute.split("/"), basename = pathto[pathto.length - 1];
-  pathto.pop();
-  pathto = pathto.join("/");
-  let dotsToLibFromSrc = pathto.split("/").map((curr) => {
-    if (typeof curr === "string" && curr !== "lib") {
-      return ".."
-    }
-  }).join("/")
+let entryPoints = await glob(["../src/**/*.{ts,tsx}", "gjsx/**/*.{ts,tsx}"]);
 
 
-  readable.on("data", async (chunk) => {
-    let ts_chunk = chunk, transformedJs, jsxFactory;
+buildSync({
+  entryPoints,
+  format: "esm",
+  jsxImportSource: "gjsx",
+  outdir: "_precompiled",
+  tsconfig:"../tsconfig.json"
+})
 
-    let { code } = await transform(ts_chunk, {
-      jsxFactory: "Gjsx.createWidget",
-    });
+// if (watch) {
+//   /**
+//    * File watcher rebuilds after changes are made to the src directory.
+//    */
+//   let watched = ["esbuild.mjs", ...entryPoints];
+//   let scope = chokidar.watch(watched, {
+//     ignored: /(^|[\/\\])\../,
+//     persistent: true,
+//   });
+//   ["add", "change", "unlink"].forEach(async (e) => {
+//     scope.on(e, async (path) => {
+//       if (path === "esbuild.mjs") return;
+//       try {
+//         console.log(
+//           green(`Compiling ${blue(path)} after ${yellow(e.toUpperCase())} event`)
+//         );
+//         compileGJSX(path)
+//         e === "change" && updateService("broadway")
 
-    transformedJs = code;
-    transformedJs = transformedJs.split("\n").map((line) => {
-      if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
-        line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
-      };
-      if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
-        line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
-      };
-      return line
-    });
+//       } catch (error) {
+//         console.error(red(error))
+//       }
+//     });
+//   });
+// } else {
+//   entryPoints.forEach((path) => {
+//     compileGJSX(path);
+//   });
+//   updateService("broadway")
+// }
 
-    let _compiled = transformedJs.join("\n");
-    if (!fs.existsSync("_compiled/" + pathto)) {
-      fs.mkdirpSync("_compiled/" + pathto);
-    }
-    const path = "_compiled/" + dirRoute + "." +
-      ext.replace("ts", "js").replace("jsx", "js")
-    fs.writeFileSync(
-      path,
-      format(_compiled, { semi: true, singleQuote: false, parser: "babel" }),
-      "utf8"
-    );
-  })
-}
+// function compileGJSX(_path) {
+//   console.log(_path)
+//   let [dirRoute, ext] = _path.split(".");
+//   let readable = fs.createReadStream(_path, "utf8");
+//   let pathto = dirRoute.split("/"), basename = pathto[pathto.length - 1];
+//   pathto.pop();
+//   pathto = pathto.join("/");
+//   let dotsToLibFromSrc = pathto.split("/").map((curr) => {
+//     if (typeof curr === "string" && curr !== "lib") {
+//       return ".."
+//     }
+//   }).join("/")
+
+
+//   readable.on("data", async (chunk) => {
+//     let ts_chunk = chunk, transformedJs, jsxFactory;
+
+//     let { code } = await transform(ts_chunk, {
+//       jsxFactory: "Gjsx.createWidget",
+//     });
+
+//     transformedJs = code;
+//     transformedJs = transformedJs.split("\n").map((line) => {
+//       if (/(import)(.*)(from)(\s+)(("|')gjsx("|'))/g.test(line)) {
+//         line = line.replace(/(gjsx)/, dotsToLibFromSrc + "/lib/gjsx/index.js");
+//       };
+//       if (/(import)(.*)(from)(\s+)(("|')gjsx\/utils("|'))/g.test(line)) {
+//         line = line.replace(/(gjsx\/utils)/, dotsToLibFromSrc + "/lib/gjsx/utils/index.js");
+//       };
+//       return line
+//     });
+
+//     let _compiled = transformedJs.join("\n");
+//     if (!fs.existsSync("_compiled/" + pathto)) {
+//       fs.mkdirpSync("_compiled/" + pathto);
+//     }
+//     const path = "_compiled/" + dirRoute + "." +
+//       ext.replace("ts", "js").replace("jsx", "js")
+//     fs.writeFileSync(
+//       path,
+//       format(_compiled, { semi: true, singleQuote: false, parser: "babel" }),
+//       "utf8"
+//     );
+//   })
+// }
 
 
 

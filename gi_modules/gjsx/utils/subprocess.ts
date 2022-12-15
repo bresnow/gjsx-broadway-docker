@@ -25,7 +25,7 @@ export async function execFailCheck(argv: string[], cancellable: Gio.Cancellable
     }
 
     return new Promise((resolve, reject) => {
-        proc.wait_check_async(null, (proc, res) => {
+        proc.wait_check_async(null, (proc: Gio.Subprocess, res) => {
             try {
                 if (!proc.wait_check_finish(res)) {
                     let status = proc.get_exit_status();
@@ -80,7 +80,7 @@ export async function execCommunicate(argv: string[], input: string | null, canc
     }
 
     return new Promise((resolve, reject) => {
-        proc.communicate_utf8_async(input, null, (proc, res) => {
+        proc.communicate_utf8_async(input, null, (proc:Gio.Subprocess, res) => {
             try {
                 let [, stdout, stderr] = proc.communicate_utf8_finish(res);
                 let status = proc.get_exit_status();

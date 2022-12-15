@@ -1,7 +1,7 @@
-import { promiseTask } from "./util.js";
+import { promiseTask } from "../index";
 import Soup from "gi://Soup?version=3.0";
 import GLib from "gi://GLib";
-import GObject from 'gi://GObject';
+
 
 
 const text_decoder = new TextDecoder();
