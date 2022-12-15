@@ -1,6 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "gjsx";
+import Gjsx from "../../gi_modules/gjsx/index";
 import { encode } from "gi://gjsx/util";
 /**
  * Use JSX as a Builder Resource to build Gtk Widgets as if it were .ui files. 

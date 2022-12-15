@@ -1,4 +1,4 @@
-import Gjsx from 'gjsx';
+import Gjsx from '../gi_modules/gjsx/index';
 import { __dirname } from './main.js';
 import Gtk from "gi://Gtk?version=4.0";
 import Webkit from "gi://WebKit2?version=5.0";

@@ -1,4 +1,4 @@
-import Gjsx from "gjsx";
+import Gjsx from "../gi_modules/gjsx/index";
 import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";

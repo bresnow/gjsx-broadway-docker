@@ -1,6 +1,6 @@
 import GLib from 'gi://GLib'
 import Gio from 'gi://Gio'
-import Gjsx from 'gjsx';
+import Gjsx from '../../gi_modules/gjsx/index';
 let proxy = null;
 
 const SETTINGS_PORTAL_INTERFACE =

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "gi_modules",
+    "gi_modules/*",
     "broadway-proxy"
   ],
   "scripts": {

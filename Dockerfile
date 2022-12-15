@@ -7,6 +7,7 @@ ENV HOME=/home/app \
     XDG_RUNTIME_DIR=/home \
     GLIBC_VERSION=3.5
 
+
 COPY ./_docker/bin /usr/bin/
 RUN  \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories; \
@@ -16,9 +17,11 @@ RUN  \
 FROM base as gtk_deps
 WORKDIR /tmp
 # Copy helpers.
-COPY ./_compiled /stash/_compiled
-COPY ./assets /stash/assets
-COPY ./proxyserver /stash/proxyserver
+COPY ./gi_modules/_compiled /stash/gi_modules/_compiled
+COPY ./gi_modules/gjspack ./gjspack
+
+# Build GJSPack and move it to the bin
+RUN cd gjspack; ./bin/gjspack --appid=gjspack src/cli.js /usr/bin/; cd ../;
 
 # Gnome libs
 RUN addpkg  \
@@ -90,7 +93,6 @@ RUN \
     desktop-file-utils  \
     gtk4.0-demo \
     gnome-apps-extra; 
-    # install-glibc;
 
 FROM gtk_deps as gjsx-gtk4
 

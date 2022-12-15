@@ -1,8 +1,8 @@
 import Gtk from "gi://Gtk?version=4.0";
 import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
-import Gjsx from "gjsx";
-import {CssProvider} from "gjsx/utils";
+import Gjsx from "../gi_modules/gjsx/index";
+import {CssProvider} from "../gi_modules/gjsx/utils/index";
 import { MainWindow } from "./mainwindow.js";
 
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
