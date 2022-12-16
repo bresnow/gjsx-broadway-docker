@@ -207,7 +207,7 @@ export function processSourceFile({
 
       let substitute;
       if (type === "json") {
-        substitute = `JSON.parse(new TextDecoder().decode(imports.gi.Gio.resources_lookup_data("${import_location}", null).toArray()))`;
+        substitute = `JSON.parse(new TextDecoder().decode(imports.gi.Gio.File.new_for_path("${import_location}").load_contents(null)[1]))`;
       } else if (type === "builder") {
         substitute = `imports.gi.Gtk.init() || imports.gi.Gtk.Builder.new_from_resource("${import_location}")`;
       } else if (type === "string") {
@@ -219,7 +219,7 @@ export function processSourceFile({
         //   from = `imports.gi.Gio.resources_lookup_data(${from}, null).toArray()`;
       } else if (type === "css") {
         // FIXME: does not work - load_from_Resource returns undefined
-        substitute = `imports.gi.Gtk.init() || new imports.gi.Gtk.CssProvider().load_from_file(imports.gi.Gio.File.new_for_uri(imports.gi.GLib.filename_to_uri("${import_location}")))`;
+        substitute = `new imports.gi.Gtk.CssProvider().load_from_file(imports.gi.Gio.File.new_for_uri(imports.gi.GLib.filename_to_uri("${import_location}")))`;
       } else if (type === "uri") {
         substitute = `"resource://${import_location}"`;
         // eslint-disable-next-line no-empty

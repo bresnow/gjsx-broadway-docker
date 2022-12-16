@@ -118,6 +118,10 @@ function templateRender({ Widget, attributes, children }: { Widget: string | any
   }, "") : "";
   let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`;
   let _children = children.map(child => {
+    if(child && typeof child.Widget === "function" && !isConstructor(child.Widget) && child.children.length === 0) {
+      let {Widget, attributes} = child
+      return templateRender(Widget(attributes))
+    }
     if (child && uiregex.test(child.Widget)) {
       return templateRender(child)
     }

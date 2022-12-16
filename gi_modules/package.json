@@ -3,7 +3,7 @@
   "version": "1.6.1",
   "license": "MIT",
   "scripts": {
-    "build": "node esbuild.mjs"
+    "build": "node gjsx_bundle/index.mjs"
   },
   "devDependencies": {
     "@types/prettier": "^2.7.1",

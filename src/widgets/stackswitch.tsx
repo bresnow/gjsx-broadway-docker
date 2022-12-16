@@ -3,7 +3,7 @@ import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gi://Gjsx";
 import { BoxContainer } from './box_container.js';
-const { build, builder } = Gjsx
+const { build, builder } = Gjsx;
 const grid_resource =
     <interface>
         <object class="GtkGrid" id="grid_root">
@@ -94,7 +94,7 @@ export const TopOverlay = GObject.registerClass({}, class extends Gtk.Overlay {
 export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
     _init(): void {
         super._init();
-        const { Align, Orientation, EntryIconPosition } = Gtk
+        const { Align, Orientation, EntryIconPosition } = Gtk;
         this.valign = Align.FILL;
         this.orientation = Orientation.VERTICAL;
         let [builderStack, stack, getStackObject] = build<Gtk.Stack>("viewStack", builder(stack_resource));

@@ -1,5 +1,17 @@
 import system from 'system';
+
 declare global {
+    class TextEncoder {
+        static new(): TextEncoder;
+        encode(str: string): Uint8Array;
+    }
+    class TextDecoder {
+        static new(): TextDecoder;
+        decode(bytes: Uint8Array): string;
+    }
+
+}
+
 declare const ARGV: string[]
 /**
  * GJS Environment Type Definitions
@@ -11,14 +23,6 @@ declare function logError(error: Error, msg?: string): void;
 declare function printerr(msg: string): void;
 
 
-    class TextEncoder {
-        static new(): TextEncoder;
-        encode(str: string): Uint8Array;
-    }
-    class TextDecoder {
-        static new(): TextDecoder;
-        decode(bytes: Uint8Array): string;
-    }
 
 
 declare function setTimeout(fn: () => void, timeout: number): void;
@@ -295,5 +299,3 @@ type GtkClass =
         }
 
     }
-
-}
