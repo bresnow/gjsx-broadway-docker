@@ -3,13 +3,11 @@ import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
 import Gjsx from "../../_compiled/gi_modules/gjsx/index.js";
 import { MainWindow } from "./mainwindow.js";
-const { CssProvider, installGlobals } = Gjsx;
+const { installGlobals } = Gjsx;
 installGlobals();
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
 const __dirname = GLib.get_current_dir();
 Gtk.init();
-const css = CssProvider();
-css.load("assets/styles/gtk.css").display(true);
 let dname = Gdk.Display.get_default().get_name(), DEBUG = GLib.getenv("DEBUG"), argv = ARGV;
 const app = new Gtk.Application();
 app.connect("activate", () => {

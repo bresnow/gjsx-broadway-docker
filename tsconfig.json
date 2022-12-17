@@ -3,7 +3,8 @@
   "include": [
     "src/**/*.tsx",
     "gi_modules/types/**/*.d.ts",
-    "gi_modules/gjsx/**/*.ts"
+    "gi_modules/gjsx/**/*.ts",
+    "assets/**/*"
   ],
     "exclude": ["**/node_modules"],
   "compilerOptions": {

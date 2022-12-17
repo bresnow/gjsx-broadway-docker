@@ -89,6 +89,10 @@ return result;
 }, "") : "";
 let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`;
 let _children = children.map((child) => {
+if (child && typeof child.Widget === "function" && !isConstructor(child.Widget) && child.children.length === 0) {
+let { Widget: Widget2, attributes: attributes2 } = child;
+return templateRender(Widget2(attributes2));
+}
 if (child && uiregex.test(child.Widget)) {
 return templateRender(child);
 }

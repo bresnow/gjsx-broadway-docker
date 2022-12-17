@@ -1,66 +1,91 @@
+#!/usr/bin/env node
 import { transform, buildSync } from "esbuild";
 import { argv, chalk, fs, glob, $ } from "zx";
+import Gun from "gun"
 import chokidar from "chokidar";
 import { format } from "prettier"
-import Docker from "dockerode";
+import * as lexer from "./gjsx_bundle/lexer.mjs";
+import * as pkg from "./gjsx_bundle/ltx.mjs";
 let { red, green, blue, yellow } = chalk;
-const docker = new Docker({ port: 8000 })
-// --watch option
-let watch = argv.watch !== undefined, deploy = !!argv.deploy;
-
-const updateService = (optionalServiceName) => {
-  if (deploy)
-    docker.listServices({}
-      , (err, services) => {
-        services.forEach(async service => {
-          if (service.Spec.Name.includes("gjsx")) {
-            let initSvc = service
-            const { Spec, ID } = initSvc;
-            const _service = docker.getService(ID);
-            try {
-              await _service.remove(ID)
-              let success = await docker.createService({ ...Spec })
-              console.log(green('successful redeployment of ' + Spec.Name), yellow(success.id))
-            } catch (e) {
-              console.log(red(e))
-            }
-
-          }
-        })
-      })
-}
+const { createElement: xml } = pkg;
 let entryPoints = await glob(["../src/**/*.{ts,tsx}", "gjsx/**/*.{ts,tsx}"]);
 
-buildSync({
-  entryPoints,
-  format: "esm",
-  jsxImportSource: "gjsx",
-  outdir: "_compiled",
-  tsconfig: "../tsconfig.json"
-})
+
 let out = await glob(["_compiled/**/*.js"])
-out.forEach( entryPoint => {
-var {dots, route, extension, basename} = deconstruct_path(entryPoint)
+entryPoints.forEach(async entryPoint => {
+  var { dots, route, extension, basename } = deconstruct_path(entryPoint)
   let content = fs.readFileSync(entryPoint, { encoding: "utf8" }).split("\n").map(line => {
     line = line.trim();
-    if (/(import)(.*)(from)(\s+)(("|')gi:\/\/Gjsx("|'))/g.test(line)){
-      return line.replace(/(gi:\/\/Gjsx)/, dots + "/_compiled/gi_modules/gjsx/index.js");}
-      else{
+    const match = line.match(/^import (\w+) from/);
+    if (match) {
+      let [_parsed] = lexer.parse(line)
+      // ss === statement start
+      // se === statement end
+      // s is start of module path
+      // e is end of module path
+      // n is location
+      // d > -1 means dynamic import
+      // a is for assert
+      let imports = _parsed[0], { ss, se, s, e, a, n, d } = imports;
+      if (isBundableImport(imports)) {
+        let type, statement = line.slice(ss, se);
+        const name = getImportName(statement);
+
+        if (a > -1) {
+          const assert = line.slice(a, se);
+          type = getAssertType(assert);
+          if (!type) {
+            throw new Error(`Invalid assert syntax "${assert}"`);
+          }
+        }
+        if (type === "json" || n.endsWith(".json")) {
+          return `const ${name} = importer.json("${n}")`;
+        }
+        if (type === "builder") {
+          return `const ${name} = importer.builder("${n}")`;
+        }
+        if (type === "string") {
+          return `const ${name} = importer.toString("${n}")`;
+        }
+        if (type === "css" || n.endsWith("css")) {
+          return `const ${name} = importer.css("${n}")`;
+        }
+        if (type === "uri" || n.endsWith("uri")) {
+          return `const ${name} = `;
+        }
+        if (type) {
+          throw new Error(`Unsupported assert type "${type}"`);
+        }
+      }
+      if (/gi:\/\/Gjsx/.test(n)) {
+        return line.replace(/(gi:\/\/Gjsx)/, dots + "/_compiled/gi_modules/gjsx/index.js");
+      }
+      else {
         return line;
       }
-  }).join("\n") ;
-  fs.writeFileSync(entryPoint, content)
+    }
+    return line
+
+  }).join("\n");
+  let worked = await Gun.SEA.work(entryPoint)
+  console.log(route.replace("../",""), basename ,extension);
+  await transform (content,{
+    
+  })
+  // console.log("./test/" + route + "." + extension)
+  // fs.writeFileSync(`/tmp/${entryPoint.replace("..", "")}`, content)
+  // fs.writeFileSync("./test/"+basename+"."+extension, content)
 })
 
 
 function deconstruct_path(_path) {
-  let [route, extension] = _path.split(".");
-  let pathto = route.split("/"), basename = pathto[pathto.length];
+  let route = _path;
+  let pathto = route.split("/"), _basename = pathto[pathto.length -1];
+  let [basename,extension] = _basename.split(".");
   pathto.pop();
- console.log(pathto.join("/"))
   // back path to gi_modules directory
   let dots = pathto.map((dir) => {
-    if (dir!== "gi_modules"|| dir!== "src" ||  dir!== "_compiled"|| dir!== "gjsx") {
+    if (dir !== "gi_modules" || dir !== "src" || dir !== "_compiled" || dir !== "gjsx") {
 
       return ".."
     }
@@ -74,6 +99,33 @@ function deconstruct_path(_path) {
   };
 
 }
+function isBundableImport(imported) {
+  const location = imported.n ?? null;
+  if (!location) return false;
+  if (location.startsWith("gi:")) return false;
+  if (location.startsWith("resource:")) return false;
+  if (!location.startsWith(".") && !location.startsWith("/")) return false;
+  return true;
+}
+
+function getAssertType(assert) {
+  const normalized = assert
+    .replace(/\s/g, "")
+    .replace(/"/g, "")
+    .replace(/'/g, "")
+    .replace(/,/g, "");
+  return normalized.match(/^{type:(.+)}$/)?.[1] || null;
+}
+
+function getImportName(statement) {
+  const match = statement.match(/^import (\w+) from/);
+  return match?.[1];
+}
+
+
+
+
+
 // if (watch) {
 //   /**
 //    * File watcher rebuilds after changes are made to the src directory.
