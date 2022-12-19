@@ -3,15 +3,10 @@ import Gtk from "gi://Gtk?version=4.0";
 import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
 import { MainWindow } from "./mainwindow.js";
+Gtk.init();
 const styles = importer.css("../assets/styles/gtk.css");
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
-Gtk.init();
 const display = Gdk.Display.get_default();
-Gtk.StyleContext.add_provider_for_display(
-  display,
-  styles,
-  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-);
 let dname = display.get_name(),
   DEBUG = GLib.getenv("DEBUG"),
   argv = ARGV;

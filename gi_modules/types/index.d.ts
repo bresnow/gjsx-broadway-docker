@@ -17,10 +17,10 @@ declare const ARGV: string[]
  * GJS Environment Type Definitions
  */
 
-declare function log(msg: string | any): void;
-declare function print(msg: string): void;
-declare function logError(error: Error, msg?: string): void;
-declare function printerr(msg: string): void;
+declare function log(msg: any): void;
+declare function print(msg: any): void;
+declare function logError(error: Error, msg?: any): void;
+declare function printerr(msg: any): void;
 
 
 

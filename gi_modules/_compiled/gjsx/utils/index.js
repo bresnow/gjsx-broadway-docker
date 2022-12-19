@@ -39,6 +39,7 @@ export function CssProvider() {
           ),
       };
     },
+    provider,
   };
 }
 function styleObjectToCssData(styleAttr) {

@@ -1,5 +1,5 @@
 import Gio from "gi://Gio";
-import Gjsx from "..//..gjsx/index.js";
+import Gjsx from "../../gjsx/index.js";
 let proxy = null;
 const SETTINGS_PORTAL_INTERFACE = /* @__PURE__ */ Gjsx.createWidget(
   "node",

@@ -1,5 +1,4 @@
 import Gjsx from "../gjsx/index.js";
-import { __dirname } from "./main.js";
 import Gtk from "gi://Gtk?version=4.0";
 import Webkit from "gi://WebKit2?version=5.0";
 export function HeadLayout({ services }) {

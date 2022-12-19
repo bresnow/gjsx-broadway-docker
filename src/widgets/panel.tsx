@@ -4,7 +4,7 @@ import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
 import Gio from "gi://Gio";
 import GLib from "gi://GLib";
-import { __dirname } from "../main.js";
+
 
 export const AppPanel = GObject.registerClass(
   { GTypeName: "Panel" },

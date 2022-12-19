@@ -1,9 +1,0 @@
-{
-    "name": "gjspack",
-    "version": "1.7.1",
-    "license": "MIT",
-    "scripts": {
-        "build": "./bin/gjspack --appid=gjspack src/cli.js /usr/bin/"
-    }
-
-}

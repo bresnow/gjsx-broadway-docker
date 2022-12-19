@@ -111,17 +111,16 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 };
 
 function templateRender({ Widget, attributes, children }: { Widget: string | any; attributes: Record<string, string>; children: any[] }) {
+  if(typeof Widget !== "string" && typeof Widget === "function") {
+    return templateRender(Widget(attributes))
+  }
   let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
     let [key, value] = curr;
     let result = acc + ` ${key}="${value}"`
     return result
   }, "") : "";
   let front_tag = `<${Widget}${props}>`, back_tag = `</${Widget}>`;
-  let _children = children.map(child => {
-    if(child && typeof child.Widget === "function" && !isConstructor(child.Widget) && child.children.length === 0) {
-      let {Widget, attributes} = child
-      return templateRender(Widget(attributes))
-    }
+  let _children = children?.map(child => {
     if (child && uiregex.test(child.Widget)) {
       return templateRender(child)
     }

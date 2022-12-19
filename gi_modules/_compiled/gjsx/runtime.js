@@ -85,6 +85,9 @@ const render = ({ Widget, attributes, children }) => {
   return widget;
 };
 function templateRender({ Widget, attributes, children }) {
+  if (typeof Widget !== "string" && typeof Widget === "function") {
+    return templateRender(Widget(attributes));
+  }
   let props = attributes
     ? Object.entries(attributes).reduce((acc, curr) => {
         let [key, value] = curr;
@@ -94,16 +97,7 @@ function templateRender({ Widget, attributes, children }) {
     : "";
   let front_tag = `<${Widget}${props}>`,
     back_tag = `</${Widget}>`;
-  let _children = children.map((child) => {
-    if (
-      child &&
-      typeof child.Widget === "function" &&
-      !isConstructor(child.Widget) &&
-      child.children.length === 0
-    ) {
-      let { Widget: Widget2, attributes: attributes2 } = child;
-      return templateRender(Widget2(attributes2));
-    }
+  let _children = children?.map((child) => {
     if (child && uiregex.test(child.Widget)) {
       return templateRender(child);
     }

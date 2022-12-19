@@ -1,28 +1,22 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gi://Gjsx";
-const { encode } = Gjsx;
+import { WebViewer } from './webmsg_grid.js';
+const { encode } =Gjsx; 
 /**
  * Use JSX as a Builder Resource to build Gtk Widgets as if it were .ui files. 
  * Gtk.Builder.new_from_string would also work as the Gjsx.render() function returns
  *  these intrinsic jsx/xml properties as a string.
  */
-const ButtonResource = ({ id, align, label, clickhandler, className, ...prop }: Partial<Record<string, string>>) => {
-  return (
-    <object class="GtkButton" id={id ??"button"}>
-      <property name="label">{label ?? " #PressPlay"}</property>
-      <property name="halign">{align ?? "center"}</property>
-      {Object.entries(prop).map(([key, value]) => {
-        if (typeof value === "string") {
-          return <property name={key} >{value}</property>;
-        }
-      })}
-      <signal name="clicked" handler={clickhandler ?? "onButtonClicked"}></signal>
-      <style>
-        <class name={className ?? "suggested-action"} />
-      </style>
-    </object>)
-}
+const Button=
+  <object class="GtkButton" id="button">
+    <property name="label">Let's go!</property>
+    <property name="halign">center</property>
+    <signal name="clicked" handler="onButtonClicked"></signal>
+    <style>
+      <class name="suggested-action" />
+    </style>
+  </object>
 const ResourceTemplateDemo =
   <interface>
     <template class="MyWidget" >
@@ -46,11 +40,11 @@ const ResourceTemplateDemo =
         </object>
       </child>
       <child>
-        {ButtonResource()}
+        {Button}
       </child>
     </template>
   </interface>
-const label_buttons =
+const buildaBitch =
   <interface>
     <object class="GtkBox" id="root">
       <property name="orientation">vertical</property>
@@ -61,15 +55,27 @@ const label_buttons =
         </object>
       </child>
       <child>
-        <ButtonResource id="actionButton" align="baseline" label="XDESK" clickhandler="activate" />
+        <object class="GtkButton" id="actionButton">
+          <property name="label" translatable="yes">Action</property>
+          <property name="receives_default">1</property>
+              <style>
+      <class name="suggested-action" />
+    </style>
+        </object>
       </child>
       <child>
-        <ButtonResource id="closeButton" align="baseline" label="PaidMedia" recieves_default="1" />
+        <object class="GtkButton" id="closeButton">
+          <property name="label" translatable="yes">Close</property>
+          <property name="receives_default">1</property>
+              <style>
+      <class name="suggested-action" />
+    </style>
+        </object>
       </child>
     </object>
   </interface>
 
-
+log(typeof buildaBitch, 'build-a-bitch')
 export const Demo = GObject.registerClass(
   {
     GTypeName: "MyWidget",
@@ -80,23 +86,27 @@ export const Demo = GObject.registerClass(
       super._init();
     };
     onButtonClicked(_button: Gtk.Button) {
-      let window: Gtk.Window, builder: Gtk.Builder, app = new Gtk.Application();
+      let window: Gtk.Window, builder: Gtk.Builder, app = new Gtk.Application(), webmsg = new WebViewer();
       try {
-        window = new Gtk.Window({ application: app }), builder = Gtk.Builder.new_from_string(label_buttons, label_buttons.length)
+        window = new Gtk.Window({ application: app }), builder = Gtk.Builder.new_from_string(buildaBitch, buildaBitch.length)
         let root = builder.get_object('root');
 
-        var actionButton = builder.get_object('actionButton');
+        var actionButton= builder.get_object('actionButton');
         actionButton.connect('clicked', () => {
           print('actionButton clicked')
         })
 
-        var closeButton = builder.get_object('closeButton')
+        var closeButton= builder.get_object('closeButton')
         closeButton.connect('clicked', () => {
           print('closeButton clicked')
         });
-        window.set_child(root as Gtk.Button)
-        window.show()
-        window.present()
+        app.connect("activate", () => {
+          webmsg.append(root as Gtk.Widget)
+          window.set_child(webmsg)
+          window.show()
+          window.maximize()
+          window.present()
+        })
         app.run([])
       } catch (error) {
         _button.label = error.message
@@ -104,4 +114,3 @@ export const Demo = GObject.registerClass(
     }
   }
 );
-

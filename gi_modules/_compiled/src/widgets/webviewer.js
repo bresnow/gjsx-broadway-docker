@@ -1,9 +1,21 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Webkit from "gi://WebKit2?version=5.0";
-export const WebMessage = GObject.registerClass(
-  { GTypeName: "WebMessageWidget" },
+export const WebViewer = GObject.registerClass(
+  {
+    GTypeName: "WebMessageWidget",
+    Properties: {
+      url: GObject.ParamSpec.string(
+        "url",
+        "Url Source",
+        "The url of the webkit view",
+        GObject.ParamFlags.READWRITE,
+        "A default"
+      ),
+    },
+  },
   class WebMessageWidget extends Gtk.Box {
+    url;
     _init() {
       super._init();
       this.setAttr();
@@ -11,6 +23,7 @@ export const WebMessage = GObject.registerClass(
       try {
         settings = new Webkit.Settings({ minimum_font_size: 16 });
         webView = new Webkit.WebView({ settings, editable: true });
+        webView.load_url(this.url);
         scroll = new Gtk.ScrolledWindow({
           child: webView,
         });

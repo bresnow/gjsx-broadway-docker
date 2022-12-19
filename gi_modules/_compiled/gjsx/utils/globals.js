@@ -1,25 +1,38 @@
 import fetch from "./std/fetch.js";
+import Gio from "gi://Gio";
 import GLib from "gi://GLib";
+import Gtk from "gi://Gtk?version=4.0";
 import WebSocket from "./std/websocket.js";
+import { CssProvider } from "./index.js";
+const resolve = (path) => {
+  const file = Gio.File.new_for_uri(import.meta.url);
+  return file.get_parent().resolve_relative_path(path);
+};
+const _current = () => {
+  const [filename] = GLib.filename_from_uri(import.meta.url);
+  return GLib.path_get_dirname(filename);
+};
 const __dirname = GLib.get_current_dir();
 const importer = {
   toString(import_location) {
     return new TextDecoder().decode(
-      imports.gi.Gio.File.new_for_path(import_location).load_contents(null)[1]
+      Gio.File.new_from_path(resolve(import_location)).load_contents(null)[1]
     );
   },
   json(import_location) {
     return JSON.parse(importer.toString(import_location));
   },
   builder(import_location) {
-    return imports.gi.Gtk.Builder.new_from_file(import_location);
+    return Gtk.Builder.new_from_file(resolve(import_location));
   },
   css(import_location) {
-    return new imports.gi.Gtk.CssProvider().load_from_file(
-      imports.gi.Gio.File.new_for_path(import_location)
-    );
+    var provider = CssProvider();
+    provider.load(resolve(import_location)).display(true);
+    return provider.provider;
   },
-  default(import_location) {},
+  file(import_location) {
+    return Gio.File.new_from_path(resolve(import_location));
+  },
 };
 export function installGlobals() {
   return Object.entries({ __dirname, importer, fetch, WebSocket }).forEach(

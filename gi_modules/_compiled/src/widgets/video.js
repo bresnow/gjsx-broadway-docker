@@ -1,7 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gio from "gi://Gio";
-import { __dirname } from "../main.js";
 export const Video = GObject.registerClass(
   { GTypeName: "Video" },
   class extends Gtk.Box {

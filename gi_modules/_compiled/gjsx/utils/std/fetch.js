@@ -22,15 +22,18 @@ export default async function fetch(url, options) {
   if (typeof options.body === "string") {
     message.set_request_body_from_bytes(null, new GLib.Bytes(options.body));
   }
-  const inputStream = await new Promise((resolve, reject) => {
-    session.send_async(message, null, null, function (_self, result) {
-      try {
-        resolve(_self.send_finish(result));
-      } catch (error) {
-        reject(error);
-      }
-    });
-  });
+  try {
+    const inputStream2 = await promiseTask(
+      session,
+      "send_async",
+      "send_finish",
+      message,
+      null,
+      null
+    );
+  } catch (error) {
+    log(error);
+  }
   const { status_code, reason_phrase } = message;
   const ok = status_code >= 200 && status_code < 300;
   return {

@@ -1,6 +1,6 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import Gjsx from "..//..gjsx/index.js";
+import Gjsx from "../../gjsx/index.js";
 const { build, builder } = Gjsx;
 const grid_resource = /* @__PURE__ */ Gjsx.createWidget(
   "interface",

@@ -1,9 +1,0 @@
-.view-toggler image {
-  margin-right: 6px;
-}
-
-#panel_html,
-#panel_css,
-#panel_javascript {
-  border-right: solid 1px @borders;
-}

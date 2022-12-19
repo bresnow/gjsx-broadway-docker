@@ -1,8 +1,8 @@
 import { PassThrough } from "stream";
 import { renderToPipeableStream } from "react-dom/server";
 import { RemixServer } from "@remix-run/react";
-import type { EntryContext , Headers } from "@remix-run/node";
-import { Response } from "@remix-run/node";
+import type { EntryContext } from "@remix-run/node";
+import { Response, Headers } from "@remix-run/node";
 import isbot from "isbot";
 
 const ABORT_DELAY = 5000;

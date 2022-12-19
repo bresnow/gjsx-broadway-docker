@@ -47,7 +47,8 @@ export function CssProvider() {
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
             }
-        }
+        },
+        provider
     }
 }
 function styleObjectToCssData(styleAttr: Record<string, string>) {

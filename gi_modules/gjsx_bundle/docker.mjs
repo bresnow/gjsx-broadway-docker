@@ -1,7 +1,8 @@
 import Docker from "dockerode";
+import {  chalk} from "zx";
+let { red, green, blue, yellow } = chalk;
 const docker = new Docker({ port: 8000 })
 export const updateService = (optionalServiceName) => {
-    if (deploy)
         docker.listServices({}
             , (err, services) => {
                 services.forEach(async service => {

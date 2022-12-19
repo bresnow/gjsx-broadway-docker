@@ -16,14 +16,6 @@ RUN  \
 
 FROM base as gtk_deps
 WORKDIR /tmp
-# Copy helpers.
-COPY ./gi_modules/_compiled /stash/_compiled
-COPY ./gi_modules/gjspack /stash/gjspack
-COPY ./assets /stash/assets
-COPY ./proxyserver /stash/proxyserver
-# Build GJSPack and move it to the bin
-
-# Gnome libs
 RUN addpkg  \
     bash \
     cmake \
@@ -94,22 +86,6 @@ RUN \
     gtk4.0-demo \
     gnome-apps-extra; 
 
-FROM gtk_deps as gjsx-gtk4
-
-WORKDIR /home/app
-
-COPY --from=gtk_deps /stash/_compiled _compiled
-COPY --from=gtk_deps /stash/gjspack gjspack
-COPY --from=gtk_deps /stash/assets _compiled/assets
-COPY --from=gtk_deps /stash/proxyserver proxyserver
-
-
-RUN ./gjspack/bin/gjspack --appid=gjspack ./gjspack/src/cli.js ./gjspack/bin/; 
-    #  ./gjspack/bin/gjspack --appid=gjsx-gtk4 ./_compiled/src/main.js ./_built/; \
-    #  ./gjspack/bin/gjspack --appid=gjsx ./_compiled/src/main.js ./_compiled/bin/; 
-
-
-# COPY --from=base-dependencies /stash/nvidia-installer nvidia-installer 
 # Install themes
 RUN \
     git clone https://github.com/paullinuxthemer/Mc-OS-themes.git; \
@@ -118,17 +94,30 @@ RUN \
     rm -rf /tmp/* /tmp/.[!.]* ; \
     delpkg rsync
 
+FROM gtk_deps as gjsx-gtk4
+
+WORKDIR /home/app
+COPY ./gi_modules/_compiled _compiled
 COPY ./_docker/supervisord.conf /etc/
 RUN \
-    mkdir -p /var/log/gjsx;\
-    export $(dbus-launch); 
-COPY ./broadway-proxy /app
-WORKDIR /app
+    mkdir -p /var/log/gjsx; export $(dbus-launch);
+ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+FROM base as front-proxy
+WORKDIR /home/proxy
+COPY ./broadway-proxy proxy
 # nodejs environment
 RUN \
     addpkg nodejs npm;\
     npm i -g yarn nodemon; \
     yarn; yarn build;
-ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+
+
+CMD ["nodemon", "server/index.js" ,"--watch" ,"server/index.js"]
+
+FROM front-proxy as remix-watch
+
+CMD ["npm", "run", "watch"]
+
 
 

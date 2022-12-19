@@ -30,16 +30,29 @@ export default async function fetch(url: string, options: FetchOptions) {
     message.set_request_body_from_bytes(null, new GLib.Bytes(options.body));
   }
 
+  // const _inputStrm = await new Promise<Gio.InputStream>((resolve, reject) => {
+  //   session.send_async(message,null,null, function (_self, result) {
+  //     try {
+  //       resolve(session.send_finish(result))
+  //     } catch (error) {
+  //       reject(error);
+  //     }
+  //   })
+  // });
+  try {
+    const inputStream = await promiseTask<Gio.InputStream>(
+      session,
+      "send_async",
+      "send_finish",
+      message,
+      null,
+      null,
+    );
 
-  const inputStream = await new Promise<Gio.InputStream>((resolve, reject) => {
-    session.send_async(message, null, null, function (_self, result) {
-      try {
-        resolve(_self.send_finish(result))
-      } catch (error) {
-        reject(error);
-      }
-    })
-  });
+  } catch (error) {
+    log(error)
+  }
+
   const { status_code, reason_phrase } = message;
   const ok = status_code >= 200 && status_code < 300;
 

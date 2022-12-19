@@ -1,7 +1,7 @@
 // @gjsx-resource
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
-import { __dirname } from "../main.js";
+
 
 export const ProxiedBroadwayWebView = GObject.registerClass(
   { GTypeName: "ProxiedBroadwayWebView" },

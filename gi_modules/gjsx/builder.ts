@@ -3,9 +3,9 @@ import Gtk from "gi://Gtk?version=4.0";
 export function builder(resource: string) {
     return Gtk.Builder.new_from_string(resource, resource.length);
 }
-/**
- *
- */
+export function fileBuilder(path: string){
+    return Gtk.Builder.new_from_file(path);
+}
 export type GetObject = <Object >(
     id: string
 ) => Object | null;

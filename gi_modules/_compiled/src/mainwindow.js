@@ -6,12 +6,28 @@ import Gio from "gi://Gio";
 import GObject from "gi://GObject";
 import { Demo } from "./widgets/demo.js";
 import { StackSwitch } from "./widgets/stackswitch.js";
-import { WebMessage } from "./widgets/webmsg_grid.js";
+import { WebViewer } from "./widgets/webmsg_grid.js";
+import { BoxContainer } from "./widgets/box_container.js";
+const { installGlobals } = Gjsx;
+installGlobals();
 function widgetArray(arr) {
   return arr.map((Widget) => {
     return new Widget();
   });
 }
+(async function () {
+  try {
+    let response = await fetch("http://0.0.0.0:8087/interface/test", {
+      method: "GET",
+    });
+    let data = await response.json();
+    log(response);
+    log(JSON.stringify(data, null, 2));
+    log("http://0.0.0.0:8087/interface/test");
+  } catch (error) {
+    log(JSON.stringify(error));
+  }
+})();
 const BgOverlay = GObject.registerClass(
   { GTypeName: "BgOverlay" },
   class BgOverlay2 extends Gtk.Box {
@@ -56,7 +72,18 @@ export function MainWindow({ app, reference }) {
         StackSwitch,
         { orientation: Gtk.Orientation.VERTICAL, spacing: 10 },
         /* @__PURE__ */ Gjsx.createWidget(Demo, null),
-        /* @__PURE__ */ Gjsx.createWidget(WebMessage, null),
+        /* @__PURE__ */ Gjsx.createWidget(
+          BoxContainer,
+          { css_name: "box", style: { padding: "15px" } },
+          /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+            orientation: Gtk.Orientation.HORIZONTAL,
+          }),
+          /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null)
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+          orientation: Gtk.Orientation.VERTICAL,
+        }),
+        /* @__PURE__ */ Gjsx.createWidget(WebViewer, null),
         /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
           orientation: Gtk.Orientation.HORIZONTAL,
         }),
@@ -66,5 +93,22 @@ export function MainWindow({ app, reference }) {
   );
 }
 function PeerEntry() {
-  return /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, { label: "Peer Cnxt" });
+  return /* @__PURE__ */ Gjsx.createWidget(
+    BoxContainer,
+    null,
+    "  ",
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+      orientation: Gtk.Orientation.HORIZONTAL,
+    }),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+      orientation: Gtk.Orientation.HORIZONTAL,
+    }),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
+      orientation: Gtk.Orientation.HORIZONTAL,
+    }),
+    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null)
+  );
 }

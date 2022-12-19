@@ -1,4 +1,4 @@
 import Gjsx from "./runtime.js";
 import { installGlobals } from "./utils/globals.js";
-installGlobals();
+Gjsx.init = installGlobals;
 export default Gjsx;

@@ -4,7 +4,7 @@
     "src/**/*.tsx",
     "gi_modules/types/**/*.d.ts",
     "gi_modules/gjsx/**/*.ts",
-    "assets/**/*"
+    "./assets/**/*"
   ],
     "exclude": ["**/node_modules"],
   "compilerOptions": {
