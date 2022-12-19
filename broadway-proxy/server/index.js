@@ -83,15 +83,7 @@ app.all(
         }),
       ])
 );
-const gun = Gun({
-  web: app.listen(config.REMIX_PORT, () => {
-    console.log(`frontend server listening on port ${port}`);
-  }), radisk: true, file: 'db'
-})
 
-function getLoadContext(){
-  return {gun}
-}
 
 function purgeRequireCache(path) {
   delete require.cache[require.resolve(path)];
@@ -137,16 +129,33 @@ function remixEarlyHints(build) {
     if (next) next();
   };
 }
-
 const hp = require('http-proxy');
-const proxy = hp.createProxyServer({ target: `http://0.0.0.0:${config.BROADWAY_PORT}`, ws: true });
+
+const proxy = new hp.createProxyServer({ target: `ws://0.0.0.0:${config.BROADWAY_PORT}`, ws: true })
 const http = require('http');
-const _app = express();
+// const _app = express();
+
+(async function(){
+let hashedPath = await Gun.SEA.work("broadway").slice(0,9)
+console.log(hashedPath);
+
+app.use('/'+hashedPath, express.static(__dirname+"/views"));
+})()
+
+app.use('/broadway', express.static(__dirname+"/views"));
 const server = http.createServer(app);
 // Proxy websockets
 server.on('upgrade', function (req, socket, head) {
   console.log("proxying upgrade request", `0.0.0.0:${config.PROXY_PORT}` + req.url);
   proxy.ws(req, socket, head);
 });
+server.listen(config.PROXY_PORT,, () => {
+    console.log(`frontend server listening on port ${port}`);
+  });
+  const gun = Gun({
+  web: hp.createProxyServer({ target: `ws://0.0.0.0:${config.BROADWAY_PORT}`, ws: true }).listen(8088, ()=> console.log("Gun Socket Proxy"));, radisk: true, file: 'db'
+})
 
-server.listen(config.PROXY_PORT);
+function getLoadContext(){
+  return {gun}
+}

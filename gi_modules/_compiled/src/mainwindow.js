@@ -92,23 +92,3 @@ export function MainWindow({ app, reference }) {
     )
   );
 }
-function PeerEntry() {
-  return /* @__PURE__ */ Gjsx.createWidget(
-    BoxContainer,
-    null,
-    "  ",
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
-      orientation: Gtk.Orientation.HORIZONTAL,
-    }),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
-      orientation: Gtk.Orientation.HORIZONTAL,
-    }),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
-      orientation: Gtk.Orientation.HORIZONTAL,
-    }),
-    /* @__PURE__ */ Gjsx.createWidget(Gtk.Entry, null)
-  );
-}

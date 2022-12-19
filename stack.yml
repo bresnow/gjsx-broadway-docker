@@ -1,12 +1,39 @@
 version: "3.9"
 
 services:
-  gjsx_dev:
-    image: bresnow/gjsx-gtk4:${VERSION:-1.8.2}
+  # watch:
+  #   image: bresnow/gjsx-proxy:${VERSION:-1.8.51}
+  #   deploy:
+  #     placement:
+  #       constraints:
+  #         - node.role == manager
+  #     labels:
+  #       - traefik.enable=true
+  #       - traefik.docker.network=traefik-net
+  #       - traefik.constraint-label=traefik-net
+  #       - traefik.http.routers.proxy-${ID:-001}.rule=Host(`${DOMAIN:-dev.cnxt.app}`)
+  #       - traefik.http.routers.proxy-${ID:-001}.entrypoints=http,https
+  #       - traefik.http.routers.proxy-${ID:-001}.service=proxy-${ID:-001}
+  #       - traefik.http.routers.proxy-${ID:-001}.tls=true
+  #       - traefik.http.routers.proxy-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
+  #       - traefik.http.services.proxy-${ID:-001}.loadbalancer.server.port=8087
+  #       - traefik.http.routers.gjsx-${ID:-001}.rule=Host(`${INTERFACE_DOMAIN:-interface.cnxt.app}`)
+  #       - traefik.http.routers.gjsx-${ID:-001}.entrypoints=http,https
+  #       - traefik.http.routers.gjsx-${ID:-001}.service=gjsx-${ID:-001}
+  #       - traefik.http.routers.gjsx-${ID:-001}.tls=true
+  #       - traefik.http.routers.gjsx-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
+  #       - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086
+  #   networks:
+  #     - traefik-net
+  #     - edge
+  #   volumes:
+  #     - ${PWD}/db:/home/proxy/db
+  #     - ${PWD}/broadway-proxy:/home/proxy
+  watch:
+    image: bresnow/gjsx-dev:${VERSION:-1.8.51}
     deploy:
       placement:
         constraints:
-          - node.role == manager
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-net
@@ -22,39 +49,29 @@ services:
         - traefik.http.routers.gjsx-${ID:-001}.service=gjsx-${ID:-001}
         - traefik.http.routers.gjsx-${ID:-001}.tls=true
         - traefik.http.routers.gjsx-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
-        - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086
+        - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086          - node.role == manager
+    ports:
+      - 8002:8002
     networks:
       - traefik-net
       - edge
     volumes:
-      - ${PWD}/gi_modules/_compiled:/home/app/_compiled
-      - ${PWD}/gi_modules/gjspack:/home/app/gjspack
-      - ${PWD}/assets:/home/app/assets
-      - ${PWD}/db:/home/app/db
-      - ${PWD}/_docker/log:/var/log/gjsx:rw
-      - ${PWD}/broadway-proxy:/app
+      - ${PWD}/db:/home/proxy/db
+      - ${PWD}/broadway-proxy:/home/proxy
 
-# volumes:
-#   datastore_gundb:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/datastore_gundb
-#   proxyserver:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/proxyserver
-#   logs:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/log
-#   compiled:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: 
-#   assets:
-#     driver: local-persist
-#     driver_opts:
-#       mountpoint: $PWD/assets
+  core:
+    image: bresnow/gjsx-core:${VERSION:-1.8.51}
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    networks:
+      - edge
+    volumes:
+      - ${PWD}/gi_modules/_compiled:/home/app/_compiled
+      - ${PWD}/_docker/log:/var/log/gjsx:rw
+
+
 
 networks:
   traefik-net:

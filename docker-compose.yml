@@ -1,7 +1,4 @@
 version: "3.8"
-networks:
-  edge:
-    external: true
 services:
   gtk4_dev:
     container_name: gtk4_dev
@@ -10,18 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: gjsx-gtk4
-    # ports:
-    #   - 8088:8088
-    #   - 8087:8087 # Relay Server
-    #   - 8086:8086 # Broadway
-    #   - 8085:8085 # Relay Server
-    # volumes:
-    #   - ${PWD}/gi_modules/_compiled:/home/app/_compiled
-    #   - ${PWD}/gi_modules/gjspack:/home/app/gjspack
-    #   - ${PWD}/assets:/home/app/assets
-    #   - ${PWD}/datastore_gundb:/home/app/datastore_gundb
-    #   - ${PWD}/_docker/log:/var/log/gjsx:rw
-    #   - ./broadway-proxy:/app
   remix-watch:
     container_name: remix-watch
     image: bresnow/gjsx-dev:${VERSION:-1.8.0}
@@ -29,18 +14,6 @@ services:
       context: .
       dockerfile: Dockerfile
       target: remix-watch
-    # ports:
-    #   - 8088:8088
-    #   - 8087:8087 # Relay Server
-    #   - 8086:8086 # Broadway
-    #   - 8085:8085 # Relay Server
-    # volumes:
-    #   - ${PWD}/gi_modules/_compiled:/home/app/_compiled
-    #   - ${PWD}/gi_modules/gjspack:/home/app/gjspack
-    #   - ${PWD}/assets:/home/app/assets
-    #   - ${PWD}/datastore_gundb:/home/app/datastore_gundb
-    #   - ${PWD}/_docker/log:/var/log/gjsx:rw
-    #   - ./broadway-proxy:/app
   front_proxy:
     container_name: front_proxy
     image: bresnow/gjsx-proxy:${VERSION:-1.8.0}
@@ -48,16 +21,3 @@ services:
       context: .
       dockerfile: Dockerfile
       target: front-proxy
-    # ports:
-    #   - 8088:8088
-    #   - 8087:8087 # Relay Server
-    #   - 8086:8086 # Broadway
-    #   - 8085:8085 # Relay Server
-    # volumes:
-    #   - ${PWD}/gi_modules/_compiled:/home/app/_compiled
-    #   - ${PWD}/gi_modules/gjspack:/home/app/gjspack
-    #   - ${PWD}/assets:/home/app/assets
-    #   - ${PWD}/datastore_gundb:/home/app/datastore_gundb
-    #   - ${PWD}/_docker/log:/var/log/gjsx:rw
-    #   - ./broadway-proxy:/app      
- 

@@ -32,8 +32,14 @@ if (watch) {
     )
   });
   scope.on("change", ()=> {
-    updateService("broadway") 
+   deploy && updateService("broadway") 
   })
+}else{
+  entryPoints.forEach(async (path)=> {
+  await compile(path)
+  })
+  deploy &&  updateService("broadway") 
+    process.exit(0);
 }
 async function compile(path) {
   var entryPoint = path;

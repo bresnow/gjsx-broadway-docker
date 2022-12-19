@@ -23,7 +23,6 @@ const grid_resource =
                     <property name="layout-manager">
                         <object class="GtkBoxLayout">
                             <property name="orientation">vertical</property>
-                            
                         </object>
                     </property>
                     <child>

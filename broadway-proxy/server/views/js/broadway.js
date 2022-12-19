@@ -3212,8 +3212,7 @@ function cnxt() {
     ws.onclose = function () {
         if (inputSocket != null)
             // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
-            inputSocket = null;
-        window.location.assign("/js/gun.js")
+     
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

@@ -1,10 +1,14 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "pipeline": {
+        "compile": {
+            "outputs": [
+                "gi_modules/_compiled/*"
+            ]},
         "build": {
+            "dependsOn": ["^compile"],
             "outputs": [
                 "_compiled/*",
-                "broadway-proxy/server/index.js",
                 "broadway-proxy/build/*",
                 "broadway-proxy/public/build/**/*"
             ]

@@ -1,7 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gi://Gjsx";
-import { WebViewer } from './webmsg_grid.js';
+import { WebViewer } from './webviewer.js';
 const { encode } =Gjsx; 
 /**
  * Use JSX as a Builder Resource to build Gtk Widgets as if it were .ui files. 
@@ -74,7 +74,7 @@ const buildaBitch =
       </child>
     </object>
   </interface>
-
+log(typeof Button, "Typeof Button")
 log(typeof buildaBitch, 'build-a-bitch')
 export const Demo = GObject.registerClass(
   {

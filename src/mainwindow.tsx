@@ -91,12 +91,3 @@ export function MainWindow({
   );
 }
 
-function PeerEntry() {
-  return (<BoxContainer>  <Gtk.Entry />
-    <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-    <Gtk.Entry />
-    <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-    <Gtk.Entry />
-    <Gtk.Separator orientation={Gtk.Orientation.HORIZONTAL} />
-    <Gtk.Entry /></BoxContainer>)
-}

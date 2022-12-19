@@ -1,7 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "../../gjsx/index.js";
-import { WebViewer } from "./webmsg_grid.js";
+import { WebViewer } from "./webviewer.js";
 const { encode } = Gjsx;
 const Button = /* @__PURE__ */ Gjsx.createWidget(
   "object",
@@ -159,6 +159,7 @@ const buildaBitch = /* @__PURE__ */ Gjsx.createWidget(
     )
   )
 );
+log(typeof Button, "Typeof Button");
 log(typeof buildaBitch, "build-a-bitch");
 export const Demo = GObject.registerClass(
   {

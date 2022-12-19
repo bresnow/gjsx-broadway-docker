@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "compile": "./compile.mjs"
+    "compile": "./compile.mjs",
+    "build": "cd ..; echo \"$PWD \n.. Building Image\"; docker-compose build"
   },
   "devDependencies": {
     "@types/prettier": "^2.7.1",
