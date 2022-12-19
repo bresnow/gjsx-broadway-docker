@@ -1,24 +1,35 @@
+import Gjsx from "../gjsx/index.js";
 import Gtk from "gi://Gtk?version=4.0";
 import Gdk from "gi://Gdk";
 import GLib from "gi://GLib";
-import Gjsx from "../../_compiled/gi_modules/gjsx/index.js";
 import { MainWindow } from "./mainwindow.js";
-const { installGlobals } = Gjsx;
-installGlobals();
+const styles = importer.css("../assets/styles/gtk.css");
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
-const __dirname = GLib.get_current_dir();
 Gtk.init();
-let dname = Gdk.Display.get_default().get_name(), DEBUG = GLib.getenv("DEBUG"), argv = ARGV;
+const display = Gdk.Display.get_default();
+Gtk.StyleContext.add_provider_for_display(
+  display,
+  styles,
+  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+);
+let dname = display.get_name(),
+  DEBUG = GLib.getenv("DEBUG"),
+  argv = ARGV;
 const app = new Gtk.Application();
 app.connect("activate", () => {
-if (dname === "Broadway" || dname.toLowerCase() === GLib.getenv("GDK_BACKEND")) {
-Gjsx.render(/* @__PURE__ */ Gjsx.createWidget(MainWindow, { app, reference: description }));
-log("Broadway Proxy Initiated For Application");
-} else {
-throw new Error(`The ${dname} display backend is not supported`);
-}
+  if (
+    dname === "Broadway" ||
+    dname.toLowerCase() === GLib.getenv("GDK_BACKEND")
+  ) {
+    Gjsx.render(
+      /* @__PURE__ */ Gjsx.createWidget(MainWindow, {
+        app,
+        reference: description,
+      })
+    );
+    log("Broadway Proxy Initiated For Application");
+  } else {
+    throw new Error(`The ${dname} display backend is not supported`);
+  }
 });
 app.run([]);
-export {
-__dirname
-};

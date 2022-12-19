@@ -5,13 +5,12 @@ import { createServer } from 'http';
 import morgan from "morgan";
 import Gun from "gun"
 import hp from "http-proxy"
-import { dirname, resolve ,join} from "path";
+import {  resolve } from "path";
 import { createRoutes } from "@remix-run/server-runtime/dist/routes.js";
 import { matchServerRoutes } from "@remix-run/server-runtime/dist/routeMatching.js";
 import { installGlobals } from "@remix-run/node";
 import process from "process";
 import { createRequestHandler } from "@remix-run/express";
-import fs from 'fs';
 
 installGlobals();
 
@@ -20,7 +19,6 @@ const PROXY_PORT = process.env.PORT ? parseInt(process.env.PORT) : displayport()
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 // let require = createRequire(import.meta.url);
-let packagePath = dirname("../package.json");
 let importPath = resolve("build/index.js");
 let publicPath = resolve("public");
 

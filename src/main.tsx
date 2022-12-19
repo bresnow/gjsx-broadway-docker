@@ -6,14 +6,17 @@ import { MainWindow } from "./mainwindow.js";
 import styles from "../assets/styles/gtk.css" assert {type: "css"};
 
 let description = `CNXT is built using the FLTNGMMTH mobile operating system.`;
-export const __dirname = GLib.get_current_dir();
+
 
 Gtk.init();
 // gtkSystemTheme()
 // Global stylesheet
+const display = Gdk.Display.get_default()
+Gtk.StyleContext.add_provider_for_display(display,
+  styles,
+  Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-
-let dname = Gdk.Display.get_default().get_name(),
+let dname = display.get_name(),
   DEBUG = GLib.getenv("DEBUG"),
   argv = ARGV;
 

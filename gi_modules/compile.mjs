@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 import { transform, buildSync } from "esbuild";
 import { argv, chalk, fs, glob, $ } from "zx";
-import Gun from "gun"
+import Gun from "gun";
+import { join, dirname } from "path";
+import { promisify } from "util";
 import chokidar from "chokidar";
 import { format } from "prettier"
 import * as lexer from "./gjsx_bundle/lexer.mjs";
 import * as pkg from "./gjsx_bundle/ltx.mjs";
+import tsconf from "./tsconfig.json" assert {type: "json"}
+const { compilerOptions } = tsconf;
 let { red, green, blue, yellow } = chalk;
 const { createElement: xml } = pkg;
+
 let entryPoints = await glob(["../src/**/*.{ts,tsx}", "gjsx/**/*.{ts,tsx}"]);
 
 
-let out = await glob(["_compiled/**/*.js"])
+const _curdir_ = dirname("./package.json")
 entryPoints.forEach(async entryPoint => {
-  var { dots, route, extension, basename } = deconstruct_path(entryPoint)
+  var { dots, path, extension, basename } = deconstruct_path(entryPoint)
   let content = fs.readFileSync(entryPoint, { encoding: "utf8" }).split("\n").map(line => {
     line = line.trim();
     const match = line.match(/^import (\w+) from/);
@@ -47,18 +52,18 @@ entryPoints.forEach(async entryPoint => {
         if (type === "string") {
           return `const ${name} = importer.toString("${n}")`;
         }
-        if (type === "css" || n.endsWith("css")) {
+        if (type === "css" || n.endsWith(".css")) {
           return `const ${name} = importer.css("${n}")`;
         }
-        if (type === "uri" || n.endsWith("uri")) {
-          return `const ${name} = `;
+        if (type === "file") {
+          return `const ${name} = imports.gi.Gio.File.new_for_path("${import_location}")`;
         }
         if (type) {
           throw new Error(`Unsupported assert type "${type}"`);
         }
       }
       if (/gi:\/\/Gjsx/.test(n)) {
-        return line.replace(/(gi:\/\/Gjsx)/, dots + "/_compiled/gi_modules/gjsx/index.js");
+        return line.replace(/(gi:\/\/Gjsx)/, dots + "gjsx/index.js");
       }
       else {
         return line;
@@ -68,10 +73,23 @@ entryPoints.forEach(async entryPoint => {
 
   }).join("\n");
   let worked = await Gun.SEA.work(entryPoint)
-  console.log(route.replace("../",""), basename ,extension);
-  await transform (content,{
-    
-  })
+  try {
+
+    let { code } = await transform(content, {
+      jsxFactory: "Gjsx.createWidget",
+      loader: extension,
+      tsconfigRaw: JSON.stringify({ compilerOptions })
+    })
+    var compiled_path = join("_compiled", path.replace("../", ""));
+    var output = join(compiled_path, basename + ".js");
+    if (!fs.existsSync(compiled_path)) {
+      fs.mkdirpSync(compiled_path)
+    }
+    // fs.mkdirSync(path.resolve(path.dirname("./"), "_compiled"), route.replace("../", "").replace(".tsx", ".js").replace(".ts", ".js").replace("gjsx", "lib/gjsx") );
+    fs.writeFileSync(output, format(code, { semi: true, singleQuote: false, parser: "babel" }), { encoding: "utf8" })
+  } catch (err) {
+    console.error(err)
+  }
   // console.log("./test/" + route + "." + extension)
   // fs.writeFileSync(`/tmp/${entryPoint.replace("..", "")}`, content)
   // fs.writeFileSync("./test/"+basename+"."+extension, content)
@@ -80,18 +98,21 @@ entryPoints.forEach(async entryPoint => {
 
 function deconstruct_path(_path) {
   let route = _path;
-  let pathto = route.split("/"), _basename = pathto[pathto.length -1];
-  let [basename,extension] = _basename.split(".");
+  let pathto = route.split("/"), _basename = pathto[pathto.length - 1];
+  let [basename, extension] = _basename.split(".");
   pathto.pop();
+  console.log(pathto.join("/"))
   // back path to gi_modules directory
   let dots = pathto.map((dir) => {
-    if (dir !== "gi_modules" || dir !== "src" || dir !== "_compiled" || dir !== "gjsx") {
-
-      return ".."
+    if (dir === ("src" || "_compiled" || "gjsx" || "gi_modules")) {
+      return
     }
+    return ".."
+
   }).join("/")
 
   return {
+    path: pathto.join("/"),
     route,
     extension,
     basename,
@@ -123,7 +144,9 @@ function getImportName(statement) {
 }
 
 
-
+function isImage(location) {
+  return /\.(png|jpg|jpeg|gif|svg|webp|bmp|avif)$/.test(location);
+}
 
 
 // if (watch) {

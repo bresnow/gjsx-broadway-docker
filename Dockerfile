@@ -100,7 +100,7 @@ WORKDIR /home/app
 
 COPY --from=gtk_deps /stash/_compiled _compiled
 COPY --from=gtk_deps /stash/gjspack gjspack
-COPY --from=gtk_deps /stash/assets assets
+COPY --from=gtk_deps /stash/assets _compiled/assets
 COPY --from=gtk_deps /stash/proxyserver proxyserver
 
 
