@@ -9,13 +9,11 @@
   ],
   "scripts": {
     "compile": "turbo compile",
-    "deploy": "docker stack deploy -c stack.yml gijsx",
+    "build": "turbo build",
+    "watch": "turbo watch",
+    "deploy": "turbo deploy",
+    "push": "turbo push",
     "rm": "docker stack remove gijsx",
-    "ide": "docker stack deploy -c system/development-stack.yml dev_workspace",
-    "image": "docker-compose -f docker-compose.yml",
-    "traefik": "docker stack deploy -c system/traefik/swarm-config.yml traefik",
-    "deploy-fresh": "yarn image build; yarn image push; yarn deploy",
-    "watch": "node esbuild.mjs --watch",
     "log": "docker service log",
     "log-clear": "sudo rm _docker/log/*"
   },

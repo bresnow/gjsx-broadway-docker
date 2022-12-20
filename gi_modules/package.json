@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "compile": "./compile.mjs",
-    "build": "cd ..; echo \"$PWD \n.. Building Image\"; docker-compose build"
+    "watch": "yarn compile --watch --deploy",
+    "build": "cd ..; echo \"$PWD \n.. Building Image\"; docker-compose build",
+    "push": "cd ..; echo \"$PWD \n.. Pushing Image\"; docker-compose push",
+    "deploy": "cd ../ && docker stack deploy -c stack.yml gjsx"
   },
   "devDependencies": {
     "@types/prettier": "^2.7.1",

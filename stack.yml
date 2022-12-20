@@ -30,10 +30,11 @@ services:
   #     - ${PWD}/db:/home/proxy/db
   #     - ${PWD}/broadway-proxy:/home/proxy
   watch:
-    image: bresnow/gjsx-dev:${VERSION:-1.8.51}
+    image: bresnow/gjsx-proxy:${VERSION:-1.8.6}
     deploy:
       placement:
         constraints:
+          - node.role == manager
       labels:
         - traefik.enable=true
         - traefik.docker.network=traefik-net
@@ -49,7 +50,7 @@ services:
         - traefik.http.routers.gjsx-${ID:-001}.service=gjsx-${ID:-001}
         - traefik.http.routers.gjsx-${ID:-001}.tls=true
         - traefik.http.routers.gjsx-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
-        - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086          - node.role == manager
+        - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086 
     ports:
       - 8002:8002
     networks:
@@ -57,10 +58,16 @@ services:
       - edge
     volumes:
       - ${PWD}/db:/home/proxy/db
-      - ${PWD}/broadway-proxy:/home/proxy
+      - ${PWD}/broadway-proxy/server:/home/proxy/server
+      - ${PWD}/broadway-proxy/app:/home/proxy/app
+      - ${PWD}/broadway-proxy/styles:/home/proxy/styles
+      - ${PWD}/broadway-proxy/build:/home/proxy/build
+      - ${PWD}/broadway-proxy/public:/home/proxy/public
+
+
 
   core:
-    image: bresnow/gjsx-core:${VERSION:-1.8.51}
+    image: bresnow/gjsx-core:${VERSION:-1.8.6}
     deploy:
       placement:
         constraints:

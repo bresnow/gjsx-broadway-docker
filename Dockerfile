@@ -105,7 +105,17 @@ ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
 FROM base as front-proxy
 WORKDIR /home/proxy
-COPY ./broadway-proxy .
+COPY ./broadway-proxy/package.json /home/proxy/package.json
+COPY ./broadway-proxy/public /home/proxy/public 
+COPY ./broadway-proxy/server /home/proxy/server 
+COPY ./broadway-proxy/app /home/proxy/app 
+COPY ./broadway-proxy/build /home/proxy/build 
+COPY ./broadway-proxy/postcss.config.js /home/proxy/postcss.config.js
+COPY ./broadway-proxy/remix.config.js /home/proxy/remix.config.js
+COPY ./broadway-proxy/tsconfig.json /home/proxy/tsconfig.json
+COPY ./broadway-proxy/tailwind.config.js /home/proxy/tailwind.config.js
+COPY ./broadway-proxy/styles /home/proxy/styles 
+
 # nodejs environment
 RUN \
     addpkg nodejs npm;\
@@ -116,8 +126,9 @@ RUN \
 CMD ["nodemon", "server/index.js" ,"--watch" ,"server/index.js"]
 
 FROM front-proxy as remix-watch
+WORKDIR /home/proxy
 COPY --from=front-proxy /home/proxy /home/proxy
-CMD ["npm", "run", "watch"]
+CMD ["yarn", "watch"]
 
 
 

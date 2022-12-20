@@ -3,12 +3,12 @@ const compression = require("compression");
 const morgan = require("morgan");
 const { createRequestHandler } = require("@remix-run/express");
 const {installGlobals} = require("@remix-run/node")
-const { createRoutes } = require("@remix-run/server-runtime/routes");
+const { createRoutes } = require("@remix-run/server-runtime/dist/routes");
 const config = require("./config")
 const Gun = require("gun")
 const {
   matchServerRoutes,
-} = require("@remix-run/server-runtime/routeMatching");
+} = require("@remix-run/server-runtime/dist/routeMatching");
 installGlobals()
 const buildPath = "./build";
 
@@ -62,7 +62,7 @@ app.use(morgan("tiny"));
 
 app.all(
   "*",
-  ...(NODE_ENV === "development"
+  ...(config.NODE_ENV === "development"
     ? [
         (req, res, next) => {
           purgeRequireCache(buildPath);
@@ -134,14 +134,6 @@ const hp = require('http-proxy');
 const proxy = new hp.createProxyServer({ target: `ws://0.0.0.0:${config.BROADWAY_PORT}`, ws: true })
 const http = require('http');
 // const _app = express();
-
-(async function(){
-let hashedPath = await Gun.SEA.work("broadway").slice(0,9)
-console.log(hashedPath);
-
-app.use('/'+hashedPath, express.static(__dirname+"/views"));
-})()
-
 app.use('/broadway', express.static(__dirname+"/views"));
 const server = http.createServer(app);
 // Proxy websockets
@@ -149,11 +141,11 @@ server.on('upgrade', function (req, socket, head) {
   console.log("proxying upgrade request", `0.0.0.0:${config.PROXY_PORT}` + req.url);
   proxy.ws(req, socket, head);
 });
-server.listen(config.PROXY_PORT,, () => {
-    console.log(`frontend server listening on port ${port}`);
+server.listen(config.PROXY_PORT, () => {
+    console.log(`frontend server listening on port ${config.PROXY_PORT}`);
   });
   const gun = Gun({
-  web: hp.createProxyServer({ target: `ws://0.0.0.0:${config.BROADWAY_PORT}`, ws: true }).listen(8088, ()=> console.log("Gun Socket Proxy"));, radisk: true, file: 'db'
+  web: hp.createProxyServer({ target: `ws://0.0.0.0:${config.BROADWAY_PORT}`, ws: true }).listen(8088, ()=> console.log("Gun Socket Proxy")), radisk: true, file: 'db'
 })
 
 function getLoadContext(){
