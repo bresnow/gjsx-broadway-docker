@@ -12,31 +12,40 @@ export const WebViewer = GObject.registerClass(
         'Url Source',                  // nickname
         'The url of the webkit view',   // description
         GObject.ParamFlags.READWRITE,       // READABLE/READWRITE/CONSTRUCT/etc
-        'A default'  // default value if omitting getter/setter
+        'https://drawio.fltngmmth.com'  // default value if omitting getter/setter
       )
     }
   },
   class WebMessageWidget extends Gtk.Box {
     url?: string
-    _init() {
-      super._init();
-      this.setAttr();
-
+    constructor(opts?: Gtk.Box_ConstructProps & { url?: string }) {
+      super(opts);
+      this.url = opts?.url ?? "https://drawio.fltngmmth.com";
+      this.build()
+    }
+    build() {
+      this.setAttr()
       let webView: Webkit.WebView,
         scroll: Gtk.ScrolledWindow,
         settings: Webkit.Settings
       try {
         settings = new Webkit.Settings({ minimum_font_size: 16 });
         webView = new Webkit.WebView({ settings, editable: true });
-        webView.load_url(this.url)
+        webView.load_uri(this.url)
         scroll = new Gtk.ScrolledWindow({
           child: webView as unknown as Gtk.Widget,
         });
-        this.append(scroll);
+        this.append(scroll)
       } catch (e) {
         logError(e);
       }
     };
+    // get url(): string {
+    //   return this.url;
+    // }
+    // set url(url: string) {
+    //   this.url = url;
+    // }
     setAttr() {
       this.orientation = Gtk.Orientation.VERTICAL;
       this.valign = Gtk.Align.BASELINE;

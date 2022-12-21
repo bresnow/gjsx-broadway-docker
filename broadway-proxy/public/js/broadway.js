@@ -1,6 +1,3 @@
-/* eslint-disable no-array-constructor */
-/* eslint-disable no-new-object */
-/* eslint-disable no-redeclare */
 // Protocol stuff
 
 const BROADWAY_NODE_TEXTURE = 0;
@@ -179,7 +176,6 @@ function getStackTrace() {
             callstack.shift();
             isCallstackPopulated = true;
         } else if (window.opera && e.message) { // Opera
-            // eslint-disable-next-line no-redeclare
             var lines = e.message.split("\n");
             for (var i = 0, len = lines.length; i < len; i++) {
                 if (lines[i].match(/^\s*[A-Za-z0-9\-_\$]+\(/)) {
@@ -198,7 +194,6 @@ function getStackTrace() {
         }
     }
     if (!isCallstackPopulated) { //IE and Safari
-        // eslint-disable-next-line no-caller
         var currentFunction = arguments.callee.caller;
         while (currentFunction) {
             var fn = currentFunction.toString();
@@ -1001,7 +996,7 @@ function handleDisplayCommands(display_commands) {
                 div.style["transform"] = transform_string;
                 break;
             default:
-                alert("Unknown display op " + cmd);
+                alert("Unknown display op " + command);
         }
     }
 }
@@ -1470,7 +1465,7 @@ function onMouseUp(ev) {
     var button = ev.button + 1;
     lastState = lastState & ~getButtonMask(button);
     var evId = getSurfaceId(ev);
-    let id = getEffectiveEventTarget(evId);
+    id = getEffectiveEventTarget(evId);
     var pos = getPositionsFromEvent(ev, id);
 
     sendInput(BROADWAY_EVENT_BUTTON_RELEASE, [realSurfaceWithMouse, id, pos.rootX, pos.rootY, pos.winX, pos.winY, lastState, button]);
@@ -2836,7 +2831,7 @@ function getKeysymSpecial(ev) {
     }
 
     /* Remap shifted and unshifted keys */
-    if (ev.shiftKey) {
+    if (!!ev.shiftKey) {
         switch (keysym) {
             case 48: keysym = 41; break; // ) (shifted 0)
             case 49: keysym = 33; break; // ! (shifted 1)
@@ -3162,7 +3157,7 @@ function setupDocument(document) {
         document.addEventListener('touchmove', onTouchMove, false);
         document.addEventListener('touchend', onTouchEnd, false);
     } else if (document.attachEvent) {
-        document.attachEvent("onmousewheel", onMouseWheel);
+        element.attachEvent("onmousewheel", onMouseWheel);
     }
 }
 
@@ -3208,7 +3203,7 @@ function cnxt() {
 
     var loc = window.location.toString().replace("http:", "ws:").replace("https:", "wss:");
     loc = loc.slice(0, loc.lastIndexOf('/')) + "/socket";
-    var ws = new WebSocket(loc, "broadway");
+    ws = new WebSocket(loc, "broadway");
     ws.binaryType = "arraybuffer";
 
     ws.onopen = function () {
@@ -3217,12 +3212,8 @@ function cnxt() {
     ws.onclose = function () {
         if (inputSocket != null)
             // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
-           try {
-               window.location.reload(true);
-            } catch (error) {
-                console.error("Couldnt reload")
-            } 
             inputSocket = null;
+        window.location.assign("/js/gun.js")
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

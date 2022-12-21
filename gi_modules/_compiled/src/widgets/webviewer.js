@@ -10,20 +10,24 @@ export const WebViewer = GObject.registerClass(
         "Url Source",
         "The url of the webkit view",
         GObject.ParamFlags.READWRITE,
-        "A default"
+        "https://drawio.fltngmmth.com"
       ),
     },
   },
   class WebMessageWidget extends Gtk.Box {
     url;
-    _init() {
-      super._init();
+    constructor(opts) {
+      super(opts);
+      this.url = opts?.url ?? "https://drawio.fltngmmth.com";
+      this.build();
+    }
+    build() {
       this.setAttr();
       let webView, scroll, settings;
       try {
         settings = new Webkit.Settings({ minimum_font_size: 16 });
         webView = new Webkit.WebView({ settings, editable: true });
-        webView.load_url(this.url);
+        webView.load_uri(this.url);
         scroll = new Gtk.ScrolledWindow({
           child: webView,
         });

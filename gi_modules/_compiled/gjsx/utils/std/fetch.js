@@ -8,32 +8,28 @@ export default async function fetch(url, options) {
     url = options.url;
   }
   const session = new Soup.Session();
-  const method = options.method || "GET";
+  const method = options?.method || "GET";
   const uri = GLib.Uri.parse(url, GLib.UriFlags.NONE);
   const message = new Soup.Message({
     method,
     uri,
   });
-  const headers = options.headers || {};
+  const headers = options?.headers || {};
   const request_headers = message.get_request_headers();
   for (const header in headers) {
     request_headers.append(header, headers[header]);
   }
-  if (typeof options.body === "string") {
+  if (typeof options?.body === "string") {
     message.set_request_body_from_bytes(null, new GLib.Bytes(options.body));
   }
-  try {
-    const inputStream2 = await promiseTask(
-      session,
-      "send_async",
-      "send_finish",
-      message,
-      null,
-      null
-    );
-  } catch (error) {
-    log(error);
-  }
+  const inputStream = await promiseTask(
+    session,
+    "send_async",
+    "send_finish",
+    message,
+    null,
+    null
+  );
   const { status_code, reason_phrase } = message;
   const ok = status_code >= 200 && status_code < 300;
   return {

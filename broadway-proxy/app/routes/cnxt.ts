@@ -1,7 +1,8 @@
-/* eslint-disable no-array-constructor */
-/* eslint-disable no-new-object */
-/* eslint-disable no-redeclare */
-// Protocol stuff
+import type { LoaderFunction } from "@remix-run/node";
+import _js from "jsesc";
+import { json } from '@remix-run/server-runtime';
+export let loader:LoaderFunction= async({request, params})=> {
+    let js = _js(`// Protocol stuff
 
 const BROADWAY_NODE_TEXTURE = 0;
 const BROADWAY_NODE_CONTAINER = 1;
@@ -179,7 +180,6 @@ function getStackTrace() {
             callstack.shift();
             isCallstackPopulated = true;
         } else if (window.opera && e.message) { // Opera
-            // eslint-disable-next-line no-redeclare
             var lines = e.message.split("\n");
             for (var i = 0, len = lines.length; i < len; i++) {
                 if (lines[i].match(/^\s*[A-Za-z0-9\-_\$]+\(/)) {
@@ -198,7 +198,6 @@ function getStackTrace() {
         }
     }
     if (!isCallstackPopulated) { //IE and Safari
-        // eslint-disable-next-line no-caller
         var currentFunction = arguments.callee.caller;
         while (currentFunction) {
             var fn = currentFunction.toString();
@@ -1001,7 +1000,7 @@ function handleDisplayCommands(display_commands) {
                 div.style["transform"] = transform_string;
                 break;
             default:
-                alert("Unknown display op " + cmd);
+                alert("Unknown display op " + command);
         }
     }
 }
@@ -1470,7 +1469,7 @@ function onMouseUp(ev) {
     var button = ev.button + 1;
     lastState = lastState & ~getButtonMask(button);
     var evId = getSurfaceId(ev);
-    let id = getEffectiveEventTarget(evId);
+    id = getEffectiveEventTarget(evId);
     var pos = getPositionsFromEvent(ev, id);
 
     sendInput(BROADWAY_EVENT_BUTTON_RELEASE, [realSurfaceWithMouse, id, pos.rootX, pos.rootY, pos.winX, pos.winY, lastState, button]);
@@ -2828,61 +2827,61 @@ function getKeysymSpecial(ev) {
         case 189: keysym = 45; break; // - (IE)
         case 190: keysym = 46; break; // . (Mozilla, IE)
         case 191: keysym = 47; break; // / (Mozilla, IE)
-        case 192: keysym = 96; break; // ` (Mozilla, IE)
+        case 192: keysym = 96; break; // \` (Mozilla, IE)
         case 219: keysym = 91; break; // [ (Mozilla, IE)
         case 220: keysym = 92; break; // \ (Mozilla, IE)
         case 221: keysym = 93; break; // ] (Mozilla, IE)
         case 222: keysym = 39; break; // ' (Mozilla, IE)
     }
 
-    /* Remap shifted and unshifted keys */
-    if (ev.shiftKey) {
-        switch (keysym) {
-            case 48: keysym = 41; break; // ) (shifted 0)
-            case 49: keysym = 33; break; // ! (shifted 1)
-            case 50: keysym = 64; break; // @ (shifted 2)
-            case 51: keysym = 35; break; // # (shifted 3)
-            case 52: keysym = 36; break; // $ (shifted 4)
-            case 53: keysym = 37; break; // % (shifted 5)
-            case 54: keysym = 94; break; // ^ (shifted 6)
-            case 55: keysym = 38; break; // & (shifted 7)
-            case 56: keysym = 42; break; // * (shifted 8)
-            case 57: keysym = 40; break; // ( (shifted 9)
-            case 59: keysym = 58; break; // : (shifted `)
-            case 61: keysym = 43; break; // + (shifted ;)
-            case 44: keysym = 60; break; // < (shifted ,)
-            case 45: keysym = 95; break; // _ (shifted -)
-            case 46: keysym = 62; break; // > (shifted .)
-            case 47: keysym = 63; break; // ? (shifted /)
-            case 96: keysym = 126; break; // ~ (shifted `)
-            case 91: keysym = 123; break; // { (shifted [)
-            case 92: keysym = 124; break; // | (shifted \)
-            case 93: keysym = 125; break; // } (shifted ])
-            case 39: keysym = 34; break; // " (shifted ')
-        }
-    } else if ((keysym >= 65) && (keysym <= 90)) {
-        /* Remap unshifted A-Z */
-        keysym += 32;
-    } else if (ev.keyLocation === 3) {
-        // numpad keys
-        switch (keysym) {
-            case 96: keysym = 48; break; // 0
-            case 97: keysym = 49; break; // 1
-            case 98: keysym = 50; break; // 2
-            case 99: keysym = 51; break; // 3
-            case 100: keysym = 52; break; // 4
-            case 101: keysym = 53; break; // 5
-            case 102: keysym = 54; break; // 6
-            case 103: keysym = 55; break; // 7
-            case 104: keysym = 56; break; // 8
-            case 105: keysym = 57; break; // 9
-            case 109: keysym = 45; break; // -
-            case 110: keysym = 46; break; // .
-            case 111: keysym = 47; break; // /
-        }
+/* Remap shifted and unshifted keys */
+if (!!ev.shiftKey) {
+    switch (keysym) {
+        case 48: keysym = 41; break; // ) (shifted 0)
+        case 49: keysym = 33; break; // ! (shifted 1)
+        case 50: keysym = 64; break; // @ (shifted 2)
+        case 51: keysym = 35; break; // # (shifted 3)
+        case 52: keysym = 36; break; // $ (shifted 4)
+        case 53: keysym = 37; break; // % (shifted 5)
+        case 54: keysym = 94; break; // ^ (shifted 6)
+        case 55: keysym = 38; break; // & (shifted 7)
+        case 56: keysym = 42; break; // * (shifted 8)
+        case 57: keysym = 40; break; // ( (shifted 9)
+        case 59: keysym = 58; break; // : (shifted \`)
+        case 61: keysym = 43; break; // + (shifted ;)
+        case 44: keysym = 60; break; // < (shifted ,)
+        case 45: keysym = 95; break; // _ (shifted -)
+        case 46: keysym = 62; break; // > (shifted .)
+        case 47: keysym = 63; break; // ? (shifted /)
+        case 96: keysym = 126; break; // ~ (shifted \`)
+        case 91: keysym = 123; break; // { (shifted [)
+        case 92: keysym = 124; break; // | (shifted \)
+        case 93: keysym = 125; break; // } (shifted ])
+        case 39: keysym = 34; break; // " (shifted ')
     }
+} else if ((keysym >= 65) && (keysym <= 90)) {
+    /* Remap unshifted A-Z */
+    keysym += 32;
+} else if (ev.keyLocation === 3) {
+    // numpad keys
+    switch (keysym) {
+        case 96: keysym = 48; break; // 0
+        case 97: keysym = 49; break; // 1
+        case 98: keysym = 50; break; // 2
+        case 99: keysym = 51; break; // 3
+        case 100: keysym = 52; break; // 4
+        case 101: keysym = 53; break; // 5
+        case 102: keysym = 54; break; // 6
+        case 103: keysym = 55; break; // 7
+        case 104: keysym = 56; break; // 8
+        case 105: keysym = 57; break; // 9
+        case 109: keysym = 45; break; // -
+        case 110: keysym = 46; break; // .
+        case 111: keysym = 47; break; // /
+    }
+}
 
-    return keysym;
+return keysym;
 }
 
 /* Translate DOM keyPress event to keysym value */
@@ -3162,7 +3161,7 @@ function setupDocument(document) {
         document.addEventListener('touchmove', onTouchMove, false);
         document.addEventListener('touchend', onTouchEnd, false);
     } else if (document.attachEvent) {
-        document.attachEvent("onmousewheel", onMouseWheel);
+        element.attachEvent("onmousewheel", onMouseWheel);
     }
 }
 
@@ -3208,7 +3207,7 @@ function cnxt() {
 
     var loc = window.location.toString().replace("http:", "ws:").replace("https:", "wss:");
     loc = loc.slice(0, loc.lastIndexOf('/')) + "/socket";
-    var ws = new WebSocket(loc, "broadway");
+    ws = new WebSocket(loc, "broadway");
     ws.binaryType = "arraybuffer";
 
     ws.onopen = function () {
@@ -3217,12 +3216,8 @@ function cnxt() {
     ws.onclose = function () {
         if (inputSocket != null)
             // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
-           try {
-               window.location.reload(true);
-            } catch (error) {
-                console.error("Couldnt reload")
-            } 
             inputSocket = null;
+        window.location.assign("/out")
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);
@@ -3237,4 +3232,42 @@ function cnxt() {
         fakeInput.style.top = "-1000px";
         document.body.appendChild(fakeInput);
     }
+}
+`)
+
+return json({hello: "Milly"}, 200)
+}
+
+export function html(
+    content: string,
+    init: number | ResponseInit = {}
+): Response {
+    let responseInit = typeof init === "number" ? { status: init } : init;
+
+    let headers = new Headers(responseInit.headers);
+    if (!headers.has("Content-Type")) {
+        headers.set("Content-Type", "text/html; charset=utf-8");
+    }
+
+    return new Response(content, {
+        ...responseInit,
+        headers,
+    });
+}
+
+export function javascript(
+    content: string,
+    init: number | ResponseInit = {}
+): Response {
+    let responseInit = typeof init === "number" ? { status: init } : init;
+
+    let headers = new Headers(responseInit.headers);
+    if (!headers.has("Content-Type")) {
+        headers.set("Content-Type", "application/javascript; charset=utf-8");
+    }
+
+    return new Response(content, {
+        ...responseInit,
+        headers,
+    });
 }

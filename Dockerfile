@@ -101,9 +101,7 @@ COPY ./gi_modules/_compiled _compiled
 COPY ./_docker/supervisord.conf /etc/
 RUN \
     mkdir -p /var/log/gjsx; export $(dbus-launch);
-ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
-FROM base as front-proxy
 WORKDIR /home/proxy
 COPY ./broadway-proxy/package.json /home/proxy/package.json
 COPY ./broadway-proxy/public /home/proxy/public 
@@ -122,13 +120,8 @@ RUN \
     npm i -g yarn nodemon; \
     yarn; yarn build;
 
+ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
-CMD ["nodemon", "server/index.js" ,"--watch" ,"server/index.js"]
-
-FROM front-proxy as remix-watch
-WORKDIR /home/proxy
-COPY --from=front-proxy /home/proxy /home/proxy
-CMD ["yarn", "watch"]
 
 
 

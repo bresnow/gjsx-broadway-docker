@@ -113,7 +113,19 @@ const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
           { name: "title" },
           "Welcome"
         ),
-        /* @__PURE__ */ Gjsx.createWidget("property", { name: "child" })
+        /* @__PURE__ */ Gjsx.createWidget(
+          "property",
+          { name: "child" },
+          /* @__PURE__ */ Gjsx.createWidget(
+            "object",
+            { class: "GtkLabel" },
+            /* @__PURE__ */ Gjsx.createWidget(
+              "property",
+              { name: "label" },
+              "Summ Summ Summ"
+            )
+          )
+        )
       )
     ),
     /* @__PURE__ */ Gjsx.createWidget(
@@ -209,6 +221,18 @@ export const StackSwitch = GObject.registerClass(
       let entry = getGridObject("tag_search");
       grid.attach(stack, 1, 1, 1, 1);
       this.append(grid);
+      let label = new Gtk.Label();
+      void (async function () {
+        var res;
+        try {
+          const response = await fetch(`http://localhost:8087/cnxt`);
+          res = await response.json();
+          label.set_label(JSON.stringify(res));
+        } catch (err) {
+          logError(err);
+        }
+      })();
+      this.append(label);
     }
     gridSettings(grid) {
       grid.set_column_homogeneous(true);

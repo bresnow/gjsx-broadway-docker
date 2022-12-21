@@ -74,8 +74,7 @@ const buildaBitch =
       </child>
     </object>
   </interface>
-log(typeof Button, "Typeof Button")
-log(typeof buildaBitch, 'build-a-bitch')
+log(typeof buildaBitch)
 export const Demo = GObject.registerClass(
   {
     GTypeName: "MyWidget",
@@ -101,7 +100,6 @@ export const Demo = GObject.registerClass(
           print('closeButton clicked')
         });
         app.connect("activate", () => {
-          webmsg.append(root as Gtk.Widget)
           window.set_child(webmsg)
           window.show()
           window.maximize()

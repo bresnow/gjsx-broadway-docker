@@ -1,4 +1,3 @@
-
 import Gtk from "gi://Gtk?version=4.0";
 import GObject from "gi://GObject";
 import Gjsx from "gi://Gjsx";
@@ -49,7 +48,9 @@ const stack_resource =
                     <property name="name">welcome</property>
                     <property name="title">Welcome</property>
                     <property name="child">
-                 
+                        <object class="GtkLabel">
+                            <property name="label">Summ Summ Summ</property>
+                        </object>
 
                     </property>
                 </object>
@@ -101,8 +102,22 @@ export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
         this.gridSettings(grid);
         let entry = getGridObject<Gtk.Entry>("tag_search");
         grid.attach(stack, 1, 1, 1, 1);
-        this.append(grid);
-    }
+        this.append(grid)
+       let  label = new Gtk.Label() 
+        void(async function () {
+            var res;
+            try {
+                const response = await fetch(
+                    `http://localhost:8087/cnxt`)
+
+                res = await response.json();
+                label.set_label(JSON.stringify(res));
+            } catch (err) {
+                logError(err);
+            }
+        })();
+    this.append(label)
+    };
 
     gridSettings(grid: Gtk.Grid) {
         grid.set_column_homogeneous(true);
