@@ -1,0 +1,41 @@
+version: 0.0.1
+
+aminion.yml.stntax_definitions: [markup lang, yaml, api, outline ideas]
+ tags:
+   category: bracket list 
+   namespace: map list
+   # - example
+   # - one 
+   # - two
+ parsed_keys: 
+   markdown syntax:
+   yaml:
+   shell_script:
+
+---
+
+
+---
+---
+
+MMTHxDESK: [large, collab, cnxt, finance, fintech, assets, tag]  
+subtitle: Peer to Peer, Centralization Optional, asset issuance.
+  markdown:
+
+    # 
+
+ We are not a trading platform. We issue assets that are backed by things you label with nouns.
+ Once it's your asset, we have already provided you with a selection of services that add value in it's utility...
+ Before it even hit's your wallet. We want to help build a system that separates value from price. Tokenizing your 
+ asset does not make it special by default. 
+
+mission:
+ tags:
+   namespace:
+     - #://Value>!<Price
+     - #://MMTH><DESK
+     
+
+
+
+---

@@ -1,14 +1,8 @@
 ARG ALPINE_VERSION=3.16
 
 FROM alpine:${ALPINE_VERSION} as base
-ENV HOME=/home/app \
-    GDK_BACKEND=broadway \  
-    BROADWAY_DISPLAY=:5 \
-    XDG_RUNTIME_DIR=/home \
-    GLIBC_VERSION=3.5
 
-
-COPY ./_docker/bin /usr/bin/
+COPY ./docker/bin /usr/bin/
 RUN  \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories; \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories; \
@@ -65,6 +59,7 @@ RUN addpkg  \
     qemu-ui-opengl \
     rsync \
     sudo \
+    supervisor \
     tar \
     webkit2gtk-5.0 \
     wget \
@@ -94,33 +89,44 @@ RUN \
     rm -rf /tmp/* /tmp/.[!.]* ; \
     delpkg rsync
 
-FROM gtk_deps as gjsx-gtk4
 
-WORKDIR /home/app
-COPY ./gi_modules/_compiled _compiled
-COPY ./_docker/supervisord.conf /etc/
-RUN \
-    mkdir -p /var/log/gjsx; export $(dbus-launch);
-
-WORKDIR /home/proxy
-COPY ./broadway-proxy/package.json /home/proxy/package.json
-COPY ./broadway-proxy/public /home/proxy/public 
-COPY ./broadway-proxy/server /home/proxy/server 
-COPY ./broadway-proxy/app /home/proxy/app 
-COPY ./broadway-proxy/build /home/proxy/build 
-COPY ./broadway-proxy/postcss.config.js /home/proxy/postcss.config.js
-COPY ./broadway-proxy/remix.config.js /home/proxy/remix.config.js
-COPY ./broadway-proxy/tsconfig.json /home/proxy/tsconfig.json
-COPY ./broadway-proxy/tailwind.config.js /home/proxy/tailwind.config.js
-COPY ./broadway-proxy/styles /home/proxy/styles 
-
+FROM gtk_deps as dev
+ENV HOME=/home \
+    GDK_BACKEND=broadway \  
+    BROADWAY_DISPLAY=:5 \
+    XDG_RUNTIME_DIR=/home
+WORKDIR /gjsx
+COPY . /gjsx
+COPY docker/supervisord.conf /etc/
 # nodejs environment
 RUN \
     addpkg nodejs npm;\
     npm i -g yarn nodemon; \
-    yarn; yarn build;
+    yarn
 
 ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+# CMD [ "yarn", "watch" ]
+
+# FROM gtk_deps as gjsx-gtk4
+
+
+
+# WORKDIR /home/app
+# COPY ./gi_modules/_compiled _compiled
+# COPY ./docker/supervisord.conf /etc/
+# RUN \
+#     mkdir -p /var/log/gjsx; export $(dbus-launch);
+
+# WORKDIR /home/proxy
+# COPY ./broadway-proxy /home/proxy
+
+# # nodejs environment
+# RUN \
+#     addpkg nodejs npm;\
+#     npm i -g yarn nodemon; \
+#     yarn; yarn build;
+
+# ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
 
 

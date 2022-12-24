@@ -3,19 +3,19 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "gi_modules/*",
-    "gi_modules",
-    "broadway-proxy"
+    "./gi_modules",
+    "./proxy",
+    "./docker"
   ],
   "scripts": {
     "compile": "turbo compile",
     "build": "turbo build",
     "watch": "turbo watch",
-    "deploy": "turbo deploy",
+    "deploy": "docker stack deploy -c docker/stack-dev.yml gjsx",
     "push": "turbo push",
-    "rm": "docker stack remove gijsx",
-    "log": "docker service log",
-    "log-clear": "sudo rm _docker/log/*"
+    "broadway": "turbo broadway",
+    "log": "cat docker/log/broadway.log; cat docker/log/watch*.log;",
+    "log-clear": "sudo rm docker/log/*"
   },
   "keywords": [
     "typescript",

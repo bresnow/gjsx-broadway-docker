@@ -1,6 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import { builder, build, getObject } from './builder.js';
 import * as Utils from "./utils/index.js";
+import { installGlobals } from './utils/globals.js';
 let uiregex = /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 
 const createWidget = (
@@ -19,7 +20,7 @@ const createWidget = (
 
 
 const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; attributes: Record<string, any>; children: any[] }) => {
-
+  Utils.installGlobals()
   if (!isConstructor(Widget)) {
     // component functions that aren't widgets.
     return render(Widget(attributes));
@@ -111,7 +112,7 @@ const render = ({ Widget, attributes, children }: { Widget: Gtk.Widget | any; at
 };
 
 function templateRender({ Widget, attributes, children }: { Widget: string | any; attributes: Record<string, string>; children: any[] }) {
-  if(typeof Widget !== "string" && typeof Widget === "function") {
+  if (typeof Widget !== "string" && typeof Widget === "function") {
     return templateRender(Widget(attributes))
   }
   let props = attributes ? Object.entries(attributes).reduce((acc, curr) => {
@@ -164,7 +165,7 @@ type WidgetConstructed = {
   attributes: Record<string, any>;
   children: WidgetConstructed[];
 };
-export default { builder, build, getObject, render, createWidget, isConstructor, templateRender , ...Utils};
+export default { installGlobals,builder, build, getObject, render, createWidget, isConstructor, templateRender, ...Utils };
 
 
 

@@ -1,55 +1,43 @@
 {
     "$schema": "https://turbo.build/schema.json",
     "pipeline": {
-        "compile": {
-            "inputs": [
-                "gi_modules/gjsx/**/*.ts",
-                "src/**/*.{ts,tsx}"
-            ],
-            "outputs": [
-                "gi_modules/_compiled/*"
-            ]
-        },
-        "watch": {
-            "inputs": [
-                "docker-compose.yml",
-                "broadway-proxy/**/*",
-                "gi_modules/gjsx/**/*.ts",
-                "src/**/*.{ts,tsx}"
-            ],
-            "dependsOn": ["compile", "build"],
-            "outputs": [
-                "_compiled/*",
-                "broadway-proxy/build/*",
-                "broadway-proxy/public/build/**/*"
-            ]
-        },
-        "build": {
-            "inputs": [
-                "Dockerfile",
-                "docker-compose.yml",
-                "broadway-proxy/**/*"
-            ],
+        "broadway": {},
+        "build":{
             "dependsOn": [
                 "^compile"
             ],
             "outputs": [
-                "_compiled/*",
+                "gi_modules/_compiled/*",
                 "broadway-proxy/build/*",
                 "broadway-proxy/public/build/**/*"
             ]
         },
-        "push": {
-            "dependsOn": [
-                "^build"
+        "compile": {
+            "outputs": [
+                "gi_modules/_compiled/*"
             ]
         },
         "deploy": {
-            "inputs": [
-                "stack.yml"
-            ],
             "dependsOn": [
-                "^push"
+                "^push",
+                "^build",
+                "^compile"
+            ]
+        },
+        "push": {
+            "dependsOn": [
+                "^build",
+                "^compile"
+            ]
+        },
+        "watch": {
+            "dependsOn": [
+                "^broadway"
+            ],
+            "outputs": [
+                "gi_modules/_compiled/**/*",
+                "broadway-proxy/build/**/*",
+                "broadway-proxy/public/build/**/*"
             ]
         }
     }

@@ -1,0 +1,77 @@
+version: "3.9"
+
+services:
+  gjsx_dev:
+    image: bresnow/gjsx-dev:${VERSION:-latest}
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-net
+        - traefik.constraint-label=traefik-net
+        - traefik.http.routers.proxy-${ID:-001}.rule=Host(`${DOMAIN:-dev.cnxt.app}`)
+        - traefik.http.routers.proxy-${ID:-001}.entrypoints=http,https
+        - traefik.http.routers.proxy-${ID:-001}.service=proxy-${ID:-001}
+        - traefik.http.routers.proxy-${ID:-001}.tls=true
+        - traefik.http.routers.proxy-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
+        - traefik.http.services.proxy-${ID:-001}.loadbalancer.server.port=8087
+        - traefik.http.routers.gjsx-${ID:-001}.rule=Host(`${INTERFACE_DOMAIN:-interface.cnxt.app}`)
+        - traefik.http.routers.gjsx-${ID:-001}.entrypoints=http,https
+        - traefik.http.routers.gjsx-${ID:-001}.service=gjsx-${ID:-001}
+        - traefik.http.routers.gjsx-${ID:-001}.tls=true
+        - traefik.http.routers.gjsx-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
+        - traefik.http.services.gjsx-${ID:-001}.loadbalancer.server.port=8086
+    networks:
+      - traefik-net
+      - edge
+    volumes:
+      - /home/administrator/_gjsx:/gjsx
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      C99_API_KEY: ${C99_API_KEY}
+  whoogle:
+    image: bresnow/cnxt-search:latest
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.whoogle-search-${NUMBER:-1}.rule=Host(`${WHOOGLE_DOMAIN:-dev.carve.fltngmmth.com}`)
+        - traefik.http.routers.whoogle-search-${NUMBER:-1}.entrypoints=${SCHEME:-http,https}
+        - traefik.http.routers.whoogle-search-${NUMBER:-1}.service=whoogle-search-${NUMBER:-1}
+        - traefik.http.routers.whoogle-search-${NUMBER:-1}.tls.certresolver=letsencrypt
+        - traefik.http.services.whoogle-search-${NUMBER:-1}.loadbalancer.server.port=5000          
+    networks:
+      - traefik-net
+      - edge
+# volumes:
+#   datastore_gundb:
+#     driver: local-persist
+#     driver_opts:
+#       mountpoint: $PWD/datastore_gundb
+#   proxyserver:
+#     driver: local-persist
+#     driver_opts:
+#       mountpoint: $PWD/proxyserver
+#   logs:
+#     driver: local-persist
+#     driver_opts:
+#       mountpoint: $PWD/log
+#   compiled:
+#     driver: local-persist
+#     driver_opts:
+#       mountpoint: 
+#   assets:
+#     driver: local-persist
+#     driver_opts:
+#       mountpoint: $PWD/assets
+
+networks:
+  traefik-net:
+    external: true
+  edge:
+    external: true
+

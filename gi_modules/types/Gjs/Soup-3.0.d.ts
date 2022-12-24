@@ -6730,7 +6730,7 @@ interface MessageBody {
      * convenience and simplifying language bindings.
      * @param data data to append
      */
-    append(data: Uint8Array): void
+    append(data: Uint8Array| string): void
     /**
      * Tags `body` as being complete; Call this when using chunked encoding
      * after you have appended the last chunk.

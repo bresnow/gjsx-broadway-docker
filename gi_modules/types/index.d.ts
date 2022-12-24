@@ -9,9 +9,9 @@ declare global {
         static new(): TextDecoder;
         decode(bytes: Uint8Array): string;
     }
-
+    const env: Record<string, string>
 }
-
+declare const __dirname: string;
 declare const ARGV: string[]
 /**
  * GJS Environment Type Definitions

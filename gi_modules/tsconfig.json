@@ -3,7 +3,10 @@
     "include": [
         "types/Gjs/*.d.ts",
         "types/index.d.ts",
-        "gjsx/**/*.ts"
+        "gjsx/**/*.ts",
+        "assets/**/*.css",
+        "app/**/*.ts",
+        "app/**/*.tsx"
     ],
     "exclude": ["**/node_modules/*"],
     "compilerOptions": {
@@ -14,10 +17,12 @@
         "skipLibCheck": false,
         "skipDefaultLibCheck": true,
         "moduleResolution": "node",
-        "module": "esnext",
+        "module": "ESNext",
         "target": "ES2022",
-        "allowJs": true,
+        "allowJs": false,
         "checkJs": false,
+        "jsx": "react",
+        "jsxFactory": "Gjsx.createWidget",
         "baseUrl": ".",
         "paths": {
             "gi://Gjsx": [
@@ -71,7 +76,7 @@
         },
         "outDir": "_compiled",
         "lib": [
-            "es2018"
+            "ES2018"
         ],
         "typeRoots": []
     }

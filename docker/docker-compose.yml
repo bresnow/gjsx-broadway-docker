@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  dev:
+    image: bresnow/gjsx-dev:${VERSION:-latest}
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      target: dev

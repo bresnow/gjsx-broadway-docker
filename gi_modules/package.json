@@ -4,11 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "compile": "./compile.mjs",
-    "watch": "yarn compile --watch --deploy",
-    "build": "cd ..; echo \"$PWD \n.. Building Image\"; docker-compose build",
-    "push": "cd ..; echo \"$PWD \n.. Pushing Image\"; docker-compose push",
-    "deploy": "cd ../ && docker stack deploy -c stack.yml gjsx"
+    "compile": "./gjsx_bundle/compile.mjs",
+    "watch": "yarn compile --watch --deploy; echo \"\nTo watch repo and redeploy swarm container in production use option '--deploy'\""
   },
   "devDependencies": {
     "@types/prettier": "^2.7.1",
@@ -16,8 +13,6 @@
     "dockerode": "^3.3.4",
     "esbuild": "^0.15.11",
     "prettier": "^2.7.1",
-    "semver": "^7.3.8",
-    "turbo": "^1.6.3",
     "typescript": "4.8.2",
     "zx": "^7.1.1"
   },

@@ -1,6 +1,7 @@
 import Gtk from "gi://Gtk?version=4.0";
 import { builder, build, getObject } from "./builder.js";
 import * as Utils from "./utils/index.js";
+import { installGlobals } from "./utils/globals.js";
 let uiregex =
   /<(\/?)(interface|requires|object|template|property|signal|child|menu|item|attribute|link|submenu|section)(.*?)>/g;
 const createWidget = (Widget, attributes, ...args) => {
@@ -10,6 +11,7 @@ const createWidget = (Widget, attributes, ...args) => {
   return { Widget, attributes, children };
 };
 const render = ({ Widget, attributes, children }) => {
+  Utils.installGlobals();
   if (!isConstructor(Widget)) {
     return render(Widget(attributes));
   }
@@ -130,6 +132,7 @@ function styleObjectToCssData(styleAttr) {
   }
 }
 export default {
+  installGlobals,
   builder,
   build,
   getObject,

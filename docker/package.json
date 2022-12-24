@@ -1,0 +1,18 @@
+{
+    "name": "docker",
+    "private": true,
+    "type": "module",
+    "version": "1.8.2",
+    "repository": "git@github.com:bresnow/gjsx-broadway-docker.git",
+    "author": "bresnow <bresnow@me.com>",
+    "license": "MIT",
+    "scripts": {
+        "build": "docker-compose build",
+        "push": "docker-compose push",
+        "deploy": "docker stack deploy -c stack-dev.yml gjsx"
+    },
+    "devDependencies": {
+        "concurrently": "^7.6.0",
+        "zx": "^7.1.1"
+    }
+}

@@ -17,7 +17,7 @@ export default class WebSocket {
     onmessage: any;
     onclose: any;
     onerror: any;
-    constructor(url, protocols = []) {
+    constructor(url:string, protocols = []) {
         this.eventListeners = new WeakMap();
         this._connection = null;
         this.readyState = 0;
