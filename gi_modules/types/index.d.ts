@@ -1,4 +1,4 @@
-import system from 'system';
+import GLib from 'gi://GLib';
 
 declare global {
     class TextEncoder {
@@ -10,7 +10,18 @@ declare global {
         decode(bytes: Uint8Array): string;
     }
     const env: Record<string, string>
+    function fetch(url: string | FetchOptions, options?: FetchOptions): Promise<{
+        status: number;
+        statusText: string;
+        ok: boolean;
+        type: string;
+        json(): Promise<any>;
+        text(): Promise<string>;
+        arrayBuffer(): Promise<any>;
+        gBytes(): Promise<GLib.Bytes>;
+}>
 }
+type FetchOptions = { url: string; method: "GET" | "POST" | "PATCH" | "DELETE"; headers: Record<string, string>; body: Uint8Array; }
 declare const __dirname: string;
 declare const ARGV: string[]
 /**

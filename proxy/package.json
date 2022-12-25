@@ -10,14 +10,14 @@
     "build:css": "yarn generate -m",
     "watch": "concurrently \"yarn watch:remix\" \"yarn watch:server\" \"yarn watch:css\"",
     "watch:remix": "remix watch",
-    "watch:server": "yarn build:server -- --watch",
-    "watch:css": "yarn generate -- -w",
+    "watch:server": "yarn build:server --watch",
+    "watch:css": "yarn generate -w",
     "generate": "tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:update": "yarn test -- --update",
+    "test:update": "yarn test --update",
     "lint": "eslint app --ext ts,tsx",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
     "@remix-run/express": "1.7.0",

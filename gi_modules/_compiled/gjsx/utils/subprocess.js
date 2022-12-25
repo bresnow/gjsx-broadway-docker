@@ -90,11 +90,14 @@ export const launch = (argv, opts) => {
     });
   });
   typeof argv === "string" ? (argv = [argv]) : (argv = argv);
+  opts?.error_logpath?.endsWith("/")
+    ? null
+    : (opts.error_logpath = opts.error_logpath + "/");
   launcher.set_stderr_file_path(
-    `/var/logs/${argv
+    `${opts?.error_logpath ?? "/var/logs/"}${argv
       .reduce((p, c) => p + c)
       .slice(0, 9)
-      .replace(" ", "_")}_error.log`
+      .replace(" ", "_")}_.log.error`
   );
   return launcher.spawnv(argv);
 };

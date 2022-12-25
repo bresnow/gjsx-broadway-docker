@@ -79,6 +79,9 @@ function get_content(entryPoint, dots) {
       // d > -1 means dynamic import
       // a is for assert
       let imports = _parsed[0], { ss, se, s, e, a, n: _imported, d } = imports;
+      if (/gi:\/\/Gjsx/.test(_imported)) {
+        return line.replace(/(gi:\/\/Gjsx)/, dots + "gjsx/index.js");
+      }
       if (isBundableImport(imports)) {
         let type, statement = line.slice(ss, se);
         const name = getImportName(statement);
@@ -92,30 +95,25 @@ function get_content(entryPoint, dots) {
         }
         copyAsset(_imported)
         if (type === "json" || _imported.endsWith(".json")) {
-          return `const ${name} = importer.json("${_imported}")`;
-        }
-        if (type === "builder") {
-          return `const ${name} = importer.builder("${_imported}")`;
+          return `const ${name} = JSON.parse(new TextDecoder().decode(imports.gi.Gio.File.new_for_uri(import.meta.url).get_parent().resolve_relative_path("${_imported}").load_contents(null)[1]))`;
         }
         if (type === "string") {
-          return `const ${name} = importer.toString("${_imported}")`;
+          return `const ${name} = new TextDecoder().decode(imports.gi.Gio.File.new_for_uri(import.meta.url).get_parent().resolve_relative_path("${_imported}").load_contents(null)[1]) `;
         }
         if (type === "css" || _imported.endsWith(".css")) {
-          return `imports.gi.Gtk.init() || new imports.gi.Gtk.CssProvider().load_from("${_imported}")`;
+          return `const ${name} = new imports.gi.Gtk.CssProvider().load_from_file(imports.gi.Gio.File.new_for_uri(import.meta.url).get_parent().resolve_relative_path("${_imported}"))`;
         }
         if (type === "file") {
-          return `const ${name} = importer.file("${_imported}")`;
+          return `const ${name} = imports.gi.Gio.File.new_for_uri(import.meta.url).get_parent().resolve_relative_path("${_imported}")`;
         }
-        // if (!type && !/gi:\/\/Gjsx/.test(_imported)){
-        //   return `const ${name} = "${_imported}"`;
-        // }
+        if (!type){
+          return `const ${name} = imports.gi.Gio.File.new_for_uri(import.meta.url).get_parent().resolve_relative_path("${_imported}").get_uri().replace("file://","")`;
+        }
         if (type) {
           throw new Error(`Unsupported assert type "${type}"`);
         }
       }
-      if (/gi:\/\/Gjsx/.test(_imported)) {
-        return line.replace(/(gi:\/\/Gjsx)/, dots + "gjsx/index.js");
-      }
+
       else {
         return line;
       }
@@ -129,7 +127,6 @@ function copyAsset(source) {
   let src_path = source;
   var {path, extension, basename } = deconstruct_path(src_path)
   path = src_path.replace('../', "").replace(`/${basename}.${extension}`, "")
-  if (extension === ("js")) return
   var compiled_path = ["_compiled", path].join("/")
   if (!fs.existsSync(compiled_path)) {
     fs.mkdirpSync(compiled_path);
@@ -166,6 +163,7 @@ function isBundableImport(imported) {
   if (!location) return false;
   if (location.startsWith("gi:")) return false;
   if (location.startsWith("resource:")) return false;
+  if (location.endsWith(".js")) return false;
   if (!location.startsWith(".") && !location.startsWith("/")) return false;
   return true;
 }

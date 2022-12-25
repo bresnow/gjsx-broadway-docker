@@ -7,7 +7,6 @@ RUN  \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/main" > /etc/apk/repositories; \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.16/community" >> /etc/apk/repositories; \
     chmod +x -R /usr/bin/;
-
 FROM base as gtk_deps
 WORKDIR /tmp
 RUN addpkg  \
@@ -72,16 +71,12 @@ RUN addpkg  \
     xf86-input-libinput \
     xinit \
     xz
-
-# extras gtk
 RUN \
     addpkg \
     supervisor \
     desktop-file-utils  \
     gtk4.0-demo \
     gnome-apps-extra; 
-
-# Install themes
 RUN \
     git clone https://github.com/paullinuxthemer/Mc-OS-themes.git; \
     mkdir -p /usr/share/themes/; \
@@ -104,30 +99,9 @@ RUN \
     npm i -g yarn nodemon; \
     yarn
 
-ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-# CMD [ "yarn", "watch" ]
+CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
 
-# FROM gtk_deps as gjsx-gtk4
-
-
-
-# WORKDIR /home/app
-# COPY ./gi_modules/_compiled _compiled
-# COPY ./docker/supervisord.conf /etc/
-# RUN \
-#     mkdir -p /var/log/gjsx; export $(dbus-launch);
-
-# WORKDIR /home/proxy
-# COPY ./broadway-proxy /home/proxy
-
-# # nodejs environment
-# RUN \
-#     addpkg nodejs npm;\
-#     npm i -g yarn nodemon; \
-#     yarn; yarn build;
-
-# ENTRYPOINT ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
-
-
-
+FROM dev as gjsx-broadway
+COPY --from=dev /gjsx/gi_modules/_compiled /_compiled
+WORKDIR /_compiled
 

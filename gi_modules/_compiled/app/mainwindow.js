@@ -2,16 +2,91 @@ import Gjsx from "../gjsx/index.js";
 import Gtk from "gi://Gtk?version=4.0";
 import { HeadLayout } from "./layout.js";
 import { AppWindow } from "./widgets/appwindow.js";
-import { Demo } from "./widgets/demo.js";
 import { StackSwitch } from "./widgets/stackswitch.js";
 import { BoxContainer } from "./widgets/box_container.js";
-const { installGlobals } = Gjsx;
-installGlobals();
-function widgetArray(arr) {
-  return arr.map((Widget) => {
-    return new Widget();
-  });
-}
+const asset = imports.gi.Gio.File.new_for_uri(import.meta.url)
+  .get_parent()
+  .resolve_relative_path("../assets/images/icons/white/check.svg")
+  .get_uri()
+  .replace("file://", "");
+import { WebViewer } from "./widgets/webviewer.js";
+const MenuTemplate = /* @__PURE__ */ Gjsx.createWidget(
+  "interface",
+  null,
+  /* @__PURE__ */ Gjsx.createWidget(
+    "object",
+    { class: "GtkMenuButton" },
+    /* @__PURE__ */ Gjsx.createWidget(
+      "property",
+      { name: "menu-model" },
+      "menu"
+    )
+  ),
+  /* @__PURE__ */ Gjsx.createWidget(
+    "menu",
+    { id: "menu" },
+    /* @__PURE__ */ Gjsx.createWidget(
+      "section",
+      null,
+      /* @__PURE__ */ Gjsx.createWidget(
+        "attribute",
+        { name: "display-hint" },
+        "horizontal-buttons"
+      ),
+      /* @__PURE__ */ Gjsx.createWidget(
+        "item",
+        null,
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "label" },
+          "Copy"
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "action" },
+          "app.copy"
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "verb-icon" },
+          "edit-copy-symbolic"
+        )
+      ),
+      /* @__PURE__ */ Gjsx.createWidget(
+        "item",
+        null,
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "label" },
+          "Paste"
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "action" },
+          "app.paste"
+        )
+      )
+    ),
+    /* @__PURE__ */ Gjsx.createWidget(
+      "section",
+      null,
+      /* @__PURE__ */ Gjsx.createWidget(
+        "item",
+        null,
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "label" },
+          "Close"
+        ),
+        /* @__PURE__ */ Gjsx.createWidget(
+          "attribute",
+          { name: "action" },
+          "win.close"
+        )
+      )
+    )
+  )
+);
 export function MainWindow({ app, reference }) {
   const panel = [
     {
@@ -34,6 +109,13 @@ export function MainWindow({ app, reference }) {
     AppWindow,
     { application: app },
     /* @__PURE__ */ Gjsx.createWidget(
+      Gtk.HeaderBar,
+      null,
+      /* @__PURE__ */ Gjsx.createWidget(Gtk.StackSwitcher, {
+        name: "viewStack",
+      })
+    ),
+    /* @__PURE__ */ Gjsx.createWidget(
       BoxContainer,
       {
         style: {
@@ -46,7 +128,6 @@ export function MainWindow({ app, reference }) {
         style: { fontSize: "30px", fontWeight: "bold" },
         label: "X://ProgramaticAssets",
       }),
-      /* @__PURE__ */ Gjsx.createWidget(Demo, null),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
         orientation: Gtk.Orientation.VERTICAL,
       }),
@@ -54,11 +135,9 @@ export function MainWindow({ app, reference }) {
         style: { fontSize: "30px", fontWeight: "bold" },
         label: "Title Of Contract",
       }),
-      "Lorem ipsum dolor sit am attaches to this address is.",
-      "Lorem ipsum dolor sit am attaches to this address is.",
-      "Lorem ipsum dolor sit am attaches to this address is.",
-      "Lorem ipsum dolor sit am attaches to this address is.",
-      "Lorem ipsum dolor sit am attaches to this address is.",
+      /* @__PURE__ */ Gjsx.createWidget(WebViewer, {
+        url: "http://localhost:1060/hello",
+      }),
       /* @__PURE__ */ Gjsx.createWidget(Gtk.Separator, {
         orientation: Gtk.Orientation.VERTICAL,
       }),

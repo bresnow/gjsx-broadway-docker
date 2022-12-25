@@ -8,83 +8,25 @@ services:
         condition: on-failure
       placement:
         constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-net
+        - traefik.constraint-label=traefik-net      
+        - traefik.tcp.routers.socket-proxy-${ID:-001}.rule=HostSNI(`socket-proxy.fltngmmth.com`)
+        - traefik.tcp.routers.socket-proxy-${ID:-001}.entrypoints=http
+        - traefik.tcp.routers.socket-proxy-${ID:-001}.service=socket-proxy-${ID:-001}
+        - traefik.tcp.routers.socket-proxy-${ID:-001}.tls=true
+        - traefik.tcp.routers.socket-proxy-${ID:-001}.tls.certresolver=${TLS:-letsencrypt}
+        - traefik.tcp.services.socket-proxy-${ID:-001}.loadbalancer.server.port=8000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
     networks:
       - socket-proxy
-
-  reverse-proxy:
-    image: traefik:v2.8
-    ports:
-      - 80:80
-      - 443:443
-    deploy:
-      placement:
-        constraints:
-          # Make the traefik service run only on the node with this label
-          # as the node with it has the volume for the certificates
-          - node.role == manager
-          # - node.labels.swarm.node.subdomain == gpu.cnxt369
-      labels:
-        - traefik.enable=true
-        - traefik.docker.network=traefik-proxy
-        - traefik.constraint-label=traefik-proxy # <--- Default traefik labels
-
-        - traefik.http.middlewares.admin-auth.basicauth.users=${TRAEFIK_ADMINS}
-        - traefik.http.middlewares.https-redirect.redirectscheme.scheme=https
-        - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
-        - traefik.http.routers.traefik-proxy-http.rule=Host(`${DOMAIN:-sudo.proxy.fltngmmth.com}`)
-        - traefik.http.routers.traefik-proxy-http.entrypoints=http,https
-        - traefik.http.routers.traefik-proxy-http.middlewares=https-redirect
-        - traefik.http.routers.traefik-proxy-https.rule=Host(`${DOMAIN:-sudo.proxy.fltngmmth.com}`)
-        - traefik.http.routers.traefik-proxy-https.entrypoints=https
-        - traefik.http.routers.traefik-proxy-https.tls=true
-        - traefik.http.routers.traefik-proxy-https.service=api@internal
-        - traefik.http.routers.traefik-proxy-https.tls.certresolver=namecheap-dns
-        - traefik.http.routers.traefik-proxy-https.middlewares=admin-auth
-        - traefik.http.services.traefik-proxy.loadbalancer.server.port=8080
-    volumes:
-      # Mount the volume to store the certificates
-      - /var/run/docker.sock:/var/run/docker.sock 
-      - tls:/certificates
-
-    command:
-      - --providers.docker
-      - --providers.docker.constraints=Label(`traefik.constraint-label`, `traefik-proxy`)
-      - --providers.docker.exposedbydefault=false
-      - --providers.docker.endpoint=unix:///var/run/docker.sock #tcp://socket-proxy:8000 #
-      - --providers.docker.swarmmode=true
-      - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443
-      - --entrypoints.https.http.tls.certresolver=namecheap-dns
-      - --certificatesresolvers.namecheap-dns.acme.dnschallenge=true
-      - --certificatesresolvers.namecheap-dns.acme.dnschallenge.provider=namecheap
-      - --certificatesresolvers.namecheap-dns.acme.dnschallenge.delaybeforecheck=120
-      - --certificatesresolvers.namecheap-dns.acme.email=${EMAIL:-bresnow@fltngmmth.com}
-      - --certificatesresolvers.namecheap-dns.acme.storage=/certificates/acme.json
-      - --metrics.prometheus.addrouterslabels=true
-      - --accesslog
-      - --log
-      - --api
-
-    networks:
-      - traefik-proxy
-      # Use the socket-proxy network to access the docker.socket to internal tcp proxy
-      - socket-proxy
-
-volumes:
-  # Create a volume to store the certificates, there is a constraint to make sure
-  # Traefik is always deployed to the same Docker node with the same volume containing
-  # the HTTPS certificates
-  tls:
-    # driver: local-persist
-    # driver_opts:
-    #   mountpoint: $PWD/system/tlscerts
-
+      - traefik-net
 
 networks:
-  traefik-proxy:
+  traefik-net:
     external: true
   socket-proxy:
     external: true

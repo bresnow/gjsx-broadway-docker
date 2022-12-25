@@ -7,7 +7,7 @@ export default function () {
   return (
     <>
       <Navigation logo={<Logo />} />
-      <div className="p-10 mt-10 h-screen">
+      <div className="p-10 mt-10 h-screen rounded-full">
         <Outlet />
       </div></>
   );

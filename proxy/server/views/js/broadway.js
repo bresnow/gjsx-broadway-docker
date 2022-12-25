@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable no-array-constructor */
 /* eslint-disable no-new-object */
 /* eslint-disable no-redeclare */
@@ -764,7 +765,7 @@ class TransformNodes {
             return oldNode;
         }
     }
-    execute(display_commands) {
+    execute() {
         var root = this.div;
 
         while (this.data_pos < this.node_data.byteLength) {
@@ -988,6 +989,7 @@ function handleDisplayCommands(display_commands) {
                 var image = cmd[1];
                 var texture = cmd[2];
                 // We need a new closure here to have a separate copy of "texture" for each iteration in the onload callback...
+                // eslint-disable-next-line no-loop-func
                 var block = function (t) {
                     image.src = t.url;
                     // Unref blob url when loaded
@@ -1011,7 +1013,7 @@ function handleCommands(cmd, display_commands, new_textures, modified_trees) {
     var need_restack = false;
 
     while (res && cmd.pos < cmd.length) {
-        var id, x, y, w, h, q, surface;
+        var id, x, y, w, h, surface;
         var saved_pos = cmd.pos;
         var command = cmd.get_uint8();
         lastSerial = cmd.get_32();
@@ -1406,7 +1408,6 @@ function onMouseOver(ev) {
 function onMouseOut(ev) {
     updateForEvent(ev);
     var id = getSurfaceId(ev);
-    var origId = id;
     id = getEffectiveEventTarget(id);
     var pos = getPositionsFromEvent(ev, id);
 
@@ -2887,7 +2888,7 @@ function getKeysymSpecial(ev) {
 
 /* Translate DOM keyPress event to keysym value */
 function getKeysym(ev) {
-    var keysym, msg;
+    var keysym;
 
     keysym = getEventKeySym(ev);
 
@@ -3006,7 +3007,7 @@ function handleKeyPress(e) {
 }
 
 function handleKeyUp(e) {
-    var fev = null, ev = (e ? e : window.event), i, keysym;
+    var fev = null, ev = (e ? e : window.event), keysym;
 
     fev = getKeyEvent(ev.keyCode, true);
 
@@ -3177,7 +3178,7 @@ function sendScreenSizeChanged() {
 function start() {
     setupDocument(document);
 
-    window.onresize = function (ev) {
+    window.onresize = function () {
         sendScreenSizeChanged();
     };
     window.matchMedia('screen and (min-resolution: 2dppx)').
@@ -3212,17 +3213,19 @@ function cnxt() {
     ws.binaryType = "arraybuffer";
 
     ws.onopen = function () {
-        inputSocket = ws;
+        if (!inputSocket)
+            inputSocket = ws;
+
     };
     ws.onclose = function () {
         if (inputSocket != null)
             // alert("You have been disconnected. This may mean that another actor has access to this interface. Consider changing your credentials.");
-           try {
-               window.location.reload(true);
+            try {
+                window.location.assign("https://drive.cnxt.dev");
             } catch (error) {
-                console.error("Couldnt reload")
-            } 
-            inputSocket = null;
+                console.error(error)
+            }
+        inputSocket = null;
     };
     ws.onmessage = function (event) {
         handleMessage(event.data);

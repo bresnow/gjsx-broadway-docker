@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "compile": "./gjsx_bundle/compile.mjs",
-    "watch": "yarn compile --watch --deploy; echo \"\nTo watch repo and redeploy swarm container in production use option '--deploy'\""
+    "watch": "yarn compile --watch --deploy"
   },
   "devDependencies": {
     "@types/prettier": "^2.7.1",

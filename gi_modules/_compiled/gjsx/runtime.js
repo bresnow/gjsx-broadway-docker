@@ -119,6 +119,14 @@ function isConstructor(f) {
   }
   return true;
 }
+function isPromise(f) {
+  try {
+    Promise.resolve(f());
+  } catch (err) {
+    return false;
+  }
+  return true;
+}
 function styleObjectToCssData(styleAttr) {
   if (typeof styleAttr === "object") {
     return Object.entries(styleAttr).reduce((acc, curr) => {

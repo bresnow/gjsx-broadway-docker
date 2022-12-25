@@ -161,8 +161,15 @@ const stack_resource = /* @__PURE__ */ Gjsx.createWidget(
     )
   )
 );
+var json = JSON.stringify;
 export const StackSwitch = GObject.registerClass(
-  {},
+  {
+    Signals: {
+      fetch: {
+        handler: "onFetch",
+      },
+    },
+  },
   class extends Gtk.Box {
     _init() {
       super._init();
@@ -185,21 +192,26 @@ export const StackSwitch = GObject.registerClass(
         pic = new Gtk.Image({
           file: "http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png",
         });
-      void (async function () {
+      this.connect("fetch", async (_box) => {
         var res;
+        log(json({ env }));
         try {
           const response = await fetch(
-            "https://api.c99.nl/textparser?key=NDDQA-V4OBH-ULWHG-W4G2W&url=http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png"
+            `https://api.c99.nl/textparser?key=${env.C99_API_KEY}&url=http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png`
           );
-          log(JSON.stringify(response));
           res = await response.text();
+          log(json({ response, res }));
           label.set_label(JSON.stringify(res));
         } catch (err) {
           logError(err);
         }
-      })();
+      });
+      this._fetch();
       this.append(pic);
       this.append(label);
+    }
+    _fetch() {
+      this.emit("fetch");
     }
     gridSettings(grid) {
       grid.set_column_homogeneous(true);

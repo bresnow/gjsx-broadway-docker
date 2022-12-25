@@ -80,7 +80,7 @@ export async function execCommunicate(argv: string[], input: string | null, canc
     }
 
     return new Promise((resolve, reject) => {
-        proc.communicate_utf8_async(input, null, (proc:Gio.Subprocess, res) => {
+        proc.communicate_utf8_async(input, null, (proc: Gio.Subprocess, res) => {
             try {
                 let [, stdout, stderr] = proc.communicate_utf8_finish(res);
                 let status = proc.get_exit_status();
@@ -122,7 +122,7 @@ object and you can still call methods like communicate_utf8()open in
 new window, wait_check()open in new window and force_exit()open in new window on it.
  */
 
-export const launch = (argv: string | string[], opts?: { env: Array<Record<string, string>> }): Gio.Subprocess => {
+export const launch = (argv: string | string[], opts?: { env: Array<Record<string, string>>, error_logpath?: string }): Gio.Subprocess => {
 
     let launcher = new Gio.SubprocessLauncher({
         flags: (Gio.SubprocessFlags.STDIN_PIPE |
@@ -136,7 +136,8 @@ export const launch = (argv: string | string[], opts?: { env: Array<Record<strin
 
     })
     typeof argv === 'string' ? argv = [argv] : argv = argv;
+    opts?.error_logpath?.endsWith('/') ? null : opts.error_logpath = opts.error_logpath + '/'
     // Log any errors to a file
-    launcher.set_stderr_file_path(`/var/logs/${argv.reduce((p, c) => p + c).slice(0, 9).replace(" ", "_")}_error.log`);
+    launcher.set_stderr_file_path(`${opts?.error_logpath ?? '/var/logs/'}${argv.reduce((p, c) => p + c).slice(0, 9).replace(" ", "_")}_.log.error`);
     return launcher.spawnv(argv)
 }

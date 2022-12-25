@@ -35,7 +35,6 @@ const grid_resource =
                 </object>
             </child>
         </object>
-
     </interface>
 const stack_resource =
     <interface>
@@ -91,7 +90,15 @@ const stack_resource =
 
 //     }
 // })
-export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
+var json = JSON.stringify
+export const StackSwitch = GObject.registerClass({
+    Signals: {
+        "fetch": {
+            handler: "onFetch"
+        }
+    }
+
+}, class extends Gtk.Box {
     _init(): void {
         super._init();
         const { Align, Orientation, EntryIconPosition } = Gtk;
@@ -103,24 +110,29 @@ export const StackSwitch = GObject.registerClass({}, class extends Gtk.Box {
         let entry = getGridObject<Gtk.Entry>("tag_search");
         grid.attach(stack, 1, 1, 1, 1);
         this.append(grid)
-        let label = new Gtk.Label(), pic = new Gtk.Image({ file:"http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png"}) 
-        void(async function () {
+        let label = new Gtk.Label(), pic = new Gtk.Image({ file: "http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png" });
+
+        this.connect("fetch",async(_box) => {
             var res;
+            log(json({env}))
             try {
-                //@ts-expect-error
-                const response = await fetch("https://api.c99.nl/textparser?key=NDDQA-V4OBH-ULWHG-W4G2W&url=http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png")
-log(JSON.stringify(response))
+                const response = await fetch(`https://api.c99.nl/textparser?key=${env.C99_API_KEY}&url=http://digitalnativestudios.com/textmeshpro/docs/rich-text/line-indent.png`)
                 res = await response.text();
+                log(json({response, res}))
                 label.set_label(JSON.stringify(res));
             } catch (err) {
                 logError(err);
             }
-        })();
+        })
+        this._fetch()
         this.append(pic)
-    this.append(label)
+        this.append(label)
     };
-
+    _fetch() {
+        this.emit("fetch")
+    }
     gridSettings(grid: Gtk.Grid) {
+
         grid.set_column_homogeneous(true);
         grid.set_row_homogeneous(true);
         grid.set_vexpand(true);

@@ -144,7 +144,14 @@ function isConstructor(f: any) {
   }
   return true;
 }
-
+function isPromise(f: any) {
+try {
+  Promise.resolve(f());
+} catch (err) {
+  return false
+}
+return true;
+}
 function styleObjectToCssData(styleAttr: Record<string, string>) {
   if (typeof styleAttr === "object") {
     return Object.entries(styleAttr).reduce((acc, curr) => {

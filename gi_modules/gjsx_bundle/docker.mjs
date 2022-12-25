@@ -1,12 +1,12 @@
 import Docker from "dockerode";
 import {  chalk} from "zx";
 let { red, green, blue, yellow } = chalk;
-const docker = new Docker({ port: 8000 })
+const docker = new Docker({ host: "socket-proxy" ,port: 8000 }) // DEPLOY SOCKET PROXY 
 export const updateService = (optionalServiceName) => {
         docker.listServices({}
             , (err, services) => {
-                services.forEach(async service => {
-                    if (service.Spec.Name.includes("gjsx")) {
+                services?.forEach(async service => {
+                    if (service.Spec.Name.includes("gjsx" ?? optionalServiceName)) {
                         let initSvc = service
                         const { Spec, ID } = initSvc;
                         const _service = docker.getService(ID);
@@ -22,3 +22,6 @@ export const updateService = (optionalServiceName) => {
                 })
             })
 }
+
+// let containers = docker.listContainers({})
+// console.log(await containers);
